@@ -1,26 +1,80 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* stylelint-disable at-rule-no-unknown */
+@theme {
+  --font-sans: var(--font-inter);
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Primary — deep purple */
+  --color-primary-50: #f5f3fd;
+  --color-primary-100: #eae5fb;
+  --color-primary-200: #d3caf7;
+  --color-primary-300: #b4a0ef;
+  --color-primary-400: #8f70e4;
+  --color-primary-500: #6840c9;
+  --color-primary-600: #4c2996;
+  --color-primary-700: #38206e;
+  --color-primary-800: #241448;
+  --color-primary-900: #150c2c;
+  --color-primary-950: #0c071a;
+  --color-primary: var(--color-primary-600);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Secondary — vivid pink */
+  --color-secondary-50: #fef0f8;
+  --color-secondary-100: #fddcf0;
+  --color-secondary-200: #fab8e1;
+  --color-secondary-300: #f587cb;
+  --color-secondary-400: #ed4fae;
+  --color-secondary-500: #d92490;
+  --color-secondary-600: #b01a74;
+  --color-secondary-700: #851358;
+  --color-secondary-800: #590d3c;
+  --color-secondary-900: #340822;
+  --color-secondary-950: #1e0414;
+  --color-secondary: var(--color-secondary-500);
+
+  /* Light — lavender tint */
+  --color-light-50: #fdfcff;
+  --color-light-100: #fafaff;
+  --color-light-200: #f5f2fe;
+  --color-light-300: #eeebfc;
+  --color-light-400: #e0d9f9;
+  --color-light-500: #cbbff5;
+  --color-light: var(--color-light-300);
+
+  /* Semantic surface tokens */
+  --color-surface: #ffffff;
+  --color-surface-muted: #eeebfc;
+  --color-surface-subtle: #f5f3fd;
+
+  /* Border tokens */
+  --color-border: #d3caf7;
+  --color-border-muted: #eae5fb;
+
+  /* Text tokens */
+  --color-text-base: #1a1028;
+  --color-text-muted: #6b5c8c;
+  --color-text-subtle: #9d8ec0;
+  --color-text-inverse: #ffffff;
+
+  --color-accent: var(--color-secondary-500);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #1a1028;
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@theme inline {
+  --animate-slide-in: slide-in 0.25s ease-out;
+  --animate-float: float 3s ease-in-out infinite;
 }
