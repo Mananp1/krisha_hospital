@@ -69,11 +69,11 @@ export default function Hero() {
           />
 
           {/* Stat badge — floating */}
-          <div className="absolute animate-float left-4 bottom-8 bg-surface rounded-[20px] px-5 py-4 shadow-[0_8px_32px_rgba(76,41,150,0.12)] flex items-center gap-3.5 z-10">
-            <div className="w-12 h-12 bg-secondary-50 rounded-[14px] flex items-center justify-center flex-shrink-0 text-secondary">
+          <div className="absolute animate-float left-4 bottom-8 bg-surface rounded-[20px] px-6 py-4.5 shadow-[0_8px_32px_rgba(76,41,150,0.10)] flex items-center gap-5 z-10">
+            <div className="w-11 h-11 bg-secondary-50 rounded-[12px] flex items-center justify-center flex-shrink-0 text-secondary">
               <svg
-                width="22"
-                height="22"
+                width="19"
+                height="19"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
@@ -81,10 +81,10 @@ export default function Hero() {
               </svg>
             </div>
             <div>
-              <p className="font-extrabold text-[22px] text-text-base leading-tight">
-                20,000+
+              <p className="font-bold text-[19px] text-text-base leading-tight tracking-[-0.3px]">
+                20k<span className="text-[13px] font-semibold text-text-muted align-top mt-0.5 inline-block">+</span>
               </p>
-              <p className="text-[13px] text-text-muted mt-0.5">
+              <p className="text-[12.5px] text-text-muted mt-0.5 tracking-[0.1px]">
                 Happy mothers
               </p>
             </div>

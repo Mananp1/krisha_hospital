@@ -1,8 +1,8 @@
 import TopBar from '@/app/components/TopBar';
 import NavBar from '@/app/components/NavBar';
 import Hero from '@/app/components/Hero';
-// import StatsBar from '@/app/components/StatsBar';
-// import Services from '@/app/components/Services';
+import StatsBar from '@/app/components/StatsBar';
+import Services from '@/app/components/Services';
 // import DoctorProfile from '@/app/components/DoctorProfile';
 // import AppointmentForm from '@/app/components/AppointmentForm';
 // import WhyChooseUs from '@/app/components/WhyChooseUs';
@@ -19,9 +19,9 @@ export default function Home() {
       <TopBar />
       <NavBar />
       <Hero />
-      {/*
       <StatsBar />
       <Services />
+      {/*
       <DoctorProfile />
       <AppointmentForm />
       <WhyChooseUs />
