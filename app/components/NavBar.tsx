@@ -2,20 +2,21 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { services } from '@/app/data/services';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Services', href: '#services' },
-  { label: 'Doctor', href: '#doctor' },
-  { label: 'Packages', href: '#packages' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/#home' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Doctor', href: '/#doctor' },
+  { label: 'Contact', href: '/#contact' },
 ];
+
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [active, setActive] = useState('Home');
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -38,28 +39,70 @@ export default function Navbar() {
               alt="Krisha Women's Hospital"
               width={107}
               height={52}
-              style={{ width: '85px', height: 'auto' }}
-              className="lg:w-[107px]"
+              className="w-21.25 lg:w-26.75 h-auto"
               priority
             />
           </Link>
 
           {/* Desktop nav links */}
-          <div className="hidden lg:flex items-center gap-[34px]">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setActive(link.label)}
-                className={`text-[15px] transition-colors pb-0.5 border-b-[2.5px] ${
-                  active === link.label
-                    ? 'text-primary font-semibold border-secondary'
-                    : 'text-text-base font-medium border-transparent'
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
+          <div className="hidden lg:flex items-center gap-8.5">
+            {navLinks.map((link) =>
+              link.label === 'Services' ? (
+                <div key="Services" className="relative group">
+                  <Link
+                    href="/#services"
+                    onClick={() => setActive('Services')}
+                    className={`flex items-center gap-1 text-[15px] transition-colors pb-0.5 border-b-[2.5px] ${
+                      active === 'Services'
+                        ? 'text-primary font-semibold border-secondary'
+                        : 'text-text-base font-medium border-transparent'
+                    }`}
+                  >
+                    Services
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </Link>
+
+                  <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div className="bg-surface border border-border-muted rounded-2xl shadow-xl p-5 w-145">
+                      <div className="flex">
+                        <div className="flex flex-col flex-1">
+                          {services.slice(0, 7).map((s) => (
+                            <Link key={s.slug} href={`/services/${s.slug}`} className="flex items-center gap-2 text-[13px] text-text-muted hover:text-primary py-1.5 transition-colors leading-snug">
+                              <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
+                              {s.name}
+                            </Link>
+                          ))}
+                        </div>
+                        <div className="w-px bg-border-muted mx-5 self-stretch" />
+                        <div className="flex flex-col flex-1">
+                          {services.slice(7).map((s) => (
+                            <Link key={s.slug} href={`/services/${s.slug}`} className="flex items-center gap-2 text-[13px] text-text-muted hover:text-primary py-1.5 transition-colors leading-snug">
+                              <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
+                              {s.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setActive(link.label)}
+                  className={`text-[15px] transition-colors pb-0.5 border-b-[2.5px] ${
+                    active === link.label
+                      ? 'text-primary font-semibold border-secondary'
+                      : 'text-text-base font-medium border-transparent'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </div>
 
           {/* Desktop CTA buttons */}
@@ -70,12 +113,12 @@ export default function Navbar() {
             >
               Call Now
             </a>
-            <a
-              href="#appointment"
+            <Link
+              href="/#appointment"
               className="flex items-center px-6 py-3 text-[15px] font-semibold text-text-inverse bg-secondary rounded-full transition-all hover:bg-secondary-600"
             >
               Book Appointment
-            </a>
+            </Link>
           </div>
 
           {/* Mobile: Call + Hamburger */}
@@ -123,7 +166,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {drawerOpen && (
-        <div className="fixed inset-0 z-[100] flex lg:hidden">
+        <div className="fixed inset-0 z-100 flex lg:hidden">
           <div
             className="flex-1 bg-black/40"
             onClick={() => setDrawerOpen(false)}
@@ -135,7 +178,7 @@ export default function Navbar() {
                 alt="Krisha Women's Hospital"
                 width={90}
                 height={44}
-                style={{ width: '90px', height: 'auto' }}
+                className="w-22.5 h-auto"
               />
               <button
                 onClick={() => setDrawerOpen(false)}
@@ -156,21 +199,53 @@ export default function Navbar() {
               </button>
             </div>
 
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => {
-                  setActive(link.label);
-                  setDrawerOpen(false);
-                }}
-                className={`text-[16px] font-medium border-b border-border-muted pb-4 last:border-0 ${
-                  active === link.label ? 'text-primary' : 'text-text-base'
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.label === 'Services' ? (
+                <div key="Services" className="border-b border-border-muted pb-4">
+                  <button
+                    onClick={() => setServicesOpen((o) => !o)}
+                    className={`w-full flex items-center justify-between text-[16px] font-medium ${
+                      active === 'Services' ? 'text-primary' : 'text-text-base'
+                    }`}
+                  >
+                    Services
+                    <svg
+                      width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
+                  {servicesOpen && (
+                    <div className="flex flex-col mt-3 pl-2 gap-1">
+                      {services.map((s) => (
+                        <Link
+                          key={s.slug}
+                          href={`/services/${s.slug}`}
+                          onClick={() => { setDrawerOpen(false); setServicesOpen(false); }}
+                          className="flex items-center gap-2 text-[14px] text-text-muted hover:text-primary py-1.5 transition-colors"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
+                          {s.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => { setActive(link.label); setDrawerOpen(false); }}
+                  className={`text-[16px] font-medium border-b border-border-muted pb-4 last:border-0 ${
+                    active === link.label ? 'text-primary' : 'text-text-base'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
 
             <div className="flex flex-col gap-3 mt-2">
               <a
@@ -179,13 +254,13 @@ export default function Navbar() {
               >
                 Call Now
               </a>
-              <a
-                href="#appointment"
+              <Link
+                href="/#appointment"
                 className="text-center py-3 rounded-full text-[15px] font-semibold text-text-inverse bg-secondary hover:bg-secondary-600 transition-colors"
                 onClick={() => setDrawerOpen(false)}
               >
                 Book Appointment
-              </a>
+              </Link>
             </div>
           </div>
         </div>

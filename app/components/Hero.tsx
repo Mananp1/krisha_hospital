@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -30,18 +31,18 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex items-center justify-center lg:justify-start gap-4 flex-wrap">
-            <a
-              href="#appointment"
+            <Link
+              href="/#appointment"
               className="flex items-center px-7 py-3.5 text-[15px] font-semibold text-text-inverse bg-secondary rounded-full transition-all hover:bg-secondary-600"
             >
               Book Appointment
-            </a>
-            <a
-              href="#services"
+            </Link>
+            <Link
+              href="/#services"
               className="flex items-center px-7 py-3.5 text-[15px] font-semibold rounded-full border-[1.5px] border-primary text-primary transition-all hover:bg-primary hover:text-text-inverse"
             >
               Explore Services
-            </a>
+            </Link>
           </div>
 
           {/* Trust Pills */}

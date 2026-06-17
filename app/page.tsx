@@ -8,10 +8,10 @@ import HospitalGallery from '@/app/components/HospitalGallery';
 // import AppointmentForm from '@/app/components/AppointmentForm';
 // import WhyChooseUs from '@/app/components/WhyChooseUs';
 // import HealthPackages from '@/app/components/HealthPackages';
-// import Testimonials from '@/app/components/Testimonials';
+import Testimonials from '@/app/components/Testimonials';
 // import Blog from '@/app/components/Blog';
-// import CTAStrip from '@/app/components/CTAStrip';
-// import Footer from '@/app/components/Footer';
+import CTAStrip from '@/app/components/CTAStrip';
+import Footer from '@/app/components/Footer';
 // import WhatsAppFAB from '@/app/components/WhatsAppFAB';
 
 export default function Home() {
@@ -24,14 +24,14 @@ export default function Home() {
       <Services />
       <DoctorProfile />
       <HospitalGallery />
+      <Testimonials />
+      <CTAStrip />
+      <Footer />
       {/*
       <AppointmentForm />
       <WhyChooseUs />
       <HealthPackages />
-      <Testimonials />
       <Blog />
-      <CTAStrip />
-      <Footer />
       <WhatsAppFAB /> */}
     </main>
   );
