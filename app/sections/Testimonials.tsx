@@ -1,5 +1,8 @@
 import Link from 'next/link';
+import { QuoteIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import SectionHeader from './SectionHeader';
+import FadeIn from './FadeIn';
 
 interface Testimonial {
   name?: string;
@@ -41,8 +44,14 @@ function PersonIcon() {
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="w-full bg-surface-subtle py-12 lg:py-20">
-      <div className="max-w-360 mx-auto px-5 lg:px-25">
+    <section id="testimonials" className="w-full bg-surface-subtle py-12 lg:py-20 relative overflow-hidden">
+      {/* Ambient gradient blobs */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary-100/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary-100/25 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative max-w-360 mx-auto px-5 lg:px-25">
 
         <div className="flex flex-col items-center">
           <SectionHeader
@@ -50,48 +59,53 @@ export default function Testimonials() {
             title="What our patients say"
             subtitle="Real stories from women who trusted us with their most precious moments — their health, their pregnancies, their dreams of parenthood."
           />
-          <div className="flex items-center gap-2 mt-4 px-4 py-2 rounded-[20px] bg-surface border border-border-muted">
+          {/* Google Reviews rating pill */}
+          <div className="flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-amber-50 border border-amber-200/60">
             <span className="text-amber-400 text-[14px]">★</span>
             <span className="font-bold text-[13px] text-text-base">4.9</span>
             <span className="text-[13px] text-text-muted">on Google Reviews</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
           {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="flex flex-col rounded-[18px] p-7 bg-surface border border-border-muted gap-3.5"
-            >
-              <div className="text-amber-400 text-[15px] tracking-[2px]">★★★★★</div>
-
-              <p className="text-[14px] text-text-base leading-[23px] grow line-clamp-5">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-full bg-primary text-text-inverse flex items-center justify-center flex-shrink-0">
-                  {t.initials
-                    ? <span className="text-[13px] font-bold">{t.initials}</span>
-                    : <PersonIcon />
-                  }
+            <FadeIn key={i} direction="up" delay={i * 0.08}>
+              <div className="group flex flex-col rounded-[18px] p-7 bg-surface border border-border-muted gap-3.5 h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(76,41,150,0.08)] hover:border-primary/20">
+                {/* Quote icon + stars */}
+                <div className="flex items-start justify-between">
+                  <QuoteIcon size={28} strokeWidth={1.5} className="text-primary/20" />
+                  <div className="text-amber-400 text-[15px] tracking-[2px]">★★★★★</div>
                 </div>
-                <div>
-                  {t.name && <p className="font-bold text-[14px] text-text-base">{t.name}</p>}
-                  <p className="text-[12px] text-text-muted">{t.role}</p>
+
+                <p className="text-[14px] text-text-base leading-6 grow line-clamp-5">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-primary text-text-inverse flex items-center justify-center flex-shrink-0">
+                    {t.initials
+                      ? <span className="text-[13px] font-bold">{t.initials}</span>
+                      : <PersonIcon />
+                    }
+                  </div>
+                  <div>
+                    {t.name && <p className="font-bold text-[14px] text-text-base">{t.name}</p>}
+                    <p className="text-[12px] text-text-muted">{t.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
 
         <div className="flex justify-center mt-10">
-          <Link
-            href="/#contact"
-            className="px-7 py-3.5 text-[15px] font-semibold rounded-[40px] border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse transition-colors"
+          <Button
+            variant="outline"
+            asChild
+            className="rounded-full px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
           >
-            Share Your Story
-          </Link>
+            <Link href="/#contact">Share Your Story</Link>
+          </Button>
         </div>
       </div>
     </section>

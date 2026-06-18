@@ -9,7 +9,6 @@ const quickLinks = [
   { label: 'Contact Us', href: '/#contact' },
 ];
 
-
 const socials = [
   {
     label: 'Facebook',
@@ -98,7 +97,7 @@ export default function Footer() {
 
           {/* Col 1 — About */}
           <div className="max-w-70">
-            <div className="inline-block bg-white rounded-xl px-3 py-2 mb-4">
+            <div className="inline-block bg-white/95 rounded-[10px] px-3 py-2 mb-5">
               <Image
                 src="/Logo.png"
                 alt="Krisha Women's Hospital"
@@ -107,7 +106,7 @@ export default function Footer() {
                 className="w-22 h-auto"
               />
             </div>
-            <p className="text-[13px] text-white/50 leading-5.25 mb-5">
+            <p className="text-[13px] text-white/50 leading-5.5 mb-5">
               Dedicated women&apos;s hospital led by Dr. Alhad Pande — providing
               compassionate, expert care in gynaecology, obstetrics, infertility
               and laparoscopic surgery at Narol, Ahmedabad.
@@ -118,7 +117,7 @@ export default function Footer() {
                   key={s.label}
                   href="#"
                   aria-label={s.label}
-                  className="w-9 h-9 rounded-full bg-white/8 text-white/80 flex items-center justify-center hover:bg-secondary hover:text-white transition-colors"
+                  className="w-9 h-9 rounded-full bg-white/10 text-white/70 flex items-center justify-center hover:bg-secondary hover:text-white transition-colors"
                 >
                   {s.icon}
                 </a>
@@ -128,7 +127,9 @@ export default function Footer() {
 
           {/* Col 2 — Quick Links */}
           <div>
-            <h4 className="text-[14px] font-bold text-white mb-4">Quick Links</h4>
+            <h4 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-5">
+              Quick Links
+            </h4>
             <div className="flex flex-col gap-2.5">
               {quickLinks.map((link) => (
                 <a
@@ -144,7 +145,9 @@ export default function Footer() {
 
           {/* Col 3 — Services (spans 2 of 5 cols on lg) */}
           <div className="lg:col-span-2">
-            <h4 className="text-[14px] font-bold text-white mb-4">Our Services</h4>
+            <h4 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-5">
+              Our Services
+            </h4>
             <div className="flex gap-6">
               <div className="flex flex-col gap-2.5 flex-1">
                 {services.slice(0, 7).map((s) => (
@@ -174,20 +177,24 @@ export default function Footer() {
 
           {/* Col 4 — Contact */}
           <div>
-            <h4 className="text-[14px] font-bold text-white mb-4">Get in Touch</h4>
+            <h4 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-5">
+              Get in Touch
+            </h4>
             <div className="flex flex-col gap-4">
               {contactItems.map((item, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <div className="mt-0.5 shrink-0 text-secondary">{item.icon}</div>
+                  <div className="w-7 h-7 rounded-[8px] bg-white/10 flex items-center justify-center flex-shrink-0 text-secondary">
+                    {item.icon}
+                  </div>
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="text-[13px] text-white/50 leading-5 hover:text-secondary transition-colors"
+                      className="text-[13px] text-white/50 leading-5.5 hover:text-secondary transition-colors"
                     >
                       {item.text}
                     </a>
                   ) : (
-                    <p className="text-[13px] text-white/50 leading-5">{item.text}</p>
+                    <p className="text-[13px] text-white/50 leading-5.5">{item.text}</p>
                   )}
                 </div>
               ))}
@@ -197,12 +204,12 @@ export default function Footer() {
 
         <div className="border-t border-white/10" />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between py-6 gap-3 text-[13px] text-white/35">
+        <div className="flex flex-col sm:flex-row items-center justify-between py-6 gap-3 text-[13px] text-white/40">
           <p>© 2026 Krisha Women&apos;s Hospital, Narol, Ahmedabad. All Rights Reserved.</p>
           <div className="flex items-center gap-4">
-            <Link href="#" className="hover:opacity-70 transition-opacity">Privacy Policy</Link>
+            <Link href="#" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
             <span>·</span>
-            <Link href="#" className="hover:opacity-70 transition-opacity">Terms of Use</Link>
+            <Link href="#" className="hover:text-white/70 transition-colors">Terms of Use</Link>
           </div>
         </div>
       </div>

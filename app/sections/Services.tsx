@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import { ArrowRightIcon } from 'lucide-react';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
@@ -174,7 +175,7 @@ const LAST = services.length - 1;
 
 export default function Services() {
   return (
-    <section id="services" className="w-full bg-surface py-10 lg:py-16">
+    <section id="services" className="w-full bg-surface py-14 lg:py-20">
       <div className="max-w-360 mx-auto px-5 lg:px-25">
         <SectionHeader
           eyebrow="WHAT WE OFFER"
@@ -182,7 +183,7 @@ export default function Services() {
           subtitle="Comprehensive care under one roof — from routine consultations to the most advanced fertility and surgical treatments."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {services.map((s, i) => (
             <FadeIn
               key={s.title}
@@ -190,40 +191,31 @@ export default function Services() {
               delay={i < 3 ? i * 0.08 : 0}
               className={i === LAST ? 'lg:col-start-2' : undefined}
             >
-            <div
-              className="flex flex-col p-7 rounded-[18px] bg-surface border border-border-muted transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-primary/20 h-full"
-            >
-              <div className="w-[54px] h-[54px] bg-primary-50 text-primary rounded-[14px] flex items-center justify-center flex-shrink-0">
-                {s.icon}
+              <div className="group flex flex-col p-7 rounded-[18px] bg-surface border border-border-muted transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(76,41,150,0.08)] hover:border-primary/20 h-full">
+                <div className="w-[54px] h-[54px] bg-primary-50 text-primary rounded-[14px] flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-primary-100">
+                  {s.icon}
+                </div>
+
+                <h3 className="mt-4 font-bold text-[17px] text-text-base leading-snug">
+                  {s.title}
+                </h3>
+
+                <p className="mt-2 text-[14px] text-text-muted leading-5.5 grow">
+                  {s.desc}
+                </p>
+
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary no-underline hover:underline underline-offset-2 decoration-primary/40 transition-all"
+                >
+                  Learn more
+                  <ArrowRightIcon size={13} strokeWidth={2.5} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </div>
-
-              <h3 className="mt-4 font-bold text-[17px] text-text-base leading-snug">
-                {s.title}
-              </h3>
-
-              <p className="mt-2 text-[14px] text-text-muted leading-[22px] grow">
-                {s.desc}
-              </p>
-
-              <Link
-                href={`/services/${s.slug}`}
-                className="mt-4 text-[13px] font-semibold text-primary hover:opacity-80 transition-opacity"
-              >
-                Learn more →
-              </Link>
-            </div>
             </FadeIn>
           ))}
         </div>
 
-        <div className="flex justify-center mt-8">
-          <a
-            href="#services"
-            className="px-7 py-3.5 text-[15px] font-semibold text-text-inverse bg-secondary rounded-full hover:bg-secondary-600 transition-colors"
-          >
-            View All Services →
-          </a>
-        </div>
       </div>
     </section>
   );

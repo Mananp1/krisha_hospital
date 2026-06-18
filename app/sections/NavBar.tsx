@@ -75,17 +75,17 @@ export default function Navbar() {
                   />
                 </Link>
 
-                <div className="absolute top-full left-0 pt-4 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200">
-                  <div className="bg-surface border border-border-muted rounded-2xl shadow-xl p-5 w-145">
+                {/* Mega menu — pt-2 brings panel 8px closer; colored top border anchors it to the nav link */}
+                <div className="absolute top-full left-0 pt-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200">
+                  <div className="bg-surface border-l border-r border-b border-border-muted border-t-2 border-t-secondary rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.07)] px-6 py-5 w-160">
                     <div className="flex">
                       <div className="flex flex-col flex-1">
                         {services.slice(0, 7).map((s) => (
                           <Link
                             key={s.slug}
                             href={`/services/${s.slug}`}
-                            className="flex items-center gap-2 text-[13px] text-text-muted hover:text-primary hover:bg-primary-50 -mx-2 px-2 py-1.5 rounded-md transition-all leading-snug"
+                            className="text-[13.5px] text-text-base font-medium leading-5 py-1 hover:text-secondary hover:translate-x-1 transition-all duration-200"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
                             {s.name}
                           </Link>
                         ))}
@@ -96,9 +96,8 @@ export default function Navbar() {
                           <Link
                             key={s.slug}
                             href={`/services/${s.slug}`}
-                            className="flex items-center gap-2 text-[13px] text-text-muted hover:text-primary hover:bg-primary-50 -mx-2 px-2 py-1.5 rounded-md transition-all leading-snug"
+                            className="text-[13.5px] text-text-base font-medium leading-5 py-1 hover:text-secondary hover:translate-x-1 transition-all duration-200"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
                             {s.name}
                           </Link>
                         ))}
@@ -223,15 +222,14 @@ export default function Navbar() {
                       />
                     </button>
                     {servicesOpen && (
-                      <div className="flex flex-col mt-3 pl-2 gap-1">
+                      <div className="flex flex-col mt-3 pl-2 gap-0.5">
                         {services.map((s) => (
                           <Link
                             key={s.slug}
                             href={`/services/${s.slug}`}
                             onClick={() => { setDrawerOpen(false); setServicesOpen(false); }}
-                            className="flex items-center gap-2 text-[14px] text-text-muted hover:text-primary py-1.5 transition-colors"
+                            className="text-[13.5px] text-text-muted font-medium hover:text-secondary py-1.5 transition-colors leading-snug"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
                             {s.name}
                           </Link>
                         ))}
