@@ -4,7 +4,7 @@ import { services } from '@/app/data/services';
 
 const quickLinks = [
   { label: 'Find a Doctor', href: '/#doctor' },
-  { label: 'Book Appointment', href: '/#appointment' },
+  { label: 'Book Appointment', href: 'https://wa.me/917862950676' },
   { label: 'Our Services', href: '/#services' },
   { label: 'Contact Us', href: '/#contact' },
 ];
@@ -98,13 +98,15 @@ export default function Footer() {
 
           {/* Col 1 — About */}
           <div className="max-w-70">
-            <Image
-              src="/logo.png"
-              alt="Krisha Women's Hospital"
-              width={100}
-              height={48}
-              className="mb-4 brightness-0 invert w-25 h-auto"
-            />
+            <div className="inline-block bg-white rounded-xl px-3 py-2 mb-4">
+              <Image
+                src="/Logo.png"
+                alt="Krisha Women's Hospital"
+                width={107}
+                height={52}
+                className="w-22 h-auto"
+              />
+            </div>
             <p className="text-[13px] text-white/50 leading-5.25 mb-5">
               Dedicated women&apos;s hospital led by Dr. Alhad Pande — providing
               compassionate, expert care in gynaecology, obstetrics, infertility

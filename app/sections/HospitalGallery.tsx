@@ -1,17 +1,18 @@
 import Image from 'next/image';
 import SectionHeader from './SectionHeader';
+import FadeIn from './FadeIn';
 
 const images = [
   {
-    src: '/gallery-1.jpg',
+    src: '/hospital1.jpg',
     alt: "Reception area at Krisha Women's Hospital",
   },
   {
-    src: '/gallery-2.jpg',
+    src: '/hospital2.jpg',
     alt: "Operation theatre at Krisha Women's Hospital",
   },
   {
-    src: '/gallery-3.jpg',
+    src: '/hospital3.jpg',
     alt: "Patient ward at Krisha Women's Hospital",
   },
 ];
@@ -27,19 +28,18 @@ export default function HospitalGallery() {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
-          {images.map((img) => (
-            <div
-              key={img.src}
-              className="relative aspect-[4/3] rounded-[18px] overflow-hidden bg-primary-50"
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(min-width: 768px) 33vw, 100vw"
-                className="object-cover"
-              />
-            </div>
+          {images.map((img, i) => (
+            <FadeIn key={img.src} direction="up" delay={i * 0.1}>
+              <div className="relative aspect-4/3 rounded-[18px] overflow-hidden bg-primary-50">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>

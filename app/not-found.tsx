@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import TopBar from '@/app/components/TopBar';
-import NavBar from '@/app/components/NavBar';
-import Footer from '@/app/components/Footer';
+import TopBar from '@/app/sections/TopBar';
+import NavBar from '@/app/sections/NavBar';
+import Footer from '@/app/sections/Footer';
 
 export default function NotFound() {
   return (

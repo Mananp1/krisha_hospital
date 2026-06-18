@@ -1,4 +1,7 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import SectionHeader from './SectionHeader';
+import FadeIn from './FadeIn';
 
 const tags = [
   'High-Risk Pregnancy',
@@ -61,20 +64,20 @@ export default function DoctorProfile() {
       <div className="max-w-360 mx-auto px-5 lg:px-25 flex flex-col lg:flex-row items-center gap-12 lg:gap-14">
 
         {/* Left — Photo Frame */}
-        <div className="relative flex-shrink-0 w-full max-w-[380px] lg:w-[470px] mx-auto lg:mx-0 pb-6 pr-2">
+        <FadeIn direction="right" className="relative flex-shrink-0 w-full max-w-[380px] lg:w-[470px] mx-auto lg:mx-0 pb-6 pr-2">
           <div className="relative w-full aspect-[47/49] rounded-[22px] overflow-hidden bg-primary-50">
             {/* Decorative circles */}
             <div className="absolute w-[260px] h-[260px] lg:w-[300px] lg:h-[300px] rounded-full bg-primary/20 -top-10 -right-10" />
             <div className="absolute w-[110px] h-[110px] lg:w-[130px] lg:h-[130px] rounded-full bg-secondary-50 bottom-10 -right-5" />
 
-            {/* Photo placeholder */}
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 opacity-40 text-primary">
-              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <p className="text-[12px]">Dr. Alhad Pande photo</p>
-            </div>
+            <Image
+              src="/sample-doctor.jpg"
+              alt="Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist"
+              fill
+              sizes="(min-width: 1024px) 470px, 380px"
+              className="object-cover object-top z-10"
+              priority
+            />
 
             {/* Available badge */}
             <div className="absolute z-20 flex items-center gap-2 px-3 py-2 rounded-full bg-primary top-5 left-5">
@@ -90,10 +93,10 @@ export default function DoctorProfile() {
             <span className="font-extrabold text-text-inverse text-[28px] lg:text-[30px] leading-none">20+</span>
             <span className="text-text-inverse text-center text-[11px] mt-0.5">Years of care</span>
           </div>
-        </div>
+        </FadeIn>
 
         {/* Right — Info */}
-        <div className="flex-1 lg:max-w-[540px]">
+        <FadeIn delay={0.15} className="flex-1 lg:max-w-[540px]">
           <SectionHeader
             eyebrow="MEET YOUR SPECIALIST"
             title="Dr. Alhad Pande"
@@ -144,7 +147,9 @@ export default function DoctorProfile() {
           {/* CTAs */}
           <div className="flex items-center gap-3 flex-wrap">
             <a
-              href="#appointment"
+              href="https://wa.me/917862950676"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 text-[15px] font-semibold text-text-inverse bg-secondary rounded-[40px] hover:bg-secondary-600 transition-colors"
             >
               Book Appointment
@@ -155,10 +160,16 @@ export default function DoctorProfile() {
             >
               Call Now
             </a>
+            <Link
+              href="/doctor"
+              className="px-6 py-3 text-[15px] font-semibold rounded-[40px] border-[1.5px] border-border-muted text-text-muted hover:border-primary hover:text-primary transition-colors"
+            >
+              View Full Profile →
+            </Link>
           </div>
 
           <p className="mt-3 text-[13px] text-text-muted">ગુજરાતીમાં સેવા ઉપલબ્ધ છે</p>
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

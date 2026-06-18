@@ -1,18 +1,18 @@
-import TopBar from '@/app/components/TopBar';
-import NavBar from '@/app/components/NavBar';
-import Hero from '@/app/components/Hero';
-import StatsBar from '@/app/components/StatsBar';
-import Services from '@/app/components/Services';
-import DoctorProfile from '@/app/components/DoctorProfile';
-import HospitalGallery from '@/app/components/HospitalGallery';
-// import AppointmentForm from '@/app/components/AppointmentForm';
-// import WhyChooseUs from '@/app/components/WhyChooseUs';
-// import HealthPackages from '@/app/components/HealthPackages';
-import Testimonials from '@/app/components/Testimonials';
-// import Blog from '@/app/components/Blog';
-import CTAStrip from '@/app/components/CTAStrip';
-import Footer from '@/app/components/Footer';
-// import WhatsAppFAB from '@/app/components/WhatsAppFAB';
+import TopBar from '@/app/sections/TopBar';
+import NavBar from '@/app/sections/NavBar';
+import Hero from '@/app/sections/Hero';
+import StatsBar from '@/app/sections/StatsBar';
+import Services from '@/app/sections/Services';
+import DoctorProfile from '@/app/sections/DoctorProfile';
+import HospitalGallery from '@/app/sections/HospitalGallery';
+// import AppointmentForm from '@/app/sections/AppointmentForm';
+// import WhyChooseUs from '@/app/sections/WhyChooseUs';
+// import HealthPackages from '@/app/sections/HealthPackages';
+import Testimonials from '@/app/sections/Testimonials';
+// import Blog from '@/app/sections/Blog';
+import CTAStrip from '@/app/sections/CTAStrip';
+import Footer from '@/app/sections/Footer';
+import WhatsAppFAB from '@/app/sections/WhatsAppFAB';
 
 export default function Home() {
   return (
@@ -27,12 +27,13 @@ export default function Home() {
       <Testimonials />
       <CTAStrip />
       <Footer />
+      <WhatsAppFAB />
       {/*
       <AppointmentForm />
       <WhyChooseUs />
       <HealthPackages />
       <Blog />
-      <WhatsAppFAB /> */}
+      */}
     </main>
   );
 }

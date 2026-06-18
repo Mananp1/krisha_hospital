@@ -1,3 +1,5 @@
+import { Badge } from '@/components/ui/badge';
+
 export default function TopBar() {
   return (
     <div className="w-full bg-primary h-10.5">
@@ -45,12 +47,13 @@ export default function TopBar() {
 
         {/* Right */}
         <div className="flex items-center gap-5">
-          <a
-            href="#"
-            className="hidden md:flex items-center px-3.5 py-1 rounded-[20px] bg-secondary text-text-inverse text-[12.5px] font-semibold hover:opacity-90 transition-opacity"
+          <Badge
+            variant="secondary"
+            asChild
+            className="hidden md:inline-flex h-auto px-3.5 py-1 text-[12.5px] font-semibold hover:opacity-90 transition-opacity"
           >
-            Free PCOS Camp — 8 March
-          </a>
+            <a href="#">Free PCOS Camp — 8 March</a>
+          </Badge>
           <span className="hidden sm:flex items-center gap-1.5 text-text-inverse text-[13.5px] font-medium">
             <svg
               width="13"

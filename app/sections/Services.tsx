@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import SectionHeader from './SectionHeader';
+import FadeIn from './FadeIn';
 
 interface Service {
   title: string;
@@ -183,9 +184,14 @@ export default function Services() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7">
           {services.map((s, i) => (
-            <div
+            <FadeIn
               key={s.title}
-              className={`flex flex-col p-7 rounded-[18px] bg-surface border border-border-muted${i === LAST ? ' lg:col-start-2' : ''}`}
+              direction="up"
+              delay={i < 3 ? i * 0.08 : 0}
+              className={i === LAST ? 'lg:col-start-2' : undefined}
+            >
+            <div
+              className="flex flex-col p-7 rounded-[18px] bg-surface border border-border-muted transition-all duration-200 hover:-translate-y-1 hover:shadow-md hover:border-primary/20 h-full"
             >
               <div className="w-[54px] h-[54px] bg-primary-50 text-primary rounded-[14px] flex items-center justify-center flex-shrink-0">
                 {s.icon}
@@ -206,6 +212,7 @@ export default function Services() {
                 Learn more →
               </Link>
             </div>
+            </FadeIn>
           ))}
         </div>
 

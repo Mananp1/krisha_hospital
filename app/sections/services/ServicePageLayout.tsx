@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import CTAStrip from '@/app/components/CTAStrip';
+import CTAStrip from '@/app/sections/CTAStrip';
 
 export interface ServiceBenefit {
   label: string;
@@ -69,12 +69,14 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
 
           {/* CTAs */}
           <div className="flex items-center gap-3 flex-wrap">
-            <Link
-              href="/#appointment"
+            <a
+              href="https://wa.me/917862950676"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 text-[14px] font-semibold text-text-inverse bg-secondary rounded-full hover:opacity-90 transition-opacity"
             >
               Book Appointment
-            </Link>
+            </a>
             <a
               href="tel:+917862950676"
               className="px-6 py-3 text-[14px] font-semibold text-primary border-[1.5px] border-primary rounded-full hover:bg-primary hover:text-text-inverse transition-colors"

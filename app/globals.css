@@ -1,67 +1,224 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-/* stylelint-disable at-rule-no-unknown */
-@theme {
-  --font-sans: var(--font-inter);
+@custom-variant dark (&:is(.dark *));
 
-  /* Primary — deep purple */
-  --color-primary-50: #f5f3fd;
-  --color-primary-100: #eae5fb;
-  --color-primary-200: #d3caf7;
-  --color-primary-300: #b4a0ef;
-  --color-primary-400: #8f70e4;
-  --color-primary-500: #6840c9;
-  --color-primary-600: #4c2996;
-  --color-primary-700: #38206e;
-  --color-primary-800: #241448;
-  --color-primary-900: #150c2c;
-  --color-primary-950: #0c071a;
-  --color-primary: var(--color-primary-600);
+:root {
+  /* ── Shadcn semantic tokens ─────────────────────────────── */
+  --background: #ffffff;
+  --foreground: #1a1028;
+  --card: #ffffff;
+  --card-foreground: #1a1028;
+  --popover: #ffffff;
+  --popover-foreground: #6b5c8c;
+  --primary: #4c2996;
+  --primary-foreground: #ffffff;
+  --secondary: #d92490;
+  --secondary-foreground: #ffffff;
+  --muted: #f5f3fd;
+  --muted-foreground: #6b5c8c;
+  --accent: #f5f3fd;
+  --accent-foreground: #1a1028;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
+  --border: #d3caf7;
+  --input: #eae5fb;
+  --ring: #4c2996;
 
-  /* Secondary — vivid pink */
-  --color-secondary-50: #fef0f8;
-  --color-secondary-100: #fddcf0;
-  --color-secondary-200: #fab8e1;
-  --color-secondary-300: #f587cb;
-  --color-secondary-400: #ed4fae;
-  --color-secondary-500: #d92490;
-  --color-secondary-600: #b01a74;
-  --color-secondary-700: #851358;
-  --color-secondary-800: #590d3c;
-  --color-secondary-900: #340822;
-  --color-secondary-950: #1e0414;
-  --color-secondary: var(--color-secondary-500);
+  /* ── Chart ──────────────────────────────────────────────── */
+  --chart-1: #6840c9;
+  --chart-2: #d92490;
+  --chart-3: #8f70e4;
+  --chart-4: #ed4fae;
+  --chart-5: #b4a0ef;
 
-  /* Light — lavender tint */
-  --color-light-50: #fdfcff;
-  --color-light-100: #fafaff;
-  --color-light-200: #f5f2fe;
-  --color-light-300: #eeebfc;
-  --color-light-400: #e0d9f9;
-  --color-light-500: #cbbff5;
-  --color-light: var(--color-light-300);
+  /* ── Sidebar ────────────────────────────────────────────── */
+  --sidebar: #f5f3fd;
+  --sidebar-foreground: #6b5c8c;
+  --sidebar-primary: #4c2996;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eae5fb;
+  --sidebar-accent-foreground: #1a1028;
+  --sidebar-border: #d3caf7;
+  --sidebar-ring: #4c2996;
 
-  /* Semantic surface tokens */
-  --color-surface: #ffffff;
-  --color-surface-muted: #eeebfc;
-  --color-surface-subtle: #f5f3fd;
+  /* ── Primary scale ──────────────────────────────────────── */
+  --primary-50:  #f5f3fd;
+  --primary-100: #eae5fb;
+  --primary-200: #d3caf7;
+  --primary-300: #b4a0ef;
+  --primary-400: #8f70e4;
+  --primary-500: #6840c9;
+  --primary-600: #4c2996;
+  --primary-700: #38206e;
+  --primary-800: #241448;
+  --primary-900: #150c2c;
+  --primary-950: #0c071a;
 
-  /* Border tokens */
-  --color-border: #d3caf7;
-  --color-border-muted: #eae5fb;
+  /* ── Secondary scale ────────────────────────────────────── */
+  --secondary-50:  #fef0f8;
+  --secondary-100: #fddcf0;
+  --secondary-200: #fab8e1;
+  --secondary-300: #f587cb;
+  --secondary-400: #ed4fae;
+  --secondary-500: #d92490;
+  --secondary-600: #b01a74;
+  --secondary-700: #851358;
+  --secondary-800: #590d3c;
+  --secondary-900: #340822;
+  --secondary-950: #1e0414;
 
-  /* Text tokens */
-  --color-text-base: #1a1028;
-  --color-text-muted: #6b5c8c;
-  --color-text-subtle: #9d8ec0;
-  --color-text-inverse: #ffffff;
+  /* ── Light scale ────────────────────────────────────────── */
+  --light-50:  #fdfcff;
+  --light-100: #fafaff;
+  --light-200: #f5f2fe;
+  --light-300: #eeebfc;
+  --light-400: #e0d9f9;
+  --light-500: #cbbff5;
+  --light:     #eeebfc;
 
-  --color-accent: var(--color-secondary-500);
+  /* ── Custom surface tokens ──────────────────────────────── */
+  --surface:        #ffffff;
+  --surface-muted:  #eeebfc;
+  --surface-subtle: #f5f3fd;
+
+  /* ── Custom border tokens ───────────────────────────────── */
+  --border-muted: #eae5fb;
+
+  /* ── Custom text tokens ─────────────────────────────────── */
+  --text-base:    #1a1028;
+  --text-muted:   #6b5c8c;
+  --text-subtle:  #9d8ec0;
+  --text-inverse: #ffffff;
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-sans: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* ── Radius ─────────────────────────────────────────────── */
+  --radius: 0.625rem;
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.06);
+  --shadow-xs:  0px 1px 3px 0px hsl(0 0% 0% / 0.06);
+  --shadow-sm:  0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow:     0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+  --shadow-md:  0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 2px 4px -1px hsl(0 0% 0% / 0.10);
+  --shadow-lg:  0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 4px 6px -1px hsl(0 0% 0% / 0.10);
+  --shadow-xl:  0px 1px 3px 0px hsl(0 0% 0% / 0.10), 0px 8px 10px -1px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
 }
 
-body {
-  background: #ffffff;
-  color: #1a1028;
+@theme inline {
+  /* ── Shadcn semantic mappings ───────────────────────────── */
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-popover:            var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary:            var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:          var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-accent:             var(--accent);
+  --color-accent-foreground:  var(--accent-foreground);
+  --color-destructive:        var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border:             var(--border);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+  --color-chart-1:            var(--chart-1);
+  --color-chart-2:            var(--chart-2);
+  --color-chart-3:            var(--chart-3);
+  --color-chart-4:            var(--chart-4);
+  --color-chart-5:            var(--chart-5);
+  --color-sidebar:                    var(--sidebar);
+  --color-sidebar-foreground:         var(--sidebar-foreground);
+  --color-sidebar-primary:            var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent:             var(--sidebar-accent);
+  --color-sidebar-accent-foreground:  var(--sidebar-accent-foreground);
+  --color-sidebar-border:             var(--sidebar-border);
+  --color-sidebar-ring:               var(--sidebar-ring);
+
+  /* ── Primary scale ──────────────────────────────────────── */
+  --color-primary-50:  var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+  --color-primary-950: var(--primary-950);
+
+  /* ── Secondary scale ────────────────────────────────────── */
+  --color-secondary-50:  var(--secondary-50);
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-600: var(--secondary-600);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-800: var(--secondary-800);
+  --color-secondary-900: var(--secondary-900);
+  --color-secondary-950: var(--secondary-950);
+
+  /* ── Light scale ────────────────────────────────────────── */
+  --color-light-50:  var(--light-50);
+  --color-light-100: var(--light-100);
+  --color-light-200: var(--light-200);
+  --color-light-300: var(--light-300);
+  --color-light-400: var(--light-400);
+  --color-light-500: var(--light-500);
+  --color-light:     var(--light);
+
+  /* ── Custom surface tokens ──────────────────────────────── */
+  --color-surface:        var(--surface);
+  --color-surface-muted:  var(--surface-muted);
+  --color-surface-subtle: var(--surface-subtle);
+
+  /* ── Custom border tokens ───────────────────────────────── */
+  --color-border-muted: var(--border-muted);
+
+  /* ── Custom text tokens ─────────────────────────────────── */
+  --color-text-base:    var(--text-base);
+  --color-text-muted:   var(--text-muted);
+  --color-text-subtle:  var(--text-subtle);
+  --color-text-inverse: var(--text-inverse);
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-sans:  var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono:  var(--font-mono);
+
+  /* ── Radius ─────────────────────────────────────────────── */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* ── Shadows ────────────────────────────────────────────── */
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs:  var(--shadow-xs);
+  --shadow-sm:  var(--shadow-sm);
+  --shadow:     var(--shadow);
+  --shadow-md:  var(--shadow-md);
+  --shadow-lg:  var(--shadow-lg);
+  --shadow-xl:  var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+
+  /* ── Custom animations ──────────────────────────────────── */
+  --animate-slide-in: slide-in 0.25s ease-out;
+  --animate-float:    float 3s ease-in-out infinite;
 }
 
 @keyframes slide-in {
@@ -74,7 +231,14 @@ body {
   50%       { transform: translateY(-8px); }
 }
 
-@theme inline {
-  --animate-slide-in: slide-in 0.25s ease-out;
-  --animate-float: float 3s ease-in-out infinite;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    font-family: var(--font-sans);
+  }
 }

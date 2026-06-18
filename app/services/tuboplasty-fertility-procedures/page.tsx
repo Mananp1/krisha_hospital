@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ServicePageLayout, { type ServicePageData } from '@/app/components/services/ServicePageLayout';
+import ServicePageLayout, { type ServicePageData } from '@/app/sections/services/ServicePageLayout';
 
 export const metadata: Metadata = {
   title: "Tuboplasty & Fertility Procedures in Narol, Ahmedabad | Krisha Women's Hospital",
