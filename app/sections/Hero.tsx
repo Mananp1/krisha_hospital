@@ -23,20 +23,21 @@ export default function Hero() {
           </span>
 
           {/* H1 */}
-          <h1 className="mt-4 leading-tight lg:leading-14">
-            <span className="block text-[34px] lg:text-[50px] font-extrabold text-text-base">
-              Gentle hands &amp; expert care,
+          <h1 className="mt-4">
+            <span className="block text-[30px] lg:text-[40px] font-extrabold text-text-base leading-tight">
+              Supporting every stage of
             </span>
-            <span className="block text-[34px] lg:text-[50px] font-extrabold text-secondary">
-              because she matters
+            <span className="block text-[30px] lg:text-[40px] font-extrabold text-secondary leading-tight lg:mt-1">
+              a woman&apos;s health journey
             </span>
           </h1>
 
           {/* Lead */}
           <p className="mt-6 mb-8 text-lg text-text-muted leading-[29px] max-w-125">
-            Your trusted partner for gynaecology, safe motherhood, high-risk
-            pregnancy and advanced fertility care — with a team that truly cares
-            for every woman.
+            Specialist care across gynaecology, safe motherhood, high-risk
+            pregnancy management, fertility treatment, and women&apos;s wellness —
+            delivered with clinical excellence and compassion at every stage of
+            your life.
           </p>
 
           {/* CTA Buttons */}

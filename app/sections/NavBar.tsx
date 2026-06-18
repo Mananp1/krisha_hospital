@@ -6,7 +6,12 @@ import Link from 'next/link';
 import { MenuIcon, XIcon, ChevronDownIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetTrigger, SheetContent, SheetClose } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetClose,
+} from '@/components/ui/sheet';
 
 const navLinks = [
   { label: 'Home', href: '/#home' },
@@ -21,11 +26,13 @@ export default function Navbar() {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   const pathname = usePathname();
-  const active =
-    pathname.startsWith('/services') ? 'Services' :
-    pathname.startsWith('/doctor')   ? 'Doctor'   :
-    pathname.startsWith('/contact')  ? 'Contact'  :
-    'Home';
+  const active = pathname.startsWith('/services')
+    ? 'Services'
+    : pathname.startsWith('/doctor')
+      ? 'Doctor'
+      : pathname.startsWith('/contact')
+        ? 'Contact'
+        : 'Home';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -36,9 +43,7 @@ export default function Navbar() {
   return (
     <nav
       className={`w-full sticky top-0 z-50 transition-all duration-300 border-b border-border-muted h-21 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-sm shadow-sm'
-          : 'bg-surface'
+        scrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-surface'
       }`}
     >
       <div className="flex items-center justify-between h-full max-w-360 mx-auto px-5 lg:px-25">
@@ -59,9 +64,9 @@ export default function Navbar() {
           {navLinks.map((link) =>
             link.label === 'Services' ? (
               <div key="Services" className="relative group">
-                <Link
-                  href="/#services"
-                  className={`flex items-center gap-1 text-[15px] transition-colors pb-0.5 border-b-[2.5px] ${
+                <button
+                  type="button"
+                  className={`flex items-center gap-1 text-[15px] transition-all duration-200 pb-0.5 border-b-[2.5px] group-hover:text-primary group-hover:border-secondary ${
                     active === 'Services'
                       ? 'text-primary font-semibold border-secondary'
                       : 'text-text-base font-medium border-transparent'
@@ -73,30 +78,29 @@ export default function Navbar() {
                     strokeWidth={2.5}
                     className="transition-transform duration-200 group-hover:rotate-180"
                   />
-                </Link>
+                </button>
 
-                {/* Mega menu — pt-2 brings panel 8px closer; colored top border anchors it to the nav link */}
-                <div className="absolute top-full left-0 pt-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200">
-                  <div className="bg-surface border-l border-r border-b border-border-muted border-t-2 border-t-secondary rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.07)] px-6 py-5 w-160">
-                    <div className="flex">
-                      <div className="flex flex-col flex-1">
+                <div className="absolute top-full left-0 pt-3 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out">
+                  <div className="bg-surface border border-border-muted rounded-[10px] shadow-[0_6px_22px_rgba(0,0,0,0.08)] px-5 py-4 w-160">
+                    <div className="flex items-start">
+                      <div className="flex flex-col gap-2 flex-1">
                         {services.slice(0, 7).map((s) => (
                           <Link
                             key={s.slug}
                             href={`/services/${s.slug}`}
-                            className="text-[13.5px] text-text-base font-medium leading-5 py-1 hover:text-secondary hover:translate-x-1 transition-all duration-200"
+                            className="text-[13.5px] text-text-base font-medium leading-snug hover:text-secondary hover:translate-x-0.5 transition-all duration-150"
                           >
                             {s.name}
                           </Link>
                         ))}
                       </div>
-                      <div className="w-px bg-border-muted mx-5 self-stretch" />
-                      <div className="flex flex-col flex-1">
+                      <div className="w-px bg-border-muted mx-4 self-stretch" />
+                      <div className="flex flex-col gap-2 flex-1">
                         {services.slice(7).map((s) => (
                           <Link
                             key={s.slug}
                             href={`/services/${s.slug}`}
-                            className="text-[13.5px] text-text-base font-medium leading-5 py-1 hover:text-secondary hover:translate-x-1 transition-all duration-200"
+                            className="text-[13.5px] text-text-base font-medium leading-snug hover:text-secondary hover:translate-x-0.5 transition-all duration-150"
                           >
                             {s.name}
                           </Link>
@@ -118,7 +122,7 @@ export default function Navbar() {
               >
                 {link.label}
               </Link>
-            )
+            ),
           )}
         </div>
 
@@ -207,11 +211,16 @@ export default function Navbar() {
 
               {navLinks.map((link) =>
                 link.label === 'Services' ? (
-                  <div key="Services" className="border-b border-border-muted pb-4">
+                  <div
+                    key="Services"
+                    className="border-b border-border-muted pb-4"
+                  >
                     <button
                       onClick={() => setServicesOpen((o) => !o)}
                       className={`w-full flex items-center justify-between text-[16px] font-medium ${
-                        active === 'Services' ? 'text-primary' : 'text-text-base'
+                        active === 'Services'
+                          ? 'text-primary'
+                          : 'text-text-base'
                       }`}
                     >
                       Services
@@ -227,7 +236,10 @@ export default function Navbar() {
                           <Link
                             key={s.slug}
                             href={`/services/${s.slug}`}
-                            onClick={() => { setDrawerOpen(false); setServicesOpen(false); }}
+                            onClick={() => {
+                              setDrawerOpen(false);
+                              setServicesOpen(false);
+                            }}
                             className="text-[13.5px] text-text-muted font-medium hover:text-secondary py-1.5 transition-colors leading-snug"
                           >
                             {s.name}
@@ -247,7 +259,7 @@ export default function Navbar() {
                   >
                     {link.label}
                   </Link>
-                )
+                ),
               )}
 
               <div className="flex flex-col gap-3 mt-2">

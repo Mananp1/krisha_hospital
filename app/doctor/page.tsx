@@ -161,6 +161,31 @@ const principles = [
   },
 ];
 
+const highlights = [
+  { stat: '20+', label: 'Years of Practice' },
+  { stat: '10,000+', label: 'Deliveries Conducted' },
+  { stat: '2,000+', label: 'Surgical Procedures' },
+  { stat: '500+', label: 'Fertility Treatments' },
+];
+
+const affiliations = [
+  {
+    short: 'FOGSI',
+    full: 'Federation of Obstetric and Gynaecological Societies of India',
+    desc: "Active member upholding evidence-based practice in women's health and obstetrics.",
+  },
+  {
+    short: 'IMA',
+    full: 'Indian Medical Association',
+    desc: 'Registered practitioner maintaining national standards of medical ethics and care.',
+  },
+  {
+    short: 'ISAR',
+    full: 'Indian Society for Assisted Reproduction',
+    desc: 'Engaged with the latest IVF research, guidelines, and fertility medicine advances.',
+  },
+];
+
 export default function DoctorPage() {
   return (
     <>
@@ -182,7 +207,7 @@ export default function DoctorPage() {
 
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             {/* Photo frame */}
-            <div className="relative flex-shrink-0 w-full max-w-[320px] lg:w-[380px] mx-auto lg:mx-0 pb-6 pr-2">
+            <div className="relative flex-shrink-0 w-full max-w-[320px] lg:w-[380px] xl:w-[440px] mx-auto lg:mx-0 pb-6 pr-2">
               <div className="relative w-full aspect-square rounded-[22px] overflow-hidden bg-primary-50">
                 <div className="absolute w-[220px] h-[220px] rounded-full bg-primary/20 -top-8 -right-8" />
                 <div className="absolute w-[90px] h-[90px] rounded-full bg-secondary/15 bottom-8 -right-4" />
@@ -190,7 +215,7 @@ export default function DoctorPage() {
                   src="/doctor.jpeg"
                   alt="Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist"
                   fill
-                  sizes="(min-width: 1024px) 380px, 320px"
+                  sizes="(min-width: 1280px) 440px, (min-width: 1024px) 380px, 320px"
                   className="object-cover object-top z-10"
                   priority
                 />
@@ -240,7 +265,7 @@ export default function DoctorPage() {
                 </Badge>
               </div>
 
-              <p className="text-[15px] text-text-muted leading-7 max-w-145 mb-7">
+              <p className="text-[15px] text-text-muted leading-7 max-w-145 xl:max-w-none mb-7">
                 Dr. Alhad Pande is a highly experienced Obstetrician and
                 Gynecologist with over two decades of clinical practice. Trained
                 at top medical institutions across India and holding fellowships
@@ -269,6 +294,7 @@ export default function DoctorPage() {
                   <a href="tel:+917862950676">+91 78629 50676</a>
                 </Button>
               </div>
+
             </div>
           </div>
         </div>
@@ -277,42 +303,68 @@ export default function DoctorPage() {
       {/* ── About ── */}
       <section className="w-full bg-surface py-14 lg:py-20">
         <div className="max-w-360 mx-auto px-5 lg:px-25">
-          <div className="flex items-center gap-3 mb-6">
-            <SectionAccent />
-            <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
-              About Dr. Alhad Pande
-            </h2>
-          </div>
-          <div className="flex flex-col gap-5 max-w-205">
-            <p className="text-[15px] text-text-muted leading-7">
-              Dr. Alhad Pande founded Krisha Women&apos;s Hospital with a
-              single, clear vision: to bring world-class women&apos;s healthcare
-              to Narol, Ahmedabad — accessible, compassionate, and free from
-              unnecessary intervention. Over the course of a 20+ year career, he
-              has guided thousands of women through some of the most significant
-              moments of their lives — safe deliveries, fertility breakthroughs,
-              complex surgeries, and healthy recoveries.
-            </p>
-            <p className="text-[15px] text-text-muted leading-7">
-              His postgraduate training spans three leading government medical
-              colleges — GMC Baroda, Stanley Medical College (Chennai), and GMC
-              Raipur — giving him a broad clinical foundation across diverse
-              patient populations and hospital environments. He later pursued
-              advanced fellowships in Assisted Reproductive Technology at Wings
-              IVF, Ahmedabad, and in Advanced Laparoscopic Surgery at Era
-              Women&apos;s Hospital, equipping him with the latest minimally
-              invasive techniques that reduce recovery time and surgical risk
-              for patients.
-            </p>
-            <p className="text-[15px] text-text-muted leading-7">
-              A proud FOGSI (Federation of Obstetric and Gynaecological
-              Societies of India) member, Dr. Pande remains committed to
-              evidence-based medicine and continuous professional development.
-              He is equally known for his patience in consultation, his
-              plain-language explanations, and his willingness to spend time
-              with every patient — ensuring that no woman leaves his clinic
-              without feeling heard, informed, and confident in her care plan.
-            </p>
+          <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
+
+            {/* Left — heading + prose */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-3 mb-6">
+                <SectionAccent />
+                <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
+                  About Dr. Alhad Pande
+                </h2>
+              </div>
+              <div className="flex flex-col gap-5">
+                <p className="text-[15px] text-text-muted leading-7">
+                  Dr. Alhad Pande founded Krisha Women&apos;s Hospital with a
+                  single, clear vision: to bring world-class women&apos;s healthcare
+                  to Narol, Ahmedabad — accessible, compassionate, and free from
+                  unnecessary intervention. Over the course of a 20+ year career, he
+                  has guided thousands of women through some of the most significant
+                  moments of their lives — safe deliveries, fertility breakthroughs,
+                  complex surgeries, and healthy recoveries.
+                </p>
+                <p className="text-[15px] text-text-muted leading-7">
+                  His postgraduate training spans three leading government medical
+                  colleges — GMC Baroda, Stanley Medical College (Chennai), and GMC
+                  Raipur — giving him a broad clinical foundation across diverse
+                  patient populations and hospital environments. He later pursued
+                  advanced fellowships in Assisted Reproductive Technology at Wings
+                  IVF, Ahmedabad, and in Advanced Laparoscopic Surgery at Era
+                  Women&apos;s Hospital, equipping him with the latest minimally
+                  invasive techniques that reduce recovery time and surgical risk
+                  for patients.
+                </p>
+                <p className="text-[15px] text-text-muted leading-7">
+                  A proud FOGSI (Federation of Obstetric and Gynaecological
+                  Societies of India) member, Dr. Pande remains committed to
+                  evidence-based medicine and continuous professional development.
+                  He is equally known for his patience in consultation, his
+                  plain-language explanations, and his willingness to spend time
+                  with every patient — ensuring that no woman leaves his clinic
+                  without feeling heard, informed, and confident in her care plan.
+                </p>
+              </div>
+            </div>
+
+            {/* Right — lg sidebar */}
+            <div className="hidden lg:flex flex-col gap-5 w-80 shrink-0">
+
+              {/* Career at a Glance */}
+              <div className="bg-surface-subtle rounded-[18px] p-5 border border-border-muted">
+                <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-text-muted mb-4">
+                  Career at a Glance
+                </p>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+                  {highlights.map((h) => (
+                    <div key={h.label}>
+                      <p className="font-extrabold text-[24px] text-text-base leading-none">{h.stat}</p>
+                      <p className="text-[12px] text-text-muted mt-1.5 leading-4">{h.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
@@ -326,24 +378,52 @@ export default function DoctorPage() {
               Education &amp; Training
             </h2>
           </div>
-          <div className="flex flex-col gap-0 max-w-195">
-            {qualifications.map((q, i) => (
-              <div key={i} className="flex gap-5">
-                {/* Timeline spine */}
-                <div className="flex flex-col items-center">
-                  <div className="w-3.5 h-3.5 rounded-full bg-secondary mt-1 shrink-0" />
-                  {i < qualifications.length - 1 && (
-                    <div className="w-px flex-1 bg-border-muted mt-1 mb-1" />
-                  )}
+
+          <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
+
+            {/* Left — timeline */}
+            <div className="flex-1 min-w-0 flex flex-col gap-0">
+              {qualifications.map((q, i) => (
+                <div key={i} className="flex gap-5">
+                  {/* Timeline spine */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-3.5 h-3.5 rounded-full bg-secondary mt-1 shrink-0" />
+                    {i < qualifications.length - 1 && (
+                      <div className="w-px flex-1 bg-border-muted mt-1 mb-1" />
+                    )}
+                  </div>
+                  {/* Content */}
+                  <div className={i < qualifications.length - 1 ? 'pb-8' : ''}>
+                    <p className="font-bold text-[15px] text-text-base leading-snug">{q.degree}</p>
+                    <p className="text-[13.5px] text-primary font-semibold mt-0.5">{q.institute}</p>
+                    <p className="text-[13px] text-text-muted leading-5.5 mt-1">{q.detail}</p>
+                  </div>
                 </div>
-                {/* Content */}
-                <div className={i < qualifications.length - 1 ? 'pb-8' : ''}>
-                  <p className="font-bold text-[15px] text-text-base leading-snug">{q.degree}</p>
-                  <p className="text-[13.5px] text-primary font-semibold mt-0.5">{q.institute}</p>
-                  <p className="text-[13px] text-text-muted leading-5.5 mt-1">{q.detail}</p>
+              ))}
+            </div>
+
+            {/* Right — xl sidebar: Professional Affiliations */}
+            <div className="hidden lg:flex flex-col gap-4 w-80 shrink-0">
+              <div className="bg-surface rounded-[18px] p-5 border border-border-muted">
+                <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-text-muted mb-4">
+                  Professional Affiliations
+                </p>
+                <div className="flex flex-col gap-4">
+                  {affiliations.map((a) => (
+                    <div key={a.short} className="flex items-start gap-3">
+                      <span className="text-[11px] font-extrabold text-secondary bg-secondary/10 rounded-[6px] px-2 py-1 shrink-0 leading-none mt-0.5">
+                        {a.short}
+                      </span>
+                      <div>
+                        <p className="font-semibold text-[12.5px] text-text-base leading-4.5">{a.full}</p>
+                        <p className="text-[12px] text-text-muted leading-4.5 mt-0.5">{a.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+            </div>
+
           </div>
         </div>
       </section>
@@ -357,7 +437,7 @@ export default function DoctorPage() {
               Areas of Expertise
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-6">
             {expertise.map((e, i) => (
               <div
                 key={i}
@@ -386,7 +466,7 @@ export default function DoctorPage() {
             </h2>
           </div>
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-            <div className="flex flex-col gap-5 flex-1 max-w-145">
+            <div className="flex flex-col gap-5 flex-1">
               <p className="text-[15px] text-text-muted leading-7">
                 Dr. Pande believes that every woman deserves to be an active,
                 informed participant in her own healthcare. His approach to
@@ -406,7 +486,7 @@ export default function DoctorPage() {
                 minimise risk and recovery time.
               </p>
             </div>
-            <div className="flex flex-col gap-4 flex-1 lg:max-w-85">
+            <div className="flex flex-col gap-4 flex-1">
               {principles.map((p) => (
                 <div
                   key={p.label}
