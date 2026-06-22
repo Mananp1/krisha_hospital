@@ -1,0 +1,35 @@
+'use server';
+
+import { revalidatePath } from 'next/cache';
+import { createClient } from '@/utils/supabase/server';
+import type { AppointmentStatus } from '@/types/database';
+
+export async function updateAppointmentStatus(id: string, status: AppointmentStatus) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  await supabase
+    .from('appointments')
+    .update({ status, updated_by: user?.id ?? null })
+    .eq('id', id);
+
+  revalidatePath('/admin/appointments');
+  revalidatePath('/admin');
+}
+
+export async function resolveInquiry(id: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  await supabase
+    .from('contact_inquiries')
+    .update({
+      is_resolved: true,
+      resolved_at: new Date().toISOString(),
+      resolved_by: user?.id ?? null,
+    })
+    .eq('id', id);
+
+  revalidatePath('/admin/inquiries');
+  revalidatePath('/admin');
+}
