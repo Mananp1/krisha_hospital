@@ -1,7 +1,8 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { format } from 'date-fns';
@@ -45,41 +46,43 @@ const errorClass = 'text-[12px] text-destructive';
 export default function AppointmentForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
-  const [bookedCounts, setBookedCounts] = useState<Record<string, number>>({});
-  const [fetchingSlots, setFetchingSlots] = useState(false);
+  const [slotState, setSlotState] = useState<{ date: string | null; counts: Record<string, number> }>({ date: null, counts: {} });
 
   const {
     register,
     handleSubmit,
     control,
     reset,
-    watch,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const selectedDate = watch('appointment_date');
+  const selectedDate = useWatch({ control, name: 'appointment_date' });
 
   useEffect(() => {
     if (!selectedDate) return;
 
-    setFetchingSlots(true);
-    setBookedCounts({});
+    let cancelled = false;
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
 
-    const supabase = createClient();
-    supabase
-      .from('appointments')
-      .select('appointment_time')
-      .eq('appointment_date', format(selectedDate, 'yyyy-MM-dd'))
-      .in('status', ['pending', 'confirmed'])
-      .then(({ data }) => {
-        const counts: Record<string, number> = {};
-        data?.forEach(({ appointment_time }) => {
-          const slot = (appointment_time as string).slice(0, 5);
-          counts[slot] = (counts[slot] ?? 0) + 1;
-        });
-        setBookedCounts(counts);
-        setFetchingSlots(false);
+    (async () => {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from('appointments')
+        .select('appointment_time')
+        .eq('appointment_date', dateStr)
+        .in('status', ['pending', 'confirmed']);
+
+      if (cancelled) return;
+
+      const counts: Record<string, number> = {};
+      data?.forEach(({ appointment_time }) => {
+        const slot = (appointment_time as string).slice(0, 5);
+        counts[slot] = (counts[slot] ?? 0) + 1;
       });
+      setSlotState({ date: dateStr, counts });
+    })();
+
+    return () => { cancelled = true; };
   }, [selectedDate]);
 
   async function onSubmit(data: FormData) {
@@ -119,7 +122,7 @@ export default function AppointmentForm() {
           Your appointment request has been received. Our team will confirm your slot within 24 hours.
         </p>
         <button
-          onClick={() => { reset(); setStatus('idle'); setBookedCounts({}); }}
+          onClick={() => { reset(); setStatus('idle'); setSlotState({ date: null, counts: {} }); }}
           className="mt-2 text-[13px] font-semibold text-primary hover:opacity-70 transition-opacity"
         >
           Book another appointment
@@ -130,6 +133,10 @@ export default function AppointmentForm() {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const selectedDateStr = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null;
+  const bookedCounts = slotState.date === selectedDateStr ? slotState.counts : {};
+  const fetchingSlots = !!selectedDate && slotState.date !== selectedDateStr;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
