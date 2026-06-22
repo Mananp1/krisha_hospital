@@ -140,13 +140,9 @@ export default function Navbar() {
             asChild
             className="rounded-full px-6 py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
           >
-            <a
-              href="https://wa.me/917862950676"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/book-appointment">
               Book Appointment
-            </a>
+            </Link>
           </Button>
         </div>
 
@@ -276,13 +272,9 @@ export default function Navbar() {
                   className="rounded-full py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
                   onClick={() => setDrawerOpen(false)}
                 >
-                  <a
-                    href="https://wa.me/917862950676"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link href="/book-appointment">
                     Book Appointment
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </SheetContent>
