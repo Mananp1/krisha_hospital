@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboardIcon,
   CalendarIcon,
+  CalendarDaysIcon,
   MessageSquareIcon,
   LogOutIcon,
 } from 'lucide-react';
@@ -15,6 +16,7 @@ import { cn } from '@/lib/utils';
 const navLinks = [
   { label: 'Dashboard',    href: '/admin',              icon: LayoutDashboardIcon },
   { label: 'Appointments', href: '/admin/appointments', icon: CalendarIcon },
+  { label: 'Schedule',     href: '/admin/calendar',     icon: CalendarDaysIcon },
   { label: 'Inquiries',    href: '/admin/inquiries',    icon: MessageSquareIcon },
 ];
 
@@ -30,16 +32,17 @@ export default function AdminNav() {
   }
 
   return (
-    <aside className="w-60 shrink-0 flex flex-col min-h-screen bg-surface border-r border-border-muted">
+    <aside className="hidden lg:flex w-60 shrink-0 flex-col h-full bg-surface border-r border-border-muted">
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-border-muted">
+      <div className="px-4 py-3 border-b border-border-muted">
         <Link href="/admin">
           <Image
             src="/Logo.png"
             alt="Krisha Women's Hospital"
             width={100}
             height={48}
-            className="h-auto"
+            loading="eager"
+            style={{ width: 84, height: 'auto' }}
           />
         </Link>
         <span className="block text-[10px] font-semibold tracking-widest uppercase text-text-muted mt-1.5">

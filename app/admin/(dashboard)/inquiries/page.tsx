@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { createClient } from '@/utils/supabase/server';
+import { createAdminClient } from '@/utils/supabase/admin';
 import { InquiryTable } from '@/app/admin/components/InquiryTable';
 import type { ContactInquiry } from '@/types/database';
 
 export const metadata: Metadata = { title: 'Inquiries | Admin' };
 
 export default async function InquiriesPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data } = await supabase
     .from('contact_inquiries')
