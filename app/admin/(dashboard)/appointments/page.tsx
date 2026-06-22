@@ -9,11 +9,11 @@ import type { Appointment, AppointmentStatus } from '@/types/database';
 export const metadata: Metadata = { title: 'Appointments | Admin' };
 
 interface PageProps {
-  searchParams: Promise<{ name?: string; phone?: string; status?: string }>;
+  searchParams: Promise<{ name?: string; phone?: string; date?: string; status?: string }>;
 }
 
 export default async function AppointmentsPage({ searchParams }: PageProps) {
-  const { name, phone, status } = await searchParams;
+  const { name, phone, date, status } = await searchParams;
   const supabase = createAdminClient();
 
   let query = supabase
@@ -24,6 +24,10 @@ export default async function AppointmentsPage({ searchParams }: PageProps) {
 
   if (status && status !== 'all') {
     query = query.eq('status', status as AppointmentStatus);
+  }
+
+  if (date) {
+    query = query.eq('appointment_date', date);
   }
 
   const { data } = await query;
@@ -48,7 +52,7 @@ export default async function AppointmentsPage({ searchParams }: PageProps) {
         <div>
           <h1 className="text-[22px] font-bold text-text-base">Appointments</h1>
           <p className="text-[13px] text-text-muted mt-0.5">
-            {appointments.length} {name || phone || status ? 'matching' : 'total'} · {pending} pending
+            {appointments.length} {name || phone || date || status ? 'matching' : 'total'} · {pending} pending
           </p>
         </div>
         <div className="shrink-0">

@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 const navLinks = [
   { label: 'Dashboard',    href: '/admin',              icon: LayoutDashboardIcon },
   { label: 'Appointments', href: '/admin/appointments', icon: CalendarIcon },
-  { label: 'Calendar',     href: '/admin/calendar',     icon: CalendarDaysIcon },
+  { label: 'Schedule',     href: '/admin/calendar',     icon: CalendarDaysIcon },
   { label: 'Inquiries',    href: '/admin/inquiries',    icon: MessageSquareIcon },
 ];
 

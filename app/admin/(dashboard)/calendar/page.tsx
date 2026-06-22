@@ -3,7 +3,7 @@ import { createAdminClient } from '@/utils/supabase/admin';
 import { StatusBadge } from '@/app/admin/components/StatusBadge';
 import type { Appointment } from '@/types/database';
 
-export const metadata: Metadata = { title: 'Calendar | Admin' };
+export const metadata: Metadata = { title: 'Schedule | Admin' };
 
 function todayStr() {
   const now = new Date();
@@ -58,9 +58,9 @@ export default async function CalendarPage() {
   return (
     <div className="p-6 lg:p-8 max-w-5xl">
       <div className="mb-8">
-        <h1 className="text-[22px] font-bold text-text-base">Calendar</h1>
+        <h1 className="text-[22px] font-bold text-text-base">Schedule</h1>
         <p className="text-[13px] text-text-muted mt-0.5">
-          Upcoming appointments from today onwards · {appointments.length} total
+          Upcoming appointments · {appointments.length} total
         </p>
       </div>
 

@@ -105,9 +105,9 @@ export function NewAppointmentDialog() {
           <DialogTitle className="text-[16px]">New Appointment</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-1 flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-1 flex flex-col gap-3">
           <div>
-            <label className="block text-[12px] font-semibold text-text-muted mb-1">Patient Name *</label>
+            <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Patient Name *</label>
             <input {...register('patient_name')} placeholder="Full name" className={inputClass} />
             {errors.patient_name && (
               <p className="text-[11px] text-red-500 mt-0.5">{errors.patient_name.message}</p>
@@ -116,14 +116,14 @@ export function NewAppointmentDialog() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[12px] font-semibold text-text-muted mb-1">Phone *</label>
+              <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Phone *</label>
               <input {...register('phone')} type="tel" placeholder="Phone number" className={inputClass} />
               {errors.phone && (
                 <p className="text-[11px] text-red-500 mt-0.5">{errors.phone.message}</p>
               )}
             </div>
             <div>
-              <label className="block text-[12px] font-semibold text-text-muted mb-1">Email</label>
+              <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Email</label>
               <input {...register('email')} type="email" placeholder="Optional" className={inputClass} />
               {errors.email && (
                 <p className="text-[11px] text-red-500 mt-0.5">{errors.email.message}</p>
@@ -133,7 +133,7 @@ export function NewAppointmentDialog() {
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[12px] font-semibold text-text-muted mb-1">Date *</label>
+              <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Date *</label>
               <input
                 {...register('appointment_date')}
                 type="date"
@@ -144,7 +144,7 @@ export function NewAppointmentDialog() {
               )}
             </div>
             <div>
-              <label className="block text-[12px] font-semibold text-text-muted mb-1">Time *</label>
+              <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Time *</label>
               <Controller
                 name="appointment_time"
                 control={control}
@@ -168,7 +168,7 @@ export function NewAppointmentDialog() {
           </div>
 
           <div>
-            <label className="block text-[12px] font-semibold text-text-muted mb-1">Status</label>
+            <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Status</label>
             <Controller
               name="status"
               control={control}
@@ -188,10 +188,10 @@ export function NewAppointmentDialog() {
           </div>
 
           <div>
-            <label className="block text-[12px] font-semibold text-text-muted mb-1">Symptoms / Notes</label>
+            <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Symptoms / Notes</label>
             <textarea
               {...register('message')}
-              rows={3}
+              rows={2}
               placeholder="Reason for visit, symptoms..."
               className={`${inputClass} resize-none`}
             />
