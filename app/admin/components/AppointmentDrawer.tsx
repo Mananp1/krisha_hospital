@@ -38,18 +38,20 @@ function cleanPhone(phone: string) {
 interface AppointmentDrawerProps {
   appointment: Appointment | null;
   onClose: () => void;
+  onUpdated?: () => void;
 }
 
 const fieldLabelClass = 'text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1';
 const fieldValueClass = 'text-[13px] text-text-base';
 
-export function AppointmentDrawer({ appointment, onClose }: AppointmentDrawerProps) {
+export function AppointmentDrawer({ appointment, onClose, onUpdated }: AppointmentDrawerProps) {
   const [isPending, startTransition] = useTransition();
 
   function handleStatusChange(status: AppointmentStatus) {
     if (!appointment) return;
     startTransition(async () => {
       await updateAppointmentStatus(appointment.id, status);
+      onUpdated?.();
     });
   }
 

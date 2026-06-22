@@ -44,12 +44,12 @@ export function AppointmentTable({ appointments }: { appointments: Appointment[]
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Date &amp; Time</TableHead>
+                <TableHead className="pl-5">Date &amp; Time</TableHead>
                 <TableHead>Patient</TableHead>
                 <TableHead>Phone</TableHead>
                 <TableHead>Symptoms</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead className="w-px whitespace-nowrap pr-5">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -63,7 +63,7 @@ export function AppointmentTable({ appointments }: { appointments: Appointment[]
                     onClick={() => setSelected(appt)}
                     className="cursor-pointer hover:bg-surface-subtle transition-colors"
                   >
-                    <TableCell className="text-[13px]">
+                    <TableCell className="text-[13px] pl-5">
                       <span className="font-medium text-text-base">{formatDate(appt.appointment_date)}</span>
                       <span className="block text-text-muted">{formatTime(appt.appointment_time)}</span>
                     </TableCell>
@@ -81,7 +81,7 @@ export function AppointmentTable({ appointments }: { appointments: Appointment[]
                     <TableCell>
                       <StatusBadge status={appt.status} />
                     </TableCell>
-                    <TableCell onClick={(e) => e.stopPropagation()}>
+                    <TableCell className="pr-5" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center gap-2">
                         <a
                           href={`https://wa.me/${waNumber}`}

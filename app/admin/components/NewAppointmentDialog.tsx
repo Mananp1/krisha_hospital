@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -47,9 +47,34 @@ type FormValues = z.infer<typeof schema>;
 const inputClass =
   'w-full px-3 py-2 text-[13px] bg-surface border border-border-muted rounded-xl text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary/50 transition-colors';
 
-export function NewAppointmentDialog() {
-  const [open, setOpen] = useState(false);
+interface NewAppointmentDialogProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  defaultDate?: string;
+  defaultTime?: string;
+  onCreated?: () => void;
+}
+
+export function NewAppointmentDialog({
+  open: controlledOpen,
+  onOpenChange: onControlledChange,
+  defaultDate,
+  defaultTime,
+  onCreated,
+}: NewAppointmentDialogProps = {}) {
+  const [internalOpen, setInternalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : internalOpen;
+
+  function setOpen(v: boolean) {
+    if (isControlled) {
+      onControlledChange?.(v);
+    } else {
+      setInternalOpen(v);
+    }
+  }
 
   const {
     register,
@@ -63,12 +88,28 @@ export function NewAppointmentDialog() {
       patient_name: '',
       phone: '',
       email: '',
-      appointment_date: todayStr(),
+      appointment_date: defaultDate ?? todayStr(),
       appointment_time: '',
       message: '',
       status: 'pending',
     },
   });
+
+  // When the dialog opens (controlled from calendar), reset the form with the clicked date/time
+  useEffect(() => {
+    if (open) {
+      reset({
+        patient_name: '',
+        phone: '',
+        email: '',
+        appointment_date: defaultDate ?? todayStr(),
+        appointment_time: defaultTime ?? '',
+        message: '',
+        status: 'pending',
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   function onSubmit(data: FormValues) {
     startTransition(async () => {
@@ -83,22 +124,25 @@ export function NewAppointmentDialog() {
       });
       reset();
       setOpen(false);
+      onCreated?.();
     });
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <button className="flex items-center gap-3 bg-surface border border-border-muted rounded-2xl px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group w-full text-left">
-          <div className="w-9 h-9 rounded-xl bg-primary-50 group-hover:bg-primary/10 text-primary flex items-center justify-center shrink-0 transition-colors">
-            <PlusIcon size={18} strokeWidth={2} />
-          </div>
-          <div>
-            <p className="text-[13px] font-semibold text-text-base">New Appointment</p>
-            <p className="text-[11px] text-text-muted">Book for a patient</p>
-          </div>
-        </button>
-      </DialogTrigger>
+      {!isControlled && (
+        <DialogTrigger asChild>
+          <button className="flex items-center gap-3 bg-surface border border-border-muted rounded-2xl px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group w-full text-left">
+            <div className="w-9 h-9 rounded-xl bg-primary-50 group-hover:bg-primary/10 text-primary flex items-center justify-center shrink-0 transition-colors">
+              <PlusIcon size={18} strokeWidth={2} />
+            </div>
+            <div>
+              <p className="text-[13px] font-semibold text-text-base">New Appointment</p>
+              <p className="text-[11px] text-text-muted">Book for a patient</p>
+            </div>
+          </button>
+        </DialogTrigger>
+      )}
 
       <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
