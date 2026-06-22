@@ -41,7 +41,8 @@ export default function AdminNav() {
             alt="Krisha Women's Hospital"
             width={100}
             height={48}
-            className="h-auto"
+            loading="eager"
+            style={{ width: 100, height: 'auto' }}
           />
         </Link>
         <span className="block text-[10px] font-semibold tracking-widest uppercase text-text-muted mt-1.5">

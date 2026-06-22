@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/utils/supabase/server';
 import { createAdminClient } from '@/utils/supabase/admin';
-import type { AppointmentStatus } from '@/types/database';
+import type { AppointmentStatus, AppointmentInsert } from '@/types/database';
 
 export async function updateAppointmentStatus(id: string, status: AppointmentStatus) {
   const supabase = await createClient();
@@ -35,4 +35,14 @@ export async function resolveInquiry(id: string) {
 
   revalidatePath('/admin/inquiries');
   revalidatePath('/admin');
+}
+
+export async function createAppointmentByAdmin(data: AppointmentInsert) {
+  const admin = createAdminClient();
+  const { error } = await admin.from('appointments').insert(data);
+  if (error) throw new Error(error.message);
+
+  revalidatePath('/admin/appointments');
+  revalidatePath('/admin');
+  revalidatePath('/admin/calendar');
 }

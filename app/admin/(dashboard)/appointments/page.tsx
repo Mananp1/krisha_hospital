@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { createAdminClient } from '@/utils/supabase/admin';
 import { AppointmentTable } from '@/app/admin/components/AppointmentTable';
 import { AppointmentSearch } from '@/app/admin/components/AppointmentSearch';
+import { NewAppointmentDialog } from '@/app/admin/components/NewAppointmentDialog';
 import type { Appointment, AppointmentStatus } from '@/types/database';
 
 export const metadata: Metadata = { title: 'Appointments | Admin' };
@@ -43,11 +44,16 @@ export default async function AppointmentsPage({ searchParams }: PageProps) {
 
   return (
     <div className="p-6 lg:p-8">
-      <div className="mb-6">
-        <h1 className="text-[22px] font-bold text-text-base">Appointments</h1>
-        <p className="text-[13px] text-text-muted mt-0.5">
-          {appointments.length} {name || phone || status ? 'matching' : 'total'} · {pending} pending
-        </p>
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-[22px] font-bold text-text-base">Appointments</h1>
+          <p className="text-[13px] text-text-muted mt-0.5">
+            {appointments.length} {name || phone || status ? 'matching' : 'total'} · {pending} pending
+          </p>
+        </div>
+        <div className="shrink-0">
+          <NewAppointmentDialog />
+        </div>
       </div>
 
       <Suspense>

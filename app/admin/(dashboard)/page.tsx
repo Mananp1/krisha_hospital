@@ -5,12 +5,12 @@ import {
   ClockIcon,
   MessageSquareIcon,
   AlertCircleIcon,
-  PlusIcon,
   ListIcon,
 } from 'lucide-react';
 import { createAdminClient } from '@/utils/supabase/admin';
 import { StatsCard } from '@/app/admin/components/StatsCard';
 import { StatusBadge } from '@/app/admin/components/StatusBadge';
+import { NewAppointmentDialog } from '@/app/admin/components/NewAppointmentDialog';
 
 function formatDate(d: string) {
   const [y, m, day] = d.split('-').map(Number);
@@ -147,19 +147,7 @@ export default async function AdminDashboardPage() {
       <div className="mb-8">
         <h2 className="text-[15px] font-bold text-text-base mb-3">Quick Actions</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <Link
-            href="/book-appointment"
-            target="_blank"
-            className="flex items-center gap-3 bg-surface border border-border-muted rounded-2xl px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group"
-          >
-            <div className="w-9 h-9 rounded-xl bg-primary-50 group-hover:bg-primary/10 text-primary flex items-center justify-center shrink-0 transition-colors">
-              <PlusIcon size={18} strokeWidth={2} />
-            </div>
-            <div>
-              <p className="text-[13px] font-semibold text-text-base">New Appointment</p>
-              <p className="text-[11px] text-text-muted">Book for a patient</p>
-            </div>
-          </Link>
+          <NewAppointmentDialog />
 
           <Link
             href="/admin/appointments"
