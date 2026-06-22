@@ -49,6 +49,8 @@ export function AppointmentTable({ appointments }: { appointments: Appointment[]
 
   return (
     <div className={isPending ? 'opacity-60 pointer-events-none' : ''}>
+      <div className="overflow-x-auto">
+      <div className="min-w-[760px]">
       <Table>
         <TableHeader>
           <TableRow>
@@ -134,6 +136,8 @@ export function AppointmentTable({ appointments }: { appointments: Appointment[]
           })}
         </TableBody>
       </Table>
+      </div>
+      </div>
     </div>
   );
 }

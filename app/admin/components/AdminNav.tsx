@@ -32,7 +32,7 @@ export default function AdminNav() {
   }
 
   return (
-    <aside className="w-60 shrink-0 flex flex-col min-h-screen bg-surface border-r border-border-muted">
+    <aside className="hidden lg:flex w-60 shrink-0 flex-col h-full bg-surface border-r border-border-muted">
       {/* Logo */}
       <div className="px-6 py-5 border-b border-border-muted">
         <Link href="/admin">

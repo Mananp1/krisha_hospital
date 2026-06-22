@@ -44,7 +44,7 @@ export default async function AppointmentsPage({ searchParams }: PageProps) {
 
   return (
     <div className="p-6 lg:p-8">
-      <div className="mb-6 flex items-start justify-between gap-4">
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
         <div>
           <h1 className="text-[22px] font-bold text-text-base">Appointments</h1>
           <p className="text-[13px] text-text-muted mt-0.5">

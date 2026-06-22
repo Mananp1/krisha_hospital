@@ -39,6 +39,8 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
   return (
     <>
       <div className={isPending ? 'opacity-60 pointer-events-none' : ''}>
+        <div className="overflow-x-auto">
+        <div className="min-w-[700px]">
         <Table>
           <TableHeader>
             <TableRow>
@@ -104,6 +106,8 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
             ))}
           </TableBody>
         </Table>
+        </div>
+        </div>
       </div>
 
       {/* Full inquiry dialog */}
