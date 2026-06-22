@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { createClient } from '@/utils/supabase/server';
+import { createAdminClient } from '@/utils/supabase/admin';
 import { StatusBadge } from '@/app/admin/components/StatusBadge';
 import type { Appointment } from '@/types/database';
 
@@ -33,7 +33,7 @@ function cleanPhone(phone: string) {
 }
 
 export default async function CalendarPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const today = todayStr();
 
   const { data } = await supabase

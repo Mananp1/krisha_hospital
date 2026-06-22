@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { createClient } from '@/utils/supabase/server';
+import { createAdminClient } from '@/utils/supabase/admin';
 import { AppointmentTable } from '@/app/admin/components/AppointmentTable';
 import { AppointmentSearch } from '@/app/admin/components/AppointmentSearch';
 import type { Appointment, AppointmentStatus } from '@/types/database';
@@ -13,7 +13,7 @@ interface PageProps {
 
 export default async function AppointmentsPage({ searchParams }: PageProps) {
   const { name, phone, status } = await searchParams;
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   let query = supabase
     .from('appointments')

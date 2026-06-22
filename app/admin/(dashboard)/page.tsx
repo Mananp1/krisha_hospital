@@ -8,7 +8,7 @@ import {
   PlusIcon,
   ListIcon,
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/server';
+import { createAdminClient } from '@/utils/supabase/admin';
 import { StatsCard } from '@/app/admin/components/StatsCard';
 import { StatusBadge } from '@/app/admin/components/StatusBadge';
 
@@ -72,7 +72,7 @@ type RecentInquiry = {
 type ActivityItem = RecentAppt | RecentInquiry;
 
 export default async function AdminDashboardPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const today = todayStr();
   const weekEnd = weekEndStr();
 
