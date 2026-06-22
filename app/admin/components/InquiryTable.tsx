@@ -48,10 +48,10 @@ interface ActionButtonsProps {
 
 function ActionButtons({ inq, onView, onResolve, isPending }: ActionButtonsProps) {
   return (
-    <div className="flex items-center gap-2 flex-wrap">
+    <div className="flex items-center gap-2">
       <button
         onClick={onView}
-        className="px-2.5 py-1 rounded-lg text-[12px] font-semibold bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
+        className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
       >
         View
       </button>
@@ -59,7 +59,7 @@ function ActionButtons({ inq, onView, onResolve, isPending }: ActionButtonsProps
         <button
           onClick={onResolve}
           disabled={isPending}
-          className="px-2.5 py-1 rounded-lg text-[12px] font-semibold border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition-colors disabled:opacity-50"
+          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition-colors disabled:opacity-50"
         >
           Resolve
         </button>
@@ -96,17 +96,17 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[120px]">Received</TableHead>
+                  <TableHead className="w-[130px] pl-5">Received</TableHead>
                   <TableHead>Name</TableHead>
                   <TableHead className="w-[130px]">Phone</TableHead>
                   <TableHead className="w-[110px]">Status</TableHead>
-                  <TableHead className="w-[140px]">Actions</TableHead>
+                  <TableHead className="w-px pr-5 whitespace-nowrap">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {inquiries.map((inq) => (
                   <TableRow key={inq.id} className="align-top">
-                    <TableCell className="whitespace-nowrap pt-3">
+                    <TableCell className="whitespace-nowrap pt-3 pl-5">
                       <AgePill iso={inq.created_at} />
                       <span className="block text-[11px] text-text-muted mt-0.5">
                         {formatDateTime(inq.created_at)}
@@ -132,7 +132,7 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
                     <TableCell className="pt-3">
                       <StatusBadge status={inq.is_resolved ? 'resolved' : 'unresolved'} />
                     </TableCell>
-                    <TableCell className="pt-3">
+                    <TableCell className="pt-3 pr-5">
                       <ActionButtons
                         inq={inq}
                         onView={() => setViewing(inq)}
