@@ -24,6 +24,7 @@ export function AppointmentSearch() {
       } else {
         params.delete(key);
       }
+      params.delete('page'); // reset to page 1 on any filter change
       router.replace(`${pathname}?${params.toString()}`);
     },
     [router, pathname, searchParams],

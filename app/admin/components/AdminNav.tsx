@@ -8,6 +8,7 @@ import {
   CalendarIcon,
   CalendarDaysIcon,
   MessageSquareIcon,
+  UsersIcon,
   LogOutIcon,
 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
@@ -17,6 +18,7 @@ const navLinks = [
   { label: 'Dashboard',    href: '/admin',              icon: LayoutDashboardIcon },
   { label: 'Appointments', href: '/admin/appointments', icon: CalendarIcon },
   { label: 'Schedule',     href: '/admin/calendar',     icon: CalendarDaysIcon },
+  { label: 'Patients',     href: '/admin/patients',     icon: UsersIcon },
   { label: 'Inquiries',    href: '/admin/inquiries',    icon: MessageSquareIcon },
 ];
 

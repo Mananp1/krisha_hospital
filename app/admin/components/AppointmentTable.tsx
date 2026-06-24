@@ -1,12 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon } from 'lucide-react';
 import {
   Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
 } from '@/components/ui/table';
 import { StatusBadge } from './StatusBadge';
 import { AppointmentDrawer } from './AppointmentDrawer';
+import { TablePagination } from './TablePagination';
+import { parsePageSize, parsePage } from '@/lib/pagination';
+import { cn } from '@/lib/utils';
 import type { Appointment } from '@/types/database';
 
 function formatDate(d: string) {
@@ -26,10 +31,72 @@ function cleanPhone(phone: string) {
   return phone.replace(/\D/g, '');
 }
 
-export function AppointmentTable({ appointments }: { appointments: Appointment[] }) {
+type SortCol = 'date' | 'name' | 'status';
+type SortDir = 'asc' | 'desc';
+
+function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
+  if (!active) return <ChevronsUpDownIcon size={12} className="text-text-muted/40 shrink-0" />;
+  if (dir === 'asc') return <ChevronUpIcon size={12} className="text-primary shrink-0" />;
+  return <ChevronDownIcon size={12} className="text-primary shrink-0" />;
+}
+
+function SortHead({
+  label, col, sortCol, sortDir, onSort, className,
+}: {
+  label: string; col: SortCol; sortCol: SortCol; sortDir: SortDir;
+  onSort: (c: SortCol) => void; className?: string;
+}) {
+  return (
+    <TableHead
+      className={cn('cursor-pointer select-none whitespace-nowrap', className)}
+      onClick={() => onSort(col)}
+    >
+      <span className="inline-flex items-center gap-1 hover:text-text-base transition-colors">
+        {label}
+        <SortIcon active={sortCol === col} dir={sortDir} />
+      </span>
+    </TableHead>
+  );
+}
+
+export function AppointmentTable({
+  appointments,
+  total,
+}: {
+  appointments: Appointment[];
+  total: number;
+}) {
   const [selected, setSelected] = useState<Appointment | null>(null);
 
-  if (appointments.length === 0) {
+  const router   = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const sortCol  = (searchParams.get('sortCol') as SortCol)  ?? 'date';
+  const sortDir  = (searchParams.get('sortDir') as SortDir)  ?? 'desc';
+  const page     = parsePage(searchParams.get('page'));
+  const pageSize = parsePageSize(searchParams.get('pageSize'));
+
+  const navigate = useCallback(
+    (updates: Record<string, string>) => {
+      const params = new URLSearchParams(searchParams.toString());
+      Object.entries(updates).forEach(([k, v]) => {
+        if (v) params.set(k, v); else params.delete(k);
+      });
+      router.replace(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname, searchParams],
+  );
+
+  function handleSort(col: SortCol) {
+    navigate({
+      sortCol: col,
+      sortDir: col === sortCol && sortDir === 'desc' ? 'asc' : 'desc',
+      page: '1',
+    });
+  }
+
+  if (appointments.length === 0 && page === 1) {
     return (
       <div className="text-center py-16 text-text-muted text-[14px]">
         No appointments found.
@@ -44,17 +111,17 @@ export function AppointmentTable({ appointments }: { appointments: Appointment[]
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="pl-5">Date &amp; Time</TableHead>
-                <TableHead>Patient</TableHead>
+                <SortHead label="Date & Time" col="date" sortCol={sortCol} sortDir={sortDir} onSort={handleSort} className="pl-5" />
+                <SortHead label="Patient"     col="name" sortCol={sortCol} sortDir={sortDir} onSort={handleSort} />
                 <TableHead>Phone</TableHead>
                 <TableHead>Symptoms</TableHead>
-                <TableHead>Status</TableHead>
+                <SortHead label="Status" col="status" sortCol={sortCol} sortDir={sortDir} onSort={handleSort} />
                 <TableHead className="w-px whitespace-nowrap pr-5">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {appointments.map((appt) => {
-                const digits = cleanPhone(appt.phone);
+                const digits   = cleanPhone(appt.phone);
                 const waNumber = digits.startsWith('91') ? digits : `91${digits}`;
 
                 return (
@@ -112,6 +179,14 @@ export function AppointmentTable({ appointments }: { appointments: Appointment[]
           </Table>
         </div>
       </div>
+
+      <TablePagination
+        total={total}
+        page={page}
+        pageSize={pageSize}
+        onPageChange={(p) => navigate({ page: String(p) })}
+        onPageSizeChange={(s) => navigate({ pageSize: String(s), page: '1' })}
+      />
 
       <AppointmentDrawer appointment={selected} onClose={() => setSelected(null)} />
     </>

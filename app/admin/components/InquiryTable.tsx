@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useCallback } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon } from 'lucide-react';
 import {
   Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
@@ -9,7 +11,10 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
 import { StatusBadge } from './StatusBadge';
+import { TablePagination } from './TablePagination';
+import { parsePageSize, parsePage } from '@/lib/pagination';
 import { resolveInquiry } from '@/app/admin/actions';
+import { cn } from '@/lib/utils';
 import type { ContactInquiry } from '@/types/database';
 
 function formatDateTime(iso: string) {
@@ -20,8 +25,8 @@ function formatDateTime(iso: string) {
 
 function getAge(iso: string): { label: string; pillClass: string } {
   const diffDays = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
-  if (diffDays === 0) return { label: 'Today',           pillClass: 'text-emerald-700 bg-emerald-50 border-emerald-200' };
-  if (diffDays === 1) return { label: 'Yesterday',       pillClass: 'text-amber-700   bg-amber-50   border-amber-200'   };
+  if (diffDays === 0) return { label: 'Today',            pillClass: 'text-emerald-700 bg-emerald-50 border-emerald-200' };
+  if (diffDays === 1) return { label: 'Yesterday',        pillClass: 'text-amber-700   bg-amber-50   border-amber-200'   };
   if (diffDays <= 3)  return { label: `${diffDays}d ago`, pillClass: 'text-orange-700  bg-orange-50  border-orange-200'  };
   return               { label: `${diffDays}d ago`, pillClass: 'text-red-700     bg-red-50     border-red-200'    };
 }
@@ -39,38 +44,71 @@ function AgePill({ iso }: { iso: string }) {
   );
 }
 
-interface ActionButtonsProps {
-  inq: ContactInquiry;
-  onView: () => void;
-  onResolve: () => void;
-  isPending: boolean;
+type SortCol = 'date' | 'name' | 'status';
+type SortDir = 'asc' | 'desc';
+
+function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
+  if (!active) return <ChevronsUpDownIcon size={12} className="text-text-muted/40 shrink-0" />;
+  if (dir === 'asc') return <ChevronUpIcon size={12} className="text-primary shrink-0" />;
+  return <ChevronDownIcon size={12} className="text-primary shrink-0" />;
 }
 
-function ActionButtons({ inq, onView, onResolve, isPending }: ActionButtonsProps) {
+function SortHead({
+  label, col, sortCol, sortDir, onSort, className,
+}: {
+  label: string; col: SortCol; sortCol: SortCol; sortDir: SortDir;
+  onSort: (c: SortCol) => void; className?: string;
+}) {
   return (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={onView}
-        className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
-      >
-        View
-      </button>
-      {!inq.is_resolved && (
-        <button
-          onClick={onResolve}
-          disabled={isPending}
-          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition-colors disabled:opacity-50"
-        >
-          Resolve
-        </button>
-      )}
-    </div>
+    <TableHead
+      className={cn('cursor-pointer select-none whitespace-nowrap', className)}
+      onClick={() => onSort(col)}
+    >
+      <span className="inline-flex items-center gap-1 hover:text-text-base transition-colors">
+        {label}
+        <SortIcon active={sortCol === col} dir={sortDir} />
+      </span>
+    </TableHead>
   );
 }
 
-export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
+export function InquiryTable({
+  inquiries,
+  total,
+}: {
+  inquiries: ContactInquiry[];
+  total: number;
+}) {
   const [isPending, startTransition] = useTransition();
   const [viewing, setViewing] = useState<ContactInquiry | null>(null);
+
+  const router       = useRouter();
+  const pathname     = usePathname();
+  const searchParams = useSearchParams();
+
+  const sortCol  = (searchParams.get('sortCol') as SortCol) ?? 'date';
+  const sortDir  = (searchParams.get('sortDir') as SortDir) ?? 'desc';
+  const page     = parsePage(searchParams.get('page'));
+  const pageSize = parsePageSize(searchParams.get('pageSize'));
+
+  const navigate = useCallback(
+    (updates: Record<string, string>) => {
+      const params = new URLSearchParams(searchParams.toString());
+      Object.entries(updates).forEach(([k, v]) => {
+        if (v) params.set(k, v); else params.delete(k);
+      });
+      router.replace(`${pathname}?${params.toString()}`);
+    },
+    [router, pathname, searchParams],
+  );
+
+  function handleSort(col: SortCol) {
+    navigate({
+      sortCol: col,
+      sortDir: col === sortCol && sortDir === 'desc' ? 'asc' : 'desc',
+      page: '1',
+    });
+  }
 
   function handleResolve(id: string) {
     startTransition(async () => {
@@ -79,7 +117,7 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
     });
   }
 
-  if (inquiries.length === 0) {
+  if (inquiries.length === 0 && page === 1) {
     return (
       <div className="text-center py-16 text-text-muted text-[14px]">
         No inquiries found.
@@ -96,10 +134,10 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[130px] pl-5">Received</TableHead>
-                  <TableHead>Name</TableHead>
+                  <SortHead label="Received" col="date"   sortCol={sortCol} sortDir={sortDir} onSort={handleSort} className="w-[130px] pl-5" />
+                  <SortHead label="Name"     col="name"   sortCol={sortCol} sortDir={sortDir} onSort={handleSort} />
                   <TableHead className="w-[130px]">Phone</TableHead>
-                  <TableHead className="w-[110px]">Status</TableHead>
+                  <SortHead label="Status"   col="status" sortCol={sortCol} sortDir={sortDir} onSort={handleSort} className="w-[110px]" />
                   <TableHead className="w-px pr-5 whitespace-nowrap">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -133,12 +171,23 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
                       <StatusBadge status={inq.is_resolved ? 'resolved' : 'unresolved'} />
                     </TableCell>
                     <TableCell className="pt-3 pr-5">
-                      <ActionButtons
-                        inq={inq}
-                        onView={() => setViewing(inq)}
-                        onResolve={() => handleResolve(inq.id)}
-                        isPending={isPending}
-                      />
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setViewing(inq)}
+                          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
+                        >
+                          View
+                        </button>
+                        {!inq.is_resolved && (
+                          <button
+                            onClick={() => handleResolve(inq.id)}
+                            disabled={isPending}
+                            className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition-colors disabled:opacity-50"
+                          >
+                            Resolve
+                          </button>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -151,7 +200,7 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
       {/* ── Mobile cards (< sm) ── */}
       <div className={`sm:hidden divide-y divide-border-muted ${isPending ? 'opacity-60 pointer-events-none' : ''}`}>
         {inquiries.map((inq) => {
-          const digits = cleanPhone(inq.phone);
+          const digits   = cleanPhone(inq.phone);
           const waNumber = digits.startsWith('91') ? digits : `91${digits}`;
           return (
             <div key={inq.id} className="px-4 py-3.5 flex flex-col gap-2">
@@ -162,16 +211,13 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
                 </div>
                 <StatusBadge status={inq.is_resolved ? 'resolved' : 'unresolved'} />
               </div>
-
               <a href={`tel:${inq.phone}`} className="text-[13px] text-primary flex items-center gap-1.5 self-start">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 shrink-0">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.62 0h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.59a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                 </svg>
                 {inq.phone}
               </a>
-
               <p className="text-[12px] text-text-muted line-clamp-2">{inq.message}</p>
-
               <div className="flex items-center gap-2 mt-0.5">
                 <button
                   onClick={() => setViewing(inq)}
@@ -201,6 +247,14 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
           );
         })}
       </div>
+
+      <TablePagination
+        total={total}
+        page={page}
+        pageSize={pageSize}
+        onPageChange={(p) => navigate({ page: String(p) })}
+        onPageSizeChange={(s) => navigate({ pageSize: String(s), page: '1' })}
+      />
 
       {/* ── Full inquiry dialog ── */}
       <Dialog open={!!viewing} onOpenChange={(open) => { if (!open) setViewing(null); }}>
@@ -242,7 +296,7 @@ export function InquiryTable({ inquiries }: { inquiries: ContactInquiry[] }) {
 
               <div className="flex gap-2 pt-1">
                 {(() => {
-                  const digits = cleanPhone(viewing.phone);
+                  const digits   = cleanPhone(viewing.phone);
                   const waNumber = digits.startsWith('91') ? digits : `91${digits}`;
                   return (
                     <a
