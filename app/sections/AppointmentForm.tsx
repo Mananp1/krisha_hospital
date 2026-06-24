@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { format } from 'date-fns';
+import { format, isToday, setHours, setMinutes, startOfDay } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import { createClient } from '@/utils/supabase/client';
 import { cn } from '@/lib/utils';
@@ -26,6 +26,15 @@ function formatTimeDisplay(time: string): string {
   return `${display}:${m.toString().padStart(2, '0')} ${period}`;
 }
 
+function isSlotInPast(slot: string, selectedDate: Date): boolean {
+  if (!isToday(selectedDate)) return false;
+
+  const [h, m] = slot.split(':').map(Number);
+  const slotDateTime = setMinutes(setHours(startOfDay(selectedDate), h), m);
+
+  return slotDateTime <= new Date();
+}
+
 const schema = z.object({
   patient_name: z.string().min(2, 'Name must be at least 2 characters'),
   phone: z.string().min(10, 'Enter a valid phone number').regex(/^[\d\s\-+]{10,}$/, 'Enter a valid phone number'),
@@ -36,6 +45,14 @@ const schema = z.object({
   }),
   appointment_time: z.string().min(1, 'Please select a time slot'),
   message: z.string().optional(),
+}).superRefine((data, ctx) => {
+  if (data.appointment_time && isSlotInPast(data.appointment_time, data.appointment_date)) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Please select a future time slot',
+      path: ['appointment_time'],
+    });
+  }
 });
 
 type FormData = z.infer<typeof schema>;
@@ -56,10 +73,18 @@ export default function AppointmentForm() {
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const selectedDate = useWatch({ control, name: 'appointment_date' });
+  const selectedTime = useWatch({ control, name: 'appointment_time' });
+
+  useEffect(() => {
+    if (selectedDate && selectedTime && isSlotInPast(selectedTime, selectedDate)) {
+      setValue('appointment_time', '');
+    }
+  }, [selectedDate, selectedTime, setValue]);
 
   useEffect(() => {
     if (!selectedDate) return;
@@ -253,19 +278,21 @@ export default function AppointmentForm() {
                 {TIME_SLOTS.map((slot) => {
                   const count = bookedCounts[slot] ?? 0;
                   const isFull = count >= MAX_PER_SLOT;
+                  const isPast = selectedDate ? isSlotInPast(slot, selectedDate) : false;
+                  const isUnavailable = isFull || isPast;
                   const isSelected = field.value === slot;
 
                   return (
                     <button
                       key={slot}
                       type="button"
-                      disabled={isFull}
+                      disabled={isUnavailable}
                       onClick={() => field.onChange(slot)}
                       className={cn(
                         'flex flex-col items-center justify-center py-2 px-1 rounded-xl border text-[12px] font-semibold transition-all',
                         isSelected
                           ? 'bg-secondary border-secondary text-text-inverse shadow-sm'
-                          : isFull
+                          : isUnavailable
                             ? 'bg-surface-muted border-border-muted text-text-muted opacity-50 cursor-not-allowed'
                             : 'bg-surface border-border-muted text-text-base hover:border-primary hover:text-primary hover:bg-primary-50 cursor-pointer',
                       )}
@@ -273,6 +300,9 @@ export default function AppointmentForm() {
                       {formatTimeDisplay(slot)}
                       {isFull && (
                         <span className="text-[10px] font-normal mt-0.5">Full</span>
+                      )}
+                      {!isFull && isPast && (
+                        <span className="text-[10px] font-normal mt-0.5">Past</span>
                       )}
                     </button>
                   );
