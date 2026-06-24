@@ -30,7 +30,10 @@ const schema = z.object({
   patient_name: z.string().min(2, 'Name must be at least 2 characters'),
   phone: z.string().min(10, 'Enter a valid phone number').regex(/^[\d\s\-+]{10,}$/, 'Enter a valid phone number'),
   email: z.union([z.string().email('Enter a valid email address'), z.literal('')]),
-  appointment_date: z.date({ required_error: 'Please select a date' }),
+  appointment_date: z.date({
+    error: (issue) =>
+      issue.input === undefined ? 'Please select a date' : 'Invalid date',
+  }),
   appointment_time: z.string().min(1, 'Please select a time slot'),
   message: z.string().optional(),
 });
