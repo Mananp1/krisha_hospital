@@ -198,6 +198,31 @@ export default function Footer() {
                   )}
                 </div>
               ))}
+
+              {/* Mini map */}
+              <a
+                href="https://maps.app.goo.gl/yyAN6pwSQYNny7v18"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mt-1 rounded-[10px] overflow-hidden ring-1 ring-white/10 hover:ring-secondary/60 transition-all"
+                aria-label="Open Krisha Women's Hospital on Google Maps"
+              >
+                <iframe
+                  src="https://maps.google.com/maps?q=22.9644206,72.5916213&z=15&output=embed"
+                  width="100%"
+                  height="130"
+                  style={{ border: 0, display: 'block', pointerEvents: 'none' }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Krisha Women's Hospital map"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                />
+                <div className="bg-white/5 px-3 py-2 flex items-center justify-between">
+                  <span className="text-[11.5px] text-white/50">Narol, Ahmedabad</span>
+                  <span className="text-[11px] font-semibold text-secondary">Get directions →</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>

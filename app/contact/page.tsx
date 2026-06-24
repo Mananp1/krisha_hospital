@@ -136,6 +136,37 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Map ── */}
+      <section className="w-full bg-surface pb-14 lg:pb-20">
+        <div className="max-w-360 mx-auto px-5 lg:px-25">
+          <div className="rounded-[18px] overflow-hidden border border-border-muted shadow-sm">
+            <iframe
+              src="https://maps.google.com/maps?q=22.9644206,72.5916213&z=16&output=embed"
+              width="100%"
+              height="420"
+              style={{ border: 0, display: 'block' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Krisha Women's Hospital location — Narol, Ahmedabad"
+            />
+          </div>
+          <div className="flex items-center justify-between mt-3 flex-wrap gap-2">
+            <p className="text-[13px] text-text-muted">
+              231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road, Narol, Ahmedabad — 382405
+            </p>
+            <a
+              href="https://maps.app.goo.gl/yyAN6pwSQYNny7v18"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] font-semibold text-primary hover:underline underline-offset-2 shrink-0"
+            >
+              Open in Google Maps →
+            </a>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -13,7 +13,6 @@ import FAQ from '@/app/sections/FAQ';
 // import Blog from '@/app/sections/Blog';
 import CTAStrip from '@/app/sections/CTAStrip';
 import Footer from '@/app/sections/Footer';
-import WhatsAppFAB from '@/app/sections/WhatsAppFAB';
 
 export default function Home() {
   return (
@@ -29,8 +28,7 @@ export default function Home() {
       <FAQ />
       <CTAStrip />
       <Footer />
-      <WhatsAppFAB />
-      {/*
+{/*
       <AppointmentForm />
       <WhyChooseUs />
       <HealthPackages />

@@ -152,7 +152,7 @@ export default function DoctorProfile() {
         </FadeIn>
 
         {/* Right — Info */}
-        <FadeIn delay={0.15} className="flex-1 lg:max-w-[540px]">
+        <FadeIn delay={0.15} className="flex-1 min-w-0">
           <SectionHeader
             eyebrow="MEET YOUR SPECIALIST"
             title="Dr. Alhad Pande"
