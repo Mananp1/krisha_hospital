@@ -75,7 +75,7 @@ const metaItems = [
     ),
     bold: 'Qualifications',
     regular:
-      'MBBS (GMC Baroda) · DGO (Stanley Medical, Chennai) · MD (GMC Raipur)',
+      'MBBS (GMC Vadodara) · DGO (Stanley Medical college , Chennai) · MD (GMC Rajkot)',
   },
   {
     icon: (
@@ -95,7 +95,7 @@ const metaItems = [
     ),
     bold: 'Fellowships',
     regular:
-      "ART – Wings IVF, Ahmedabad · Advanced Laparoscopy – Era Women's Hospital",
+      "ART – Wings IVF, Ahmedabad · Advanced Laparoscopy – Eva Women's Hospital Ahmedabad",
   },
 ];
 

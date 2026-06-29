@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 import './globals.css';
 import { cn } from "@/lib/utils";
 import WhatsAppFABWrapper from '@/app/sections/WhatsAppFABWrapper';
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-plus-jakarta-sans',
+  variable: '--font-manrope',
 });
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", plusJakartaSans.variable)}>
+    <html lang="en" className={cn("font-sans", manrope.variable)}>
       <body
         className="min-h-full flex flex-col antialiased"
         suppressHydrationWarning

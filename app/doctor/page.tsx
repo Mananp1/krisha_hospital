@@ -20,7 +20,7 @@ function SectionAccent() {
 const qualifications = [
   {
     degree: 'MBBS',
-    institute: 'Government Medical College, Baroda',
+    institute: 'Government Medical College, Vadodara',
     detail: 'Foundation in clinical medicine and surgery',
   },
   {
@@ -31,7 +31,7 @@ const qualifications = [
   },
   {
     degree: 'MD — Obstetrics & Gynaecology',
-    institute: 'Government Medical College, Raipur',
+    institute: 'Government Medical College, Rajkot',
     detail:
       'Advanced postgraduate degree in obstetrics, high-risk pregnancy, and gynaecological disorders',
   },
@@ -43,7 +43,7 @@ const qualifications = [
   },
   {
     degree: 'Fellowship in Advanced Laparoscopy',
-    institute: "Era Women's Hospital",
+    institute: "Eva Women's Hospital, Ahmedabad",
     detail:
       'Minimally invasive surgical techniques for complex gynaecological conditions',
   },
@@ -325,12 +325,12 @@ export default function DoctorPage() {
                 </p>
                 <p className="text-[15px] text-text-muted leading-7">
                   His postgraduate training spans three leading government medical
-                  colleges — GMC Baroda, Stanley Medical College (Chennai), and GMC
-                  Raipur — giving him a broad clinical foundation across diverse
+                  colleges — GMC Vadodara, Stanley Medical College (Chennai), and GMC
+                  Rajkot — giving him a broad clinical foundation across diverse
                   patient populations and hospital environments. He later pursued
                   advanced fellowships in Assisted Reproductive Technology at Wings
-                  IVF, Ahmedabad, and in Advanced Laparoscopic Surgery at Era
-                  Women&apos;s Hospital, equipping him with the latest minimally
+                  IVF, Ahmedabad, and in Advanced Laparoscopic Surgery at Eva
+                  Women&apos;s Hospital, Ahmedabad, equipping him with the latest minimally
                   invasive techniques that reduce recovery time and surgical risk
                   for patients.
                 </p>

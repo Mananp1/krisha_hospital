@@ -191,22 +191,22 @@ export default function Services() {
               delay={i < 3 ? i * 0.08 : 0}
               className={i === LAST ? 'lg:col-start-2' : undefined}
             >
-              <div className="group flex flex-col p-7 rounded-[18px] bg-surface border border-border-muted transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(76,41,150,0.08)] hover:border-primary/20 h-full">
-                <div className="w-[54px] h-[54px] bg-primary-50 text-primary rounded-[14px] flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-primary-100">
+              <div className="group flex flex-col p-7 rounded-[18px] bg-primary border border-white/10 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(76,41,150,0.55)] h-full">
+                <div className="w-[54px] h-[54px] bg-white/15 text-white rounded-[14px] flex items-center justify-center shrink-0 transition-colors group-hover:bg-white/25">
                   {s.icon}
                 </div>
 
-                <h3 className="mt-4 font-bold text-[17px] text-text-base leading-snug">
+                <h3 className="mt-4 font-bold text-[17px] text-white leading-snug">
                   {s.title}
                 </h3>
 
-                <p className="mt-2 text-[14px] text-text-muted leading-5.5 grow">
+                <p className="mt-2 text-[14px] text-white/70 leading-5.5 grow">
                   {s.desc}
                 </p>
 
                 <Link
                   href={`/services/${s.slug}`}
-                  className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary no-underline hover:underline underline-offset-2 decoration-primary/40 transition-all"
+                  className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-white/80 no-underline group-hover:text-white transition-colors"
                 >
                   Learn more
                   <ArrowRightIcon size={13} strokeWidth={2.5} className="transition-transform group-hover:translate-x-0.5" />
