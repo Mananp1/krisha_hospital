@@ -5,18 +5,19 @@ import FadeIn from './FadeIn';
 const images = [
   {
     src: '/hospital1.jpg',
-    alt: "Reception area at Krisha Women's Hospital",
-    caption: 'Reception & Patient Lounge',
+    alt: "Reception and patient waiting lounge at Krisha Women's Hospital",
+    caption: 'Reception & Waiting Lounge',
   },
   {
     src: '/hospital2.jpg',
-    alt: "Operation theatre at Krisha Women's Hospital",
-    caption: 'Advanced Operation Theatre',
+    alt: "Ultrasound and sonography room at Krisha Women's Hospital",
+    caption: 'Ultrasound & Sonography Room',
   },
   {
     src: '/hospital3.jpg',
-    alt: "Patient ward at Krisha Women's Hospital",
-    caption: 'Comfortable Patient Wards',
+    alt: "Labour and delivery room at Krisha Women's Hospital",
+    caption: 'Labour & Delivery Room',
+    position: 'left' as const,
   },
 ];
 
@@ -39,8 +40,11 @@ export default function HospitalGallery() {
                   alt={img.alt}
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"
+                  style={{ objectPosition: img.position ?? 'center' }}
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
+                {/* Subtle black gradient — always visible for depth */}
+                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
                 {/* Brand-tinted overlay — reveals on hover */}
                 <div className="absolute inset-0 bg-linear-to-t from-primary/60 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {/* Caption — slides up on hover */}
