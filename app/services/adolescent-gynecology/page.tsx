@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Adolescent Gynecology Care in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Specialized adolescent gynecology led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Compassionate care for menstrual health, PCOS, hormonal concerns, and pubertal development.",
+  alternates: { canonical: '/services/adolescent-gynecology' },
 };
 
 const data: ServicePageData = {

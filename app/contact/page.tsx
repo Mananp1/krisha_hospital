@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Contact Us | Krisha Women's Hospital, Narol, Ahmedabad",
   description:
     "Get in touch with Krisha Women's Hospital in Narol, Ahmedabad. Book an appointment with Dr. Alhad Pande — call +91 78629 50676 or write to us online.",
+  alternates: { canonical: '/contact' },
 };
 
 function ChevronIcon() {

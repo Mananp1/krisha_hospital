@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "High-Risk Pregnancy Management in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert high-risk pregnancy care led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Advanced maternal-fetal monitoring, 24x7 emergency support, and personalized care plans.",
+  alternates: { canonical: '/services/high-risk-pregnancy' },
 };
 
 const data: ServicePageData = {

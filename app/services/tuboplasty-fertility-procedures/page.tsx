@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Tuboplasty & Fertility Procedures in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert tuboplasty and fallopian tube repair led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Minimally invasive surgery for tubal-factor infertility and sterilization reversal.",
+  alternates: { canonical: '/services/tuboplasty-fertility-procedures' },
 };
 
 const data: ServicePageData = {

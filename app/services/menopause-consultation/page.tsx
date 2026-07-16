@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Menopause Consultation & Treatment in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert menopause consultation and treatment led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Personalized care for hot flashes, bone health, hormonal balance, and long-term wellness.",
+  alternates: { canonical: '/services/menopause-consultation' },
 };
 
 const data: ServicePageData = {

@@ -5,6 +5,7 @@ import AppointmentForm from '@/app/sections/AppointmentForm';
 export const metadata: Metadata = {
   title: 'Book Appointment | Krisha Women\'s Hospital',
   description: 'Schedule an appointment with Dr. Alhad Pande at Krisha Women\'s Hospital. Specialising in obstetrics, gynaecology, infertility, and IVF.',
+  alternates: { canonical: '/book-appointment' },
 };
 
 const contactDetails = [

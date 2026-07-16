@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Antenatal & Gynecological Sonography in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Advanced ultrasound imaging led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Antenatal scans, anomaly detection, pelvic sonography, and ovulation tracking.",
+  alternates: { canonical: '/services/antenatal-gynecological-sonography' },
 };
 
 const data: ServicePageData = {

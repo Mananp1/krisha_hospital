@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Infertility Treatment (IUI/IVF) in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert IUI and IVF fertility treatment led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Personalized fertility protocols, advanced diagnostics, and compassionate care.",
+  alternates: { canonical: '/services/infertility-treatment' },
 };
 
 const data: ServicePageData = {

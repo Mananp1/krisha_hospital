@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Cervical Cerclage Services in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert cervical cerclage led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Specialized cervical stitch procedure to prevent premature birth and late-term miscarriage.",
+  alternates: { canonical: '/services/cervical-cerclage' },
 };
 
 const data: ServicePageData = {

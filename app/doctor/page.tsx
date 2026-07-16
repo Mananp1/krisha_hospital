@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     "Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist | Krisha Women's Hospital",
   description:
     "Meet Dr. Alhad Pande, MBBS MD DGO — Obstetrician, Gynecologist and Fertility Specialist at Krisha Women's Hospital, Narol, Ahmedabad with 20+ years of expertise in high-risk pregnancy, IVF, and laparoscopic surgery.",
+  alternates: { canonical: '/doctor' },
 };
 
 function SectionAccent() {

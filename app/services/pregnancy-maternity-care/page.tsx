@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Pregnancy & Maternity Care in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert maternity care led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Comprehensive prenatal check-ups, safe delivery & postpartum support.",
+  alternates: { canonical: '/services/pregnancy-maternity-care' },
 };
 
 const data: ServicePageData = {

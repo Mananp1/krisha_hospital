@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Cervical Cancer Screening & HPV Vaccination in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert cervical cancer screening and HPV vaccination led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Pap smears, HPV DNA testing, and preventive immunization for lifelong protection.",
+  alternates: { canonical: '/services/cervical-cancer-screening' },
 };
 
 const data: ServicePageData = {

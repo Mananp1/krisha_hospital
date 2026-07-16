@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Painless Vaginal Delivery in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert painless vaginal delivery led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Epidural analgesia for a safe, comfortable, and fully conscious childbirth experience.",
+  alternates: { canonical: '/services/painless-vaginal-delivery' },
 };
 
 const data: ServicePageData = {

@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Laparoscopic & Hysteroscopic Surgery in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Advanced minimally invasive gynecological surgery led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Laparoscopy and hysteroscopy for fibroids, cysts, endometriosis, and more.",
+  alternates: { canonical: '/services/laparoscopic-hysteroscopic-surgery' },
 };
 
 const data: ServicePageData = {

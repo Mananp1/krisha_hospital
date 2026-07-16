@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Family Planning & Contraceptive Counseling in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert family planning and contraceptive counseling led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Personalized birth control guidance, IUD insertion, and reproductive health planning.",
+  alternates: { canonical: '/services/family-planning-contraceptive-counseling' },
 };
 
 const data: ServicePageData = {

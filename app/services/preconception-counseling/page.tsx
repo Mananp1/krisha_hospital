@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Preconception Counseling in Narol, Ahmedabad | Krisha Women's Hospital",
   description:
     "Expert preconception counseling led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Health optimization, risk screening, nutritional guidance, and personalized care before pregnancy.",
+  alternates: { canonical: '/services/preconception-counseling' },
 };
 
 const data: ServicePageData = {
