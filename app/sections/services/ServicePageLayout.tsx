@@ -45,7 +45,6 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
 
           {/* Eyebrow badge */}
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary bg-secondary/10 mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
             Krisha Women&apos;s Hospital · Narol, Ahmedabad
           </span>
 

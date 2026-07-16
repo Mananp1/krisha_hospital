@@ -236,7 +236,6 @@ export default function DoctorPage() {
             {/* Info */}
             <div className="flex-1">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary bg-secondary/10 mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
                 FOGSI Member · Krisha Women&apos;s Hospital
               </span>
 

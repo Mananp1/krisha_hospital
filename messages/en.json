@@ -1,0 +1,870 @@
+{
+  "meta": {
+    "title": "Krisha Women's Hospital — Gynaecology, Maternity & IVF Centre, Narol Ahmedabad",
+    "description": "Expert women's healthcare in Ahmedabad — gynaecology, safe maternity, IVF & infertility, high-risk pregnancy, laparoscopy and PCOS clinic led by Dr. Alhad Pande at Narol.",
+    "ogTitle": "Krisha Women's Hospital",
+    "ogDescription": "Expert women's healthcare in Ahmedabad"
+  },
+  "langSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "hi": "हिन्दी",
+    "gu": "ગુજરાતી"
+  },
+  "topBar": {
+    "hours": "Mon–Sat 8AM–8PM",
+    "promo": "Free PCOS Camp — 8 March"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "doctor": "Doctor",
+    "contact": "Contact",
+    "callNow": "Call Now",
+    "bookAppointment": "Book Appointment",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "titleLine1": "Supporting every stage of",
+    "titleLine2": "a woman's health journey",
+    "lead": "Specialist care across gynaecology, safe motherhood, high-risk pregnancy management, fertility treatment, and women's wellness — delivered with clinical excellence and compassion at every stage of your life.",
+    "bookAppointment": "Book Appointment",
+    "exploreServices": "Explore Services",
+    "pillNabh": "NABH Accredited",
+    "pillIso": "ISO 9001:2015",
+    "pillNabl": "NABL Lab",
+    "happyMothers": "Happy mothers",
+    "emergency": "24×7 Emergency"
+  },
+  "statsBar": {
+    "happyPatients": "Happy Patients",
+    "normalDeliveries": "Normal Deliveries",
+    "ivfBabies": "IVF / ICSI Babies",
+    "ivfSuccessRate": "IVF Success Rate",
+    "yearsExcellence": "Of Excellence"
+  },
+  "servicesSection": {
+    "eyebrow": "WHAT WE OFFER",
+    "title": "Specialised women's healthcare services",
+    "subtitle": "Comprehensive care under one roof — from routine consultations to the most advanced fertility and surgical treatments.",
+    "learnMore": "Learn more",
+    "cards": {
+      "pregnancy-maternity-care": {
+        "title": "Pregnancy & Maternity Care",
+        "desc": "Comprehensive care throughout pregnancy, delivery, and postpartum to ensure the health of both mother and baby."
+      },
+      "high-risk-pregnancy": {
+        "title": "High-Risk Pregnancy Management",
+        "desc": "Expert monitoring and treatment for pregnancies with medical complications or increased risk factors."
+      },
+      "antenatal-gynecological-sonography": {
+        "title": "Antenatal & Gynecological Sonography",
+        "desc": "Advanced ultrasound services including NT/NB scans, anomaly scans, and routine pregnancy imaging for accurate diagnosis and monitoring."
+      },
+      "infertility-treatment": {
+        "title": "Infertility Treatment (IUI/IVF)",
+        "desc": "Personalized fertility evaluation and assisted reproductive treatments to help couples achieve parenthood."
+      },
+      "laparoscopic-hysteroscopic-surgery": {
+        "title": "Advanced Laparoscopic & Hysteroscopic Surgery",
+        "desc": "Minimally invasive procedures for fibroids, ovarian cysts, uterine abnormalities, and other gynecological conditions with faster recovery."
+      },
+      "menopause-consultation": {
+        "title": "Menopause Consultation & Treatment",
+        "desc": "Compassionate care and effective treatment for hormonal changes, hot flashes, osteoporosis prevention, and other menopausal concerns."
+      },
+      "adolescent-gynecology": {
+        "title": "Adolescent Gynecology",
+        "desc": "Specialized healthcare for teenage girls, addressing menstrual disorders, hormonal issues, and reproductive health concerns."
+      },
+      "preconception-counseling": {
+        "title": "Preconception Counseling",
+        "desc": "Medical guidance and health optimization for couples planning a safe and healthy pregnancy."
+      },
+      "painless-vaginal-delivery": {
+        "title": "Painless Vaginal Delivery",
+        "desc": "Modern labor management with pain relief options to provide a safer and more comfortable childbirth experience."
+      },
+      "tuboplasty-fertility-procedures": {
+        "title": "Tuboplasty & Fertility Procedures",
+        "desc": "Surgical correction of blocked or damaged fallopian tubes to improve natural fertility where appropriate."
+      },
+      "cervical-cerclage": {
+        "title": "Cervical Cerclage",
+        "desc": "A preventive procedure to strengthen the cervix and reduce the risk of premature birth in selected pregnancies."
+      },
+      "cervical-cancer-screening": {
+        "title": "Cervical Cancer Screening & HPV Vaccination",
+        "desc": "Early detection through screening and preventive vaccination to reduce the risk of cervical cancer."
+      },
+      "family-planning-contraceptive-counseling": {
+        "title": "Family Planning & Contraceptive Counseling",
+        "desc": "Personalized advice on birth control methods, spacing pregnancies, and reproductive health planning."
+      }
+    }
+  },
+  "doctorProfile": {
+    "eyebrow": "MEET YOUR SPECIALIST",
+    "name": "Dr. Alhad Pande",
+    "role": "Consultant Obstetrician, Gynecologist & Fertility Specialist",
+    "qualBadge": "MBBS · MD · DGO",
+    "bio": "Dr. Alhad Pande is an experienced Obstetrician and Gynecologist with specialized training in infertility management, ultrasonography, and advanced laparoscopic surgery. With qualifications from reputed medical institutions and fellowships in assisted reproductive techniques and minimally invasive gynecology, Dr. Pande is committed to providing compassionate, evidence-based care for women at every stage of life.",
+    "tags": [
+      "High-Risk Pregnancy",
+      "Normal & Painless Delivery",
+      "Cesarean Section",
+      "IVF & Infertility",
+      "Pregnancy Ultrasound",
+      "Laparoscopic Surgery",
+      "Menopause Management",
+      "Adolescent Gynecology",
+      "Family Planning"
+    ],
+    "metaOpdHours": "OPD Hours",
+    "metaOpdHoursValue": "Mon – Sat: 8:00 AM – 8:00 PM",
+    "metaHospital": "Hospital",
+    "metaHospitalValue": "Krisha Women's Hospital, Narol, Ahmedabad",
+    "metaQualifications": "Qualifications",
+    "metaQualificationsValue": "MBBS (GMC Vadodara) · DGO (Stanley Medical college , Chennai) · MD (GMC Rajkot)",
+    "metaFellowships": "Fellowships",
+    "metaFellowshipsValue": "ART – Wings IVF, Ahmedabad · Advanced Laparoscopy – Eva Women's Hospital Ahmedabad",
+    "bookAppointment": "Book Appointment",
+    "callNow": "Call Now",
+    "viewFullProfile": "View Full Profile",
+    "availableForConsultation": "Available for Consultation",
+    "yearsOfCare": "Years of care",
+    "gujaratiNote": "ગુજરાતીમાં સેવા ઉપલબ્ધ છે"
+  },
+  "hospitalGallery": {
+    "eyebrow": "OUR FACILITY",
+    "title": "A glimpse of our hospital",
+    "subtitle": "Purpose-built spaces designed for comfort, safety, and advanced care — all under one roof.",
+    "images": {
+      "reception": {
+        "alt": "Reception and patient waiting lounge at Krisha Women's Hospital",
+        "caption": "Reception & Waiting Lounge"
+      },
+      "sonography": {
+        "alt": "Ultrasound and sonography room at Krisha Women's Hospital",
+        "caption": "Ultrasound & Sonography Room"
+      },
+      "labour": {
+        "alt": "Labour and delivery room at Krisha Women's Hospital",
+        "caption": "Labour & Delivery Room"
+      }
+    }
+  },
+  "testimonials": {
+    "eyebrow": "PATIENT STORIES",
+    "title": "What our patients say",
+    "subtitle": "Real stories from women who trusted us with their most precious moments — their health, their pregnancies, their dreams of parenthood.",
+    "ratingSuffix": "on Google Reviews",
+    "shareStory": "Share Your Story",
+    "items": {
+      "sneha": {
+        "role": "Maternity Patient"
+      },
+      "mahima": {
+        "role": "VBAC Patient"
+      },
+      "anonymous": {
+        "role": "Maternity Patient"
+      }
+    }
+  },
+  "faq": {
+    "eyebrow": "PATIENT QUERIES",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about our services, consultations, pregnancy care, fertility treatments, and patient experience.",
+    "items": {
+      "item-1": {
+        "question": "Why do patients choose Krisha Women's Hospital?",
+        "answer": "We combine experienced clinical care with a patient-first approach, ensuring every woman receives personalized attention throughout her healthcare journey."
+      },
+      "item-2": {
+        "question": "Will I see the same doctor throughout my treatment?",
+        "answer": "Whenever possible, continuity of care is maintained so patients can build a long-term relationship with their doctor."
+      },
+      "item-3": {
+        "question": "Do you handle high-risk pregnancies?",
+        "answer": "Yes. We provide specialized monitoring and management for high-risk pregnancies, ensuring both mother and baby receive expert care."
+      },
+      "item-4": {
+        "question": "Is fertility treatment available under one roof?",
+        "answer": "Yes. Consultation, evaluation, counseling, fertility management, and related women's healthcare services are available in one place."
+      },
+      "item-5": {
+        "question": "How do you make patients feel comfortable during consultations?",
+        "answer": "We believe in clear communication, compassionate care, and involving patients in every treatment decision."
+      }
+    }
+  },
+  "ctaStrip": {
+    "title": "Your health journey begins with one call",
+    "subtitle": "Book an appointment today or speak with our care team — we're here for you 24×7.",
+    "bookAppointment": "Book Appointment"
+  },
+  "footer": {
+    "about": "Dedicated women's hospital led by Dr. Alhad Pande — providing compassionate, expert care in gynaecology, obstetrics, infertility and laparoscopic surgery at Narol, Ahmedabad.",
+    "quickLinksHeading": "Quick Links",
+    "quickLinks": {
+      "findDoctor": "Find a Doctor",
+      "bookAppointment": "Book Appointment",
+      "ourServices": "Our Services",
+      "contactUs": "Contact Us"
+    },
+    "servicesHeading": "Our Services",
+    "contactHeading": "Get in Touch",
+    "hoursLine": "Mon–Sat 8AM–8PM · Emergency 24×7",
+    "mapLabel": "Narol, Ahmedabad",
+    "getDirections": "Get directions →",
+    "copyright": "© 2026 Krisha Women's Hospital, Narol, Ahmedabad. All Rights Reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use"
+  },
+  "whatsAppFab": {
+    "ariaLabel": "Chat with us on WhatsApp"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for doesn't exist or may have been moved. Head back to the homepage or explore our services.",
+    "backHome": "Back to Home",
+    "viewServices": "View Services"
+  },
+  "servicePageLayout": {
+    "home": "Home",
+    "services": "Services",
+    "hospitalBadge": "Krisha Women's Hospital · Narol, Ahmedabad",
+    "bookAppointment": "Book Appointment",
+    "serviceOverview": "Service Overview",
+    "keyBenefits": "Key Benefits",
+    "ourApproach": "Our Approach at Krisha Women's Hospital"
+  },
+  "contactPage": {
+    "breadcrumb": "Contact Us",
+    "hospitalBadge": "Krisha Women's Hospital · Narol, Ahmedabad",
+    "title": "We're here for you — reach out anytime",
+    "subtitle": "Whether you want to book an appointment, ask about a service, or simply need to speak with our care team — we're always a call or message away.",
+    "formHeading": "Send us a message",
+    "formSubtext": "Fill in the form and we will get back to you shortly. Fields marked * are required.",
+    "detailsHeading": "Contact details",
+    "callUs": "Call Us",
+    "callSub": "Emergency care available 24×7",
+    "emailUs": "Email Us",
+    "emailSub": "We reply within 24 hours",
+    "visitUs": "Visit Us",
+    "visitPrimary": "Narol, Ahmedabad — 382405",
+    "visitSub": "231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road",
+    "opdHours": "OPD Hours",
+    "opdPrimary": "Mon – Sat: 8:00 AM – 8:00 PM",
+    "opdSub": "Closed on Sundays · Emergency 24×7",
+    "addressLine": "231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road, Narol, Ahmedabad — 382405",
+    "openInMaps": "Open in Google Maps →"
+  },
+  "contactForm": {
+    "fullName": "Full Name",
+    "namePlaceholder": "e.g. Priya Shah",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+91 98765 43210",
+    "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "message": "How can we help?",
+    "messagePlaceholder": "Describe your concern or what you'd like to book an appointment for...",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "successTitle": "Message Sent!",
+    "successBody": "Thank you for reaching out. Our team will get back to you within 24 hours.",
+    "sendAnother": "Send another message",
+    "footNote": "We typically respond within 24 hours. For urgent concerns, please call",
+    "genericError": "Something went wrong. Please try again or call us directly.",
+    "errors": {
+      "nameMin": "Name must be at least 2 characters",
+      "phoneInvalid": "Enter a valid phone number",
+      "emailInvalid": "Enter a valid email address",
+      "messageMin": "Message must be at least 10 characters"
+    }
+  },
+  "bookAppointmentPage": {
+    "breadcrumb": "Book Appointment",
+    "eyebrow": "Schedule a Visit",
+    "title": "Book Your Appointment",
+    "subtitle": "Fill in the details below and our team will confirm your appointment slot within 24 hours.",
+    "contactInfoHeading": "Contact Information",
+    "callUs": "Call Us",
+    "callNote": "24×7 Emergency Available",
+    "emailUs": "Email Us",
+    "emailNote": "Response within 24 hours",
+    "visitUs": "Visit Us",
+    "visitValue": "Nr. Akshar Chowk, Narol, Ahmedabad — 382405",
+    "visitNote": "Gujarat, India",
+    "opdHours": "OPD Hours",
+    "opdValue": "Mon – Sat: 9:00 AM – 7:30 PM",
+    "opdNote": "Sunday: Closed"
+  },
+  "appointmentForm": {
+    "fullName": "Full Name",
+    "namePlaceholder": "e.g. Priya Shah",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+91 98765 43210",
+    "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "preferredDate": "Preferred Date",
+    "preferredTime": "Preferred Time",
+    "checkingAvailability": "Checking availability…",
+    "selectDatePrompt": "Select a date to see available time slots.",
+    "full": "Full",
+    "past": "Past",
+    "opdHoursNote": "OPD hours: Mon–Sat, 9:00 AM – 7:30 PM. Sundays unavailable.",
+    "symptoms": "Symptoms / Reason for Visit (Optional)",
+    "symptomsPlaceholder": "Briefly describe your concern, symptoms, or reason for booking.",
+    "submit": "Request Appointment",
+    "submitting": "Submitting…",
+    "successTitle": "Appointment Requested!",
+    "successBody": "Your appointment request has been received. Our team will confirm your slot within 24 hours.",
+    "bookAnother": "Book another appointment",
+    "footNote": "Our team will confirm your appointment within 24 hours. For urgent care, call",
+    "genericError": "Something went wrong. Please try again or call us directly.",
+    "errors": {
+      "nameMin": "Name must be at least 2 characters",
+      "phoneInvalid": "Enter a valid phone number",
+      "emailInvalid": "Enter a valid email address",
+      "dateRequired": "Please select a date",
+      "dateInvalid": "Invalid date",
+      "timeRequired": "Please select a time slot",
+      "timePast": "Please select a future time slot"
+    }
+  },
+  "doctorPage": {
+    "breadcrumb": "Dr. Alhad Pande",
+    "badge": "FOGSI Member · Krisha Women's Hospital",
+    "name": "Dr. Alhad Pande",
+    "role": "Consultant Obstetrician, Gynecologist & Fertility Specialist",
+    "fellowshipBadge": "Fellowship in ART & Laparoscopy",
+    "heroBio": "Dr. Alhad Pande is a highly experienced Obstetrician and Gynecologist with over two decades of clinical practice. Trained at top medical institutions across India and holding fellowships in Assisted Reproductive Techniques and Advanced Laparoscopic Surgery, he brings a rare blend of surgical expertise and empathetic patient care to every woman he treats — from adolescent health to high-risk pregnancy and fertility management.",
+    "bookAppointment": "Book Appointment",
+    "availableForConsultation": "Available for Consultation",
+    "yearsOfCare": "Years of care",
+    "aboutHeading": "About Dr. Alhad Pande",
+    "aboutP1": "Dr. Alhad Pande founded Krisha Women's Hospital with a single, clear vision: to bring world-class women's healthcare to Narol, Ahmedabad — accessible, compassionate, and free from unnecessary intervention. Over the course of a 20+ year career, he has guided thousands of women through some of the most significant moments of their lives — safe deliveries, fertility breakthroughs, complex surgeries, and healthy recoveries.",
+    "aboutP2": "His postgraduate training spans three leading government medical colleges — GMC Vadodara, Stanley Medical College (Chennai), and GMC Rajkot — giving him a broad clinical foundation across diverse patient populations and hospital environments. He later pursued advanced fellowships in Assisted Reproductive Technology at Wings IVF, Ahmedabad, and in Advanced Laparoscopic Surgery at Eva Women's Hospital, Ahmedabad, equipping him with the latest minimally invasive techniques that reduce recovery time and surgical risk for patients.",
+    "aboutP3": "A proud FOGSI (Federation of Obstetric and Gynaecological Societies of India) member, Dr. Pande remains committed to evidence-based medicine and continuous professional development. He is equally known for his patience in consultation, his plain-language explanations, and his willingness to spend time with every patient — ensuring that no woman leaves his clinic without feeling heard, informed, and confident in her care plan.",
+    "careerGlance": "Career at a Glance",
+    "highlights": {
+      "years": "Years of Practice",
+      "deliveries": "Deliveries Conducted",
+      "surgeries": "Surgical Procedures",
+      "fertility": "Fertility Treatments"
+    },
+    "educationHeading": "Education & Training",
+    "qualifications": [
+      {
+        "degree": "MBBS",
+        "institute": "Government Medical College, Vadodara",
+        "detail": "Foundation in clinical medicine and surgery"
+      },
+      {
+        "degree": "DGO",
+        "institute": "Stanley Medical College, Chennai",
+        "detail": "Diploma in Gynaecology & Obstetrics — specialty training in women's health"
+      },
+      {
+        "degree": "MD — Obstetrics & Gynaecology",
+        "institute": "Government Medical College, Rajkot",
+        "detail": "Advanced postgraduate degree in obstetrics, high-risk pregnancy, and gynaecological disorders"
+      },
+      {
+        "degree": "Fellowship in ART",
+        "institute": "Wings IVF, Ahmedabad",
+        "detail": "Hands-on training in IUI, IVF, and ICSI protocols under senior reproductive medicine specialists"
+      },
+      {
+        "degree": "Fellowship in Advanced Laparoscopy",
+        "institute": "Eva Women's Hospital, Ahmedabad",
+        "detail": "Minimally invasive surgical techniques for complex gynaecological conditions"
+      }
+    ],
+    "affiliationsHeading": "Professional Affiliations",
+    "affiliations": [
+      {
+        "short": "FOGSI",
+        "full": "Federation of Obstetric and Gynaecological Societies of India",
+        "desc": "Active member upholding evidence-based practice in women's health and obstetrics."
+      },
+      {
+        "short": "IMA",
+        "full": "Indian Medical Association",
+        "desc": "Registered practitioner maintaining national standards of medical ethics and care."
+      },
+      {
+        "short": "ISAR",
+        "full": "Indian Society for Assisted Reproduction",
+        "desc": "Engaged with the latest IVF research, guidelines, and fertility medicine advances."
+      }
+    ],
+    "expertiseHeading": "Areas of Expertise",
+    "expertise": [
+      {
+        "label": "High-Risk Pregnancy Management",
+        "description": "Expert supervision for pregnancies complicated by gestational diabetes, hypertension, twin or multiple pregnancies, placenta previa, and previous cesarean sections."
+      },
+      {
+        "label": "Normal & Painless Delivery",
+        "description": "Skilled advocate of physiological birth with access to modern pain-relief options including epidural analgesia for a safer, more comfortable labour experience."
+      },
+      {
+        "label": "IVF & Infertility Treatment",
+        "description": "Fellowship-trained in Assisted Reproductive Techniques (ART) — providing complete fertility workups, IUI, IVF, and ICSI with compassionate, personalised care."
+      },
+      {
+        "label": "Advanced Laparoscopic Surgery",
+        "description": "Minimally invasive procedures for fibroids, ovarian cysts, endometriosis, ectopic pregnancies, and uterine abnormalities with faster recovery and minimal scarring."
+      },
+      {
+        "label": "Hysteroscopic Procedures",
+        "description": "Diagnostic and operative hysteroscopy for uterine polyps, submucous fibroids, intrauterine adhesions (Asherman's syndrome), and uterine septa."
+      },
+      {
+        "label": "Antenatal Ultrasonography",
+        "description": "On-site obstetric and gynaecological ultrasound including NT/NB scan, anomaly scan, growth scan, and fetal Doppler for accurate monitoring throughout pregnancy."
+      },
+      {
+        "label": "Adolescent Gynecology",
+        "description": "Sensitive, specialised care for teenage girls navigating menstrual irregularities, PCOS, hormonal imbalances, and reproductive health concerns."
+      },
+      {
+        "label": "Menopause Management",
+        "description": "Holistic approach to perimenopause and menopause including hormone therapy counseling, bone health evaluation, and lifestyle-based symptom management."
+      },
+      {
+        "label": "Family Planning & Contraception",
+        "description": "Full spectrum of contraceptive counseling, IUD insertion, hormonal methods, and permanent family planning solutions — all in a confidential, judgment-free environment."
+      }
+    ],
+    "philosophyHeading": "Clinical Philosophy",
+    "philosophyP1": "Dr. Pande believes that every woman deserves to be an active, informed participant in her own healthcare. His approach to every consultation begins with listening — carefully understanding not just the medical complaint, but the patient's life circumstances, concerns, and personal goals. He explains every diagnosis and treatment option in clear, non-technical language, ensuring women can make truly informed decisions.",
+    "philosophyP2": "He is a strong proponent of minimal intervention where clinically appropriate — favouring physiological births, conservative surgical approaches, and lifestyle-first management for hormonal conditions wherever possible. When intervention is necessary, he brings advanced surgical skill and precision to minimise risk and recovery time.",
+    "principles": [
+      {
+        "label": "Patient-First Approach",
+        "desc": "Every decision is made with the individual woman's physical and emotional well-being as the top priority."
+      },
+      {
+        "label": "Evidence-Based Practice",
+        "desc": "Treatment protocols grounded in the latest clinical research and FOGSI guidelines."
+      },
+      {
+        "label": "Minimal Intervention",
+        "desc": "Surgical and pharmaceutical intervention only when clearly necessary — never routine."
+      },
+      {
+        "label": "Continuity of Care",
+        "desc": "From the first OPD visit through delivery, surgery, or fertility treatment — one trusted doctor throughout."
+      }
+    ],
+    "consultationHeading": "Consultation Details",
+    "consultDetails": [
+      {
+        "label": "OPD Hours",
+        "value": "Monday – Saturday",
+        "sub": "8:00 AM – 8:00 PM"
+      },
+      {
+        "label": "Appointments",
+        "value": "+91 78629 50676",
+        "sub": "Emergency care 24×7"
+      },
+      {
+        "label": "Location",
+        "value": "Krisha Women's Hospital",
+        "sub": "231–235, A Block, 2nd Floor, Arbuda Trade Centre, Narol, Ahmedabad – 382405"
+      },
+      {
+        "label": "Languages",
+        "value": "Gujarati · Hindi · English",
+        "sub": "ગુજરાતીમાં સેવા ઉપલબ્ધ છે"
+      }
+    ]
+  },
+  "notFoundGlobal": {
+    "code": "404"
+  },
+  "privacyPolicy": {
+    "breadcrumb": "Privacy Policy",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: 16 July 2026. This policy explains what information Krisha Women's Hospital collects through this website, why we collect it, and how it is stored and protected.",
+    "s1Heading": "1. Introduction",
+    "s1Body": "Krisha Women's Hospital (\"we\", \"us\", \"our\") operates this website to provide information about our services and to let visitors request appointments or get in touch with our care team. This Privacy Policy describes our practices regarding the personal information you may share with us through the website, in line with the Digital Personal Data Protection Act, 2023 (DPDP Act) and applicable Indian law.",
+    "s2Heading": "2. Information We Collect",
+    "s2Intro": "We collect information you voluntarily provide when you:",
+    "s2Item1": "Submit the Contact Us form — your name, phone number, email address (optional), and message.",
+    "s2Item2": "Submit an Appointment Request — your name, phone number, email address (optional), preferred date and time, and any symptoms or reason for visit you choose to share.",
+    "s2Item3": "Contact us directly via phone, email, or WhatsApp.",
+    "s2Footer": "We do not use third-party analytics, advertising, or tracking cookies on this website.",
+    "s3Heading": "3. How We Use Your Information",
+    "s3Item1": "To respond to your inquiry or confirm your appointment request.",
+    "s3Item2": "To contact you by phone, email, or WhatsApp regarding your visit.",
+    "s3Item3": "To maintain records of appointments and inquiries for clinical and administrative purposes.",
+    "s3Footer": "We do not use your information for marketing communications, and we do not sell or rent your personal information to any third party.",
+    "s4Heading": "4. Where Your Information Is Stored",
+    "s4Body1": "Information submitted through our forms is stored using Supabase, a third-party database and authentication provider, which acts as our data processor. Access to appointment and inquiry records is restricted to authorized hospital staff through a password-protected admin panel.",
+    "s4Body2": "Our website also embeds a Google Maps view of our location and links to WhatsApp for messaging. These third-party services operate under their own privacy policies, and we encourage you to review them separately.",
+    "s5Heading": "5. Data Security",
+    "s5Body": "We take reasonable technical and organizational measures to protect your information, including restricted admin access and encrypted connections (HTTPS) between your browser and our servers. However, no method of electronic transmission or storage is completely secure, and we cannot guarantee absolute security.",
+    "s6Heading": "6. Health Information",
+    "s6Body": "Any symptoms or medical details you choose to share with us through the appointment form or in person are treated as sensitive personal information. This information is used solely for the purpose of providing you medical care and is accessible only to authorized clinical and administrative staff.",
+    "s7Heading": "7. Children & Minors",
+    "s7Body": "Some of our services (such as adolescent gynecology) may involve minors. Where a patient is a minor, we expect appointment requests and related information to be submitted by, or with the consent of, a parent or legal guardian.",
+    "s8Heading": "8. Your Rights",
+    "s8Body": "You may request access to, correction of, or deletion of your personal information held by us, subject to our legal and clinical record-keeping obligations. To make a request, please contact us using the details below.",
+    "s9Heading": "9. Changes to This Policy",
+    "s9Body": "We may update this Privacy Policy from time to time. The \"Last updated\" date at the top of this page reflects the most recent revision. Continued use of the website after changes are posted constitutes acceptance of the updated policy.",
+    "s10Heading": "10. Contact Us",
+    "s10Body": "For questions about this Privacy Policy or to make a data request, contact us at {email} or call {phone}.",
+    "disclaimer": "This page is provided as a general privacy notice and does not constitute legal advice. We recommend having it reviewed by a qualified legal professional to confirm compliance with applicable healthcare and data protection regulations before relying on it."
+  },
+  "termsOfUse": {
+    "breadcrumb": "Terms of Use",
+    "title": "Terms of Use",
+    "lastUpdated": "Last updated: 16 July 2026. Please read these terms carefully before using the Krisha Women's Hospital website.",
+    "s1Heading": "1. Acceptance of Terms",
+    "s1Body": "By accessing or using this website, you agree to be bound by these Terms of Use. If you do not agree with any part of these terms, please do not use this website.",
+    "s2Heading": "2. Use of This Website",
+    "s2Body": "This website is provided to share information about Krisha Women's Hospital, our services, and our doctor, and to let visitors request appointments or contact us. You agree to use this website only for lawful purposes and not to submit false, misleading, or fraudulent information through our forms.",
+    "s3Heading": "3. Not a Substitute for Medical Advice",
+    "s3Body1": "The content on this website — including service descriptions and general health information — is provided for informational purposes only and does not constitute medical advice, diagnosis, or treatment. It is not a substitute for an in-person consultation with a qualified physician.",
+    "s3Emergency": "If you are experiencing a medical emergency, call your local emergency services or go to the nearest hospital immediately.",
+    "s3Body2": "For urgent concerns, you may also call us directly at {phone}.",
+    "s4Heading": "4. Appointment Requests",
+    "s4Body": "Submitting the appointment form or messaging us on WhatsApp is a request for an appointment, not a confirmed booking. Our team will contact you by phone, email, or WhatsApp to confirm your date and time. Actual availability is subject to confirmation by hospital staff.",
+    "s5Heading": "5. Third-Party Links and Services",
+    "s5Body": "This website links to or embeds third-party services, including Google Maps and WhatsApp. We are not responsible for the content, privacy practices, or availability of these third-party services, which are governed by their own terms and policies.",
+    "s6Heading": "6. Intellectual Property",
+    "s6Body": "All text, images, and other content on this website, unless otherwise noted, are the property of Krisha Women's Hospital and may not be reproduced, distributed, or used without our prior written consent.",
+    "s7Heading": "7. Limitation of Liability",
+    "s7Body": "To the fullest extent permitted by law, Krisha Women's Hospital shall not be liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this website, including reliance on any information contained on it.",
+    "s8Heading": "8. Governing Law",
+    "s8Body": "These Terms of Use are governed by the laws of India. Any disputes arising from these terms or your use of this website shall be subject to the exclusive jurisdiction of the courts in Ahmedabad, Gujarat.",
+    "s9Heading": "9. Changes to These Terms",
+    "s9Body": "We may update these Terms of Use from time to time. The \"Last updated\" date at the top of this page reflects the most recent revision. Continued use of the website after changes are posted constitutes acceptance of the updated terms.",
+    "s10Heading": "10. Contact Us",
+    "s10Body": "For questions about these Terms of Use, contact us at {email} or call {phone}.",
+    "disclaimer": "This page is provided as a general terms notice and does not constitute legal advice. We recommend having it reviewed by a qualified legal professional to confirm compliance with applicable regulations before relying on it."
+  },
+  "servicesData": {
+    "pregnancy-maternity-care": {
+      "metaTitle": "Pregnancy & Maternity Care in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert maternity care led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Comprehensive prenatal check-ups, safe delivery & postpartum support.",
+      "title": "Comprehensive Pregnancy & Maternity Care in Narol, Ahmedabad",
+      "shortTitle": "Pregnancy & Maternity Care",
+      "intro": "Welcoming a new life into the world is one of the most profound journeys a woman can experience. At Krisha Women's Hospital, we understand that this beautiful phase requires expert medical supervision blended with a deeply compassionate environment. Led by Dr. Alhad Pande, our dedicated maternity team in Narol, Ahmedabad, provides world-class pregnancy care tailored to your unique needs. From pre-conception counselling through every trimester of pregnancy, to safe delivery and postpartum support, we ensure you and your baby receive the highest standard of clinical excellence.",
+      "overview": [
+        "Pregnancy and maternity care encompasses comprehensive medical, emotional, and educational support provided to women from the planning stages of pregnancy through childbirth and the early postpartum weeks. At Krisha Women's Hospital, this service is designed for expectant mothers at any stage of their journey, whether navigating a smooth first-time pregnancy, managing a high-risk condition, or seeking expert guidance on postnatal recovery.",
+        "Routine and specialized maternity care is vital for ensuring the health and safety of both mother and baby. Regular prenatal check-ups allow for the early detection and management of potential complications such as gestational hypertension, diabetes, or fetal growth restrictions. By monitoring these critical factors closely, we minimize risks and pave the way for a safer delivery experience.",
+        "Beyond clinical checkups, holistic maternity care supports a woman's long-term well-being. Dr. Alhad Pande and our expert team focus on cultivating physical resilience and psychological comfort. We empower mothers with essential knowledge regarding nutrition, lifestyle adjustments, and mental health, ensuring you feel confident, informed, and genuinely cared for as you prepare to welcome your newborn."
+      ],
+      "benefits": [
+        { "label": "Expert Clinical Leadership", "description": "Personalized care pathways guided by the extensive expertise of Dr. Alhad Pande." },
+        { "label": "Advanced Prenatal Screening", "description": "State-of-the-art ultrasound and diagnostic monitoring to track your baby's development accurately." },
+        { "label": "High-Risk Pregnancy Management", "description": "Specialized protocols to safely manage pre-existing conditions or unexpected maternal complications." },
+        { "label": "24/7 Emergency Readiness", "description": "Round-the-clock medical availability for critical maternal or fetal care when you need it most." },
+        { "label": "Comprehensive Postpartum Support", "description": "Continuous guidance on maternal recovery, newborn wellness, and breastfeeding techniques." }
+      ],
+      "approach": [
+        "Our approach is rooted in patient-centered empathy, recognizing that no two pregnancy journeys are identical. Your care begins with a thorough initial evaluation, where Dr. Alhad Pande reviews your medical history, discusses your personal preferences, and establishes a healthy baseline. This meticulous assessment allows us to co-create a personalized prenatal roadmap that aligns with your medical requirements and personal comfort.",
+        "Throughout your pregnancy, our management approach prioritizes clinical safety and transparent communication. We conduct regular screenings and continuous fetal monitoring, dynamically adjusting care plans as your pregnancy progresses. Our decisions are always guided by evidence-based practices, ensuring maximum safety while keeping you and your family informed at every stage to alleviate any anxiety.",
+        "We deeply emphasize optimal long-term health outcomes by providing robust postnatal care. Our commitment to your well-being extends well past delivery, offering pelvic floor recovery guidance, emotional health screenings, and lifestyle counseling. By fostering a nurturing environment at our Narol facility, we ensure you step into motherhood with physical strength and confidence."
+      ]
+    },
+    "high-risk-pregnancy": {
+      "metaTitle": "High-Risk Pregnancy Management in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert high-risk pregnancy care led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Advanced maternal-fetal monitoring, 24x7 emergency support, and personalized care plans.",
+      "title": "High-Risk Pregnancy Management in Narol, Ahmedabad",
+      "shortTitle": "High-Risk Pregnancy Management",
+      "intro": "While every pregnancy is a unique journey, some require an extra layer of medical vigilance and specialized care. A high-risk pregnancy diagnosis can feel overwhelming, but it simply means you and your baby need closer monitoring to ensure a safe, healthy outcome. At Krisha Women's Hospital in Narol, Ahmedabad, we specialize in turning complex pregnancies into stories of hope and joy. Led by the expertise of Dr. Alhad Pande, our dedicated team provides advanced clinical supervision tailored to manage pre-existing conditions, multiple gestations, or unexpected complications that may arise. We combine cutting-edge maternal-fetal monitoring with a deeply compassionate, reassuring environment. Here, you are never alone; we walk beside you every step of the way, safeguarding your health and protecting your baby's future with precision, warmth, and 24x7 emergency support.",
+      "overview": [
+        "High-risk pregnancy management is a specialized branch of obstetrics dedicated to monitoring and treating expectant mothers who face increased medical risks. These risks may stem from pre-existing maternal health issues, conditions that develop during gestation, or factors related to the baby's development. At Krisha Women's Hospital, this service involves intensive prenatal surveillance, specialized diagnostic testing, and highly personalized care plans designed to mitigate potential complications before they become critical.",
+        "This specialized care is vital for women managing chronic conditions such as hypertension, pre-existing diabetes, thyroid disorders, or autoimmune diseases. It is equally crucial for mothers experiencing pregnancy-specific complications like gestational diabetes, preeclampsia, placental abnormalities, or carrying multiples (twins or triplets). Advanced maternal age or a history of recurrent miscarriages or premature births also benefit from this protective umbrella, ensuring risks are kept under tight control.",
+        "Beyond safeguarding physical health, high-risk pregnancy management significantly supports a woman's psychological well-being. Knowing that an expert like Dr. Alhad Pande is closely tracking every biometric marker alleviates the profound anxiety that often accompanies a complicated pregnancy. By providing timely education, nutritional counseling, and symptom management, this service transforms a stressful medical period into an empowered, highly supported journey toward motherhood."
+      ],
+      "benefits": [
+        { "label": "Expert Clinical Oversight", "description": "Direct, continuous care managed by Dr. Alhad Pande, a trusted specialist in advanced obstetrics." },
+        { "label": "Tailored Surveillance Protocols", "description": "Custom-designed monitoring schedules that match the exact medical needs of your specific high-risk condition." },
+        { "label": "Advanced Fetal Diagnostics", "description": "Access to sophisticated ultrasound imaging and fetal well-being assessments to track growth and detect anomalies early." },
+        { "label": "Proactive Complication Management", "description": "Timely clinical interventions to prevent conditions like preeclampsia or gestational diabetes from escalating." },
+        { "label": "24/7 Emergency Readiness", "description": "Complete peace of mind with round-the-clock emergency medical services available at our Narol facility." },
+        { "label": "Holistic Maternal Support", "description": "Integration of lifestyle advice, nutritional counseling, and emotional support to ensure comprehensive wellness." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to high-risk pregnancy is fundamentally patient-centered and rooted in open, transparent communication. We recognize that no two high-risk cases are identical. Your journey begins with an exhaustive diagnostic evaluation where Dr. Alhad Pande reviews your complete medical history, previous pregnancy outcomes, and current health status. Utilizing advanced diagnostic screenings, we map out a clear baseline to understand the exact nature of the risks involved.",
+        "Once a clear assessment is made, we craft a dynamic management plan that balances clinical safety with your personal physical comfort. Treatment may involve precise medication management, tailored lifestyle modifications, and scheduled specialized scans. We walk through every step of this treatment protocol with you and your family, ensuring you understand the clinical reasoning behind every recommendation, thereby replacing fear with clarity.",
+        "Our ultimate focus remains locked on securing excellent long-term health outcomes for both mother and child. We strictly adhere to international safety protocols, maintaining an environment prepared for any contingency. From your regular prenatal visits to the meticulously planned delivery in our state-of-the-art facility in Narol, Ahmedabad, we prioritize safety, comfort, and clinical excellence above all else to welcome your baby safely into the world."
+      ]
+    },
+    "antenatal-gynecological-sonography": {
+      "metaTitle": "Antenatal & Gynecological Sonography in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Advanced ultrasound imaging led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Antenatal scans, anomaly detection, pelvic sonography, and ovulation tracking.",
+      "title": "Advanced Antenatal & Gynecological Sonography in Narol, Ahmedabad",
+      "shortTitle": "Antenatal & Gynecological Sonography",
+      "intro": "Ultrasound imaging is an invaluable window into a woman's reproductive health and the development of a new life. At Krisha Women's Hospital in Narol, Ahmedabad, we offer state-of-the-art Antenatal and Gynecological Sonography services to provide you with absolute clarity and peace of mind. Led by the clinical expertise of Dr. Alhad Pande, our advanced imaging center utilizes modern diagnostic technology to deliver precise, real-time insights into your health. Whether you are expecting a baby and wish to monitor their growth milestones, or you require diagnostic clarity for pelvic conditions, our scans are performed to the highest medical standards. We blend technical precision with a gentle, compassionate touch, ensuring that your ultrasound experience is not only medically thorough but also deeply reassuring. Step into our facility with confidence, knowing your health is being monitored by a trusted specialist team.",
+      "overview": [
+        "Antenatal and gynecological sonography uses advanced ultrasound waves to evaluate the female reproductive system and track fetal development safely. Antenatal scans monitor a baby's growth, anatomy, and fluid levels during pregnancy, while gynecological scans evaluate the uterus, fallopian tubes, and ovaries for non-pregnancy conditions.",
+        "This service is vital for women at all stages of life. For expectant mothers, routine trimester screenings help detect anomalies, confirm gestational age, and monitor placental health. For non-pregnant women experiencing pelvic pain, abnormal bleeding, or fertility struggles, pelvic ultrasound acts as a primary diagnostic tool to identify structural irregularities.",
+        "Ultimately, sonography supports long-term well-being through early detection. By replacing uncertainty with clear visual evidence, Dr. Alhad Pande can formulate accurate management paths, reducing maternal anxiety and promoting proactive preventive care to ensure health issues are addressed before they progress."
+      ],
+      "benefits": [
+        { "label": "Safe and Non-Invasive", "description": "Uses harmless sound waves instead of radiation, ensuring complete safety for both mother and baby." },
+        { "label": "Early Anomaly Detection", "description": "Identifies potential fetal developmental concerns early, allowing for timely medical planning." },
+        { "label": "Accurate Gynecological Diagnosis", "description": "Pinpoints the root causes of pelvic pain or abnormal bleeding by identifying fibroids, cysts, or polyps." },
+        { "label": "Ovulation Tracking", "description": "Provides precise follicular monitoring to support couples navigating infertility evaluations." },
+        { "label": "Immediate Clinical Clarity", "description": "Features direct diagnostic interpretation by Dr. Alhad Pande to minimize waiting anxiety." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to sonography is thoroughly patient-centered, recognizing that diagnostic tests can cause anxiety. From the moment you enter, we prioritize your physical comfort and emotional ease. We explain the procedure beforehand, maintain complete privacy, and ensure you remain comfortable throughout the scan.",
+        "During the evaluation process, Dr. Alhad Pande correlates sonographic findings directly with your unique medical history. We do not view images in isolation; we analyze them contextually to catch subtle variations early, preventing minor health concerns from developing into complex issues.",
+        "Our management approach focuses strictly on safety and excellent long-term health outcomes. If a scan reveals an issue, we sit down with you to discuss the findings openly, answer your questions, and instantly draft a customized treatment or monitoring plan at our facility in Narol, Ahmedabad."
+      ]
+    },
+    "infertility-treatment": {
+      "metaTitle": "Infertility Treatment (IUI/IVF) in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert IUI and IVF fertility treatment led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Personalized fertility protocols, advanced diagnostics, and compassionate care.",
+      "title": "Comprehensive Infertility Treatment (IUI & IVF) in Narol, Ahmedabad",
+      "shortTitle": "Infertility Treatment (IUI/IVF)",
+      "intro": "The dream of building a family is a deeply personal journey, but navigating fertility challenges can often feel isolating and overwhelming. At Krisha Women's Hospital in Narol, Ahmedabad, we offer a sanctuary of hope, advanced reproductive technology, and compassionate medical expertise. Led by fertility specialist Dr. Alhad Pande, our dedicated clinic provides evidence-based treatments, including Intrauterine Insemination (IUI) and In Vitro Fertilization (IVF). We understand that every couple's path to parenthood is unique, which is why we design personalized fertility pathways tailored to your specific reproductive health profile. Combining modern diagnostic facilities with a nurturing environment, we aim to demystify fertility care and optimize your chances of a safe, successful pregnancy. Trust Krisha Women's Hospital to support you with advanced clinical care and steadfast emotional guidance as we work together to turn your dream of parenthood into reality.",
+      "overview": [
+        "Infertility treatment encompassing Intrauterine Insemination (IUI) and In Vitro Fertilization (IVF) involves medical and advanced technological interventions designed to help couples overcome biological barriers to conception. IUI is a minimally invasive procedure where prepared sperm is placed directly into the uterus during ovulation to facilitate fertilization. IVF is a more advanced assisted reproductive technology involving the retrieval of mature eggs, fertilizing them with sperm within a specialized laboratory setting, and carefully transferring the resulting embryo back into the uterus.",
+        "This service is vital for couples who have been unable to conceive naturally after a year or more of unprotected intercourse. It benefits individuals facing diverse reproductive challenges, including blocked fallopian tubes, male factor infertility, ovulation disorders like Polycystic Ovary Syndrome (PCOS), endometriosis, advanced maternal age, or unexplained infertility. Modern reproductive medicine opens up viable, highly successful avenues for couples seeking to safely expand their families.",
+        "Beyond physiological support, infertility management preserves a woman's psychological well-being. Fertility struggles often introduce immense stress and vulnerability into a relationship. By providing structured clinical guidance, clear diagnostic answers, and proactive treatment options, Krisha Women's Hospital alleviates the anxiety of the unknown, empowering couples with renewed confidence and hope throughout their parenthood journey."
+      ],
+      "benefits": [
+        { "label": "Tailored Fertility Protocols", "description": "Customized IUI and IVF treatment lines based strictly on your unique reproductive profile." },
+        { "label": "Advanced Laboratory Setup", "description": "Modern embryology equipment ensuring optimal, highly controlled conditions for embryo culture." },
+        { "label": "Comprehensive Diagnostics", "description": "Detailed hormone profiling, advanced semen analysis, and pelvic scans to identify hidden reproductive roadblocks." },
+        { "label": "Expert Clinical Direction", "description": "Advanced treatments directly overseen by the experienced Dr. Alhad Pande." },
+        { "label": "Holistic Patient Care", "description": "Dedicated emotional counseling and support systems to help couples manage treatment stress smoothly." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, we approach fertility care with deep empathy, acknowledging the delicate emotional landscape couples navigate. Our process begins with a transparent, exhaustive evaluation of both partners. Dr. Alhad Pande conducts precise physical assessments, ovarian reserve testing, and specialized semen analysis to accurately pinpoint reproductive challenges, ensuring you are fully educated on the findings before any intervention begins.",
+        "Once diagnosed, we create a stepwise management plan tailored to your body's natural response. We monitor hormone levels and follicular growth closely to optimize the timing of IUI or IVF cycles. Our clinical team emphasizes precision and gentleness during every step — from egg retrieval to embryo transfer — ensuring minimal discomfort while keeping you updated at every milestone.",
+        "Patient safety, physical comfort, and excellent long-term health outcomes guide all protocols at our facility in Narol, Ahmedabad. We maintain strict medical measures to minimize complications like Ovarian Hyperstimulation Syndrome (OHSS), prioritizing maternal wellness throughout the cycle. By combining rigorous medical science with compassionate care, we strive to achieve the safest transition from successful conception to a healthy, full-term pregnancy."
+      ]
+    },
+    "laparoscopic-hysteroscopic-surgery": {
+      "metaTitle": "Laparoscopic & Hysteroscopic Surgery in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Advanced minimally invasive gynecological surgery led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Laparoscopy and hysteroscopy for fibroids, cysts, endometriosis, and more.",
+      "title": "Advanced Laparoscopic & Hysteroscopic Surgery in Narol, Ahmedabad",
+      "shortTitle": "Laparoscopic & Hysteroscopic Surgery",
+      "intro": "Surgical interventions in women's healthcare have been revolutionized by modern technology, shifting away from large incisions toward precise, minimally invasive techniques. At Krisha Women's Hospital in Narol, Ahmedabad, we offer advanced laparoscopic and hysteroscopic surgeries designed to treat complex gynecological conditions with minimal disruption to your life. Led by the renowned expertise of Dr. Alhad Pande, our surgical team utilizes cutting-edge medical technology to perform highly accurate procedures through tiny incisions or natural pathways. This state-of-the-art approach translates to significantly less postoperative pain, shorter hospital stays, and a much faster return to your daily routine. We combine surgical excellence with a compassionate, reassuring environment, prioritizing your safety, comfort, and long-term recovery every step of the way.",
+      "overview": [
+        "Advanced laparoscopic and hysteroscopic surgeries are modern, minimally invasive techniques used to diagnose and treat conditions affecting the female reproductive system. Laparoscopy, often called \"keyhole surgery,\" involves inserting a thin, lighted instrument through tiny abdominal incisions to view and operate on pelvic organs. Hysteroscopy allows the surgeon to examine and treat the inside of the uterus by passing a specialized scope through the natural opening of the cervix, requiring no external incisions at all.",
+        "These advanced procedures are vitally important because they replace traditional open surgeries that involve large abdominal incisions and lengthy, painful recovery periods. Women dealing with uterine fibroids, ovarian cysts, endometriosis, pelvic adhesions, abnormal uterine bleeding, or structural issues causing unexplained infertility can benefit immensely from these treatments. It allows for highly precise corrections while preserving maximum healthy surrounding tissue.",
+        "By minimizing physical trauma to the body, this service directly supports a woman's holistic health and long-term well-being. Reduced blood loss during surgery and lower risks of postoperative complications mean a safer medical experience overall. Furthermore, preserving uterine and ovarian integrity whenever possible helps safeguard future fertility, helping women eliminate chronic pelvic pain and regain their quality of life with confidence."
+      ],
+      "benefits": [
+        { "label": "Minimal Scarring", "description": "Tiny incisions result in virtually unnoticeable cosmetic scars compared to traditional open surgery." },
+        { "label": "Faster Recovery Time", "description": "Most patients return to their normal daily activities within a fraction of the traditional healing timeframe." },
+        { "label": "Reduced Postoperative Pain", "description": "Less tissue disruption translates directly to significantly less discomfort during the healing process." },
+        { "label": "Shorter Hospital Stays", "description": "Many hysteroscopic and laparoscopic procedures are safely performed on a day-care or short-stay basis." },
+        { "label": "Enhanced Precision", "description": "High-definition camera systems provide Dr. Alhad Pande with a magnified, crystal-clear view of the pelvic anatomy." },
+        { "label": "Lower Risk of Infection", "description": "Smaller wounds drastically reduce exposure and the likelihood of post-surgical wound complications." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to advanced gynecological surgery is deeply patient-centered and rooted in empathy. We recognize that the prospect of surgery can cause anxiety. Our process begins with a meticulous diagnostic evaluation, where Dr. Alhad Pande utilizes detailed medical histories and advanced imaging to confirm whether a minimally invasive surgical path is the most effective choice for your specific condition.",
+        "Once surgery is determined to be the optimal solution, our management approach focuses on absolute safety and your personal comfort. We walk you through every step of the upcoming procedure, ensuring you and your family fully understand the process. Our operating theaters are equipped with modern endoscopic technologies, enabling us to deliver exceptional clinical results while adhering to strict international safety protocols.",
+        "Our commitment to your health extends far beyond the operating room. We focus intensely on long-term health outcomes, providing structured post-operative tracking, personalized rehabilitation advice, and continuous wellness guidance. By combining specialized medical expertise with a warm, caring touch at our facility in Narol, Ahmedabad, we ensure your transition from diagnosis to complete recovery is seamless and stress-free."
+      ]
+    },
+    "menopause-consultation": {
+      "metaTitle": "Menopause Consultation & Treatment in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert menopause consultation and treatment led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Personalized care for hot flashes, bone health, hormonal balance, and long-term wellness.",
+      "title": "Comprehensive Menopause Consultation & Treatment in Narol, Ahmedabad",
+      "shortTitle": "Menopause Consultation & Treatment",
+      "intro": "Menopause is a natural biological transition, marking the end of a woman's reproductive years. While it is a normal phase of aging, the accompanying physical and emotional changes can often be challenging to manage alone. At Krisha Women's Hospital in Narol, Ahmedabad, we offer specialized Menopause Consultation and Treatment to help you navigate this transition comfortably and gracefully. Led by the expert care of Dr. Alhad Pande, our dedicated team provides personalized medical support tailored to your unique symptoms. Whether you are experiencing hot flashes, sleep disturbances, mood fluctuations, or long-term bone density concerns, we provide a safe, supportive environment. We combine thorough diagnostic evaluations with holistic management strategies, ensuring you maintain your vitality, daily comfort, and long-term wellness.",
+      "overview": [
+        "Menopause consultation and treatment is a comprehensive healthcare service dedicated to supporting women during perimenopause, menopause, and postmenopause. This specialized clinical care involves evaluating hormonal shifts and managing the multi-system symptoms that occur when the ovaries gradually decrease estrogen production. At Krisha Women's Hospital, this service combines thorough physical assessments, lifestyle guidance, and customized medical options designed to make the transition smooth and manageable.",
+        "This service is vital because hormonal changes influence bone density, cardiovascular health, metabolic function, and emotional stability. Women entering their late 40s or early 50s who are experiencing irregular periods, night sweats, unexplained weight changes, or emotional shifts can benefit immensely from specialized care. It is also crucial for younger women facing premature menopause due to medical interventions or underlying genetic factors.",
+        "By addressing these changes proactively, menopause management restores a woman's daily comfort and long-term health. Instead of silently enduring disruptive symptoms, patients receive targeted treatments that safeguard their bones against osteoporosis and protect heart health. Dr. Alhad Pande focuses on educating and reassuring women, ensuring they feel validated, informed, and physically resilient during this rewarding new phase of life."
+      ],
+      "benefits": [
+        { "label": "Expert Personalized Care", "description": "Custom-tailored treatment lines created by Dr. Alhad Pande to match your specific hormonal profile and lifestyle needs." },
+        { "label": "Effective Symptom Relief", "description": "Targeted management strategies to alleviate hot flashes, night sweats, sleep issues, and mood shifts." },
+        { "label": "Bone Health Protection", "description": "Proactive monitoring and therapy to prevent bone density loss and reduce the long-term risk of osteoporosis." },
+        { "label": "Cardiovascular Risk Assessment", "description": "Preventive screenings and lifestyle counseling to protect heart health during postmenopausal years." },
+        { "label": "Holistic Wellness Support", "description": "Integration of nutritional advice, weight management strategies, and mental wellness tracking." },
+        { "label": "Safe Medical Solutions", "description": "Evidence-based treatment options, ranging from non-hormonal therapies to strictly monitored hormonal balancing when appropriate." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to menopause is patient-centered and rooted in deep empathy. Your care begins with a comprehensive evaluation process where Dr. Alhad Pande listens to your specific concerns and symptoms. We perform essential diagnostic tests, including hormone panels, lipid profiles, and bone density scans, to build an accurate map of your current health status and identify potential risk factors.",
+        "Once your baseline is established, our management approach focuses on creating a balanced, highly individualized care pathway. Treatment plans may include tailored nutritional modifications, targeted vitamin supplements, or safe medical therapies designed to minimize your symptoms. We emphasize patient education, walking you through your physiological changes so you can actively manage your health with clarity and confidence.",
+        "Patient safety, everyday comfort, and long-term health outcomes guide all our protocols at our facility in Narol, Ahmedabad. We continuously monitor your progress through regular follow-up consultations, adjusting therapies safely as your body stabilizes. Our ultimate goal is to provide a reassuring environment where you can minimize age-related health risks, reclaim control over your body, and live with absolute confidence."
+      ]
+    },
+    "adolescent-gynecology": {
+      "metaTitle": "Adolescent Gynecology Care in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Specialized adolescent gynecology led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Compassionate care for menstrual health, PCOS, hormonal concerns, and pubertal development.",
+      "title": "Specialized Adolescent Gynecology Care in Narol, Ahmedabad",
+      "shortTitle": "Adolescent Gynecology",
+      "intro": "The transition from childhood to young adulthood involves profound physical and emotional changes. At Krisha Women's Hospital in Narol, Ahmedabad, we provide specialized adolescent gynecology services designed to support young girls through this transformative phase of life. Led by the compassionate expertise of Dr. Alhad Pande, our clinic offers a safe, welcoming, and non-judgmental environment where teenagers can seek guidance on menstrual health, hormonal shifts, and pubertal development. We focus heavily on education and reassurance, breaking down complex physiological changes into easy-to-understand concepts. By creating a comforting space built on trust and absolute confidentiality, we aim to eliminate the anxiety often associated with a young woman's first gynecological visit, helping her lay a healthy foundation for her future well-being.",
+      "overview": [
+        "Adolescent gynecology is a specialized area of healthcare focusing on the unique reproductive and hormonal needs of young girls from puberty through early adulthood. At Krisha Women's Hospital, this service addresses pubertal milestones, irregular or painful periods, and hormonal imbalances like Polycystic Ovary Syndrome (PCOS), adapting adult clinical care to match the emotional maturity of teenagers.",
+        "This focused care is vital for young girls experiencing distressing symptoms like severe cramps, heavy bleeding, or unpredictable cycles. Addressing these concerns early with a trusted specialist like Dr. Alhad Pande prevents minor developmental irregularities from escalating into chronic conditions that could impact future well-being or fertility.",
+        "Beyond managing physical symptoms, adolescent gynecology actively protects a young woman's mental wellness. Puberty often introduces body-image concerns and confusion. By providing clear medical explanations and dispelling common myths, our service builds reproductive health literacy, helping teenagers embrace their bodily changes with absolute confidence and self-assurance."
+      ],
+      "benefits": [
+        { "label": "Age-Appropriate Care", "description": "Gentle clinical evaluations tailored to the physical and emotional maturity of teenagers." },
+        { "label": "Early Hormonal Management", "description": "Prompt tracking and treatment for adolescent conditions like PCOS and irregular cycles." },
+        { "label": "Anxiety-Free First Visits", "description": "A warm, stress-free introduction to gynecological care designed to build lifelong trust." },
+        { "label": "Confidential Environment", "description": "A private space where young patients can share concerns without fear of judgment." },
+        { "label": "Comprehensive Health Education", "description": "Empowering young girls with accurate information regarding menstrual hygiene and lifestyle habits." },
+        { "label": "Long-Term Health Tracking", "description": "Monitoring developmental milestones to safeguard future reproductive wellness." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to adolescent care is deeply sensitive and patient-centered. Dr. Alhad Pande prioritizes building a strong rapport with both the young patient and her parents, ensuring consultations progress at a relaxed, reassuring pace. Our evaluation process relies on detailed medical history and non-invasive diagnostics, completely avoiding unnecessary physical examinations to ensure maximum comfort.",
+        "Our treatment plans emphasize lifestyle optimization, nutritional modifications, and conservative medical management that aligns naturally with a growing body. Dr. Alhad Pande explains each step directly to the adolescent using simple language, encouraging her to take an active, informed role in her health journey.",
+        "Safety, privacy, and long-term health outcomes guide all our protocols at our Narol facility. By providing a nurturing environment and continuous guidance throughout puberty, we ensure our young patients transition into adulthood with the physical resilience and confidence needed to maintain optimal wellness."
+      ]
+    },
+    "preconception-counseling": {
+      "metaTitle": "Preconception Counseling in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert preconception counseling led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Health optimization, risk screening, nutritional guidance, and personalized care before pregnancy.",
+      "title": "Comprehensive Preconception Counseling in Narol, Ahmedabad",
+      "shortTitle": "Preconception Counseling",
+      "intro": "Planning to start or expand your family is an exciting milestone, and preparing your body for pregnancy is the best first step you can take. At Krisha Women's Hospital in Narol, Ahmedabad, we offer specialized preconception counseling to help you embark on this beautiful journey with confidence. Led by the expert guidance of Dr. Alhad Pande, our preconception services focus on optimizing your health before conception occurs. We evaluate your medical history, lifestyle, and genetic factors to create a tailored roadmap for a healthy pregnancy. By addressing potential risks early and ensuring your body is in its best possible condition, we safeguard both maternal well-being and your future baby's development. Trust our compassionate team to provide the clinical excellence and steady reassurance you need as you prepare for parenthood.",
+      "overview": [
+        "Preconception counseling is a proactive healthcare service designed for women and couples planning a pregnancy. Unlike prenatal care, which begins after conception, this service focuses entirely on the weeks and months leading up to pregnancy. At Krisha Women's Hospital, it involves detailed medical evaluations, screenings, and lifestyle assessments to identify and mitigate health conditions that could affect a future pregnancy.",
+        "This service is vital because a baby's major organs begin to form in the earliest weeks of development, often before a woman confirms her pregnancy. Establishing optimal health beforehand is critical. Any couple planning to conceive can benefit from this care, but it is especially crucial for individuals with chronic conditions like diabetes or thyroid disorders, a history of pregnancy complications, or genetic concerns.",
+        "Ultimately, preconception counseling supports a woman's long-term health and emotional well-being by replacing uncertainty with a clear plan. Dr. Alhad Pande guides patients through essential adjustments, such as starting vital prenatal vitamins and achieving a healthy weight. This holistic approach minimizes potential complications and provides couples with a reassuring foundation for a healthy pregnancy."
+      ],
+      "benefits": [
+        { "label": "Personalized Health Optimization", "description": "Tailored medical and lifestyle advice from Dr. Alhad Pande to prepare your body for pregnancy." },
+        { "label": "Early Risk Identification", "description": "Comprehensive screenings to detect and safely manage chronic health conditions or genetic risks before conception." },
+        { "label": "Medication Review", "description": "Expert adjustment of existing prescriptions to ensure they are safe for early fetal development." },
+        { "label": "Nutritional Guidance", "description": "Guidance on essential prenatal vitamins, lifestyle modifications, and weight management to boost fertility." },
+        { "label": "Reduced Pregnancy Complications", "description": "Proactive interventions that lower the risks of gestational conditions and support safe outcomes." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to preconception care is thoroughly patient-centered, collaborative, and built on trust. We understand that planning a family is deeply personal, so we create a warm, stress-free environment. The process begins with a detailed diagnostic evaluation where Dr. Alhad Pande reviews your complete medical background, immunization status, and lifestyle factors to establish a healthy baseline.",
+        "Once your initial assessment is complete, we design a proactive management plan tailored specifically to your body's needs. This may include optimizing current treatments, upgrading nutrition, or conducting specialized screenings. Our primary focus always remains locked on maximizing safety, enhancing your personal comfort, and securing excellent long-term health outcomes for both mother and child at our facility in Narol, Ahmedabad."
+      ]
+    },
+    "painless-vaginal-delivery": {
+      "metaTitle": "Painless Vaginal Delivery in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert painless vaginal delivery led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Epidural analgesia for a safe, comfortable, and fully conscious childbirth experience.",
+      "title": "Painless Vaginal Delivery Services in Narol, Ahmedabad",
+      "shortTitle": "Painless Vaginal Delivery",
+      "intro": "Welcoming a newborn into the world is a momentous occasion, but the anticipation of labor pain can often cause anxiety for expectant mothers. At Krisha Women's Hospital in Narol, Ahmedabad, we believe childbirth should be defined by joy and comfort rather than stress. Led by Dr. Alhad Pande, our dedicated obstetrics team specializes in Painless Vaginal Delivery, a modern medical advancement that significantly reduces the intense physical pain of labor while keeping you fully conscious and active. By offering state-of-the-art epidural analgesia in a nurturing and medically secure environment, we transform delivery into a calm, memorable journey. Our goal is to empower mothers, ensuring you can focus entirely on the beautiful first moments of bonding with your baby, backed by round-the-clock clinical excellence and unwavering emotional support.",
+      "overview": [
+        "Painless vaginal delivery primarily utilizes epidural analgesia, an advanced regional anesthesia technique administered by a specialist during active labor. This procedure involves placing a tiny, flexible catheter into the epidural space of the spine to deliver continuous pain-relieving medication. This ensures that while the intense pain of uterine contractions is safely mitigated, the mother remains fully awake, alert, and capable of pushing when it is time to deliver her baby.",
+        "This specialized care is vital because intense labor pain can cause a severe surge in stress hormones like adrenaline. These hormones can sometimes lead to maternal exhaustion, elevated blood pressure, and a prolonged labor process. By managing pain safely, painless delivery helps maintain stable maternal vitals, ensures an optimal oxygen supply to the baby, and drastically reduces physical and psychological fatigue during labor.",
+        "Any expectant mother planning a vaginal birth can benefit from this service, especially those anxious about labor or women with specific conditions like gestational hypertension, where minimizing physical stress is clinically essential. Ultimately, this service supports women's health by turning an unpredictable, painful event into a controlled, comfortable, and empowering experience. Dr. Alhad Pande focuses on educating mothers, ensuring they feel confident and highly supported throughout the birthing process."
+      ],
+      "benefits": [
+        { "label": "Significant Pain Relief", "description": "Safely and effectively minimizes the acute physical pain of active labor contractions." },
+        { "label": "Fully Conscious Experience", "description": "Allows the mother to remain completely awake, alert, and emotionally present for her baby's birth." },
+        { "label": "Reduced Maternal Exhaustion", "description": "Conserves physical energy, leaving the mother well-rested for pushing and immediate postpartum bonding." },
+        { "label": "Lower Stress Response", "description": "Prevents spikes in maternal blood pressure and stress hormones, protecting both mother and child." },
+        { "label": "Medical Flexibility", "description": "Establishes a ready pathway for immediate regional anesthesia if an emergency intervention or C-section becomes necessary." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to painless delivery is patient-centered and rooted in deep empathy. During prenatal visits, Dr. Alhad Pande evaluates your medical history, discusses your birthing plan, and confirms your suitability for epidural analgesia. We prioritize thorough education, answering your questions openly to ensure you and your family feel completely reassured before your due date arrives.",
+        "When active labor begins at our Narol facility, our management approach blends advanced monitoring with compassionate bedside care. The epidural is administered by highly experienced specialists working in lockstep with Dr. Alhad Pande. We continuously track maternal vitals and the baby's heart rate, adjusting medication dynamically to maintain the ideal balance between optimal pain relief and the physical ability to push safely.",
+        "Our focus remains firmly locked on securing excellent long-term health outcomes for both mother and child. By adhering to strict safety protocols and providing 24x7 emergency readiness in Narol, Ahmedabad, we ensure your transition into motherhood is handled with the highest level of professionalism, comfort, and clinical precision."
+      ]
+    },
+    "tuboplasty-fertility-procedures": {
+      "metaTitle": "Tuboplasty & Fertility Procedures in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert tuboplasty and fallopian tube repair led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Minimally invasive surgery for tubal-factor infertility and sterilization reversal.",
+      "title": "Advanced Tuboplasty & Fertility Procedures in Narol, Ahmedabad",
+      "shortTitle": "Tuboplasty & Fertility Procedures",
+      "intro": "For many women, the dream of motherhood is hindered by structural challenges within the reproductive system, particularly blockages or damage to the fallopian tubes. At Krisha Women's Hospital in Narol, Ahmedabad, we offer specialized Tuboplasty and Fertility Procedures designed to restore your body's natural reproductive pathways. Led by the expert care of Dr. Alhad Pande, our hospital utilizes advanced microsurgical and minimally invasive laparoscopic techniques to repair fallopian tubes, offering a vital lifeline to women experiencing tubal-factor infertility. We recognize the profound emotional weight of the fertility journey. Our mission is to provide you with cutting-edge medical interventions delivered in a deeply compassionate, reassuring, and supportive environment, empowering you with the best possible chance to conceive naturally and safely.",
+      "overview": [
+        "Tuboplasty refers to a specialized group of surgical procedures aimed at restoring the patency and functionality of the fallopian tubes. The fallopian tubes play a critical role in conception, serving as the essential pathway where the egg meets the sperm and where fertilization occurs. When these tubes are blocked, scarred, or damaged due to past pelvic infections, endometriosis, or previous surgeries, natural conception becomes difficult or obstructed. Tuboplasty meticulously reconstructs or reopens these delicate passages.",
+        "This service is highly important for women diagnosed with tubal-factor infertility or those who have previously undergone tubal ligation (permanent sterilization) but now wish to reverse the procedure to expand their families. By physically clearing structural blocks or reconnecting severed segments of the tube, tuboplasty aims to re-establish the normal physiological environment necessary for natural fertilization and smooth embryo transport to the uterus.",
+        "Beyond the physical restoration of reproductive anatomy, fertility procedures at Krisha Women's Hospital deeply support a woman's holistic health and emotional well-being. Overcoming infertility can alleviate significant psychological distress and anxiety. By offering highly precise, evidence-based surgical solutions, Dr. Alhad Pande provides couples with renewed hope and a clear, structured pathway toward fulfilling their reproductive goals."
+      ],
+      "benefits": [
+        { "label": "Restores Natural Conception Potential", "description": "Reopens the fallopian tubes, allowing couples the opportunity to conceive naturally without relying solely on continuous assisted reproductive cycles." },
+        { "label": "Minimally Invasive Laparoscopy", "description": "Utilizing modern keyhole approaches translates directly to smaller incisions, significantly less postoperative pain, and reduced recovery times." },
+        { "label": "Effective Sterilization Reversal", "description": "Offers a viable, highly successful option for women seeking to reverse a previous tubal ligation." },
+        { "label": "Expert Microsurgical Precision", "description": "Procedures are performed under high magnification by Dr. Alhad Pande to preserve the delicate, healthy lining of the tubes." },
+        { "label": "Lower Risk of Adhesions", "description": "Advanced surgical techniques focus on minimizing tissue trauma, reducing the likelihood of post-operative scarring." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to fertility care is patient-centered and built on a foundation of empathy, transparency, and clinical excellence. We understand that navigating fertility challenges requires patience and specialized care. Your journey begins with a meticulous evaluation process where Dr. Alhad Pande utilizes advanced diagnostic screenings — such as specialized dye tests or diagnostic laparoscopy — to precisely identify the exact location and nature of the tubal blockage.",
+        "Once an accurate diagnosis is established, we co-create a personalized management plan tailored to your body's needs, prioritizing your safety and long-term health outcomes. Dr. Alhad Pande focuses on precise surgical execution within our modern operating theaters in Narol, Ahmedabad. Our commitment extends far beyond the surgery itself; we provide robust post-operative monitoring and continuous fertility guidance, ensuring you feel completely educated, comfortable, and reassured as you take your next steps toward a healthy pregnancy."
+      ]
+    },
+    "cervical-cerclage": {
+      "metaTitle": "Cervical Cerclage Services in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert cervical cerclage led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Specialized cervical stitch procedure to prevent premature birth and late-term miscarriage.",
+      "title": "Expert Cervical Cerclage Services in Narol, Ahmedabad",
+      "shortTitle": "Cervical Cerclage",
+      "intro": "A successful pregnancy relies on a strong physical foundation, but sometimes the body needs extra support to carry a baby safely to full term. For women diagnosed with a weakened or shortening cervix, a structural safeguard known as cervical cerclage can make all the difference. At Krisha Women's Hospital in Narol, Ahmedabad, we offer specialized cervical cerclage procedures designed to prevent premature birth and late-term miscarriage. Led by the compassionate expertise of Dr. Alhad Pande, our dedicated maternity team provides this essential intervention with the highest level of clinical precision. We understand the profound anxiety that often accompanies a high-risk pregnancy. By combining advanced maternal-fetal care with a warm, reassuring environment, we work closely with you to protect your pregnancy and help you safely welcome your healthy newborn.",
+      "overview": [
+        "Cervical cerclage, often referred to as a cervical stitch, is a brief surgical procedure performed during pregnancy where a strong suture is placed around the cervix (the neck of the womb). This stitch reinforces the cervical tissue, helping it remain tightly closed under the increasing weight of the growing baby and amniotic fluid. It is typically performed in the late first or early second trimester and is later removed safely as the mother approaches her due date.",
+        "This procedure is vital for managing cervical insufficiency, a condition where the cervix begins to shorten, soften, and open too early without painful labor contractions. Without timely medical intervention, cervical weakness can lead to premature labor or late-term pregnancy loss. A cervical cerclage provides crucial structural reinforcement, effectively extending gestation and giving the baby vital additional time to grow and mature safely in the womb.",
+        "Women who can benefit significantly from this service include those with a history of second-trimester miscarriages, previous spontaneous preterm births, or those whose routine ultrasound scans reveal a short cervix during their current pregnancy. By proactively addressing structural vulnerabilities, cervical cerclage directly supports a woman's reproductive health and psychological well-being. It transforms a highly stressful scenario into a well-managed pregnancy, significantly reducing maternal anxiety and fostering a strong sense of security."
+      ],
+      "benefits": [
+        { "label": "Prevents Preterm Labor", "description": "Effectively lowers the risk of early delivery by physically supporting a weakened cervix." },
+        { "label": "Reduces Pregnancy Loss", "description": "Provides a vital clinical intervention to prevent mid-trimester miscarriages caused by cervical insufficiency." },
+        { "label": "Expert Placement", "description": "Performed with extreme precision and gentle care by advanced maternity specialist Dr. Alhad Pande." },
+        { "label": "Minimally Invasive Care", "description": "A brief, highly effective procedure associated with minimal discomfort and a quick recovery time." },
+        { "label": "Continuous Ultrasound Tracking", "description": "Complemented by advanced sonography at our Narol facility to monitor cervical changes before and after placement." },
+        { "label": "24/7 Emergency Support", "description": "Complete peace of mind with round-the-clock emergency services available for any unexpected maternal needs." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to cervical cerclage is deeply patient-centered and rooted in clinical vigilance. We recognize that every high-risk pregnancy requires individualized attention and absolute clarity. Our evaluation process begins with a comprehensive review of your obstetric history, followed by precise transvaginal ultrasound screenings. This allows Dr. Alhad Pande to accurately assess the length and strength of your cervix, ensuring we determine the optimal timing for the procedure.",
+        "Once the need for a cerclage is confirmed, our management approach focuses entirely on maximizing your safety and personal comfort. The procedure is performed under safe anesthesia in our modern operating theaters in Narol, Ahmedabad, ensuring a pain-free experience. Following the placement, we provide detailed guidance on activity levels, symptom tracking, and wellness, keeping you and your family fully informed. Our commitment continues with regular check-ups, culminating in the safe, painless removal of the stitch around the 37th week of pregnancy to pave the way for a smooth delivery."
+      ]
+    },
+    "cervical-cancer-screening": {
+      "metaTitle": "Cervical Cancer Screening & HPV Vaccination in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert cervical cancer screening and HPV vaccination led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Pap smears, HPV DNA testing, and preventive immunization for lifelong protection.",
+      "title": "Comprehensive Cervical Cancer Screening & HPV Vaccination in Narol, Ahmedabad",
+      "shortTitle": "Cervical Cancer Screening & HPV Vaccination",
+      "intro": "Guarding your long-term health begins with preventive care. Cervical cancer is highly preventable through timely clinical intervention. At Krisha Women's Hospital in Narol, Ahmedabad, we offer specialized Cervical Cancer Screening and HPV Vaccination to protect women at every stage of life. Led by Dr. Alhad Pande, our hospital provides a safe, confidential environment for Pap smears, liquid-based cytology, and HPV DNA testing, alongside advanced HPV vaccines. We replace apprehension with clear education and gentle care. By catching cellular changes early and building robust immunity against the Human Papillomavirus, we empower you to take control of your reproductive health, giving you and your family absolute peace of mind.",
+      "overview": [
+        "Cervical cancer screening and Human Papillomavirus (HPV) vaccination constitute a dual-layered approach to preventing cancer of the cervix. Screening involves quick, specialized tests like Pap smears or HPV DNA tests that check for abnormal cell changes or high-risk viral strains before cancer can even develop. The HPV vaccine is a highly effective immunization that prompts the immune system to block the specific strains of the virus responsible for the vast majority of cervical cancer cases.",
+        "This service is a cornerstone of preventative gynecology because cervical cancer often develops silently without any noticeable symptoms in its early stages. Every woman can benefit from this life-saving care. The HPV vaccine is most effective when administered to adolescents and young adults before any viral exposure, while routine screenings are critically important for all women starting in their mid-20s, regardless of their family history or current lifestyle.",
+        "By integrating regular screenings and vaccination into your routine healthcare, this service shields a woman's holistic well-being. It transforms a serious health risk into a highly manageable, preventable condition. At Krisha Women's Hospital, we focus on educating women that an abnormal test result is not a cancer diagnosis, but an early warning sign that allows Dr. Alhad Pande to intervene proactively, ensuring a lifetime of health and security."
+      ],
+      "benefits": [
+        { "label": "Life-Saving Prevention", "description": "The HPV vaccine offers robust protection against the primary viral strains known to cause cervical cancer." },
+        { "label": "Early Detection Precision", "description": "Advanced screenings identify microscopic cellular changes years before they can progress into a serious condition." },
+        { "label": "Highly Accurate Testing", "description": "Utilization of modern liquid-based cytology and HPV DNA testing for dependable diagnostic results." },
+        { "label": "Gentle and Quick Procedures", "description": "Screenings are non-invasive, take only a few minutes, and are performed with minimal physical discomfort." },
+        { "label": "Tailored Screening Schedules", "description": "Personalized routine timelines based strictly on your age, medical history, and specific risk factors." },
+        { "label": "Comprehensive Guidance", "description": "Complete counseling by Dr. Alhad Pande to address vaccine timelines and clarify screening results." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, we recognize that discussions around cancer screening can naturally cause vulnerability and anxiety. Our approach is entirely patient-centered, ensuring a warm, respectful, and completely private environment. During your consultation, Dr. Alhad Pande evaluates your age, vaccine history, and specific health profile to explain precisely which screening tool or vaccination schedule is ideal for your body.",
+        "If a screening reveals any cellular abnormalities, our management approach shifts to precise, proactive care rather than unnecessary panic. Dr. Alhad Pande walks you through evidence-based protocols, which may include closer observational tracking or minor, minimally invasive procedures to protect your cervical health. We focus intensely on comfort, strict safety standards, and excellent long-term health outcomes, ensuring every woman in Narol, Ahmedabad, feels protected, reassured, and deeply cared for."
+      ]
+    },
+    "family-planning-contraceptive-counseling": {
+      "metaTitle": "Family Planning & Contraceptive Counseling in Narol, Ahmedabad | Krisha Women's Hospital",
+      "metaDescription": "Expert family planning and contraceptive counseling led by Dr. Alhad Pande at Krisha Women's Hospital, Narol Ahmedabad. Personalized birth control guidance, IUD insertion, and reproductive health planning.",
+      "title": "Family Planning & Contraceptive Counseling in Narol, Ahmedabad",
+      "shortTitle": "Family Planning & Contraceptive Counseling",
+      "intro": "Taking control of your reproductive health is a powerful step toward securing your future, your career, and your family's overall well-being. At Krisha Women's Hospital in Narol, Ahmedabad, we provide comprehensive Family Planning and Contraceptive Counseling tailored to your specific life stage and personal goals. Led by the compassionate expertise of Dr. Alhad Pande, our hospital offers a safe, entirely confidential space to discuss, explore, and choose the most suitable birth control methods for your body. Whether you are looking to delay pregnancy, space out childbirth for maternal recovery, or find long-term contraceptive solutions, we combine evidence-based medical guidance with absolute respect for your choices. We believe that informed women make the most confident health decisions, and our dedicated team is here to educate, reassure, and support you every step of the way.",
+      "overview": [
+        "Family planning and contraceptive counseling is a personalized healthcare service dedicated to helping women make informed decisions about if, when, and how many children they wish to have. At Krisha Women's Hospital, this service involves expert clinical consultations where we discuss a wide array of birth control options, including short-term methods, long-acting reversible contraceptives (LARCs) like intrauterine devices (IUDs), and permanent reproductive solutions.",
+        "This service is essential for women at various stages of their reproductive lives — from young adults navigating their options for the first time, to couples looking to space out their pregnancies for optimal physical recovery. It is equally critical for women managing pre-existing medical conditions where a planned, well-monitored pregnancy is vital for safety. Finding the right contraceptive method requires evaluating your daily lifestyle, medical background, and future family goals under expert clinical guidance.",
+        "Ultimately, structured family planning supports a woman's holistic well-being by protecting her health autonomy and reducing the anxiety associated with unplanned pregnancies. Dr. Alhad Pande focuses on dispelling common myths about birth control, managing potential side effects, and aligning contraceptive options with your body's natural hormonal cycle. This proactive approach ensures you feel empowered, physically healthy, and entirely in control of your reproductive journey."
+      ],
+      "benefits": [
+        { "label": "Personalized Method Selection", "description": "Tailored advice from Dr. Alhad Pande to find a contraceptive method that matches your unique medical profile and lifestyle." },
+        { "label": "Comprehensive Birth Control Options", "description": "Access to a full spectrum of modern choices, including oral pills, patches, injectables, hormonal/copper IUDs, and permanent family planning solutions." },
+        { "label": "Myth Dispelling & Education", "description": "Clear, honest guidance to correct widespread misinformation regarding hormonal side effects, safety, and long-term fertility." },
+        { "label": "Safe Maternal Spacing", "description": "Expert support to plan optimal birth intervals, which is vital for the physical healing of the mother and the long-term health of future children." },
+        { "label": "Confidential & Judgment-Free Environment", "description": "A private, welcoming clinical space at our Narol facility where your personal preferences and life choices are always treated with utmost respect." },
+        { "label": "Non-Contraceptive Health Management", "description": "Expert counseling on how certain contraceptive methods can be intentionally used to manage painful periods, heavy bleeding, or hormonal acne." }
+      ],
+      "approach": [
+        "At Krisha Women's Hospital, our approach to family planning is thoroughly patient-centered and rooted in open, honest dialogue. We understand that your reproductive choices are deeply personal and subjective. The evaluation process begins with Dr. Alhad Pande conducting a meticulous health assessment, reviewing your complete medical history, blood pressure, lifestyle habits, and future family timelines to rule out any clinical contraindications before recommending a method.",
+        "Once an ideal contraceptive path is selected, our focus shifts to proper administration, tracking, and your ongoing physical comfort. Whether it involves the precise, gentle insertion of a long-acting implant or a routine oral contraceptive prescription, we ensure the process is entirely stress-free. We emphasize long-term health outcomes, scheduling regular follow-ups at our Narol, Ahmedabad facility to monitor how your body adapts, manage any initial hormonal adjustments, and safely alter your plan whenever your lifestyle or fertility needs evolve."
+      ]
+    }
+  }
+}

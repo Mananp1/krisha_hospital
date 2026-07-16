@@ -24,7 +24,6 @@ export default function SectionHeader({
             : 'bg-secondary-50 border-secondary-200/70 text-secondary'
         }`}
       >
-        <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${light ? 'bg-white/60' : 'bg-secondary'}`} />
         {eyebrow}
       </span>
       <h2

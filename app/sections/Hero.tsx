@@ -16,14 +16,8 @@ export default function Hero() {
       <div className="relative flex flex-col lg:flex-row items-center justify-center gap-15 max-w-360 mx-auto py-12 px-5 lg:py-17.5 lg:px-25">
         {/* Left Column */}
         <FadeIn className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left lg:max-w-140">
-          {/* Eyebrow — accreditation pill */}
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary-50 border border-secondary-200 text-secondary text-[12px] font-bold uppercase tracking-[1.5px]">
-            <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
-            FOGSI MEMBER · NABH ACCREDITED
-          </span>
-
           {/* H1 */}
-          <h1 className="mt-4">
+          <h1>
             <span className="block text-[30px] lg:text-[40px] font-extrabold text-text-base leading-tight">
               Supporting every stage of
             </span>
@@ -77,7 +71,7 @@ export default function Hero() {
         {/* Right Column — Photo */}
         <FadeIn delay={0.15} direction="up" className="relative flex-shrink-0 hidden lg:block w-140 h-125 rounded-[28px] overflow-hidden ring-1 ring-primary/10">
           <Image
-            src="/hero.jpg"
+            src="/hero-2.jpg"
             alt="Mother and newborn baby at Krisha Women's Hospital"
             fill
             sizes="(min-width: 1024px) 560px, 100vw"
@@ -96,7 +90,7 @@ export default function Hero() {
               <p className="font-bold text-[19px] text-text-base leading-tight tracking-[-0.3px]">
                 20k<span className="text-[13px] font-semibold text-text-muted align-top mt-0.5 inline-block">+</span>
               </p>
-              <p className="text-[12.5px] text-text-muted mt-0.5 tracking-[0.1px]">Happy mothers</p>
+              <p className="text-[12.5px] text-text-muted mt-0.5 tracking-[0.1px]">Happy Patients</p>
             </div>
           </div>
 

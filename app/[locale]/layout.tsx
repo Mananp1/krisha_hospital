@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     images: [
       {
-        url: '/hero.jpg',
+        url: '/hero-2.jpg',
         width: 1920,
         height: 1280,
         alt: "Krisha Women's Hospital",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Krisha Women's Hospital",
     description: "Expert women's healthcare in Ahmedabad",
-    images: ['/hero.jpg'],
+    images: ['/hero-2.jpg'],
   },
 };
 
