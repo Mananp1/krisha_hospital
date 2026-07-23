@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
-import './globals.css';
+import '../globals.css';
 import { cn } from "@/lib/utils";
 import { SITE_URL } from '@/lib/site-config';
 import WhatsAppFABWrapper from '@/app/sections/WhatsAppFABWrapper';
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     images: [
       {
-        url: '/hero-2.jpg',
-        width: 1920,
-        height: 1280,
-        alt: "Krisha Women's Hospital",
+        url: '/gallery/reception-waiting-lounge.jpg',
+        width: 4000,
+        height: 1716,
+        alt: "Reception and waiting lounge at Krisha Women's Hospital, Narol Ahmedabad",
       },
     ],
   },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Krisha Women's Hospital",
     description: "Expert women's healthcare in Ahmedabad",
-    images: ['/hero-2.jpg'],
+    images: ['/gallery/reception-waiting-lounge.jpg'],
   },
 };
 

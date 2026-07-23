@@ -6,6 +6,7 @@ const quickLinks = [
   { label: 'Find a Doctor', href: '/#doctor' },
   { label: 'Book Appointment', href: 'https://wa.me/917862950676' },
   { label: 'Our Services', href: '/#services' },
+  { label: 'Hospital Gallery', href: '/gallery' },
   { label: 'Contact Us', href: '/#contact' },
 ];
 

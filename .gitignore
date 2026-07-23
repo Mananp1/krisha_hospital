@@ -38,3 +38,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# unprocessed camera originals for public/gallery — kept locally, too heavy to commit
+/assets/gallery-originals

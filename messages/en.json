@@ -18,6 +18,7 @@
   "nav": {
     "home": "Home",
     "services": "Services",
+    "gallery": "Gallery",
     "doctor": "Doctor",
     "contact": "Contact",
     "callNow": "Call Now",
@@ -31,9 +32,6 @@
     "lead": "Specialist care across gynaecology, safe motherhood, high-risk pregnancy management, fertility treatment, and women's wellness — delivered with clinical excellence and compassion at every stage of your life.",
     "bookAppointment": "Book Appointment",
     "exploreServices": "Explore Services",
-    "pillNabh": "NABH Accredited",
-    "pillIso": "ISO 9001:2015",
-    "pillNabl": "NABL Lab",
     "happyMothers": "Happy mothers",
     "emergency": "24×7 Emergency"
   },
@@ -142,18 +140,19 @@
     "subtitle": "Purpose-built spaces designed for comfort, safety, and advanced care — all under one roof.",
     "images": {
       "reception": {
-        "alt": "Reception and patient waiting lounge at Krisha Women's Hospital",
+        "alt": "Reception desk and patient waiting lounge at Krisha Women's Hospital, Narol",
         "caption": "Reception & Waiting Lounge"
       },
       "sonography": {
-        "alt": "Ultrasound and sonography room at Krisha Women's Hospital",
-        "caption": "Ultrasound & Sonography Room"
+        "alt": "Sonography room with ultrasound machine and examination couch at Krisha Women's Hospital",
+        "caption": "Sonography Room"
       },
-      "labour": {
-        "alt": "Labour and delivery room at Krisha Women's Hospital",
-        "caption": "Labour & Delivery Room"
+      "procedure": {
+        "alt": "Procedure room with obstetric examination table at Krisha Women's Hospital",
+        "caption": "Procedure & Examination Room"
       }
-    }
+    },
+    "viewAll": "View all {count} photos"
   },
   "testimonials": {
     "eyebrow": "PATIENT STORIES",
@@ -485,6 +484,63 @@
         "sub": "ગુજરાતીમાં સેવા ઉપલબ્ધ છે"
       }
     ]
+  },
+  "galleryPage": {
+    "metaTitle": "Hospital Gallery — Facilities & Infrastructure | Krisha Women's Hospital",
+    "metaDescription": "Take a look inside Krisha Women's Hospital, Narol Ahmedabad — reception and waiting lounge, consulting rooms, sonography suite, in-house pharmacy, procedure room and modular operation theatre.",
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Gallery",
+    "eyebrow": "OUR FACILITY",
+    "title": "Inside Krisha Women's Hospital",
+    "subtitle": "Reception and waiting lounges, consulting rooms, an in-house pharmacy, a fully equipped sonography suite and a modular operation theatre — purpose-built for comfort, safety and advanced women's care under one roof.",
+    "bookAppointment": "Book Appointment",
+    "visitUs": "Visit Us",
+    "viewLarger": "View larger: {caption}",
+    "close": "Close gallery viewer",
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "images": {
+      "receptionWaitingLounge": {
+        "alt": "Reception desk and patient waiting lounge at Krisha Women's Hospital, Narol",
+        "caption": "Reception & Waiting Lounge"
+      },
+      "sonographyRoom": {
+        "alt": "Sonography room with ultrasound machine and examination couch at Krisha Women's Hospital",
+        "caption": "Sonography Room"
+      },
+      "procedureRoom": {
+        "alt": "Procedure room with obstetric examination table at Krisha Women's Hospital",
+        "caption": "Procedure & Examination Room"
+      },
+      "consultingRoomEntrance": {
+        "alt": "Entrance to Dr. Alhad Pande's consulting room at Krisha Women's Hospital",
+        "caption": "Consulting Room"
+      },
+      "patientWaitingArea": {
+        "alt": "Seating in the patient waiting area outside the special rooms at Krisha Women's Hospital",
+        "caption": "Patient Waiting Area"
+      },
+      "pharmacyCounter": {
+        "alt": "In-house Krisha Pharmacy counter and attendant seating at Krisha Women's Hospital",
+        "caption": "In-House Pharmacy"
+      },
+      "operationTheatre": {
+        "alt": "Modular operation theatre with surgical light and operating table at Krisha Women's Hospital",
+        "caption": "Operation Theatre"
+      },
+      "ultrasoundSuite": {
+        "alt": "Ultrasound suite with colour Doppler machine at Krisha Women's Hospital",
+        "caption": "Ultrasound Suite"
+      },
+      "ultrasoundConsole": {
+        "alt": "Ultrasound console and reporting printer in the sonography suite at Krisha Women's Hospital",
+        "caption": "Ultrasound Console"
+      },
+      "sonographyMachine": {
+        "alt": "Colour Doppler sonography machine and PC-PNDT notice at Krisha Women's Hospital",
+        "caption": "Sonography Equipment"
+      }
+    }
   },
   "notFoundGlobal": {
     "code": "404"

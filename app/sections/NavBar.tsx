@@ -16,6 +16,7 @@ import {
 const navLinks = [
   { label: 'Home', href: '/#home' },
   { label: 'Services', href: '/#services' },
+  { label: 'Gallery', href: '/gallery' },
   { label: 'Doctor', href: '/doctor' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -28,11 +29,13 @@ export default function Navbar() {
   const pathname = usePathname();
   const active = pathname.startsWith('/services')
     ? 'Services'
-    : pathname.startsWith('/doctor')
-      ? 'Doctor'
-      : pathname.startsWith('/contact')
-        ? 'Contact'
-        : 'Home';
+    : pathname.startsWith('/gallery')
+      ? 'Gallery'
+      : pathname.startsWith('/doctor')
+        ? 'Doctor'
+        : pathname.startsWith('/contact')
+          ? 'Contact'
+          : 'Home';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -42,31 +45,31 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`w-full sticky top-0 z-50 transition-all duration-300 border-b border-border-muted h-21 ${
+      className={`w-full sticky top-0 z-50 transition-all duration-300 border-b border-border-muted h-22 md:h-24 lg:h-25 xl:h-27 ${
         scrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-surface'
       }`}
     >
-      <div className="flex items-center justify-between h-full max-w-360 mx-auto px-5 lg:px-25">
+      <div className="flex items-center justify-between h-full max-w-360 mx-auto px-5 md:px-10 lg:px-25">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center shrink-0">
           <Image
             src="/Logo.png"
             alt="Krisha Women's Hospital"
-            width={107}
-            height={52}
-            className="w-21.25 lg:w-26.75 h-auto"
+            width={358}
+            height={184}
+            className="w-28 sm:w-30 md:w-33 lg:w-34 xl:w-40 h-auto"
             priority
           />
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden lg:flex items-center gap-8.5">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-8.5">
           {navLinks.map((link) =>
             link.label === 'Services' ? (
               <div key="Services" className="relative group">
                 <button
                   type="button"
-                  className={`flex items-center gap-1 text-[15px] transition-all duration-200 pb-0.5 border-b-[2.5px] group-hover:text-primary group-hover:border-secondary ${
+                  className={`flex items-center gap-1 text-[14px] xl:text-[15px] whitespace-nowrap transition-all duration-200 pb-0.5 border-b-[2.5px] group-hover:text-primary group-hover:border-secondary ${
                     active === 'Services'
                       ? 'text-primary font-semibold border-secondary'
                       : 'text-text-base font-medium border-transparent'
@@ -114,7 +117,7 @@ export default function Navbar() {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`text-[15px] transition-colors pb-0.5 border-b-[2.5px] ${
+                className={`text-[14px] xl:text-[15px] whitespace-nowrap transition-colors pb-0.5 border-b-[2.5px] hover:text-primary hover:border-secondary ${
                   active === link.label
                     ? 'text-primary font-semibold border-secondary'
                     : 'text-text-base font-medium border-transparent'
@@ -127,18 +130,20 @@ export default function Navbar() {
         </div>
 
         {/* Desktop CTA buttons */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 shrink-0">
+          {/* Below xl the bigger logo needs the room — the number stays one tap
+              away in the TopBar and on the WhatsApp FAB. */}
           <Button
             variant="outline"
             asChild
-            className="rounded-full px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+            className="hidden xl:inline-flex rounded-full px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
           >
             <a href="tel:+917862950676">Call Now</a>
           </Button>
           <Button
             variant="secondary"
             asChild
-            className="rounded-full px-6 py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
+            className="rounded-full px-4.5 xl:px-6 py-3 h-auto text-[14px] xl:text-[15px] font-semibold hover:bg-secondary-600 shadow-sm whitespace-nowrap"
           >
             <Link href="/book-appointment">
               Book Appointment
@@ -183,15 +188,15 @@ export default function Navbar() {
             <SheetContent
               side="right"
               showCloseButton={false}
-              className="w-72 bg-surface p-8 gap-6 overflow-y-auto"
+              className="w-72 sm:w-80 bg-surface p-8 gap-6 overflow-y-auto"
             >
               <div className="flex justify-between items-center mb-2">
                 <Image
                   src="/Logo.png"
                   alt="Krisha Women's Hospital"
-                  width={90}
-                  height={44}
-                  className="w-22.5 h-auto"
+                  width={358}
+                  height={184}
+                  className="w-30 h-auto"
                 />
                 <SheetClose asChild>
                   <Button

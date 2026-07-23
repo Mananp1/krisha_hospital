@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { heroSlides } from '@/app/data/gallery';
+import HeroCarousel from './HeroCarousel';
 import FadeIn from './FadeIn';
 
 export default function Hero() {
@@ -13,21 +13,21 @@ export default function Hero() {
         <div className="absolute -bottom-20 right-0 w-80 h-80 bg-secondary-100/30 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative flex flex-col lg:flex-row items-center justify-center gap-15 max-w-360 mx-auto py-12 px-5 lg:py-17.5 lg:px-25">
+      <div className="relative flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-12 lg:gap-15 max-w-360 mx-auto py-12 px-5 md:px-10 lg:py-17.5 lg:px-25">
         {/* Left Column */}
         <FadeIn className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left lg:max-w-140">
           {/* H1 */}
           <h1>
-            <span className="block text-[30px] lg:text-[40px] font-extrabold text-text-base leading-tight">
+            <span className="block text-[30px] md:text-[36px] lg:text-[40px] font-extrabold text-text-base leading-tight">
               Supporting every stage of
             </span>
-            <span className="block text-[30px] lg:text-[40px] font-extrabold text-secondary leading-tight lg:mt-1">
+            <span className="block text-[30px] md:text-[36px] lg:text-[40px] font-extrabold text-secondary leading-tight lg:mt-1">
               a woman&apos;s health journey
             </span>
           </h1>
 
           {/* Lead */}
-          <p className="mt-6 mb-8 text-lg text-text-muted leading-[29px] max-w-125">
+          <p className="mt-6 mb-8 text-base md:text-lg text-text-muted leading-[29px] max-w-125 md:max-w-160">
             Specialist care across gynaecology, safe motherhood, high-risk
             pregnancy management, fertility treatment, and women&apos;s wellness —
             delivered with clinical excellence and compassion at every stage of
@@ -53,35 +53,22 @@ export default function Hero() {
               <Link href="/#services">Explore Services</Link>
             </Button>
           </div>
-
-          {/* Trust Pills */}
-          <div className="flex items-center justify-center lg:justify-start gap-3 mt-9 flex-wrap">
-            {['NABH Accredited', 'ISO 9001:2015', 'NABL Lab'].map((pill) => (
-              <span
-                key={pill}
-                className="flex items-center gap-1.5 px-4 py-2 text-[13px] font-semibold rounded-[30px] bg-surface border border-border-muted text-primary-700"
-              >
-                <CheckIcon size={11} strokeWidth={2.5} className="text-secondary shrink-0" />
-                {pill}
-              </span>
-            ))}
-          </div>
         </FadeIn>
 
-        {/* Right Column — Photo */}
-        <FadeIn delay={0.15} direction="up" className="relative flex-shrink-0 hidden lg:block w-140 h-125 rounded-[28px] overflow-hidden ring-1 ring-primary/10">
-          <Image
-            src="/hero-2.jpg"
-            alt="Mother and newborn baby at Krisha Women's Hospital"
-            fill
-            sizes="(min-width: 1024px) 560px, 100vw"
-            className="object-cover"
-            priority
+        {/* Right Column — Photo carousel (mobile, tablet and desktop) */}
+        <FadeIn
+          delay={0.15}
+          direction="up"
+          className="relative w-full max-w-160 lg:max-w-none lg:w-140 shrink-0"
+        >
+          <HeroCarousel
+            slides={heroSlides}
+            className="relative w-full aspect-[16/10] lg:aspect-[4/3] rounded-[20px] lg:rounded-[28px] overflow-hidden bg-primary-50 ring-1 ring-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
           />
 
-          {/* Stat badge — floating */}
-          <div className="absolute animate-float left-4 bottom-8 bg-surface rounded-[20px] px-6 py-4.5 shadow-[0_8px_32px_rgba(76,41,150,0.10)] flex items-center gap-5 z-10">
-            <div className="w-11 h-11 bg-secondary-50 rounded-[12px] flex items-center justify-center flex-shrink-0 text-secondary">
+          {/* Stat badge — floating (redundant with StatsBar on the smallest screens) */}
+          <div className="absolute animate-float left-4 top-4 lg:top-5 hidden sm:flex bg-surface rounded-[20px] px-5 py-3.5 lg:px-6 lg:py-4.5 shadow-[0_8px_32px_rgba(76,41,150,0.10)] items-center gap-4 lg:gap-5 z-20">
+            <div className="w-10 h-10 lg:w-11 lg:h-11 bg-secondary-50 rounded-[12px] flex items-center justify-center flex-shrink-0 text-secondary">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
@@ -95,8 +82,8 @@ export default function Hero() {
           </div>
 
           {/* Emergency pill */}
-          <div className="absolute -right-2.5 top-6.5 bg-primary rounded-l-[18px] px-5 py-3.5 shadow-lg z-10">
-            <p className="font-bold text-text-inverse text-[14px] whitespace-nowrap">24×7 Emergency</p>
+          <div className="absolute right-0 lg:-right-2.5 top-4 lg:top-6.5 bg-primary rounded-l-[18px] px-4 py-3 lg:px-5 lg:py-3.5 shadow-lg z-20">
+            <p className="font-bold text-text-inverse text-[13px] lg:text-[14px] whitespace-nowrap">24×7 Emergency</p>
           </div>
         </FadeIn>
       </div>
