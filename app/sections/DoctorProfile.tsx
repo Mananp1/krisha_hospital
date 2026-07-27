@@ -170,7 +170,12 @@ export default function DoctorProfile() {
             MBBS · MD · DGO
           </Badge>
 
-          <p className="mt-4 mb-5 text-[15px] text-text-muted leading-6.5 max-w-[520px]">
+          {/*
+            The cap only binds above ~1250px, where it would leave the bio stopping
+            short of the tag row and meta grid directly beneath it. Released at xl so
+            every block in this column shares one right edge.
+          */}
+          <p className="mt-4 mb-5 text-[15px] text-text-muted leading-6.5 max-w-[520px] xl:max-w-none">
             Dr. Alhad Pande is an experienced Obstetrician and Gynecologist with
             specialized training in infertility management, ultrasonography, and
             advanced laparoscopic surgery. With qualifications from reputed
