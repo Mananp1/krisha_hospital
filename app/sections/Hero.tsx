@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { ArrowRightIcon } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import { galleryImages } from '@/app/data/gallery';
@@ -7,18 +8,18 @@ import FadeIn from './FadeIn';
 
 const WHATSAPP = 'https://wa.me/917862950676';
 
-/** One dominant frame and one supporting frame — not four of equal weight. */
 function heroImage(name: string) {
   const image = galleryImages.find((i) => i.src === `/gallery/${name}.jpg`);
   if (!image) throw new Error(`Unknown hero image: ${name}`);
   return image;
 }
 
-const dominant = heroImage('reception-waiting-lounge');
-const supporting = heroImage('consulting-room-entrance');
+/** The widest frame in the library — 2400x1030 carries a full-bleed band. */
+const backdrop = heroImage('reception-waiting-lounge');
 
 export default function Hero() {
   const t = useTranslations('hero');
+  const tDoctor = useTranslations('doctorProfile');
 
   const trust = [
     { value: '20+', label: t('trust.years') },
@@ -29,26 +30,57 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="w-full bg-surface-subtle py-section-sm lg:py-section-lg"
+      /*
+        Capped below full viewport height: the backdrop is 2400x1030, so a
+        taller band crops it hard vertically and throws away the room.
+      */
+      className="relative flex items-center min-h-160 lg:min-h-[min(88vh,50rem)] overflow-hidden bg-surface"
     >
+      {/* ── Full-bleed backdrop ── */}
+      <Image
+        src={backdrop.src}
+        alt={backdrop.alt}
+        fill
+        sizes="100vw"
+        priority
+        /*
+          The reception desk and its branded backdrop sit at roughly 35–65%
+          across the source frame; the right quarter is a glass door and a PULL
+          sign. At 72% the crop landed squarely on the door, so this pulls back
+          to keep the desk in the open right-hand half.
+        */
+        className="object-cover object-[42%_center]"
+      />
+
       {/*
-        Asymmetric split — the copy column is narrower than the image column and
-        both are left-aligned. This replaces a centred layout fronted by a
-        four-slide carousel, where no single image carried the page.
+        Legibility wash. Text sits on the opaque end, never on the photograph —
+        the copy column is capped well inside where the gradient is still solid,
+        so contrast does not depend on what the image happens to show. Mobile
+        gets a heavier tail because the column occupies more of the frame.
       */}
-      <div className="max-w-page mx-auto px-5 lg:px-gutter grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] gap-12 lg:gap-16 xl:gap-20 items-center">
-        {/* ── Copy ── */}
-        <FadeIn className="flex flex-col items-start">
-          <h1 className="font-display text-display-lg text-text-base">
-            {t('titleLine1')}{' '}
-            <span className="text-secondary">{t('titleLine2')}</span>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-linear-to-r from-surface from-20% via-surface/90 via-48% to-surface/30 to-80% sm:to-transparent"
+      />
+
+      {/* ── Copy ── */}
+      <div className="relative w-full max-w-page mx-auto px-5 lg:px-gutter pt-28 lg:pt-32">
+        <FadeIn className="flex flex-col items-start max-w-xl lg:max-w-2xl">
+          {/*
+            The two lines break rather than wrap. Run inline, the magenta
+            started mid-sentence wherever the text happened to reflow, which
+            read as an accident instead of an emphasis.
+          */}
+          <h1 className="font-display text-display-lg text-text-base text-balance">
+            <span className="block">{t('titleLine1')}</span>
+            <span className="block text-secondary">{t('titleLine2')}</span>
           </h1>
 
-          <p className="mt-6 text-lead text-text-muted max-w-measure">
+          <p className="mt-5 text-lead text-text-muted max-w-measure">
             {t('lead')}
           </p>
 
-          <div className="flex items-center gap-3 mt-9 flex-wrap">
+          <div className="flex items-center gap-3 mt-8 flex-wrap">
             <Button
               variant="secondary"
               asChild
@@ -61,63 +93,43 @@ export default function Hero() {
             <Button
               variant="outline"
               asChild
-              className="rounded-md px-7 py-3.5 h-auto text-body font-semibold border border-primary/30 text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+              className="rounded-md px-7 py-3.5 h-auto text-body font-semibold bg-surface border-transparent text-primary hover:bg-primary hover:text-text-inverse shadow-none"
             >
               <Link href="/#services">{t('exploreServices')}</Link>
             </Button>
           </div>
-        </FadeIn>
 
-        {/* ── Photography ── */}
-        <FadeIn delay={0.15} direction="up" className="relative">
-          {/*
-            Indented on the left so the supporting frame overlaps it from inside
-            the column. No negative offsets, so nothing can push the page
-            sideways at awkward widths.
-          */}
-          <div className="relative aspect-4/3 sm:ml-16 lg:ml-20 rounded-xl overflow-hidden bg-primary-50">
-            <Image
-              src={dominant.src}
-              alt={dominant.alt}
-              fill
-              sizes="(min-width: 1024px) 620px, (min-width: 640px) 80vw, 100vw"
-              style={{ objectPosition: dominant.position ?? 'center' }}
-              className="object-cover"
-              priority
+          {/* Tertiary line, where the reference puts its partnership link. */}
+          <Link
+            href="/doctor"
+            className="inline-flex items-center gap-2 mt-7 text-meta font-semibold text-text-base no-underline group"
+          >
+            {tDoctor('viewFullProfile')}
+            <ArrowRightIcon
+              size={14}
+              className="transition-transform group-hover:translate-x-0.5"
             />
-          </div>
-
-          {/* Supporting frame — the arch, brand device B1. Photography only. */}
-          <div className="hidden sm:block absolute left-0 bottom-0 w-32 lg:w-40 aspect-3/4 arch overflow-hidden bg-primary-50 ring-4 ring-surface-subtle">
-            <Image
-              src={supporting.src}
-              alt={supporting.alt}
-              fill
-              sizes="160px"
-              style={{ objectPosition: supporting.position ?? 'center' }}
-              className="object-cover"
-            />
-          </div>
+          </Link>
 
           {/*
-            Trust panel — floats over the dominant frame from sm up, and reflows
-            underneath on mobile, where an overlay would cover the photograph.
+            Trust row. The reference has no such panel, but it was an explicit
+            ask in the original brief, so it survives as a flat rule-separated
+            line rather than a floating card — which would have put a container
+            back on top of the photograph.
           */}
-          <div className="mt-5 sm:mt-0 sm:absolute sm:right-0 sm:-bottom-5 flex items-center bg-surface rounded-md shadow-card px-2 py-3 sm:px-3">
+          <dl className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-8 pt-7 border-t border-primary/12 w-full max-w-lg">
             {trust.map((item) => (
-              <div
-                key={item.label}
-                className="flex flex-col items-center text-center px-3 sm:px-4 border-l border-border-muted first:border-l-0"
-              >
-                <span className="font-display text-display-sm text-primary tabular-nums leading-none">
+              <div key={item.label} className="flex items-baseline gap-2">
+                <dt className="sr-only">{item.label}</dt>
+                <dd className="font-display text-display-sm text-primary leading-none tabular-nums">
                   {item.value}
-                </span>
-                <span className="mt-1.5 text-label uppercase text-text-muted whitespace-nowrap">
+                </dd>
+                <span aria-hidden="true" className="text-meta text-text-muted">
                   {item.label}
                 </span>
               </div>
             ))}
-          </div>
+          </dl>
         </FadeIn>
       </div>
     </section>

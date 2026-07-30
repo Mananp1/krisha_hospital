@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { MenuIcon, XIcon, ChevronDownIcon, PhoneIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -22,7 +23,16 @@ const navLinks = [
   { label: 'Contact', href: '/contact' },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  /**
+   * Float the bar transparently over a full-bleed hero instead of sitting on
+   * its own solid strip. Used on the home page only — every other route opens
+   * on ordinary content with nothing behind the bar to show through.
+   */
+  readonly overlay?: boolean;
+}
+
+export default function Navbar({ overlay = false }: NavbarProps) {
   const tServices = useTranslations('servicesSection');
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -45,11 +55,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  /*
+    Overlay mode floats the bar over a full-bleed hero, so it must be fixed
+    rather than sticky — sticky would reserve height at the top of the document
+    and push the photograph down. Scrolling past the hero drops in the solid
+    background, which is also what restores contrast once the bar is over
+    ordinary page content.
+  */
+  const floating = overlay && !scrolled;
+
   return (
     <nav
-      className={`w-full sticky top-0 z-50 transition-all duration-300 border-b border-border-muted h-22 md:h-24 lg:h-25 xl:h-27 ${
-        scrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-surface'
-      }`}
+      className={cn(
+        'w-full z-50 transition-all duration-300 h-22 md:h-24 lg:h-25 xl:h-27',
+        overlay ? 'fixed top-0' : 'sticky top-0',
+        floating
+          ? 'bg-transparent border-b border-transparent'
+          : 'border-b border-border-muted',
+        !floating && (scrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-surface'),
+      )}
     >
       <div className="flex items-center justify-between h-full max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
         {/* Logo */}
@@ -59,6 +83,14 @@ export default function Navbar() {
             alt="Krisha Women's Hospital"
             width={358}
             height={184}
+            /*
+              The logo is a raster PNG on an opaque white plate (D10). Over a
+              transparent bar that plate shows as a white box. mix-blend-multiply
+              does not help: `z-50` here makes the bar its own stacking context,
+              so the logo would blend against the bar rather than the hero
+              behind it. The hero therefore grounds on white to match the plate.
+              A vector logo with a transparent ground is the real fix.
+            */
             className="w-28 sm:w-30 md:w-33 lg:w-34 xl:w-40 h-auto"
             priority
           />
@@ -133,11 +165,12 @@ export default function Navbar() {
         {/* Desktop CTA buttons */}
         <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 shrink-0">
           {/* Below xl the bigger logo needs the room — the number stays one tap
-              away in the TopBar and on the WhatsApp FAB. */}
+              away on the mobile bar and the WhatsApp FAB. Over the hero this
+              reads as a solid white chip, like the reference. */}
           <Button
             variant="outline"
             asChild
-            className="hidden xl:inline-flex rounded-md px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+            className="hidden xl:inline-flex rounded-md px-6 py-3 h-auto text-body font-semibold bg-surface border-transparent text-primary hover:bg-primary hover:text-text-inverse shadow-none"
           >
             <a href="tel:+917862950676">Call Now</a>
           </Button>
