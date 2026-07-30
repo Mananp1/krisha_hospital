@@ -82,7 +82,7 @@ export default async function PatientsPage({ searchParams }: PageProps) {
   const patients  = all.slice(from, from + pageSizeNum);
 
   return (
-    <div className="p-6 lg:p-8 max-w-[1440px] mx-auto">
+    <div className="p-6 lg:p-8 max-w-page mx-auto">
       <div className="mb-6">
         <h1 className="text-[22px] font-bold text-text-base">Patients</h1>
         <p className="text-[13px] text-text-muted mt-0.5">

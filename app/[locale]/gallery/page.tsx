@@ -31,7 +31,7 @@ export default function GalleryPage() {
           <div className="absolute -bottom-16 -left-16 w-72 h-72 bg-secondary-100/20 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative max-w-360 mx-auto px-5 md:px-10 lg:px-25">
+        <div className="relative max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
           <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-8 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronRightIcon size={13} className="text-text-muted/50 shrink-0" />
@@ -50,21 +50,21 @@ export default function GalleryPage() {
 
       {/* ── Catalogue ── */}
       <section className="w-full bg-surface py-12 lg:py-16">
-        <div className="max-w-360 mx-auto px-5 md:px-10 lg:px-25">
+        <div className="max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
           <GalleryGrid images={galleryImages} />
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-12">
             <Button
               variant="secondary"
               asChild
-              className="rounded-full px-7 py-3.5 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm w-full sm:w-auto"
+              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm w-full sm:w-auto"
             >
               <Link href="/book-appointment">Book Appointment</Link>
             </Button>
             <Button
               variant="outline"
               asChild
-              className="rounded-full px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none w-full sm:w-auto"
+              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none w-full sm:w-auto"
             >
               <Link href="/contact">Visit Us</Link>
             </Button>

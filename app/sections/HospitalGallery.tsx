@@ -8,8 +8,8 @@ import FadeIn from './FadeIn';
 
 export default function HospitalGallery() {
   return (
-    <section id="gallery" className="w-full bg-surface py-12 lg:py-20">
-      <div className="max-w-360 mx-auto px-5 md:px-10 lg:px-25">
+    <section id="gallery" className="w-full bg-surface py-section-sm lg:py-section">
+      <div className="max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
         <SectionHeader
           eyebrow="OUR FACILITY"
           title="A glimpse of our hospital"
@@ -54,7 +54,7 @@ export default function HospitalGallery() {
           <Button
             variant="outline"
             asChild
-            className="rounded-full px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+            className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
           >
             <Link href="/gallery">
               View all photos

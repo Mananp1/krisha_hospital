@@ -191,14 +191,14 @@ export default function DoctorPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="w-full bg-surface-subtle py-14 lg:py-20 relative overflow-hidden">
+      <section className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
         {/* Ambient blobs */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute -top-24 right-1/4 w-96 h-96 bg-primary-100/20 rounded-full blur-3xl" />
           <div className="absolute -bottom-16 -left-16 w-72 h-72 bg-secondary-100/15 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative max-w-360 mx-auto px-5 lg:px-25">
+        <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-8 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
@@ -227,7 +227,7 @@ export default function DoctorPage() {
                   </span>
                 </div>
               </div>
-              <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-[14px] px-5 py-4 shadow-[0_10px_30px_rgba(217,36,144,0.4)]">
+              <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-[14px] px-5 py-4 shadow-float">
                 <span className="font-extrabold text-text-inverse text-[28px] leading-none">20+</span>
                 <span className="text-text-inverse text-center text-[11px] mt-0.5">Years of care</span>
               </div>
@@ -280,7 +280,7 @@ export default function DoctorPage() {
                 <Button
                   variant="secondary"
                   asChild
-                  className="rounded-full px-6 py-3 h-auto text-[14px] font-semibold hover:bg-secondary-600 shadow-sm"
+                  className="rounded-md px-6 py-3 h-auto text-[14px] font-semibold hover:bg-secondary-600 shadow-sm"
                 >
                   <a href="https://wa.me/917862950676" target="_blank" rel="noopener noreferrer">
                     Book Appointment
@@ -289,7 +289,7 @@ export default function DoctorPage() {
                 <Button
                   variant="outline"
                   asChild
-                  className="rounded-full px-6 py-3 h-auto text-[14px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+                  className="rounded-md px-6 py-3 h-auto text-[14px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
                 >
                   <a href="tel:+917862950676">+91 78629 50676</a>
                 </Button>
@@ -301,8 +301,8 @@ export default function DoctorPage() {
       </section>
 
       {/* ── About ── */}
-      <section className="w-full bg-surface py-14 lg:py-20">
-        <div className="max-w-360 mx-auto px-5 lg:px-25">
+      <section className="w-full bg-surface py-section-sm lg:py-section">
+        <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
 
             {/* Left — heading + prose */}
@@ -370,8 +370,8 @@ export default function DoctorPage() {
       </section>
 
       {/* ── Education & Training ── */}
-      <section className="w-full bg-surface-subtle py-14 lg:py-20">
-        <div className="max-w-360 mx-auto px-5 lg:px-25">
+      <section className="w-full bg-surface-subtle py-section-sm lg:py-section">
+        <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-10">
             <SectionAccent />
             <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
@@ -429,8 +429,8 @@ export default function DoctorPage() {
       </section>
 
       {/* ── Areas of Expertise ── */}
-      <section className="w-full bg-surface py-14 lg:py-20">
-        <div className="max-w-360 mx-auto px-5 lg:px-25">
+      <section className="w-full bg-surface py-section-sm lg:py-section">
+        <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-8">
             <SectionAccent />
             <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
@@ -441,7 +441,7 @@ export default function DoctorPage() {
             {expertise.map((e, i) => (
               <div
                 key={i}
-                className="group bg-surface-subtle rounded-[18px] p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(76,41,150,0.08)] hover:border-primary/20"
+                className="group bg-surface-subtle rounded-[18px] p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
               >
                 <div className="w-10 h-10 rounded-[10px] bg-primary-100 text-primary flex items-center justify-center shrink-0">
                   <CheckIcon size={16} strokeWidth={2.5} />
@@ -457,8 +457,8 @@ export default function DoctorPage() {
       </section>
 
       {/* ── Clinical Philosophy ── */}
-      <section className="w-full bg-surface-subtle py-14 lg:py-20">
-        <div className="max-w-360 mx-auto px-5 lg:px-25">
+      <section className="w-full bg-surface-subtle py-section-sm lg:py-section">
+        <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-6">
             <SectionAccent />
             <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
@@ -490,7 +490,7 @@ export default function DoctorPage() {
               {principles.map((p) => (
                 <div
                   key={p.label}
-                  className="group flex items-start gap-3 bg-surface rounded-[14px] p-4 border border-border-muted transition-all duration-200 hover:border-primary/20 hover:shadow-[0_4px_12px_rgba(76,41,150,0.06)]"
+                  className="group flex items-start gap-3 bg-surface rounded-[14px] p-4 border border-border-muted transition-all duration-200 hover:border-primary/20 hover:shadow-card"
                 >
                   <div className="w-2 h-2 rounded-full bg-secondary mt-1.5 shrink-0" />
                   <div>
@@ -505,8 +505,8 @@ export default function DoctorPage() {
       </section>
 
       {/* ── Consultation Details ── */}
-      <section className="w-full bg-surface py-14 lg:py-20">
-        <div className="max-w-360 mx-auto px-5 lg:px-25">
+      <section className="w-full bg-surface py-section-sm lg:py-section">
+        <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-8">
             <SectionAccent />
             <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
@@ -517,7 +517,7 @@ export default function DoctorPage() {
             {consultDetails.map((item) => (
               <div
                 key={item.label}
-                className="group bg-surface-subtle rounded-[18px] p-6 border border-border-muted flex flex-col gap-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(76,41,150,0.08)] hover:border-primary/20"
+                className="group bg-surface-subtle rounded-[18px] p-6 border border-border-muted flex flex-col gap-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
               >
                 <div className="w-11 h-11 rounded-[10px] bg-primary-100 text-primary flex items-center justify-center shrink-0">
                   {item.icon}

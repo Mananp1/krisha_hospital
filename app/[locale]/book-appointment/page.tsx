@@ -60,7 +60,7 @@ const contactDetails = [
 
 export default function BookAppointmentPage() {
   return (
-    <section className="max-w-360 mx-auto px-5 lg:px-25 py-12 lg:py-20">
+    <section className="max-w-page mx-auto px-5 lg:px-gutter py-section-sm lg:py-section">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-[13px] text-text-muted mb-8">
         <Link href="/" className="hover:text-primary transition-colors">Home</Link>

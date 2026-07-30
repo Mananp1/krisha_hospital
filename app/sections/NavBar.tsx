@@ -49,7 +49,7 @@ export default function Navbar() {
         scrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-surface'
       }`}
     >
-      <div className="flex items-center justify-between h-full max-w-360 mx-auto px-5 md:px-10 lg:px-25">
+      <div className="flex items-center justify-between h-full max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
@@ -84,7 +84,7 @@ export default function Navbar() {
                 </button>
 
                 <div className="absolute top-full left-0 pt-3 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out">
-                  <div className="bg-surface border border-border-muted rounded-[10px] shadow-[0_6px_22px_rgba(0,0,0,0.08)] px-5 py-4 w-160">
+                  <div className="bg-surface border border-border-muted rounded-[10px] shadow-card px-5 py-4 w-160">
                     <div className="flex items-start">
                       <div className="flex flex-col gap-2 flex-1">
                         {services.slice(0, 7).map((s) => (
@@ -136,14 +136,14 @@ export default function Navbar() {
           <Button
             variant="outline"
             asChild
-            className="hidden xl:inline-flex rounded-full px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+            className="hidden xl:inline-flex rounded-md px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
           >
             <a href="tel:+917862950676">Call Now</a>
           </Button>
           <Button
             variant="secondary"
             asChild
-            className="rounded-full px-4.5 xl:px-6 py-3 h-auto text-[14px] xl:text-[15px] font-semibold hover:bg-secondary-600 shadow-sm whitespace-nowrap"
+            className="rounded-md px-4.5 xl:px-6 py-3 h-auto text-[14px] xl:text-[15px] font-semibold hover:bg-secondary-600 shadow-sm whitespace-nowrap"
           >
             <Link href="/book-appointment">
               Book Appointment

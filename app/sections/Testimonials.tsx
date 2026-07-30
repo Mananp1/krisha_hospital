@@ -44,14 +44,14 @@ function PersonIcon() {
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="w-full bg-surface-subtle py-12 lg:py-20 relative overflow-hidden">
+    <section id="testimonials" className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
       {/* Ambient gradient blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary-100/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary-100/25 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-360 mx-auto px-5 lg:px-25">
+      <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
 
         <div className="flex flex-col items-center">
           <SectionHeader
@@ -70,7 +70,7 @@ export default function Testimonials() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
           {testimonials.map((t, i) => (
             <FadeIn key={i} direction="up" delay={i * 0.08}>
-              <div className="group flex flex-col rounded-[18px] p-7 bg-surface border border-border-muted gap-3.5 h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(76,41,150,0.08)] hover:border-primary/20">
+              <div className="group flex flex-col rounded-[18px] p-7 bg-surface border border-border-muted gap-3.5 h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-card hover:border-primary/20">
                 {/* Quote icon + stars */}
                 <div className="flex items-start justify-between">
                   <QuoteIcon size={28} strokeWidth={1.5} className="text-primary/20" />
@@ -102,7 +102,7 @@ export default function Testimonials() {
           <Button
             variant="outline"
             asChild
-            className="rounded-full px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+            className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
           >
             <Link href="/#contact">Share Your Story</Link>
           </Button>

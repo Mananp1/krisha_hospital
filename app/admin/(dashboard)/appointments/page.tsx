@@ -58,7 +58,7 @@ export default async function AppointmentsPage({ searchParams }: PageProps) {
   const pending = appointments.filter((a) => a.status === 'pending').length;
 
   return (
-    <div className="p-6 lg:p-8 max-w-[1440px] mx-auto">
+    <div className="p-6 lg:p-8 max-w-page mx-auto">
       <div className="mb-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
         <div>
           <h1 className="text-[22px] font-bold text-text-base">Appointments</h1>

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Manrope } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
@@ -7,13 +6,8 @@ import '../globals.css';
 import { cn } from "@/lib/utils";
 import { SITE_URL } from '@/lib/site-config';
 import { routing } from '@/i18n/routing';
+import { fontClassNamesFor } from '@/app/fonts';
 import WhatsAppFABWrapper from '@/app/sections/WhatsAppFABWrapper';
-
-const manrope = Manrope({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-manrope',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -71,7 +65,7 @@ export default async function RootLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={cn("font-sans", manrope.variable)}>
+    <html lang={locale} className={cn("font-sans", fontClassNamesFor(locale))}>
       <body
         className="min-h-full flex flex-col antialiased"
         suppressHydrationWarning

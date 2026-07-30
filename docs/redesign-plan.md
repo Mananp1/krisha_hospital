@@ -61,16 +61,16 @@ Every number below is measured from the current tree, not estimated.
 | D9 | **One header component drives six sections**, defaulting to centred. This *is* the "label → centred heading → paragraph → cards" pattern, encoded. | [SectionHeader.tsx:15](../app/sections/SectionHeader.tsx#L15) — `centered = true`; 6 consumers, only 3 override it |
 | D10 | **Logo is raster-only** (358×184 PNG). It cannot be recoloured for dark surfaces, which is why the footer wraps it in a white rounded box. | [Footer.tsx:62](../app/sections/Footer.tsx#L62) |
 | D11 | **Decorative blur blobs used as a substitute for composition.** 4 sections × 2 `blur-3xl` blobs. They add cost and haze, not hierarchy. | Hero, DoctorProfile, Testimonials, CTAStrip |
-| D12 | **Container width duplicated two ways.** `max-w-360` (=1440px) ×29 alongside `max-w-[1440px]` ×4. Content width lands at 1240px, which is correct — but by accident, not by token. | — |
+| D12 | **Container width spelled two ways across the two trees.** The public site uses `max-w-360` (=1440px) ×29; the admin panel uses `max-w-[1440px]` ×4 for the same value. Content width lands at 1240px, which is correct — but by accident, not by token. | — |
 
 ### 1.3 Architecture findings
 
 | # | Finding | Detail |
 | --- | --- | --- |
 | A1 | **Service data exists in three places.** | `Services.tsx` holds its own 13-entry array with descriptions + inline SVGs (222 lines); [app/data/services.ts](../app/data/services.ts) holds name+slug; `messages.servicesData` holds translated names, copy and SEO metadata for all 13. Adding a service means editing three files. |
-| A2 | **13 hand-written service page files** each import `ServicePageLayout` with a local data object. Correct layout reuse, but the content is one `[slug]` route's worth of data spread across 13 files. |
+| A2 | **13 hand-written service page files** each import `ServicePageLayout` with a local data object. Correct layout reuse, but the content is one `[slug]` route's worth of data spread across 13 files. | [app/[locale]/services/](../app/[locale]/services/) |
 | A3 | **Dead code.** | [app/theme.css](../app/theme.css) (56 lines) imported nowhere; `galleryImages` imported but unused in `HospitalGallery.tsx:5` (the one lint warning); 5 unused images in `public/` (`hero.jpg`, `hero-2.jpg`, `hospital1–3.jpg`, ~1.7 MB) |
-| A4 | **Homepage carries commented-out sections** (`AppointmentForm`, `WhyChooseUs`, `HealthPackages`, `Blog`) at [page.tsx:31-36](../app/[locale]/page.tsx#L31-L36) |
+| A4 | **Homepage carries commented-out sections** (`AppointmentForm`, `WhyChooseUs`, `HealthPackages`, `Blog`). | [page.tsx:31-36](../app/[locale]/page.tsx#L31-L36) |
 | A5 | **Testimonials are truncated with no way to read them.** `line-clamp-5` on 700-character stories, no expansion affordance. The most persuasive content on the site is unreadable. | [Testimonials.tsx:80](../app/sections/Testimonials.tsx#L80) |
 | A6 | **Homepage facility strip shows 3 same-size rectangles** because `galleryPreview` filters to landscape images only — while the `/gallery` page already has a proper asymmetric mosaic with `wide/tall/square/feature` tiles. The good layout exists and the homepage doesn't use it. | [gallery.ts:122](../app/data/gallery.ts#L122) vs [GalleryGrid.tsx:25](../app/sections/GalleryGrid.tsx#L25) |
 | A7 | *(fixed 2026-07-30, commit `43eccce`)* Admin routes had no root layout after the i18n migration → all admin panels rendered unstyled in production. | — |
@@ -155,20 +155,26 @@ CSS font fallback resolves per glyph, so Latin text inside Gujarati copy still r
 Fraunces usage is restricted to: hero h1, section h2, stat numerals, and the testimonial quote mark. Everything
 else — nav, buttons, service names, credentials, forms, body — stays Manrope.
 
-**T3 — Radius system.** Replace the derived `calc()` chain with explicit values:
+**T3 — Radius system.** Replace the derived `calc()` chain with explicit values.
+
+Shipped as a five-step ladder rather than the four above, because shadcn's primitives already consume
+`sm/md/lg/xl` and a four-step set would have made `lg` larger than `xl`:
 
 ```css
 --radius-sm:   6px;   /* inputs, tags, small controls */
---radius-md:   10px;  /* service cards, FAQ rows, buttons */
---radius-lg:   16px;  /* large image panels, doctor portrait */
+--radius-md:   10px;  /* buttons, service cards, FAQ rows */
+--radius-lg:   12px;  /* larger cards, panels */
+--radius-xl:   16px;  /* image panels, doctor portrait */
 --radius-pill: 999px; /* badges only */
 ```
 
-Then: strip `rounded-full` from all 20 buttons → `--radius-md`. Header, footer, stats band, full-bleed CTA get
+Then: strip `rounded-full` from the buttons → `--radius-md`. Header, footer, stats band, full-bleed CTA get
 no radius at all.
 
-⚠️ **The token layer is shared with the admin panel** (`app/admin/**` consumes `--radius-*` via shadcn
-primitives). Phase 1 must be smoke-tested against `/admin` before merge.
+⚠️ **The token layer is shared with the admin panel** — `app/admin/**` uses `rounded-xl` ×26, `rounded-md` ×22,
+`rounded-lg` ×22 and `rounded-sm` ×7 via shadcn primitives. The new ladder moves `md` 8→10, `lg` 10→12 and
+`xl` 14→16, leaving `sm` at 6: a uniform +2px on three steps. Verified as a subtle, consistent shift rather
+than a regression. `rounded-2xl` / `rounded-full` / `rounded-none` are Tailwind defaults and are untouched.
 
 **T4 — Spacing scale.**
 

@@ -28,8 +28,8 @@ function Section({ title, children }: Readonly<{ title: string; children: React.
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <section className="w-full bg-surface-subtle border-b border-border-muted py-14 lg:py-20">
-        <div className="max-w-360 mx-auto px-5 lg:px-25">
+      <section className="w-full bg-surface-subtle border-b border-border-muted py-section-sm lg:py-section">
+        <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <nav className="flex items-center gap-1.5 text-[13px] text-text-muted mb-6 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronIcon />
@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      <section className="w-full bg-surface py-14 lg:py-20">
+      <section className="w-full bg-surface py-section-sm lg:py-section">
         <div className="max-w-190 mx-auto px-5 lg:px-0">
           <div className="flex flex-col gap-10">
 

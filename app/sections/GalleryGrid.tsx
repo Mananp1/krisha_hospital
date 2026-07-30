@@ -107,7 +107,7 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
   return (
     <>
       {/* Row heights track the fluid container so cells stay roughly square;
-          they are pinned once max-w-360 caps the container at xl. */}
+          they are pinned once max-w-page caps the container at xl. */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 auto-rows-[46vw] sm:auto-rows-[44vw] md:auto-rows-[23vw] lg:auto-rows-[22vw] xl:auto-rows-[15rem]">
         {images.map((img, i) => (
           <FadeIn

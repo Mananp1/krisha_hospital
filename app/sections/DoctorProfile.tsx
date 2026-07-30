@@ -103,7 +103,7 @@ export default function DoctorProfile() {
   return (
     <section
       id="doctor"
-      className="w-full bg-surface-subtle py-12 lg:py-20 relative overflow-hidden"
+      className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden"
     >
       {/* Ambient gradient blobs */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -111,7 +111,7 @@ export default function DoctorProfile() {
         <div className="absolute -bottom-10 left-0 w-72 h-72 bg-secondary-100/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-360 mx-auto px-5 lg:px-25 flex flex-col lg:flex-row items-center gap-12 lg:gap-14">
+      <div className="relative max-w-page mx-auto px-5 lg:px-gutter flex flex-col lg:flex-row items-center gap-12 lg:gap-14">
         {/* Left — Photo Frame */}
         <FadeIn
           direction="right"
@@ -141,7 +141,7 @@ export default function DoctorProfile() {
           </div>
 
           {/* Experience badge — floats outside the photo frame */}
-          <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-[14px] px-5 py-4 shadow-[0_10px_30px_rgba(217,36,144,0.4)]">
+          <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-[14px] px-5 py-4 shadow-float">
             <span className="font-extrabold text-text-inverse text-[28px] lg:text-[30px] leading-none">
               20+
             </span>
@@ -222,7 +222,7 @@ export default function DoctorProfile() {
             <Button
               variant="secondary"
               asChild
-              className="rounded-full px-6 py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
+              className="rounded-md px-6 py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
             >
               <a
                 href="https://wa.me/917862950676"
@@ -235,14 +235,14 @@ export default function DoctorProfile() {
             <Button
               variant="outline"
               asChild
-              className="rounded-full px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+              className="rounded-md px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
             >
               <a href="tel:+917862950676">Call Now</a>
             </Button>
             <Button
               variant="ghost"
               asChild
-              className="rounded-full px-6 py-3 h-auto text-[15px] font-semibold text-text-muted hover:text-primary hover:bg-primary-50 shadow-none gap-1.5"
+              className="rounded-md px-6 py-3 h-auto text-[15px] font-semibold text-text-muted hover:text-primary hover:bg-primary-50 shadow-none gap-1.5"
             >
               <Link href="/doctor">
                 View Full Profile

@@ -72,7 +72,7 @@ export default function StatsBar() {
 
   return (
     <div ref={ref} className="w-full bg-gradient-to-br from-primary to-primary-800 border-y border-white/10">
-      <div className="grid grid-cols-2 lg:flex lg:items-center lg:justify-between max-w-360 mx-auto px-5 lg:px-25 lg:min-h-28 lg:divide-x lg:divide-white/15">
+      <div className="grid grid-cols-2 lg:flex lg:items-center lg:justify-between max-w-page mx-auto px-5 lg:px-gutter lg:min-h-28 lg:divide-x lg:divide-white/15">
         {stats.map((stat, i) => (
           <div
             key={stat.label}

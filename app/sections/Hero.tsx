@@ -13,7 +13,7 @@ export default function Hero() {
         <div className="absolute -bottom-20 right-0 w-80 h-80 bg-secondary-100/30 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-12 lg:gap-15 max-w-360 mx-auto py-12 px-5 md:px-10 lg:py-17.5 lg:px-25">
+      <div className="relative flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-12 lg:gap-15 max-w-page mx-auto py-12 px-5 md:px-10 lg:py-17.5 lg:px-gutter">
         {/* Left Column */}
         <FadeIn className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left lg:max-w-140">
           {/* H1 */}
@@ -39,7 +39,7 @@ export default function Hero() {
             <Button
               variant="secondary"
               asChild
-              className="rounded-full px-7 py-3.5 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
+              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
             >
               <a href="https://wa.me/917862950676" target="_blank" rel="noopener noreferrer">
                 Book Appointment
@@ -48,7 +48,7 @@ export default function Hero() {
             <Button
               variant="outline"
               asChild
-              className="rounded-full px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
             >
               <Link href="/#services">Explore Services</Link>
             </Button>
@@ -67,7 +67,7 @@ export default function Hero() {
           />
 
           {/* Stat badge — floating (redundant with StatsBar on the smallest screens) */}
-          <div className="absolute animate-float left-4 top-4 lg:top-5 hidden sm:flex bg-surface rounded-[20px] px-5 py-3.5 lg:px-6 lg:py-4.5 shadow-[0_8px_32px_rgba(76,41,150,0.10)] items-center gap-4 lg:gap-5 z-20">
+          <div className="absolute animate-float left-4 top-4 lg:top-5 hidden sm:flex bg-surface rounded-[20px] px-5 py-3.5 lg:px-6 lg:py-4.5 shadow-float items-center gap-4 lg:gap-5 z-20">
             <div className="w-10 h-10 lg:w-11 lg:h-11 bg-secondary-50 rounded-[12px] flex items-center justify-center flex-shrink-0 text-secondary">
               <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />

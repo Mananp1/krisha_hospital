@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 export default function TopBar() {
   return (
     <div className="w-full bg-primary h-10.5">
-      <div className="flex items-center justify-between h-full max-w-360 mx-auto px-5 lg:px-25">
+      <div className="flex items-center justify-between h-full max-w-page mx-auto px-5 lg:px-gutter">
         {/* Left */}
         <div className="flex items-center gap-5.5">
           <a

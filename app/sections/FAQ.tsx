@@ -48,8 +48,8 @@ const faqs: FaqItem[] = [
 
 export default function FAQ() {
   return (
-    <section className="w-full bg-surface py-14 lg:py-20">
-      <div className="max-w-360 mx-auto px-5 lg:px-25">
+    <section className="w-full bg-surface py-section-sm lg:py-section">
+      <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
 
           {/* Left — sticky heading panel */}

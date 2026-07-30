@@ -53,7 +53,7 @@ const contactItems = [
 export default function Footer() {
   return (
     <footer id="contact" className="w-full bg-primary-950 pt-14 lg:pt-16">
-      <div className="max-w-360 mx-auto px-5 lg:px-25">
+      <div className="max-w-page mx-auto px-5 lg:px-gutter">
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-10">
 

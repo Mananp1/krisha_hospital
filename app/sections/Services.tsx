@@ -175,8 +175,8 @@ const LAST = services.length - 1;
 
 export default function Services() {
   return (
-    <section id="services" className="w-full bg-surface py-14 lg:py-20">
-      <div className="max-w-360 mx-auto px-5 lg:px-25">
+    <section id="services" className="w-full bg-surface py-section-sm lg:py-section">
+      <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <SectionHeader
           eyebrow="WHAT WE OFFER"
           title="Specialised women's healthcare services"
@@ -191,7 +191,7 @@ export default function Services() {
               delay={i < 3 ? i * 0.08 : 0}
               className={i === LAST ? 'lg:col-start-2' : undefined}
             >
-              <div className="group flex flex-col p-7 rounded-[18px] bg-primary border border-white/10 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_14px_40px_rgba(76,41,150,0.55)] h-full">
+              <div className="group flex flex-col p-7 rounded-[18px] bg-primary border border-white/10 transition-all duration-200 hover:-translate-y-1 hover:shadow-float h-full">
                 <div className="w-[54px] h-[54px] bg-white/15 text-white rounded-[14px] flex items-center justify-center shrink-0 transition-colors group-hover:bg-white/25">
                   {s.icon}
                 </div>

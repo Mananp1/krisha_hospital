@@ -84,7 +84,7 @@ export default async function AdminDashboardPage() {
   const hasAlerts = (pendingCount ?? 0) > 0 || (unresolvedCount ?? 0) > 0;
 
   return (
-    <div className="p-6 lg:p-8 max-w-[1440px] mx-auto">
+    <div className="p-6 lg:p-8 max-w-page mx-auto">
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-[22px] font-bold text-text-base">Dashboard</h1>
