@@ -33,7 +33,12 @@
     "bookAppointment": "Book Appointment",
     "exploreServices": "Explore Services",
     "happyMothers": "Happy mothers",
-    "emergency": "24×7 Emergency"
+    "emergency": "24×7 Emergency",
+    "trust": {
+      "years": "Years of care",
+      "emergency": "Emergency cover",
+      "rating": "Google rating"
+    }
   },
   "statsBar": {
     "happyPatients": "Happy Patients",
@@ -620,11 +625,26 @@
         "Beyond clinical checkups, holistic maternity care supports a woman's long-term well-being. Dr. Alhad Pande and our expert team focus on cultivating physical resilience and psychological comfort. We empower mothers with essential knowledge regarding nutrition, lifestyle adjustments, and mental health, ensuring you feel confident, informed, and genuinely cared for as you prepare to welcome your newborn."
       ],
       "benefits": [
-        { "label": "Expert Clinical Leadership", "description": "Personalized care pathways guided by the extensive expertise of Dr. Alhad Pande." },
-        { "label": "Advanced Prenatal Screening", "description": "State-of-the-art ultrasound and diagnostic monitoring to track your baby's development accurately." },
-        { "label": "High-Risk Pregnancy Management", "description": "Specialized protocols to safely manage pre-existing conditions or unexpected maternal complications." },
-        { "label": "24/7 Emergency Readiness", "description": "Round-the-clock medical availability for critical maternal or fetal care when you need it most." },
-        { "label": "Comprehensive Postpartum Support", "description": "Continuous guidance on maternal recovery, newborn wellness, and breastfeeding techniques." }
+        {
+          "label": "Expert Clinical Leadership",
+          "description": "Personalized care pathways guided by the extensive expertise of Dr. Alhad Pande."
+        },
+        {
+          "label": "Advanced Prenatal Screening",
+          "description": "State-of-the-art ultrasound and diagnostic monitoring to track your baby's development accurately."
+        },
+        {
+          "label": "High-Risk Pregnancy Management",
+          "description": "Specialized protocols to safely manage pre-existing conditions or unexpected maternal complications."
+        },
+        {
+          "label": "24/7 Emergency Readiness",
+          "description": "Round-the-clock medical availability for critical maternal or fetal care when you need it most."
+        },
+        {
+          "label": "Comprehensive Postpartum Support",
+          "description": "Continuous guidance on maternal recovery, newborn wellness, and breastfeeding techniques."
+        }
       ],
       "approach": [
         "Our approach is rooted in patient-centered empathy, recognizing that no two pregnancy journeys are identical. Your care begins with a thorough initial evaluation, where Dr. Alhad Pande reviews your medical history, discusses your personal preferences, and establishes a healthy baseline. This meticulous assessment allows us to co-create a personalized prenatal roadmap that aligns with your medical requirements and personal comfort.",
@@ -644,12 +664,30 @@
         "Beyond safeguarding physical health, high-risk pregnancy management significantly supports a woman's psychological well-being. Knowing that an expert like Dr. Alhad Pande is closely tracking every biometric marker alleviates the profound anxiety that often accompanies a complicated pregnancy. By providing timely education, nutritional counseling, and symptom management, this service transforms a stressful medical period into an empowered, highly supported journey toward motherhood."
       ],
       "benefits": [
-        { "label": "Expert Clinical Oversight", "description": "Direct, continuous care managed by Dr. Alhad Pande, a trusted specialist in advanced obstetrics." },
-        { "label": "Tailored Surveillance Protocols", "description": "Custom-designed monitoring schedules that match the exact medical needs of your specific high-risk condition." },
-        { "label": "Advanced Fetal Diagnostics", "description": "Access to sophisticated ultrasound imaging and fetal well-being assessments to track growth and detect anomalies early." },
-        { "label": "Proactive Complication Management", "description": "Timely clinical interventions to prevent conditions like preeclampsia or gestational diabetes from escalating." },
-        { "label": "24/7 Emergency Readiness", "description": "Complete peace of mind with round-the-clock emergency medical services available at our Narol facility." },
-        { "label": "Holistic Maternal Support", "description": "Integration of lifestyle advice, nutritional counseling, and emotional support to ensure comprehensive wellness." }
+        {
+          "label": "Expert Clinical Oversight",
+          "description": "Direct, continuous care managed by Dr. Alhad Pande, a trusted specialist in advanced obstetrics."
+        },
+        {
+          "label": "Tailored Surveillance Protocols",
+          "description": "Custom-designed monitoring schedules that match the exact medical needs of your specific high-risk condition."
+        },
+        {
+          "label": "Advanced Fetal Diagnostics",
+          "description": "Access to sophisticated ultrasound imaging and fetal well-being assessments to track growth and detect anomalies early."
+        },
+        {
+          "label": "Proactive Complication Management",
+          "description": "Timely clinical interventions to prevent conditions like preeclampsia or gestational diabetes from escalating."
+        },
+        {
+          "label": "24/7 Emergency Readiness",
+          "description": "Complete peace of mind with round-the-clock emergency medical services available at our Narol facility."
+        },
+        {
+          "label": "Holistic Maternal Support",
+          "description": "Integration of lifestyle advice, nutritional counseling, and emotional support to ensure comprehensive wellness."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to high-risk pregnancy is fundamentally patient-centered and rooted in open, transparent communication. We recognize that no two high-risk cases are identical. Your journey begins with an exhaustive diagnostic evaluation where Dr. Alhad Pande reviews your complete medical history, previous pregnancy outcomes, and current health status. Utilizing advanced diagnostic screenings, we map out a clear baseline to understand the exact nature of the risks involved.",
@@ -669,11 +707,26 @@
         "Ultimately, sonography supports long-term well-being through early detection. By replacing uncertainty with clear visual evidence, Dr. Alhad Pande can formulate accurate management paths, reducing maternal anxiety and promoting proactive preventive care to ensure health issues are addressed before they progress."
       ],
       "benefits": [
-        { "label": "Safe and Non-Invasive", "description": "Uses harmless sound waves instead of radiation, ensuring complete safety for both mother and baby." },
-        { "label": "Early Anomaly Detection", "description": "Identifies potential fetal developmental concerns early, allowing for timely medical planning." },
-        { "label": "Accurate Gynecological Diagnosis", "description": "Pinpoints the root causes of pelvic pain or abnormal bleeding by identifying fibroids, cysts, or polyps." },
-        { "label": "Ovulation Tracking", "description": "Provides precise follicular monitoring to support couples navigating infertility evaluations." },
-        { "label": "Immediate Clinical Clarity", "description": "Features direct diagnostic interpretation by Dr. Alhad Pande to minimize waiting anxiety." }
+        {
+          "label": "Safe and Non-Invasive",
+          "description": "Uses harmless sound waves instead of radiation, ensuring complete safety for both mother and baby."
+        },
+        {
+          "label": "Early Anomaly Detection",
+          "description": "Identifies potential fetal developmental concerns early, allowing for timely medical planning."
+        },
+        {
+          "label": "Accurate Gynecological Diagnosis",
+          "description": "Pinpoints the root causes of pelvic pain or abnormal bleeding by identifying fibroids, cysts, or polyps."
+        },
+        {
+          "label": "Ovulation Tracking",
+          "description": "Provides precise follicular monitoring to support couples navigating infertility evaluations."
+        },
+        {
+          "label": "Immediate Clinical Clarity",
+          "description": "Features direct diagnostic interpretation by Dr. Alhad Pande to minimize waiting anxiety."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to sonography is thoroughly patient-centered, recognizing that diagnostic tests can cause anxiety. From the moment you enter, we prioritize your physical comfort and emotional ease. We explain the procedure beforehand, maintain complete privacy, and ensure you remain comfortable throughout the scan.",
@@ -693,11 +746,26 @@
         "Beyond physiological support, infertility management preserves a woman's psychological well-being. Fertility struggles often introduce immense stress and vulnerability into a relationship. By providing structured clinical guidance, clear diagnostic answers, and proactive treatment options, Krisha Women's Hospital alleviates the anxiety of the unknown, empowering couples with renewed confidence and hope throughout their parenthood journey."
       ],
       "benefits": [
-        { "label": "Tailored Fertility Protocols", "description": "Customized IUI and IVF treatment lines based strictly on your unique reproductive profile." },
-        { "label": "Advanced Laboratory Setup", "description": "Modern embryology equipment ensuring optimal, highly controlled conditions for embryo culture." },
-        { "label": "Comprehensive Diagnostics", "description": "Detailed hormone profiling, advanced semen analysis, and pelvic scans to identify hidden reproductive roadblocks." },
-        { "label": "Expert Clinical Direction", "description": "Advanced treatments directly overseen by the experienced Dr. Alhad Pande." },
-        { "label": "Holistic Patient Care", "description": "Dedicated emotional counseling and support systems to help couples manage treatment stress smoothly." }
+        {
+          "label": "Tailored Fertility Protocols",
+          "description": "Customized IUI and IVF treatment lines based strictly on your unique reproductive profile."
+        },
+        {
+          "label": "Advanced Laboratory Setup",
+          "description": "Modern embryology equipment ensuring optimal, highly controlled conditions for embryo culture."
+        },
+        {
+          "label": "Comprehensive Diagnostics",
+          "description": "Detailed hormone profiling, advanced semen analysis, and pelvic scans to identify hidden reproductive roadblocks."
+        },
+        {
+          "label": "Expert Clinical Direction",
+          "description": "Advanced treatments directly overseen by the experienced Dr. Alhad Pande."
+        },
+        {
+          "label": "Holistic Patient Care",
+          "description": "Dedicated emotional counseling and support systems to help couples manage treatment stress smoothly."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, we approach fertility care with deep empathy, acknowledging the delicate emotional landscape couples navigate. Our process begins with a transparent, exhaustive evaluation of both partners. Dr. Alhad Pande conducts precise physical assessments, ovarian reserve testing, and specialized semen analysis to accurately pinpoint reproductive challenges, ensuring you are fully educated on the findings before any intervention begins.",
@@ -717,12 +785,30 @@
         "By minimizing physical trauma to the body, this service directly supports a woman's holistic health and long-term well-being. Reduced blood loss during surgery and lower risks of postoperative complications mean a safer medical experience overall. Furthermore, preserving uterine and ovarian integrity whenever possible helps safeguard future fertility, helping women eliminate chronic pelvic pain and regain their quality of life with confidence."
       ],
       "benefits": [
-        { "label": "Minimal Scarring", "description": "Tiny incisions result in virtually unnoticeable cosmetic scars compared to traditional open surgery." },
-        { "label": "Faster Recovery Time", "description": "Most patients return to their normal daily activities within a fraction of the traditional healing timeframe." },
-        { "label": "Reduced Postoperative Pain", "description": "Less tissue disruption translates directly to significantly less discomfort during the healing process." },
-        { "label": "Shorter Hospital Stays", "description": "Many hysteroscopic and laparoscopic procedures are safely performed on a day-care or short-stay basis." },
-        { "label": "Enhanced Precision", "description": "High-definition camera systems provide Dr. Alhad Pande with a magnified, crystal-clear view of the pelvic anatomy." },
-        { "label": "Lower Risk of Infection", "description": "Smaller wounds drastically reduce exposure and the likelihood of post-surgical wound complications." }
+        {
+          "label": "Minimal Scarring",
+          "description": "Tiny incisions result in virtually unnoticeable cosmetic scars compared to traditional open surgery."
+        },
+        {
+          "label": "Faster Recovery Time",
+          "description": "Most patients return to their normal daily activities within a fraction of the traditional healing timeframe."
+        },
+        {
+          "label": "Reduced Postoperative Pain",
+          "description": "Less tissue disruption translates directly to significantly less discomfort during the healing process."
+        },
+        {
+          "label": "Shorter Hospital Stays",
+          "description": "Many hysteroscopic and laparoscopic procedures are safely performed on a day-care or short-stay basis."
+        },
+        {
+          "label": "Enhanced Precision",
+          "description": "High-definition camera systems provide Dr. Alhad Pande with a magnified, crystal-clear view of the pelvic anatomy."
+        },
+        {
+          "label": "Lower Risk of Infection",
+          "description": "Smaller wounds drastically reduce exposure and the likelihood of post-surgical wound complications."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to advanced gynecological surgery is deeply patient-centered and rooted in empathy. We recognize that the prospect of surgery can cause anxiety. Our process begins with a meticulous diagnostic evaluation, where Dr. Alhad Pande utilizes detailed medical histories and advanced imaging to confirm whether a minimally invasive surgical path is the most effective choice for your specific condition.",
@@ -742,12 +828,30 @@
         "By addressing these changes proactively, menopause management restores a woman's daily comfort and long-term health. Instead of silently enduring disruptive symptoms, patients receive targeted treatments that safeguard their bones against osteoporosis and protect heart health. Dr. Alhad Pande focuses on educating and reassuring women, ensuring they feel validated, informed, and physically resilient during this rewarding new phase of life."
       ],
       "benefits": [
-        { "label": "Expert Personalized Care", "description": "Custom-tailored treatment lines created by Dr. Alhad Pande to match your specific hormonal profile and lifestyle needs." },
-        { "label": "Effective Symptom Relief", "description": "Targeted management strategies to alleviate hot flashes, night sweats, sleep issues, and mood shifts." },
-        { "label": "Bone Health Protection", "description": "Proactive monitoring and therapy to prevent bone density loss and reduce the long-term risk of osteoporosis." },
-        { "label": "Cardiovascular Risk Assessment", "description": "Preventive screenings and lifestyle counseling to protect heart health during postmenopausal years." },
-        { "label": "Holistic Wellness Support", "description": "Integration of nutritional advice, weight management strategies, and mental wellness tracking." },
-        { "label": "Safe Medical Solutions", "description": "Evidence-based treatment options, ranging from non-hormonal therapies to strictly monitored hormonal balancing when appropriate." }
+        {
+          "label": "Expert Personalized Care",
+          "description": "Custom-tailored treatment lines created by Dr. Alhad Pande to match your specific hormonal profile and lifestyle needs."
+        },
+        {
+          "label": "Effective Symptom Relief",
+          "description": "Targeted management strategies to alleviate hot flashes, night sweats, sleep issues, and mood shifts."
+        },
+        {
+          "label": "Bone Health Protection",
+          "description": "Proactive monitoring and therapy to prevent bone density loss and reduce the long-term risk of osteoporosis."
+        },
+        {
+          "label": "Cardiovascular Risk Assessment",
+          "description": "Preventive screenings and lifestyle counseling to protect heart health during postmenopausal years."
+        },
+        {
+          "label": "Holistic Wellness Support",
+          "description": "Integration of nutritional advice, weight management strategies, and mental wellness tracking."
+        },
+        {
+          "label": "Safe Medical Solutions",
+          "description": "Evidence-based treatment options, ranging from non-hormonal therapies to strictly monitored hormonal balancing when appropriate."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to menopause is patient-centered and rooted in deep empathy. Your care begins with a comprehensive evaluation process where Dr. Alhad Pande listens to your specific concerns and symptoms. We perform essential diagnostic tests, including hormone panels, lipid profiles, and bone density scans, to build an accurate map of your current health status and identify potential risk factors.",
@@ -767,12 +871,30 @@
         "Beyond managing physical symptoms, adolescent gynecology actively protects a young woman's mental wellness. Puberty often introduces body-image concerns and confusion. By providing clear medical explanations and dispelling common myths, our service builds reproductive health literacy, helping teenagers embrace their bodily changes with absolute confidence and self-assurance."
       ],
       "benefits": [
-        { "label": "Age-Appropriate Care", "description": "Gentle clinical evaluations tailored to the physical and emotional maturity of teenagers." },
-        { "label": "Early Hormonal Management", "description": "Prompt tracking and treatment for adolescent conditions like PCOS and irregular cycles." },
-        { "label": "Anxiety-Free First Visits", "description": "A warm, stress-free introduction to gynecological care designed to build lifelong trust." },
-        { "label": "Confidential Environment", "description": "A private space where young patients can share concerns without fear of judgment." },
-        { "label": "Comprehensive Health Education", "description": "Empowering young girls with accurate information regarding menstrual hygiene and lifestyle habits." },
-        { "label": "Long-Term Health Tracking", "description": "Monitoring developmental milestones to safeguard future reproductive wellness." }
+        {
+          "label": "Age-Appropriate Care",
+          "description": "Gentle clinical evaluations tailored to the physical and emotional maturity of teenagers."
+        },
+        {
+          "label": "Early Hormonal Management",
+          "description": "Prompt tracking and treatment for adolescent conditions like PCOS and irregular cycles."
+        },
+        {
+          "label": "Anxiety-Free First Visits",
+          "description": "A warm, stress-free introduction to gynecological care designed to build lifelong trust."
+        },
+        {
+          "label": "Confidential Environment",
+          "description": "A private space where young patients can share concerns without fear of judgment."
+        },
+        {
+          "label": "Comprehensive Health Education",
+          "description": "Empowering young girls with accurate information regarding menstrual hygiene and lifestyle habits."
+        },
+        {
+          "label": "Long-Term Health Tracking",
+          "description": "Monitoring developmental milestones to safeguard future reproductive wellness."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to adolescent care is deeply sensitive and patient-centered. Dr. Alhad Pande prioritizes building a strong rapport with both the young patient and her parents, ensuring consultations progress at a relaxed, reassuring pace. Our evaluation process relies on detailed medical history and non-invasive diagnostics, completely avoiding unnecessary physical examinations to ensure maximum comfort.",
@@ -792,11 +914,26 @@
         "Ultimately, preconception counseling supports a woman's long-term health and emotional well-being by replacing uncertainty with a clear plan. Dr. Alhad Pande guides patients through essential adjustments, such as starting vital prenatal vitamins and achieving a healthy weight. This holistic approach minimizes potential complications and provides couples with a reassuring foundation for a healthy pregnancy."
       ],
       "benefits": [
-        { "label": "Personalized Health Optimization", "description": "Tailored medical and lifestyle advice from Dr. Alhad Pande to prepare your body for pregnancy." },
-        { "label": "Early Risk Identification", "description": "Comprehensive screenings to detect and safely manage chronic health conditions or genetic risks before conception." },
-        { "label": "Medication Review", "description": "Expert adjustment of existing prescriptions to ensure they are safe for early fetal development." },
-        { "label": "Nutritional Guidance", "description": "Guidance on essential prenatal vitamins, lifestyle modifications, and weight management to boost fertility." },
-        { "label": "Reduced Pregnancy Complications", "description": "Proactive interventions that lower the risks of gestational conditions and support safe outcomes." }
+        {
+          "label": "Personalized Health Optimization",
+          "description": "Tailored medical and lifestyle advice from Dr. Alhad Pande to prepare your body for pregnancy."
+        },
+        {
+          "label": "Early Risk Identification",
+          "description": "Comprehensive screenings to detect and safely manage chronic health conditions or genetic risks before conception."
+        },
+        {
+          "label": "Medication Review",
+          "description": "Expert adjustment of existing prescriptions to ensure they are safe for early fetal development."
+        },
+        {
+          "label": "Nutritional Guidance",
+          "description": "Guidance on essential prenatal vitamins, lifestyle modifications, and weight management to boost fertility."
+        },
+        {
+          "label": "Reduced Pregnancy Complications",
+          "description": "Proactive interventions that lower the risks of gestational conditions and support safe outcomes."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to preconception care is thoroughly patient-centered, collaborative, and built on trust. We understand that planning a family is deeply personal, so we create a warm, stress-free environment. The process begins with a detailed diagnostic evaluation where Dr. Alhad Pande reviews your complete medical background, immunization status, and lifestyle factors to establish a healthy baseline.",
@@ -815,11 +952,26 @@
         "Any expectant mother planning a vaginal birth can benefit from this service, especially those anxious about labor or women with specific conditions like gestational hypertension, where minimizing physical stress is clinically essential. Ultimately, this service supports women's health by turning an unpredictable, painful event into a controlled, comfortable, and empowering experience. Dr. Alhad Pande focuses on educating mothers, ensuring they feel confident and highly supported throughout the birthing process."
       ],
       "benefits": [
-        { "label": "Significant Pain Relief", "description": "Safely and effectively minimizes the acute physical pain of active labor contractions." },
-        { "label": "Fully Conscious Experience", "description": "Allows the mother to remain completely awake, alert, and emotionally present for her baby's birth." },
-        { "label": "Reduced Maternal Exhaustion", "description": "Conserves physical energy, leaving the mother well-rested for pushing and immediate postpartum bonding." },
-        { "label": "Lower Stress Response", "description": "Prevents spikes in maternal blood pressure and stress hormones, protecting both mother and child." },
-        { "label": "Medical Flexibility", "description": "Establishes a ready pathway for immediate regional anesthesia if an emergency intervention or C-section becomes necessary." }
+        {
+          "label": "Significant Pain Relief",
+          "description": "Safely and effectively minimizes the acute physical pain of active labor contractions."
+        },
+        {
+          "label": "Fully Conscious Experience",
+          "description": "Allows the mother to remain completely awake, alert, and emotionally present for her baby's birth."
+        },
+        {
+          "label": "Reduced Maternal Exhaustion",
+          "description": "Conserves physical energy, leaving the mother well-rested for pushing and immediate postpartum bonding."
+        },
+        {
+          "label": "Lower Stress Response",
+          "description": "Prevents spikes in maternal blood pressure and stress hormones, protecting both mother and child."
+        },
+        {
+          "label": "Medical Flexibility",
+          "description": "Establishes a ready pathway for immediate regional anesthesia if an emergency intervention or C-section becomes necessary."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to painless delivery is patient-centered and rooted in deep empathy. During prenatal visits, Dr. Alhad Pande evaluates your medical history, discusses your birthing plan, and confirms your suitability for epidural analgesia. We prioritize thorough education, answering your questions openly to ensure you and your family feel completely reassured before your due date arrives.",
@@ -839,11 +991,26 @@
         "Beyond the physical restoration of reproductive anatomy, fertility procedures at Krisha Women's Hospital deeply support a woman's holistic health and emotional well-being. Overcoming infertility can alleviate significant psychological distress and anxiety. By offering highly precise, evidence-based surgical solutions, Dr. Alhad Pande provides couples with renewed hope and a clear, structured pathway toward fulfilling their reproductive goals."
       ],
       "benefits": [
-        { "label": "Restores Natural Conception Potential", "description": "Reopens the fallopian tubes, allowing couples the opportunity to conceive naturally without relying solely on continuous assisted reproductive cycles." },
-        { "label": "Minimally Invasive Laparoscopy", "description": "Utilizing modern keyhole approaches translates directly to smaller incisions, significantly less postoperative pain, and reduced recovery times." },
-        { "label": "Effective Sterilization Reversal", "description": "Offers a viable, highly successful option for women seeking to reverse a previous tubal ligation." },
-        { "label": "Expert Microsurgical Precision", "description": "Procedures are performed under high magnification by Dr. Alhad Pande to preserve the delicate, healthy lining of the tubes." },
-        { "label": "Lower Risk of Adhesions", "description": "Advanced surgical techniques focus on minimizing tissue trauma, reducing the likelihood of post-operative scarring." }
+        {
+          "label": "Restores Natural Conception Potential",
+          "description": "Reopens the fallopian tubes, allowing couples the opportunity to conceive naturally without relying solely on continuous assisted reproductive cycles."
+        },
+        {
+          "label": "Minimally Invasive Laparoscopy",
+          "description": "Utilizing modern keyhole approaches translates directly to smaller incisions, significantly less postoperative pain, and reduced recovery times."
+        },
+        {
+          "label": "Effective Sterilization Reversal",
+          "description": "Offers a viable, highly successful option for women seeking to reverse a previous tubal ligation."
+        },
+        {
+          "label": "Expert Microsurgical Precision",
+          "description": "Procedures are performed under high magnification by Dr. Alhad Pande to preserve the delicate, healthy lining of the tubes."
+        },
+        {
+          "label": "Lower Risk of Adhesions",
+          "description": "Advanced surgical techniques focus on minimizing tissue trauma, reducing the likelihood of post-operative scarring."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to fertility care is patient-centered and built on a foundation of empathy, transparency, and clinical excellence. We understand that navigating fertility challenges requires patience and specialized care. Your journey begins with a meticulous evaluation process where Dr. Alhad Pande utilizes advanced diagnostic screenings — such as specialized dye tests or diagnostic laparoscopy — to precisely identify the exact location and nature of the tubal blockage.",
@@ -862,12 +1029,30 @@
         "Women who can benefit significantly from this service include those with a history of second-trimester miscarriages, previous spontaneous preterm births, or those whose routine ultrasound scans reveal a short cervix during their current pregnancy. By proactively addressing structural vulnerabilities, cervical cerclage directly supports a woman's reproductive health and psychological well-being. It transforms a highly stressful scenario into a well-managed pregnancy, significantly reducing maternal anxiety and fostering a strong sense of security."
       ],
       "benefits": [
-        { "label": "Prevents Preterm Labor", "description": "Effectively lowers the risk of early delivery by physically supporting a weakened cervix." },
-        { "label": "Reduces Pregnancy Loss", "description": "Provides a vital clinical intervention to prevent mid-trimester miscarriages caused by cervical insufficiency." },
-        { "label": "Expert Placement", "description": "Performed with extreme precision and gentle care by advanced maternity specialist Dr. Alhad Pande." },
-        { "label": "Minimally Invasive Care", "description": "A brief, highly effective procedure associated with minimal discomfort and a quick recovery time." },
-        { "label": "Continuous Ultrasound Tracking", "description": "Complemented by advanced sonography at our Narol facility to monitor cervical changes before and after placement." },
-        { "label": "24/7 Emergency Support", "description": "Complete peace of mind with round-the-clock emergency services available for any unexpected maternal needs." }
+        {
+          "label": "Prevents Preterm Labor",
+          "description": "Effectively lowers the risk of early delivery by physically supporting a weakened cervix."
+        },
+        {
+          "label": "Reduces Pregnancy Loss",
+          "description": "Provides a vital clinical intervention to prevent mid-trimester miscarriages caused by cervical insufficiency."
+        },
+        {
+          "label": "Expert Placement",
+          "description": "Performed with extreme precision and gentle care by advanced maternity specialist Dr. Alhad Pande."
+        },
+        {
+          "label": "Minimally Invasive Care",
+          "description": "A brief, highly effective procedure associated with minimal discomfort and a quick recovery time."
+        },
+        {
+          "label": "Continuous Ultrasound Tracking",
+          "description": "Complemented by advanced sonography at our Narol facility to monitor cervical changes before and after placement."
+        },
+        {
+          "label": "24/7 Emergency Support",
+          "description": "Complete peace of mind with round-the-clock emergency services available for any unexpected maternal needs."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to cervical cerclage is deeply patient-centered and rooted in clinical vigilance. We recognize that every high-risk pregnancy requires individualized attention and absolute clarity. Our evaluation process begins with a comprehensive review of your obstetric history, followed by precise transvaginal ultrasound screenings. This allows Dr. Alhad Pande to accurately assess the length and strength of your cervix, ensuring we determine the optimal timing for the procedure.",
@@ -886,12 +1071,30 @@
         "By integrating regular screenings and vaccination into your routine healthcare, this service shields a woman's holistic well-being. It transforms a serious health risk into a highly manageable, preventable condition. At Krisha Women's Hospital, we focus on educating women that an abnormal test result is not a cancer diagnosis, but an early warning sign that allows Dr. Alhad Pande to intervene proactively, ensuring a lifetime of health and security."
       ],
       "benefits": [
-        { "label": "Life-Saving Prevention", "description": "The HPV vaccine offers robust protection against the primary viral strains known to cause cervical cancer." },
-        { "label": "Early Detection Precision", "description": "Advanced screenings identify microscopic cellular changes years before they can progress into a serious condition." },
-        { "label": "Highly Accurate Testing", "description": "Utilization of modern liquid-based cytology and HPV DNA testing for dependable diagnostic results." },
-        { "label": "Gentle and Quick Procedures", "description": "Screenings are non-invasive, take only a few minutes, and are performed with minimal physical discomfort." },
-        { "label": "Tailored Screening Schedules", "description": "Personalized routine timelines based strictly on your age, medical history, and specific risk factors." },
-        { "label": "Comprehensive Guidance", "description": "Complete counseling by Dr. Alhad Pande to address vaccine timelines and clarify screening results." }
+        {
+          "label": "Life-Saving Prevention",
+          "description": "The HPV vaccine offers robust protection against the primary viral strains known to cause cervical cancer."
+        },
+        {
+          "label": "Early Detection Precision",
+          "description": "Advanced screenings identify microscopic cellular changes years before they can progress into a serious condition."
+        },
+        {
+          "label": "Highly Accurate Testing",
+          "description": "Utilization of modern liquid-based cytology and HPV DNA testing for dependable diagnostic results."
+        },
+        {
+          "label": "Gentle and Quick Procedures",
+          "description": "Screenings are non-invasive, take only a few minutes, and are performed with minimal physical discomfort."
+        },
+        {
+          "label": "Tailored Screening Schedules",
+          "description": "Personalized routine timelines based strictly on your age, medical history, and specific risk factors."
+        },
+        {
+          "label": "Comprehensive Guidance",
+          "description": "Complete counseling by Dr. Alhad Pande to address vaccine timelines and clarify screening results."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, we recognize that discussions around cancer screening can naturally cause vulnerability and anxiety. Our approach is entirely patient-centered, ensuring a warm, respectful, and completely private environment. During your consultation, Dr. Alhad Pande evaluates your age, vaccine history, and specific health profile to explain precisely which screening tool or vaccination schedule is ideal for your body.",
@@ -910,12 +1113,30 @@
         "Ultimately, structured family planning supports a woman's holistic well-being by protecting her health autonomy and reducing the anxiety associated with unplanned pregnancies. Dr. Alhad Pande focuses on dispelling common myths about birth control, managing potential side effects, and aligning contraceptive options with your body's natural hormonal cycle. This proactive approach ensures you feel empowered, physically healthy, and entirely in control of your reproductive journey."
       ],
       "benefits": [
-        { "label": "Personalized Method Selection", "description": "Tailored advice from Dr. Alhad Pande to find a contraceptive method that matches your unique medical profile and lifestyle." },
-        { "label": "Comprehensive Birth Control Options", "description": "Access to a full spectrum of modern choices, including oral pills, patches, injectables, hormonal/copper IUDs, and permanent family planning solutions." },
-        { "label": "Myth Dispelling & Education", "description": "Clear, honest guidance to correct widespread misinformation regarding hormonal side effects, safety, and long-term fertility." },
-        { "label": "Safe Maternal Spacing", "description": "Expert support to plan optimal birth intervals, which is vital for the physical healing of the mother and the long-term health of future children." },
-        { "label": "Confidential & Judgment-Free Environment", "description": "A private, welcoming clinical space at our Narol facility where your personal preferences and life choices are always treated with utmost respect." },
-        { "label": "Non-Contraceptive Health Management", "description": "Expert counseling on how certain contraceptive methods can be intentionally used to manage painful periods, heavy bleeding, or hormonal acne." }
+        {
+          "label": "Personalized Method Selection",
+          "description": "Tailored advice from Dr. Alhad Pande to find a contraceptive method that matches your unique medical profile and lifestyle."
+        },
+        {
+          "label": "Comprehensive Birth Control Options",
+          "description": "Access to a full spectrum of modern choices, including oral pills, patches, injectables, hormonal/copper IUDs, and permanent family planning solutions."
+        },
+        {
+          "label": "Myth Dispelling & Education",
+          "description": "Clear, honest guidance to correct widespread misinformation regarding hormonal side effects, safety, and long-term fertility."
+        },
+        {
+          "label": "Safe Maternal Spacing",
+          "description": "Expert support to plan optimal birth intervals, which is vital for the physical healing of the mother and the long-term health of future children."
+        },
+        {
+          "label": "Confidential & Judgment-Free Environment",
+          "description": "A private, welcoming clinical space at our Narol facility where your personal preferences and life choices are always treated with utmost respect."
+        },
+        {
+          "label": "Non-Contraceptive Health Management",
+          "description": "Expert counseling on how certain contraceptive methods can be intentionally used to manage painful periods, heavy bleeding, or hormonal acne."
+        }
       ],
       "approach": [
         "At Krisha Women's Hospital, our approach to family planning is thoroughly patient-centered and rooted in open, honest dialogue. We understand that your reproductive choices are deeply personal and subjective. The evaluation process begins with Dr. Alhad Pande conducting a meticulous health assessment, reviewing your complete medical history, blood pressure, lifestyle habits, and future family timelines to rule out any clinical contraindications before recommending a method.",

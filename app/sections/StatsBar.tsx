@@ -1,14 +1,20 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { UsersIcon, HeartIcon, SparklesIcon, TrendingUpIcon, ShieldCheckIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
+/**
+ * Full-bleed trust band. Five icon cards on a gradient became one flat plum
+ * block: no cards, no icons, display-face numerals separated by hairline rules.
+ * This is the 30% of the 60/30/10 doing its job as a single large field.
+ */
 const stats = [
-  { value: 20000, suffix: '+', label: 'Happy Patients',      display: '20K+',    icon: UsersIcon },
-  { value: 5000,  suffix: '+', label: 'Normal Deliveries',   display: '5,000+',  icon: HeartIcon },
-  { value: 2500,  suffix: '+', label: 'IVF / ICSI Babies',   display: '2,500+',  icon: SparklesIcon },
-  { value: 72,    suffix: '%', label: 'IVF Success Rate',    display: '72%',     icon: TrendingUpIcon },
-  { value: 20,    suffix: ' Yrs', label: 'Of Excellence',    display: '20 Yrs',  icon: ShieldCheckIcon },
-];
+  { value: 20000, suffix: '+',     display: '20K+',   labelKey: 'happyPatients' },
+  { value: 5000,  suffix: '+',     display: '5,000+', labelKey: 'normalDeliveries' },
+  { value: 2500,  suffix: '+',     display: '2,500+', labelKey: 'ivfBabies' },
+  { value: 72,    suffix: '%',     display: '72%',    labelKey: 'ivfSuccessRate' },
+  { value: 20,    suffix: ' Yrs',  display: '20 Yrs', labelKey: 'yearsExcellence' },
+] as const;
 
 function useCountUp(target: number, duration: number, active: boolean) {
   const [count, setCount] = useState(0);
@@ -30,32 +36,35 @@ function useCountUp(target: number, duration: number, active: boolean) {
   return count;
 }
 
-function StatItem({ stat, active }: { stat: (typeof stats)[0]; active: boolean }) {
-  const count = useCountUp(stat.value, 1500, active);
-  const formatted = active
-    ? stat.value >= 1000
-      ? count.toLocaleString() + stat.suffix
-      : count + stat.suffix
-    : stat.display;
+interface StatItemProps {
+  readonly stat: (typeof stats)[number];
+  readonly label: string;
+  readonly active: boolean;
+}
 
-  const Icon = stat.icon;
+function StatItem({ stat, label, active }: StatItemProps) {
+  const count = useCountUp(stat.value, 1500, active);
+
+  let formatted = stat.display;
+  if (active) {
+    const n = stat.value >= 1000 ? count.toLocaleString() : String(count);
+    formatted = n + stat.suffix;
+  }
 
   return (
-    <div className="group flex flex-col items-center gap-2 text-center py-7 lg:py-6 lg:px-4">
-      <div className="w-10 h-10 rounded-md bg-white/10 flex items-center justify-center mb-0.5 group-hover:bg-white/20 transition-colors duration-200">
-        <Icon size={20} className="text-white/80" />
-      </div>
-      <span className="font-extrabold text-[28px] sm:text-[32px] lg:text-[36px] text-text-inverse leading-[1.1] tabular-nums tracking-tight group-hover:scale-[1.04] transition-transform duration-200 inline-block">
+    <div className="flex flex-col items-center text-center px-3 py-7 lg:py-9">
+      <span className="font-display text-display text-text-inverse tabular-nums leading-none">
         {formatted}
       </span>
-      <span className="text-[13px] font-medium text-text-inverse/80 leading-snug">
-        {stat.label}
+      <span className="mt-3 text-label uppercase text-secondary-200">
+        {label}
       </span>
     </div>
   );
 }
 
 export default function StatsBar() {
+  const t = useTranslations('statsBar');
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
@@ -72,17 +81,24 @@ export default function StatsBar() {
 
   return (
     <div ref={ref} className="w-full bg-primary-900">
-      <div className="grid grid-cols-2 lg:flex lg:items-center lg:justify-between max-w-page mx-auto px-5 lg:px-gutter lg:min-h-28 lg:divide-x lg:divide-white/15">
-        {stats.map((stat, i) => (
-          <div
-            key={stat.label}
-            className={`flex justify-center items-center lg:flex-1 ${
-              i >= 2 ? 'border-t border-white/10 lg:border-t-0' : ''
-            } ${i === 4 ? 'col-span-2' : ''}`}
-          >
-            <StatItem stat={stat} active={active} />
-          </div>
-        ))}
+      <div className="max-w-page mx-auto px-5 lg:px-gutter">
+        <div className="grid grid-cols-2 lg:grid-cols-5">
+          {stats.map((stat, i) => (
+            <div
+              key={stat.labelKey}
+              className={cn(
+                // Hairline rules instead of card edges. Two columns on mobile,
+                // five in a row from lg, so the divider logic differs per axis.
+                'lg:border-l lg:border-white/12 lg:first:border-l-0',
+                i % 2 === 1 && 'border-l border-white/12',
+                i >= 2 && 'border-t border-white/12 lg:border-t-0',
+                i === stats.length - 1 && 'col-span-2 lg:col-span-1',
+              )}
+            >
+              <StatItem stat={stat} label={t(stat.labelKey)} active={active} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

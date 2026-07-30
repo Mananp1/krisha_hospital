@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { hasLocale } from 'next-intl';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import '../globals.css';
 import { cn } from "@/lib/utils";
@@ -60,8 +60,8 @@ export default async function RootLayout({
     notFound();
   }
 
-  // Opts this subtree into static rendering. Also required before any
-  // translation lookup, for when the sections start reading from `messages`.
+  // Opts this subtree into static rendering, and is required before any
+  // translation lookup in the sections below.
   setRequestLocale(locale);
 
   return (
@@ -70,8 +70,15 @@ export default async function RootLayout({
         className="min-h-full flex flex-col antialiased"
         suppressHydrationWarning
       >
-        {children}
-        <WhatsAppFABWrapper />
+        {/*
+          Rendered from a Server Component, so locale, messages, formats and
+          timeZone are all inherited from i18n/request.ts — client sections can
+          call useTranslations without being handed anything explicitly.
+        */}
+        <NextIntlClientProvider>
+          {children}
+          <WhatsAppFABWrapper />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

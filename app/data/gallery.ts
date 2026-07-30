@@ -1,6 +1,6 @@
 /**
  * Photo catalogue for the /gallery page, the home page "Our Facility" strip
- * and the home page hero carousel.
+ * and the two frames in the hero composition.
  *
  * The camera originals were 21:9 ultra-wide frames, some shot vertically and
  * flagged with EXIF orientation. They have since been rotated, downscaled to a
@@ -102,21 +102,6 @@ export const galleryImages: GalleryImage[] = [
     tile: 'wide',
   },
 ];
-
-/**
- * Slides for the home page hero carousel — the wide frames read best inside
- * the hero's landscape window, with the operation theatre as a tall accent.
- */
-export const heroSlides: GalleryImage[] = [
-  'reception-waiting-lounge',
-  'sonography-room',
-  'operation-theatre',
-  'procedure-room',
-].map((name) => {
-  const image = galleryImages.find((i) => i.src === `/gallery/${name}.jpg`);
-  if (!image) throw new Error(`Unknown hero slide: ${name}`);
-  return image;
-});
 
 /** The three frames shown in the home page "Our Facility" preview strip. */
 export const galleryPreview: GalleryImage[] = galleryImages.filter(

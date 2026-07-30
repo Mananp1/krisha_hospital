@@ -1,83 +1,122 @@
-import Link from 'next/link';
-import { HeartIcon } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
-import { heroSlides } from '@/app/data/gallery';
-import HeroCarousel from './HeroCarousel';
+import { galleryImages } from '@/app/data/gallery';
 import FadeIn from './FadeIn';
 
-export default function Hero() {
-  return (
-    <section id="home" className="w-full bg-surface-subtle lg:min-h-160 relative overflow-hidden">
+const WHATSAPP = 'https://wa.me/917862950676';
 
-      <div className="relative flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-12 lg:gap-15 max-w-page mx-auto py-12 px-5 md:px-10 lg:py-17.5 lg:px-gutter">
-        {/* Left Column */}
-        <FadeIn className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left lg:max-w-140">
-          {/* H1 */}
-          <h1>
-            <span className="block text-[30px] md:text-[36px] lg:text-[40px] font-extrabold text-text-base leading-tight">
-              Supporting every stage of
-            </span>
-            <span className="block text-[30px] md:text-[36px] lg:text-[40px] font-extrabold text-secondary leading-tight lg:mt-1">
-              a woman&apos;s health journey
-            </span>
+/** One dominant frame and one supporting frame — not four of equal weight. */
+function heroImage(name: string) {
+  const image = galleryImages.find((i) => i.src === `/gallery/${name}.jpg`);
+  if (!image) throw new Error(`Unknown hero image: ${name}`);
+  return image;
+}
+
+const dominant = heroImage('reception-waiting-lounge');
+const supporting = heroImage('consulting-room-entrance');
+
+export default function Hero() {
+  const t = useTranslations('hero');
+
+  const trust = [
+    { value: '20+', label: t('trust.years') },
+    { value: '24×7', label: t('trust.emergency') },
+    { value: '4.9', label: t('trust.rating') },
+  ];
+
+  return (
+    <section
+      id="home"
+      className="w-full bg-surface-subtle py-section-sm lg:py-section-lg"
+    >
+      {/*
+        Asymmetric split — the copy column is narrower than the image column and
+        both are left-aligned. This replaces a centred layout fronted by a
+        four-slide carousel, where no single image carried the page.
+      */}
+      <div className="max-w-page mx-auto px-5 lg:px-gutter grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] gap-12 lg:gap-16 xl:gap-20 items-center">
+        {/* ── Copy ── */}
+        <FadeIn className="flex flex-col items-start">
+          <h1 className="font-display text-display-lg text-text-base">
+            {t('titleLine1')}{' '}
+            <span className="text-secondary">{t('titleLine2')}</span>
           </h1>
 
-          {/* Lead */}
-          <p className="mt-6 mb-8 text-base md:text-lg text-text-muted leading-[29px] max-w-125 md:max-w-160">
-            Specialist care across gynaecology, safe motherhood, high-risk
-            pregnancy management, fertility treatment, and women&apos;s wellness —
-            delivered with clinical excellence and compassion at every stage of
-            your life.
+          <p className="mt-6 text-lead text-text-muted max-w-measure">
+            {t('lead')}
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex items-center justify-center lg:justify-start gap-4 flex-wrap">
+          <div className="flex items-center gap-3 mt-9 flex-wrap">
             <Button
               variant="secondary"
               asChild
-              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
+              className="rounded-md px-7 py-3.5 h-auto text-body font-semibold hover:bg-secondary-600 shadow-none"
             >
-              <a href="https://wa.me/917862950676" target="_blank" rel="noopener noreferrer">
-                Book Appointment
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
+                {t('bookAppointment')}
               </a>
             </Button>
             <Button
               variant="outline"
               asChild
-              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+              className="rounded-md px-7 py-3.5 h-auto text-body font-semibold border border-primary/30 text-primary hover:bg-primary hover:text-text-inverse shadow-none"
             >
-              <Link href="/#services">Explore Services</Link>
+              <Link href="/#services">{t('exploreServices')}</Link>
             </Button>
           </div>
         </FadeIn>
 
-        {/* Right Column — Photo carousel (mobile, tablet and desktop) */}
-        <FadeIn
-          delay={0.15}
-          direction="up"
-          className="relative w-full max-w-160 lg:max-w-none lg:w-140 shrink-0"
-        >
-          <HeroCarousel
-            slides={heroSlides}
-            className="relative w-full aspect-[16/10] lg:aspect-[4/3] rounded-xl lg:rounded-xl overflow-hidden bg-primary-50 ring-1 ring-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
-          />
-
-          {/* Stat badge — floating (redundant with StatsBar on the smallest screens) */}
-          <div className="absolute animate-float left-4 top-4 lg:top-5 hidden sm:flex bg-surface rounded-xl px-5 py-3.5 lg:px-6 lg:py-4.5 shadow-float items-center gap-4 lg:gap-5 z-20">
-            <div className="w-10 h-10 lg:w-11 lg:h-11 bg-secondary-50 rounded-md flex items-center justify-center flex-shrink-0 text-secondary">
-              <HeartIcon size={19} className="fill-current" />
-            </div>
-            <div>
-              <p className="font-bold text-[19px] text-text-base leading-tight tracking-[-0.3px]">
-                20k<span className="text-[13px] font-semibold text-text-muted align-top mt-0.5 inline-block">+</span>
-              </p>
-              <p className="text-[12.5px] text-text-muted mt-0.5 tracking-[0.1px]">Happy Patients</p>
-            </div>
+        {/* ── Photography ── */}
+        <FadeIn delay={0.15} direction="up" className="relative">
+          {/*
+            Indented on the left so the supporting frame overlaps it from inside
+            the column. No negative offsets, so nothing can push the page
+            sideways at awkward widths.
+          */}
+          <div className="relative aspect-4/3 sm:ml-16 lg:ml-20 rounded-xl overflow-hidden bg-primary-50">
+            <Image
+              src={dominant.src}
+              alt={dominant.alt}
+              fill
+              sizes="(min-width: 1024px) 620px, (min-width: 640px) 80vw, 100vw"
+              style={{ objectPosition: dominant.position ?? 'center' }}
+              className="object-cover"
+              priority
+            />
           </div>
 
-          {/* Emergency pill */}
-          <div className="absolute right-0 lg:-right-2.5 top-4 lg:top-6.5 bg-primary rounded-l-[18px] px-4 py-3 lg:px-5 lg:py-3.5 shadow-lg z-20">
-            <p className="font-bold text-text-inverse text-[13px] lg:text-[14px] whitespace-nowrap">24×7 Emergency</p>
+          {/* Supporting frame — the arch, brand device B1. Photography only. */}
+          <div className="hidden sm:block absolute left-0 bottom-0 w-32 lg:w-40 aspect-3/4 arch overflow-hidden bg-primary-50 ring-4 ring-surface-subtle">
+            <Image
+              src={supporting.src}
+              alt={supporting.alt}
+              fill
+              sizes="160px"
+              style={{ objectPosition: supporting.position ?? 'center' }}
+              className="object-cover"
+            />
+          </div>
+
+          {/*
+            Trust panel — floats over the dominant frame from sm up, and reflows
+            underneath on mobile, where an overlay would cover the photograph.
+          */}
+          <div className="mt-5 sm:mt-0 sm:absolute sm:right-0 sm:-bottom-5 flex items-center bg-surface rounded-md shadow-card px-2 py-3 sm:px-3">
+            {trust.map((item) => (
+              <div
+                key={item.label}
+                className="flex flex-col items-center text-center px-3 sm:px-4 border-l border-border-muted first:border-l-0"
+              >
+                <span className="font-display text-display-sm text-primary tabular-nums leading-none">
+                  {item.value}
+                </span>
+                <span className="mt-1.5 text-label uppercase text-text-muted whitespace-nowrap">
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </div>
         </FadeIn>
       </div>

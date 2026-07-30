@@ -267,6 +267,18 @@ ran 1.5–2.5.
 
 Same section order. Each row gets a distinct composition, and **no two adjacent sections share a treatment**.
 
+**Done: hero + stats (PR 4).** These two set the pattern the remaining sections follow:
+
+- `NextIntlClientProvider` is now in the root layout, rendered from a Server Component so locale, messages,
+  formats and timeZone are all inherited from `i18n/request.ts` — client sections call `useTranslations` with
+  nothing passed to them.
+- **`/hi` and `/gu` serve real translations for the first time.** Verified in the prerendered HTML.
+- New copy goes into all three catalogues in the same commit. `hero.trust` added; parity holds at **695 leaf
+  strings each**, guarded by a key-shape check.
+- The hero CTA uses the locale-aware `Link` from `i18n/navigation`, so on `/gu` it resolves to `/gu#services`.
+  `NavBar` and `Footer` still use plain `next/link` and are fixed in PR 6.
+- `HeroCarousel.tsx` and `heroSlides` are deleted, not just unused — recoverable from git if ever wanted.
+
 | # | Section | Now | Redesign | Bg | Align |
 | --- | --- | --- | --- | --- | --- |
 | 1 | TopBar | plum strip | keep; drop stale "8 March" badge | plum | — |
