@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRightIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { galleryImages, galleryPreview } from '@/app/data/gallery';
+import { galleryPreview } from '@/app/data/gallery';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 

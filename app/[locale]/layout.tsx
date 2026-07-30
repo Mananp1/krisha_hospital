@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
+import { notFound } from 'next/navigation';
+import { hasLocale } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 import '../globals.css';
 import { cn } from "@/lib/utils";
 import { SITE_URL } from '@/lib/site-config';
+import { routing } from '@/i18n/routing';
 import WhatsAppFABWrapper from '@/app/sections/WhatsAppFABWrapper';
 
 const manrope = Manrope({
@@ -48,13 +52,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  params,
+}: LayoutProps<'/[locale]'>) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  // Opts this subtree into static rendering. Also required before any
+  // translation lookup, for when the sections start reading from `messages`.
+  setRequestLocale(locale);
+
   return (
-    <html lang="en" className={cn("font-sans", manrope.variable)}>
+    <html lang={locale} className={cn("font-sans", manrope.variable)}>
       <body
         className="min-h-full flex flex-col antialiased"
         suppressHydrationWarning
