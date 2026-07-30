@@ -8,11 +8,6 @@ import FadeIn from './FadeIn';
 export default function Hero() {
   return (
     <section id="home" className="w-full bg-surface-subtle lg:min-h-160 relative overflow-hidden">
-      {/* Ambient gradient blobs */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-20 -left-20 w-96 h-96 bg-primary-100/40 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 right-0 w-80 h-80 bg-secondary-100/30 rounded-full blur-3xl" />
-      </div>
 
       <div className="relative flex flex-col lg:flex-row items-center justify-center gap-10 md:gap-12 lg:gap-15 max-w-page mx-auto py-12 px-5 md:px-10 lg:py-17.5 lg:px-gutter">
         {/* Left Column */}
@@ -64,12 +59,12 @@ export default function Hero() {
         >
           <HeroCarousel
             slides={heroSlides}
-            className="relative w-full aspect-[16/10] lg:aspect-[4/3] rounded-[20px] lg:rounded-[28px] overflow-hidden bg-primary-50 ring-1 ring-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+            className="relative w-full aspect-[16/10] lg:aspect-[4/3] rounded-xl lg:rounded-xl overflow-hidden bg-primary-50 ring-1 ring-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
           />
 
           {/* Stat badge — floating (redundant with StatsBar on the smallest screens) */}
-          <div className="absolute animate-float left-4 top-4 lg:top-5 hidden sm:flex bg-surface rounded-[20px] px-5 py-3.5 lg:px-6 lg:py-4.5 shadow-float items-center gap-4 lg:gap-5 z-20">
-            <div className="w-10 h-10 lg:w-11 lg:h-11 bg-secondary-50 rounded-[12px] flex items-center justify-center flex-shrink-0 text-secondary">
+          <div className="absolute animate-float left-4 top-4 lg:top-5 hidden sm:flex bg-surface rounded-xl px-5 py-3.5 lg:px-6 lg:py-4.5 shadow-float items-center gap-4 lg:gap-5 z-20">
+            <div className="w-10 h-10 lg:w-11 lg:h-11 bg-secondary-50 rounded-md flex items-center justify-center flex-shrink-0 text-secondary">
               <HeartIcon size={19} className="fill-current" />
             </div>
             <div>

@@ -182,11 +182,6 @@ export default function DoctorPage() {
     <>
       {/* ── Hero ── */}
       <section className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
-        {/* Ambient blobs */}
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute -top-24 right-1/4 w-96 h-96 bg-primary-100/20 rounded-full blur-3xl" />
-          <div className="absolute -bottom-16 -left-16 w-72 h-72 bg-secondary-100/15 rounded-full blur-3xl" />
-        </div>
 
         <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
           {/* Breadcrumb */}
@@ -201,8 +196,6 @@ export default function DoctorPage() {
             <div className="relative flex-shrink-0 w-full max-w-[320px] lg:w-[380px] xl:w-[440px] mx-auto lg:mx-0 pb-6 pr-2">
               {/* Arch — brand device B1. Photography only. */}
               <div className="relative w-full aspect-square arch overflow-hidden bg-primary-50">
-                <div className="absolute w-[220px] h-[220px] rounded-full bg-primary/20 -top-8 -right-8" />
-                <div className="absolute w-[90px] h-[90px] rounded-full bg-secondary/15 bottom-8 -right-4" />
                 <Image
                   src="/doctor.jpeg"
                   alt="Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist"
@@ -218,7 +211,7 @@ export default function DoctorPage() {
                   </span>
                 </div>
               </div>
-              <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-[14px] px-5 py-4 shadow-float">
+              <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-lg px-5 py-4 shadow-float">
                 <span className="font-extrabold text-text-inverse text-[28px] leading-none">20+</span>
                 <span className="text-text-inverse text-center text-[11px] mt-0.5">Years of care</span>
               </div>
@@ -341,7 +334,7 @@ export default function DoctorPage() {
             <div className="hidden lg:flex flex-col gap-5 w-80 shrink-0">
 
               {/* Career at a Glance */}
-              <div className="bg-surface-subtle rounded-[18px] p-5 border border-border-muted">
+              <div className="bg-surface-subtle rounded-lg p-5 border border-border-muted">
                 <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-text-muted mb-4">
                   Career at a Glance
                 </p>
@@ -395,14 +388,14 @@ export default function DoctorPage() {
 
             {/* Right — xl sidebar: Professional Affiliations */}
             <div className="hidden lg:flex flex-col gap-4 w-80 shrink-0">
-              <div className="bg-surface rounded-[18px] p-5 border border-border-muted">
+              <div className="bg-surface rounded-lg p-5 border border-border-muted">
                 <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-text-muted mb-4">
                   Professional Affiliations
                 </p>
                 <div className="flex flex-col gap-4">
                   {affiliations.map((a) => (
                     <div key={a.short} className="flex items-start gap-3">
-                      <span className="text-[11px] font-extrabold text-secondary bg-secondary/10 rounded-[6px] px-2 py-1 shrink-0 leading-none mt-0.5">
+                      <span className="text-[11px] font-extrabold text-secondary bg-secondary/10 rounded-sm px-2 py-1 shrink-0 leading-none mt-0.5">
                         {a.short}
                       </span>
                       <div>
@@ -432,9 +425,9 @@ export default function DoctorPage() {
             {expertise.map((e, i) => (
               <div
                 key={i}
-                className="group bg-surface-subtle rounded-[18px] p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
+                className="group bg-surface-subtle rounded-lg p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
               >
-                <div className="w-10 h-10 rounded-[10px] bg-primary-100 text-primary flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
                   <CheckIcon size={16} />
                 </div>
                 <div>
@@ -481,7 +474,7 @@ export default function DoctorPage() {
               {principles.map((p) => (
                 <div
                   key={p.label}
-                  className="group flex items-start gap-3 bg-surface rounded-[14px] p-4 border border-border-muted transition-all duration-200 hover:border-primary/20 hover:shadow-card"
+                  className="group flex items-start gap-3 bg-surface rounded-lg p-4 border border-border-muted transition-all duration-200 hover:border-primary/20 hover:shadow-card"
                 >
                   <div className="w-2 h-2 rounded-full bg-secondary mt-1.5 shrink-0" />
                   <div>
@@ -508,9 +501,9 @@ export default function DoctorPage() {
             {consultDetails.map((item) => (
               <div
                 key={item.label}
-                className="group bg-surface-subtle rounded-[18px] p-6 border border-border-muted flex flex-col gap-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
+                className="group bg-surface-subtle rounded-lg p-6 border border-border-muted flex flex-col gap-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
               >
-                <div className="w-11 h-11 rounded-[10px] bg-primary-100 text-primary flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
                   {item.icon}
                 </div>
                 <div>

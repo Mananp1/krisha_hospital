@@ -100,7 +100,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-4">
               <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base mb-1">Contact details</h2>
               {contactCards.map((card) => (
-                <div key={card.label} className="bg-surface rounded-2xl p-5 border border-border-muted flex items-start gap-4">
+                <div key={card.label} className="bg-surface rounded-lg p-5 border border-border-muted flex items-start gap-4">
                   <div className="w-11 h-11 rounded-xl bg-primary-100 text-primary flex items-center justify-center shrink-0">
                     {card.icon}
                   </div>
@@ -128,7 +128,7 @@ export default function ContactPage() {
       {/* ── Map ── */}
       <section className="w-full bg-surface pb-14 lg:pb-20">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
-          <div className="rounded-[18px] overflow-hidden border border-border-muted shadow-sm">
+          <div className="rounded-lg overflow-hidden border border-border-muted shadow-sm">
             <iframe
               src="https://maps.google.com/maps?q=22.9644206,72.5916213&z=16&output=embed"
               width="100%"

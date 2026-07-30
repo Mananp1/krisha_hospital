@@ -75,7 +75,7 @@ export default async function AppointmentsPage({ searchParams }: PageProps) {
         <AppointmentSearch />
       </Suspense>
 
-      <div className="bg-surface rounded-2xl border border-border-muted overflow-hidden">
+      <div className="bg-surface rounded-lg border border-border-muted overflow-hidden">
         <AppointmentTable appointments={appointments} total={total} />
       </div>
     </div>

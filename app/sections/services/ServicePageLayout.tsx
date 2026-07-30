@@ -57,11 +57,6 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
     <>
       {/* Hero */}
       <section className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
-        {/* Ambient blobs */}
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute -top-24 right-1/4 w-96 h-96 bg-primary-100/20 rounded-full blur-3xl" />
-          <div className="absolute -bottom-16 -left-16 w-72 h-72 bg-secondary-100/15 rounded-full blur-3xl" />
-        </div>
 
         <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
 
@@ -134,9 +129,9 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
             {data.benefits.map((b, i) => (
               <div
                 key={i}
-                className="group bg-surface rounded-[18px] p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
+                className="group bg-surface rounded-lg p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
               >
-                <div className="w-10 h-10 rounded-[10px] bg-primary-100 text-primary flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
                   <CheckIcon size={16} />
                 </div>
                 <div>

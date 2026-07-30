@@ -25,7 +25,7 @@ export default async function CalendarPage() {
         </p>
       </div>
 
-      <div className="bg-surface rounded-2xl border border-border-muted p-4 lg:p-6 overflow-hidden">
+      <div className="bg-surface rounded-lg border border-border-muted p-4 lg:p-6 overflow-hidden">
         <CalendarClientWrapper appointments={appointments} />
       </div>
     </div>

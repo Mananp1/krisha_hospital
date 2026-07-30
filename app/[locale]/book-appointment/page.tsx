@@ -81,7 +81,7 @@ export default function BookAppointmentPage() {
           {contactDetails.map((item) => (
             <div
               key={item.label}
-              className="flex items-start gap-4 p-4 rounded-2xl border border-border-muted bg-surface-subtle"
+              className="flex items-start gap-4 p-4 rounded-lg border border-border-muted bg-surface-subtle"
             >
               <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary-100 text-primary flex items-center justify-center">
                 {item.icon}

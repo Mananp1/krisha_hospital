@@ -27,7 +27,7 @@ export default function HospitalGallery() {
               <Link
                 href="/gallery"
                 aria-label={`${img.caption} — open the full hospital gallery`}
-                className="group relative block aspect-4/3 rounded-[18px] overflow-hidden bg-primary-50 ring-1 ring-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                className="group relative block aspect-4/3 rounded-lg overflow-hidden bg-primary-50 ring-1 ring-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
               >
                 <Image
                   src={img.src}

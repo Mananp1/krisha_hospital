@@ -49,7 +49,7 @@ export default async function InquiriesPage({ searchParams }: PageProps) {
         </p>
       </div>
 
-      <div className="bg-surface rounded-2xl border border-border-muted overflow-hidden">
+      <div className="bg-surface rounded-lg border border-border-muted overflow-hidden">
         <InquiryTable inquiries={inquiries} total={total} />
       </div>
     </div>

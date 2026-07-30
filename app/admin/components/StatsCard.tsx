@@ -14,7 +14,7 @@ export function StatsCard({ title, value, icon, note, zeroNote, href, hrefLabel 
   const showZeroNote = value === 0 && zeroNote;
 
   return (
-    <div className="bg-surface rounded-2xl border border-border-muted p-4 flex items-start gap-3">
+    <div className="bg-surface rounded-lg border border-border-muted p-4 flex items-start gap-3">
       <div className="w-10 h-10 rounded-xl bg-primary-50 text-primary flex items-center justify-center shrink-0">
         {icon}
       </div>

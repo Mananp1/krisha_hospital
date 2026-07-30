@@ -49,7 +49,7 @@ function Tile({ image, onOpen, priority }: TileProps) {
       type="button"
       onClick={onOpen}
       aria-label={`View larger: ${image.caption}`}
-      className="group relative block w-full h-full overflow-hidden rounded-[14px] lg:rounded-[18px] bg-primary-50 ring-1 ring-primary/10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+      className="group relative block w-full h-full overflow-hidden rounded-lg lg:rounded-lg bg-primary-50 ring-1 ring-primary/10 cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
     >
       <Image
         src={image.src}

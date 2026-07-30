@@ -26,10 +26,6 @@ export default function GalleryPage() {
     <>
       {/* ── Header ── */}
       <section className="w-full bg-surface-subtle pt-10 pb-12 lg:pt-14 lg:pb-16 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute -top-24 right-1/4 w-96 h-96 bg-primary-100/25 rounded-full blur-3xl" />
-          <div className="absolute -bottom-16 -left-16 w-72 h-72 bg-secondary-100/20 rounded-full blur-3xl" />
-        </div>
 
         <div className="relative max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
           <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-8 flex-wrap">

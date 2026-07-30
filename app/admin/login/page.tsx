@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-surface rounded-2xl border border-border-muted shadow-md p-8">
+        <div className="bg-surface rounded-lg border border-border-muted shadow-md p-8">
           <h1 className="text-[20px] font-bold text-text-base mb-1">Staff Sign In</h1>
           <p className="text-[13px] text-text-muted mb-6">
             Access the Krisha Hospital admin panel.

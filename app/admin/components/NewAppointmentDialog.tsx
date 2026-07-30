@@ -132,7 +132,7 @@ export function NewAppointmentDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       {!isControlled && (
         <DialogTrigger asChild>
-          <button className="flex items-center gap-3 bg-surface border border-border-muted rounded-2xl px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group w-full text-left">
+          <button className="flex items-center gap-3 bg-surface border border-border-muted rounded-lg px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group w-full text-left">
             <div className="w-9 h-9 rounded-xl bg-primary-50 group-hover:bg-primary/10 text-primary flex items-center justify-center shrink-0 transition-colors">
               <PlusIcon size={18} strokeWidth={2} />
             </div>

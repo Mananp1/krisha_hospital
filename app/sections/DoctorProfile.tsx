@@ -57,11 +57,6 @@ export default function DoctorProfile() {
       id="doctor"
       className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden"
     >
-      {/* Ambient gradient blobs */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-20 right-1/3 w-80 h-80 bg-primary-100/30 rounded-full blur-3xl" />
-        <div className="absolute -bottom-10 left-0 w-72 h-72 bg-secondary-100/20 rounded-full blur-3xl" />
-      </div>
 
       <div className="relative max-w-page mx-auto px-5 lg:px-gutter flex flex-col lg:flex-row items-center gap-12 lg:gap-14">
         {/* Left — Photo Frame */}
@@ -71,10 +66,6 @@ export default function DoctorProfile() {
         >
           {/* Arch — brand device B1. Photography only. */}
           <div className="relative w-full aspect-[47/49] arch overflow-hidden bg-primary-50">
-            {/* Decorative circles */}
-            <div className="absolute w-[260px] h-[260px] lg:w-[300px] lg:h-[300px] rounded-full bg-primary/20 -top-10 -right-10" />
-            <div className="absolute w-[110px] h-[110px] lg:w-[130px] lg:h-[130px] rounded-full bg-secondary-50 bottom-10 -right-5" />
-
             <Image
               src="/doctor.jpeg"
               alt="Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist"
@@ -94,7 +85,7 @@ export default function DoctorProfile() {
           </div>
 
           {/* Experience badge — floats outside the photo frame */}
-          <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-[14px] px-5 py-4 shadow-float">
+          <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-lg px-5 py-4 shadow-float">
             <span className="font-extrabold text-text-inverse text-[28px] lg:text-[30px] leading-none">
               20+
             </span>
@@ -118,7 +109,7 @@ export default function DoctorProfile() {
 
           <Badge
             variant="outline"
-            className="h-auto overflow-visible rounded-[20px] mt-3 px-4 py-1.5 text-[12.5px] font-bold bg-primary-100 border-primary-200/60 text-primary-700"
+            className="h-auto overflow-visible rounded-pill mt-3 px-4 py-1.5 text-meta font-bold bg-primary-100 border-primary-200/60 text-primary-700"
           >
             MBBS · MD · DGO
           </Badge>
@@ -144,7 +135,7 @@ export default function DoctorProfile() {
               <Badge
                 key={t}
                 variant="outline"
-                className="h-auto overflow-visible rounded-full px-3 py-1 text-[13px] font-semibold border-border-muted text-primary-700 bg-surface"
+                className="h-auto overflow-visible rounded-sm px-3 py-1 text-meta font-semibold border-border-muted text-primary-700 bg-surface"
               >
                 {t}
               </Badge>
@@ -155,7 +146,7 @@ export default function DoctorProfile() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             {metaItems.map((item) => (
               <div key={item.bold} className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-[10px] bg-primary-50 flex items-center justify-center flex-shrink-0 text-primary">
+                <div className="w-9 h-9 rounded-md bg-primary-50 flex items-center justify-center flex-shrink-0 text-primary">
                   {item.icon}
                 </div>
                 <div>

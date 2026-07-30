@@ -157,19 +157,31 @@ else — nav, buttons, service names, credentials, forms, body — stays Manrope
 
 **T3 — Radius system.** Replace the derived `calc()` chain with explicit values.
 
-Shipped as a five-step ladder rather than the four above, because shadcn's primitives already consume
-`sm/md/lg/xl` and a four-step set would have made `lg` larger than `xl`:
+**Revised after review — the first ladder was too soft.** 6/10/12/16 still read as a generic rounded-card
+template. Halved:
 
 ```css
---radius-sm:   6px;   /* inputs, tags, small controls */
---radius-md:   10px;  /* buttons, service cards, FAQ rows */
---radius-lg:   12px;  /* larger cards, panels */
---radius-xl:   16px;  /* image panels, doctor portrait */
+--radius-sm:   4px;   /* inputs, tags, small controls */
+--radius-md:   6px;   /* buttons, cards, FAQ rows */
+--radius-lg:   8px;   /* larger cards, panels */
+--radius-xl:   10px;  /* image panels, doctor portrait */
 --radius-pill: 999px; /* badges only */
 ```
 
-Then: strip `rounded-full` from the buttons → `--radius-md`. Header, footer, stats band, full-bleed CTA get
-no radius at all.
+Five steps rather than four, because shadcn's primitives already consume `sm/md/lg/xl` and a four-step set
+would have made `lg` larger than `xl`.
+
+⚠️ **The lesson from the first attempt: tightening the tokens changed almost nothing on screen**, because 31
+ad-hoc `rounded-[Npx]` values (18px on cards, 20–28px on photos) were still hardcoded in the sections and
+bypassed the ladder entirely. Deferring those to the section rebuilds was the wrong call. All 31 are now swept
+onto tokens, plus 13 `rounded-2xl`, so cards went 18px → 8px and hero photography 28px → 10px.
+
+Softness now lives **only** in the photography, via the `arch` device — which is what makes "sharper components,
+softly rounded pictures" legible as an intent rather than uniform roundness everywhere.
+
+`rounded-full` survives on true circles (avatars, dots, icon buttons) and badges. It is gone from every button:
+the first pass matched `rounded-full px-` and missed four buttons that use `rounded-full py-`. Decorative
+floating circles behind both doctor portraits are deleted.
 
 ⚠️ **The token layer is shared with the admin panel** — `app/admin/**` uses `rounded-xl` ×26, `rounded-md` ×22,
 `rounded-lg` ×22 and `rounded-sm` ×7 via shadcn primitives. The new ladder moves `md` 8→10, `lg` 10→12 and
@@ -191,19 +203,31 @@ than a regression. `rounded-2xl` / `rounded-full` / `rounded-none` are Tailwind 
 
 Not every section gets `--section-y`: hero, doctor and final CTA take `--section-y-lg`.
 
-**T5 — Colour roles.** Add the missing warm neutral and assign roles explicitly:
+**T5 — Colour distribution. 60 / 30 / 10, existing palette only.**
 
-```css
---surface-page:  #FAF8F5;  /* warm off-white — 60–65% of the page */
---surface:       #ffffff;  /* cards — 20–25% */
---surface-dark:  var(--primary-900);  /* stats band, footer — 8–10% */
---accent:        var(--secondary);    /* CTAs, small highlights — 5–7% */
-```
+**Revised after review.** The warm off-white is dropped — it was a fourth hue the brand does not own, and it
+muddied against the cool lavender. **C3 resolved: the ground stays cool**, so the whole page sits on one neutral
+family.
 
-⚠️ **C3 — the one real risk in the palette work.** A warm off-white beside the existing cool
-`--surface-subtle: #f5f3fd` will read as two dirty greys. Recommendation: make `--surface-page` the default
-background, and demote lavender from a section background to a component-level tint only (icon wells, open
-accordion rows). Calibrate both on screen before committing.
+| Share | Colour | Where |
+| --- | --- | --- |
+| **60** | white + `--surface-subtle` lavender tint | every content section |
+| **30** | `--primary` family | full-bleed bands, footer, and the icons and headings carrying brand weight |
+| **10** | `--secondary` magenta | CTAs and small highlights, nothing more |
+
+What was actually wrong was not the palette but its distribution:
+
+- **13 service cards were filled plum** — the brand colour spent as noise. Now white cards with a plum icon well
+  and heading, so plum arrives as a few large blocks instead of 13 competing ones.
+- **The final CTA was a magenta gradient** — a large field of the 10% accent, which is what made the whole site
+  read pink-dominant. Now solid plum, square, full-bleed, with magenta surviving as the one button.
+- **The stats band was a plum gradient** → flat `--primary-900`.
+- **Ten decorative blur blobs** across five sections are deleted; they hazed the colour story and were standing
+  in for composition.
+
+Plum now appears as exactly four full-bleed blocks — top bar, stats band, final CTA, footer — and nowhere as a
+card fill. The only gradients left in the public tree are the ten `bg-linear-to-t` scrims that keep captions
+legible over photography, which are functional rather than decorative.
 
 **T6 — Shadow reduction.** Collapse 8 near-identical tokens to 3 (`xs` hairline, `md` card lift, `lg` floating
 panel). Delete the 7 arbitrary `shadow-[…]` values.

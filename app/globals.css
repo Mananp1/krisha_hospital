@@ -79,16 +79,20 @@
   --light:     #eeebfc;
 
   /* ── Custom surface tokens ──────────────────────────────────
-     Roles, and roughly the share of the page each should occupy:
-       page    warm off-white, the default ground        60–65%
-       surface white, cards and content only             20–25%
-       dark    plum bands — stats, final CTA, footer      8–10%
-       accent  --secondary, CTAs and small highlights     5–7%
-     C3 (see docs/redesign-plan.md) is unresolved: --surface-page is warm
-     and --surface-subtle is cool, and the two read as dirty greys side by
-     side. One of them has to go before the section rebuilds land.       */
+     60 / 30 / 10, using the existing palette only. No new hues.
+
+       60  ground     white + the lavender tint. Every content section.
+       30  plum       --primary family. Full-bleed bands, footer, and the
+                      icons and headings that carry brand weight.
+       10  magenta    --secondary. CTAs and small highlights, nothing more.
+
+     C3 resolved: the warm off-white is dropped. It was a fourth hue the
+     brand does not have, and it muddied against the cool lavender. The
+     ground stays cool, which keeps the whole page on one neutral family.
+
+     The failure mode this replaces was plum applied as 13 card fills —
+     brand colour as noise. Plum now arrives as a few large blocks.      */
   --surface:        #ffffff;
-  --surface-page:   #faf8f5;
   --surface-muted:  #eeebfc;
   --surface-subtle: #f5f3fd;
   --surface-dark:   var(--primary-900);
@@ -202,7 +206,6 @@
 
   /* ── Custom surface tokens ──────────────────────────────── */
   --color-surface:        var(--surface);
-  --color-surface-page:   var(--surface-page);
   --color-surface-muted:  var(--surface-muted);
   --color-surface-subtle: var(--surface-subtle);
   --color-surface-dark:   var(--surface-dark);
@@ -261,12 +264,15 @@
   --text-label--font-weight: 700;
 
   /* ── Radius ─────────────────────────────────────────────────
-     Restrained on components, generous on photography. Pill is for
-     badges only — never primary buttons.                              */
-  --radius-sm:   6px;   /* inputs, tags, small controls */
-  --radius-md:   10px;  /* buttons, service cards, FAQ rows */
-  --radius-lg:   12px;  /* larger cards, panels */
-  --radius-xl:   16px;  /* image panels, doctor portrait */
+     Deliberately tight. Halved from the first pass (6/10/12/16), which
+     still read as a generic rounded-card template. Editorial and
+     clinical credibility come from near-square components; the softness
+     lives in the photography via the `arch` device instead.
+     Pill is for badges only — never buttons.                          */
+  --radius-sm:   4px;   /* inputs, tags, small controls */
+  --radius-md:   6px;   /* buttons, cards, FAQ rows */
+  --radius-lg:   8px;   /* larger cards, panels */
+  --radius-xl:   10px;  /* image panels, doctor portrait */
   --radius-pill: 999px; /* badges only */
 
   /* ── Section rhythm ─────────────────────────────────────────

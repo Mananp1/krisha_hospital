@@ -83,7 +83,7 @@ export default function Navbar() {
                 </button>
 
                 <div className="absolute top-full left-0 pt-3 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-out">
-                  <div className="bg-surface border border-border-muted rounded-[10px] shadow-card px-5 py-4 w-160">
+                  <div className="bg-surface border border-border-muted rounded-md shadow-card px-5 py-4 w-160">
                     <div className="flex items-start">
                       <div className="flex flex-col gap-2 flex-1">
                         {services.slice(0, 7).map((s) => (
@@ -254,14 +254,14 @@ export default function Navbar() {
                 <Button
                   variant="outline"
                   asChild
-                  className="rounded-full py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+                  className="rounded-md py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
                 >
                   <a href="tel:+917862950676">Call Now</a>
                 </Button>
                 <Button
                   variant="secondary"
                   asChild
-                  className="rounded-full py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
+                  className="rounded-md py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
                   onClick={() => setDrawerOpen(false)}
                 >
                   <Link href="/book-appointment">

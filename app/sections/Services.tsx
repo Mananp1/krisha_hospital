@@ -129,22 +129,27 @@ export default function Services() {
               delay={i < 3 ? i * 0.08 : 0}
               className={i === LAST ? 'lg:col-start-2' : undefined}
             >
-              <div className="group flex flex-col p-7 rounded-[18px] bg-primary border border-white/10 transition-all duration-200 hover:-translate-y-1 hover:shadow-float h-full">
-                <div className="w-[54px] h-[54px] bg-white/15 text-white rounded-[14px] flex items-center justify-center shrink-0 transition-colors group-hover:bg-white/25">
+              {/*
+                Icon-led editorial card. Plum used to fill all 13 of these,
+                which spent the brand colour as noise; it now arrives as the
+                icon and the heading, against the white 60%.
+              */}
+              <div className="group flex flex-col p-7 rounded-md bg-surface border border-border-muted transition-colors duration-200 hover:border-primary/35 h-full">
+                <div className="w-12 h-12 rounded-md bg-primary-50 text-primary flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary group-hover:text-text-inverse">
                   {s.icon}
                 </div>
 
-                <h3 className="mt-4 font-bold text-[17px] text-white leading-snug">
+                <h3 className="mt-5 font-semibold text-body text-text-base leading-snug">
                   {s.title}
                 </h3>
 
-                <p className="mt-2 text-[14px] text-white/70 leading-5.5 grow">
+                <p className="mt-2 text-meta text-text-muted grow">
                   {s.desc}
                 </p>
 
                 <Link
                   href={`/services/${s.slug}`}
-                  className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-white/80 no-underline group-hover:text-white transition-colors"
+                  className="mt-5 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary no-underline hover:text-secondary-600 transition-colors"
                 >
                   Learn more
                   <ArrowRightIcon size={13} className="transition-transform group-hover:translate-x-0.5" />

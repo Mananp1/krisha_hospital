@@ -93,7 +93,7 @@ export default async function AdminDashboardPage() {
 
       {/* Alerts banner */}
       {hasAlerts && (
-        <div className="mb-6 bg-amber-50 border border-amber-200 rounded-2xl px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5">
+        <div className="mb-6 bg-amber-50 border border-amber-200 rounded-lg px-5 py-3.5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5">
           <AlertTriangleIcon size={16} strokeWidth={2} className="text-amber-600 shrink-0" />
           <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-5 text-[13px]">
             {(pendingCount ?? 0) > 0 && (
@@ -150,7 +150,7 @@ export default async function AdminDashboardPage() {
 
           <Link
             href="/admin/appointments"
-            className="flex items-center gap-3 bg-surface border border-border-muted rounded-2xl px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group"
+            className="flex items-center gap-3 bg-surface border border-border-muted rounded-lg px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group"
           >
             <div className="w-9 h-9 rounded-xl bg-primary-50 group-hover:bg-primary/10 text-primary flex items-center justify-center shrink-0 transition-colors">
               <ListIcon size={18} strokeWidth={1.8} />
@@ -163,7 +163,7 @@ export default async function AdminDashboardPage() {
 
           <Link
             href="/admin/inquiries"
-            className="flex items-center gap-3 bg-surface border border-border-muted rounded-2xl px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group"
+            className="flex items-center gap-3 bg-surface border border-border-muted rounded-lg px-5 py-4 hover:border-primary/40 hover:bg-primary-50 transition-all group"
           >
             <div className="w-9 h-9 rounded-xl bg-primary-50 group-hover:bg-primary/10 text-primary flex items-center justify-center shrink-0 transition-colors">
               <MessageSquareIcon size={18} strokeWidth={1.8} />
@@ -177,7 +177,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-surface rounded-2xl border border-border-muted overflow-hidden">
+      <div className="bg-surface rounded-lg border border-border-muted overflow-hidden">
         <div className="px-5 py-3.5 border-b border-border-muted flex items-center justify-between">
           <h2 className="text-[14px] font-bold text-text-base">Recent Activity</h2>
           <Link href="/admin/appointments" className="text-[12px] font-semibold text-primary hover:opacity-70 transition-opacity">

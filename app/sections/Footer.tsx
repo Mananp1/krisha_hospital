@@ -49,7 +49,7 @@ export default function Footer() {
 
           {/* Col 1 — About */}
           <div className="max-w-70">
-            <div className="inline-block bg-white/95 rounded-[10px] px-3 py-2 mb-5">
+            <div className="inline-block bg-white/95 rounded-md px-3 py-2 mb-5">
               <Image
                 src="/Logo.png"
                 alt="Krisha Women's Hospital"
@@ -123,7 +123,7 @@ export default function Footer() {
             <div className="flex flex-col gap-4">
               {contactItems.map((item, i) => (
                 <div key={i} className="flex items-start gap-2.5">
-                  <div className="w-7 h-7 rounded-[8px] bg-white/10 flex items-center justify-center flex-shrink-0 text-secondary">
+                  <div className="w-7 h-7 rounded-sm bg-white/10 flex items-center justify-center flex-shrink-0 text-secondary">
                     {item.icon}
                   </div>
                   {item.href ? (
@@ -144,7 +144,7 @@ export default function Footer() {
                 href="https://maps.app.goo.gl/yyAN6pwSQYNny7v18"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block mt-1 rounded-[10px] overflow-hidden ring-1 ring-white/10 hover:ring-secondary/60 transition-all"
+                className="block mt-1 rounded-md overflow-hidden ring-1 ring-white/10 hover:ring-secondary/60 transition-all"
                 aria-label="Open Krisha Women's Hospital on Google Maps"
               >
                 <iframe
