@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MenuIcon, XIcon, ChevronDownIcon } from 'lucide-react';
+import { MenuIcon, XIcon, ChevronDownIcon, PhoneIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
 import { Button } from '@/components/ui/button';
 import {
@@ -78,7 +78,6 @@ export default function Navbar() {
                   Services
                   <ChevronDownIcon
                     size={13}
-                    strokeWidth={2.5}
                     className="transition-transform duration-200 group-hover:rotate-180"
                   />
                 </button>
@@ -158,18 +157,7 @@ export default function Navbar() {
             className="flex items-center gap-1.5 text-primary text-[13.5px] font-semibold"
             aria-label="Call us"
           >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.77 19.79 19.79 0 01.91 1.12 2 2 0 012.92.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0121 14.92v2z" />
-            </svg>
+            <PhoneIcon size={15} />
             <span className="hidden sm:inline">+91 78629 50676</span>
           </a>
 
@@ -227,7 +215,6 @@ export default function Navbar() {
                       Services
                       <ChevronDownIcon
                         size={16}
-                        strokeWidth={2.5}
                         className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
                       />
                     </button>

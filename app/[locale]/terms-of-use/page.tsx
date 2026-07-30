@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
 
 function ChevronIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
+    <ChevronRightIcon size={12} />
   );
 }
 

@@ -137,7 +137,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
                 className="group bg-surface rounded-[18px] p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
               >
                 <div className="w-10 h-10 rounded-[10px] bg-primary-100 text-primary flex items-center justify-center shrink-0">
-                  <CheckIcon size={16} strokeWidth={2.5} />
+                  <CheckIcon size={16} />
                 </div>
                 <div>
                   <h3 className="font-bold text-[14px] text-text-base mb-1.5">{b.label}</h3>

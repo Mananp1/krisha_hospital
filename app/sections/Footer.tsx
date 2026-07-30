@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { MapPinIcon, PhoneIcon, MailIcon, ClockIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
 
 const quickLinks = [
@@ -13,38 +14,27 @@ const quickLinks = [
 const contactItems = [
   {
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
+      <MapPinIcon size={16} />
     ),
     text: '231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road, Narol, Ahmedabad — 382405',
   },
   {
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.77 19.79 19.79 0 01.91 1.12 2 2 0 012.92.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0121 14.92v2z" />
-      </svg>
+      <PhoneIcon size={16} />
     ),
     text: '+91 78629 50676',
     href: 'tel:+917862950676',
   },
   {
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
-      </svg>
+      <MailIcon size={16} />
     ),
     text: 'care@krishawomenshospital.in',
     href: 'mailto:care@krishawomenshospital.in',
   },
   {
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12,6 12,12 16,14" />
-      </svg>
+      <ClockIcon size={16} />
     ),
     text: 'Mon–Sat 8AM–8PM · Emergency 24×7',
   },

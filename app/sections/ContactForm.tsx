@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { CheckIcon, LoaderCircleIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -54,9 +55,7 @@ export default function ContactForm() {
     return (
       <div className="flex flex-col items-center justify-center text-center gap-4 py-16 px-6">
         <div className="w-16 h-16 rounded-full bg-primary-100 text-primary flex items-center justify-center">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
+          <CheckIcon size={28} />
         </div>
         <h3 className="text-[20px] font-bold text-text-base">Message Sent!</h3>
         <p className="text-[14px] text-text-muted max-w-[300px] leading-[23px]">
@@ -153,10 +152,7 @@ export default function ContactForm() {
       >
         {status === 'loading' ? (
           <>
-            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
+            <LoaderCircleIcon className="animate-spin h-4 w-4" />
             Sending...
           </>
         ) : 'Send Message'}

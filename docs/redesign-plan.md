@@ -57,7 +57,7 @@ Every number below is measured from the current tree, not estimated.
 | D5 | **One section rhythm, and it is too tight.** | Only 2 padding recipes site-wide (`py-14 lg:py-20`, `py-12 lg:py-20`) = **56 / 80px**. Target for a premium feel is 112–144px desktop |
 | D6 | **No warm neutral exists in the palette.** Backgrounds alternate white ↔ `#f5f3fd` cool lavender. `--light-50: #fdfcff` and `--light-100: #fafaff` are also cool (blue-leaning). | [globals.css:73-84](../app/globals.css#L73-L84) |
 | D7 | **Darkness is applied to cards, not bands.** All 13 service cards are `bg-primary` deep purple on white — 13 heavy blocks reading as noise — while section backgrounds stay light. | [Services.tsx:194](../app/sections/Services.tsx#L194) |
-| D8 | **Two icon systems, ten stroke weights.** | **32 hand-rolled inline `<svg>`** blocks across 9 section files at weights `1.8, 2, 2.5, 4`; lucide icons at `1.5, 1.75, 1.8, 2, 2.25, 2.5` |
+| D8 | **Two icon systems, ten stroke weights.** Originally counted as 32 across the 9 section files; the real public-tree total is **47** — the first pass used a shell glob that silently skipped `app/[locale]/**`, which holds 15 more. | **47 hand-rolled inline `<svg>`** blocks at weights `1.8, 2, 2.5, 4`; lucide icons at `1.5, 1.75, 1.8, 2, 2.25, 2.5` |
 | D9 | **One header component drives six sections**, defaulting to centred. This *is* the "label → centred heading → paragraph → cards" pattern, encoded. | [SectionHeader.tsx:15](../app/sections/SectionHeader.tsx#L15) — `centered = true`; 6 consumers, only 3 override it |
 | D10 | **Logo is raster-only** (358×184 PNG). It cannot be recoloured for dark surfaces, which is why the footer wraps it in a white rounded box. | [Footer.tsx:62](../app/sections/Footer.tsx#L62) |
 | D11 | **Decorative blur blobs used as a substitute for composition.** 4 sections × 2 `blur-3xl` blobs. They add cost and haze, not hierarchy. | Hero, DoctorProfile, Testimonials, CTAStrip |
@@ -224,9 +224,17 @@ Already prototyped in [FAQ.tsx:83](../app/sections/FAQ.tsx#L83) — promote it t
 Explicitly **not** doing: petal outlines, branded patterns, curved connector lines, floating shapes. Two devices
 is the brief.
 
-**B3 — Icon unification** (supporting, not a third device). Standardise on lucide at a single `strokeWidth={1.5}`
-to echo the logo's line art. Convert the 32 hand-rolled SVGs; keep custom paths only where lucide has no
-equivalent (the pregnancy/womb glyphs), redrawn at 1.5.
+**B3 — Icon unification** (supporting, not a third device). Standardise on lucide at a single hairline stroke to
+echo the logo's line art. All 47 hand-rolled SVGs converted: 41 map onto lucide exactly, and 6 semantically
+specific ones — pregnancy, sonography, laparoscopy, fertility, tuboplasty, cerclage — live on in
+[components/brand/icons.tsx](../components/brand/icons.tsx), redrawn on lucide's 24px grid at the same 1.5 so
+the two sets read as one family. Forcing a generic lucide glyph onto "cervical cerclage" would have made the
+service grid less meaningful, not more consistent.
+
+Stroke weight is set **once**, in CSS: lucide emits `stroke-width` as a presentation attribute, which any CSS
+declaration outranks, so a single `.lucide { stroke-width: 1.5 }` rule normalises every icon and let all 15
+per-call-site `strokeWidth` props be deleted. This also standardises the admin panel's icons, which previously
+ran 1.5–2.5.
 
 **B4 — Ship an SVG logo.** Unblocks a white/plum monochrome variant and removes the footer white-box hack (D10).
 *Requires the original vector artwork — asset dependency, not a code task.*

@@ -58,7 +58,7 @@ export default function HospitalGallery() {
           >
             <Link href="/gallery">
               View all photos
-              <ArrowRightIcon size={16} strokeWidth={2.5} />
+              <ArrowRightIcon size={16} />
             </Link>
           </Button>
         </div>

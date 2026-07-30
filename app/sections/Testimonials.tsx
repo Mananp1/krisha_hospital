@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { QuoteIcon } from 'lucide-react';
+import { QuoteIcon, UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
@@ -33,15 +33,6 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-function PersonIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
-
 export default function Testimonials() {
   return (
     <section id="testimonials" className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
@@ -73,7 +64,7 @@ export default function Testimonials() {
               <div className="group flex flex-col rounded-[18px] p-7 bg-surface border border-border-muted gap-3.5 h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-card hover:border-primary/20">
                 {/* Quote icon + stars */}
                 <div className="flex items-start justify-between">
-                  <QuoteIcon size={28} strokeWidth={1.5} className="text-primary/20" />
+                  <QuoteIcon size={28} className="text-primary/20" />
                   <div className="text-amber-400 text-[15px] tracking-[2px]">★★★★★</div>
                 </div>
 
@@ -85,7 +76,7 @@ export default function Testimonials() {
                   <div className="w-11 h-11 rounded-full bg-primary text-text-inverse flex items-center justify-center flex-shrink-0">
                     {t.initials
                       ? <span className="text-[13px] font-bold">{t.initials}</span>
-                      : <PersonIcon />
+                      : <UserIcon size={18} />
                     }
                   </div>
                   <div>

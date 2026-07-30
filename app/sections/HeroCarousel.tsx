@@ -118,7 +118,7 @@ export default function HeroCarousel({
             aria-label="Previous photo"
             className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-surface/80 backdrop-blur-sm text-primary flex items-center justify-center shadow-sm hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary transition-colors"
           >
-            <ChevronLeftIcon size={18} strokeWidth={2.5} />
+            <ChevronLeftIcon size={18} />
           </button>
           <button
             type="button"
@@ -126,7 +126,7 @@ export default function HeroCarousel({
             aria-label="Next photo"
             className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-surface/80 backdrop-blur-sm text-primary flex items-center justify-center shadow-sm hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary transition-colors"
           >
-            <ChevronRightIcon size={18} strokeWidth={2.5} />
+            <ChevronRightIcon size={18} />
           </button>
 
           {/* Dots */}

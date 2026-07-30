@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, ClockIcon, MapPinIcon, GraduationCapIcon, AwardIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import SectionHeader from './SectionHeader';
@@ -21,57 +21,21 @@ const tags = [
 const metaItems = [
   {
     icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12,6 12,12 16,14" />
-      </svg>
+      <ClockIcon size={18} />
     ),
     bold: 'OPD Hours',
     regular: 'Mon – Sat: 8:00 AM – 8:00 PM',
   },
   {
     icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
+      <MapPinIcon size={18} />
     ),
     bold: 'Hospital',
     regular: "Krisha Women's Hospital, Narol, Ahmedabad",
   },
   {
     icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-        <path d="M6 12v5c3 3 9 3 12 0v-5" />
-      </svg>
+      <GraduationCapIcon size={18} />
     ),
     bold: 'Qualifications',
     regular:
@@ -79,19 +43,7 @@ const metaItems = [
   },
   {
     icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="8" r="6" />
-        <path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12" />
-      </svg>
+      <AwardIcon size={18} />
     ),
     bold: 'Fellowships',
     regular:
@@ -117,7 +69,8 @@ export default function DoctorProfile() {
           direction="right"
           className="relative flex-shrink-0 w-full max-w-[380px] lg:w-[470px] mx-auto lg:mx-0 pb-6 pr-2"
         >
-          <div className="relative w-full aspect-[47/49] rounded-[22px] overflow-hidden bg-primary-50">
+          {/* Arch — brand device B1. Photography only. */}
+          <div className="relative w-full aspect-[47/49] arch overflow-hidden bg-primary-50">
             {/* Decorative circles */}
             <div className="absolute w-[260px] h-[260px] lg:w-[300px] lg:h-[300px] rounded-full bg-primary/20 -top-10 -right-10" />
             <div className="absolute w-[110px] h-[110px] lg:w-[130px] lg:h-[130px] rounded-full bg-secondary-50 bottom-10 -right-5" />
@@ -246,7 +199,7 @@ export default function DoctorProfile() {
             >
               <Link href="/doctor">
                 View Full Profile
-                <ArrowRightIcon size={14} strokeWidth={2.5} />
+                <ArrowRightIcon size={14} />
               </Link>
             </Button>
           </div>

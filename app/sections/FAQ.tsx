@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import SectionNumeral from '@/components/brand/SectionNumeral';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
@@ -80,9 +81,7 @@ export default function FAQ() {
                 >
                   <AccordionTrigger className="px-5 py-4 text-[15px] font-semibold text-text-base hover:no-underline hover:text-primary data-[state=open]:text-primary rounded-none border-none transition-colors">
                     <span className="flex items-start gap-3.5 pr-2.5">
-                      <span className="text-[11px] font-extrabold text-secondary/50 tabular-nums shrink-0 leading-none mt-1">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
+                      <SectionNumeral n={i + 1} className="text-meta shrink-0 mt-0.5" />
                       {faq.question}
                     </span>
                   </AccordionTrigger>

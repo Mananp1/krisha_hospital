@@ -18,7 +18,7 @@ export default function SectionHeader({
   return (
     <div className={centered ? 'flex flex-col items-center text-center' : 'flex flex-col items-start'}>
       <span
-        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-bold uppercase tracking-[1.5px] border ${
+        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-pill text-label uppercase border ${
           light
             ? 'bg-white/10 border-white/20 text-white/80'
             : 'bg-secondary-50 border-secondary-200/70 text-secondary'
@@ -26,8 +26,9 @@ export default function SectionHeader({
       >
         {eyebrow}
       </span>
+      {/* The display face earns its keep here and on the hero — not in UI chrome. */}
       <h2
-        className={`mt-3 font-extrabold text-[26px] sm:text-[32px] lg:text-[38px] leading-tight lg:leading-11.5 lg:tracking-[-0.3px] ${
+        className={`mt-3 font-display text-display ${
           light ? 'text-text-inverse' : 'text-text-base'
         }`}
       >
@@ -35,7 +36,7 @@ export default function SectionHeader({
       </h2>
       {subtitle && (
         <p
-          className={`mt-4 text-[15px] lg:text-base leading-6.5 ${light ? 'text-text-inverse/80' : 'text-text-muted'}`}
+          className={`mt-5 text-body ${light ? 'text-text-inverse/80' : 'text-text-muted'}`}
           style={{ maxWidth }}
         >
           {subtitle}

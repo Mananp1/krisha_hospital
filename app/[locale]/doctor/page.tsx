@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CheckIcon, ChevronRightIcon } from 'lucide-react';
+import { CheckIcon, ChevronRightIcon, ClockIcon, MapPinIcon, MessageSquareIcon, PhoneIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import CTAStrip from '@/app/sections/CTAStrip';
@@ -101,10 +101,7 @@ const expertise = [
 const consultDetails = [
   {
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12,6 12,12 16,14" />
-      </svg>
+      <ClockIcon size={20} />
     ),
     label: 'OPD Hours',
     value: 'Monday – Saturday',
@@ -112,9 +109,7 @@ const consultDetails = [
   },
   {
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.77 19.79 19.79 0 01.91 1.12 2 2 0 012.92.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0121 14.92v2z" />
-      </svg>
+      <PhoneIcon size={20} />
     ),
     label: 'Appointments',
     value: '+91 78629 50676',
@@ -122,10 +117,7 @@ const consultDetails = [
   },
   {
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
+      <MapPinIcon size={20} />
     ),
     label: 'Location',
     value: "Krisha Women's Hospital",
@@ -133,9 +125,7 @@ const consultDetails = [
   },
   {
     icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-      </svg>
+      <MessageSquareIcon size={20} />
     ),
     label: 'Languages',
     value: 'Gujarati · Hindi · English',
@@ -209,7 +199,8 @@ export default function DoctorPage() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             {/* Photo frame */}
             <div className="relative flex-shrink-0 w-full max-w-[320px] lg:w-[380px] xl:w-[440px] mx-auto lg:mx-0 pb-6 pr-2">
-              <div className="relative w-full aspect-square rounded-[22px] overflow-hidden bg-primary-50">
+              {/* Arch — brand device B1. Photography only. */}
+              <div className="relative w-full aspect-square arch overflow-hidden bg-primary-50">
                 <div className="absolute w-[220px] h-[220px] rounded-full bg-primary/20 -top-8 -right-8" />
                 <div className="absolute w-[90px] h-[90px] rounded-full bg-secondary/15 bottom-8 -right-4" />
                 <Image
@@ -444,7 +435,7 @@ export default function DoctorPage() {
                 className="group bg-surface-subtle rounded-[18px] p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
               >
                 <div className="w-10 h-10 rounded-[10px] bg-primary-100 text-primary flex items-center justify-center shrink-0">
-                  <CheckIcon size={16} strokeWidth={2.5} />
+                  <CheckIcon size={16} />
                 </div>
                 <div>
                   <h3 className="font-bold text-[14px] text-text-base mb-1.5">{e.label}</h3>

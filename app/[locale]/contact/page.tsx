@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ChevronRightIcon, ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 import Link from 'next/link';
 import ContactForm from '@/app/sections/ContactForm';
 
@@ -11,18 +12,14 @@ export const metadata: Metadata = {
 
 function ChevronIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="9 18 15 12 9 6" />
-    </svg>
+    <ChevronRightIcon size={12} />
   );
 }
 
 const contactCards = [
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.77 19.79 19.79 0 01.91 1.12 2 2 0 012.92.01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0121 14.92v2z" />
-      </svg>
+      <PhoneIcon size={22} />
     ),
     label: 'Call Us',
     primary: '+91 78629 50676',
@@ -31,10 +28,7 @@ const contactCards = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
-      </svg>
+      <MailIcon size={22} />
     ),
     label: 'Email Us',
     primary: 'care@krishawomenshospital.in',
@@ -43,10 +37,7 @@ const contactCards = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
+      <MapPinIcon size={22} />
     ),
     label: 'Visit Us',
     primary: 'Narol, Ahmedabad — 382405',
@@ -55,10 +46,7 @@ const contactCards = [
   },
   {
     icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12,6 12,12 16,14" />
-      </svg>
+      <ClockIcon size={22} />
     ),
     label: 'OPD Hours',
     primary: 'Mon – Sat: 8:00 AM – 8:00 PM',

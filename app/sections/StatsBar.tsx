@@ -43,7 +43,7 @@ function StatItem({ stat, active }: { stat: (typeof stats)[0]; active: boolean }
   return (
     <div className="group flex flex-col items-center gap-2 text-center py-7 lg:py-6 lg:px-4">
       <div className="w-10 h-10 rounded-[10px] bg-white/10 flex items-center justify-center mb-0.5 group-hover:bg-white/20 transition-colors duration-200">
-        <Icon size={20} strokeWidth={1.75} className="text-white/80" />
+        <Icon size={20} className="text-white/80" />
       </div>
       <span className="font-extrabold text-[28px] sm:text-[32px] lg:text-[36px] text-text-inverse leading-[1.1] tabular-nums tracking-tight group-hover:scale-[1.04] transition-transform duration-200 inline-block">
         {formatted}

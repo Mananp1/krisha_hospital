@@ -297,6 +297,17 @@
   --animate-float:    float 3s ease-in-out infinite;
 }
 
+/* ── Brand device: the arch ───────────────────────────────────
+   The logo already curves its tagline over the mother-and-child figure;
+   this is that arc, applied to photography. Photography only — components
+   keep the restrained radius ladder, which is what gives the page
+   "sharper components, softly rounded pictures" rather than uniform
+   roundness everywhere.                                                */
+@utility arch {
+  border-radius: 48% 48% var(--radius-xl) var(--radius-xl) /
+                 32% 32% var(--radius-xl) var(--radius-xl);
+}
+
 @keyframes slide-in {
   from { transform: translateX(100%); }
   to   { transform: translateX(0); }
@@ -310,6 +321,16 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  /* ── One icon weight, everywhere ─────────────────────────────
+     A single hairline stroke across the whole icon set, echoing the
+     line art in the logo. lucide emits stroke-width as a presentation
+     attribute, which any CSS declaration outranks, so this normalises
+     every icon without a prop at each call site. The custom glyphs in
+     components/brand/icons.tsx already default to the same 1.5.
+     Opt out deliberately with `[stroke-width:2]`.                   */
+  .lucide {
+    stroke-width: 1.5;
   }
   body {
     @apply bg-background text-foreground;

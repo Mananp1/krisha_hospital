@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { HeartIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { heroSlides } from '@/app/data/gallery';
 import HeroCarousel from './HeroCarousel';
@@ -69,9 +70,7 @@ export default function Hero() {
           {/* Stat badge — floating (redundant with StatsBar on the smallest screens) */}
           <div className="absolute animate-float left-4 top-4 lg:top-5 hidden sm:flex bg-surface rounded-[20px] px-5 py-3.5 lg:px-6 lg:py-4.5 shadow-float items-center gap-4 lg:gap-5 z-20">
             <div className="w-10 h-10 lg:w-11 lg:h-11 bg-secondary-50 rounded-[12px] flex items-center justify-center flex-shrink-0 text-secondary">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-              </svg>
+              <HeartIcon size={19} className="fill-current" />
             </div>
             <div>
               <p className="font-bold text-[19px] text-text-base leading-tight tracking-[-0.3px]">

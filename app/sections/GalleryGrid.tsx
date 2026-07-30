@@ -67,7 +67,7 @@ function Tile({ image, onOpen, priority }: TileProps) {
       <div className="absolute inset-0 bg-linear-to-t from-primary/60 via-primary/10 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300" />
 
       <span className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-surface/85 text-primary flex items-center justify-center opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
-        <ZoomInIcon size={14} strokeWidth={2.25} />
+        <ZoomInIcon size={14} />
       </span>
 
       <span className="absolute bottom-0 left-0 right-0 px-3.5 py-3 lg:px-4 lg:py-3.5 text-left text-text-inverse text-[12px] lg:text-[13px] font-semibold leading-snug">
@@ -144,7 +144,7 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
                   aria-label="Close gallery viewer"
                   className="w-9 h-9 rounded-full bg-white/10 text-text-inverse flex items-center justify-center hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary transition-colors shrink-0"
                 >
-                  <XIcon size={18} strokeWidth={2.5} />
+                  <XIcon size={18} />
                 </DialogClose>
               </div>
 
@@ -167,7 +167,7 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
                   aria-label="Previous photo"
                   className="w-10 h-10 rounded-full bg-white/10 text-text-inverse flex items-center justify-center hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary transition-colors"
                 >
-                  <ChevronLeftIcon size={18} strokeWidth={2.5} />
+                  <ChevronLeftIcon size={18} />
                 </button>
                 <button
                   type="button"
@@ -175,7 +175,7 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
                   aria-label="Next photo"
                   className="w-10 h-10 rounded-full bg-white/10 text-text-inverse flex items-center justify-center hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary transition-colors"
                 >
-                  <ChevronRightIcon size={18} strokeWidth={2.5} />
+                  <ChevronRightIcon size={18} />
                 </button>
               </div>
             </>
