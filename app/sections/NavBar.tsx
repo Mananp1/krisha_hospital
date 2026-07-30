@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { MenuIcon, XIcon, ChevronDownIcon, PhoneIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
 import { Button } from '@/components/ui/button';
@@ -22,6 +23,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const tServices = useTranslations('servicesSection');
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -92,7 +94,7 @@ export default function Navbar() {
                             href={`/services/${s.slug}`}
                             className="text-[13.5px] text-text-base font-medium leading-snug hover:text-secondary hover:translate-x-0.5 transition-all duration-150"
                           >
-                            {s.name}
+                            {tServices(`cards.${s.slug}.title`)}
                           </Link>
                         ))}
                       </div>
@@ -104,7 +106,7 @@ export default function Navbar() {
                             href={`/services/${s.slug}`}
                             className="text-[13.5px] text-text-base font-medium leading-snug hover:text-secondary hover:translate-x-0.5 transition-all duration-150"
                           >
-                            {s.name}
+                            {tServices(`cards.${s.slug}.title`)}
                           </Link>
                         ))}
                       </div>
@@ -230,7 +232,7 @@ export default function Navbar() {
                             }}
                             className="text-[13.5px] text-text-muted font-medium hover:text-secondary py-1.5 transition-colors leading-snug"
                           >
-                            {s.name}
+                            {tServices(`cards.${s.slug}.title`)}
                           </Link>
                         ))}
                       </div>

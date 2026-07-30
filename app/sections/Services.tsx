@@ -1,164 +1,115 @@
-import type { ReactNode } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { ArrowRightIcon } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import {
-  ArrowRightIcon,
-  ActivityIcon,
-  SunIcon,
-  UserIcon,
-  ClipboardListIcon,
-  ShieldCheckIcon,
-  SearchIcon,
-  CalendarIcon,
-} from 'lucide-react';
-import {
-  PregnancyIcon,
-  SonographyIcon,
-  LaparoscopyIcon,
-  FertilityIcon,
-  TuboplastyIcon,
-  CerclageIcon,
-} from '@/components/brand/icons';
+  featuredServices,
+  serviceGroups,
+  servicesInGroup,
+} from '@/app/data/services';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
-interface Service {
-  title: string;
-  slug: string;
-  desc: string;
-  icon: ReactNode;
-}
-
-const services: Service[] = [
-  {
-    title: 'Pregnancy & Maternity Care',
-    slug: 'pregnancy-maternity-care',
-    desc: 'Comprehensive care throughout pregnancy, delivery, and postpartum to ensure the health of both mother and baby.',
-    icon: (<PregnancyIcon size={28} />),
-  },
-  {
-    title: 'High-Risk Pregnancy Management',
-    slug: 'high-risk-pregnancy',
-    desc: 'Expert monitoring and treatment for pregnancies with medical complications or increased risk factors.',
-    icon: (<ActivityIcon size={28} />),
-  },
-  {
-    title: 'Antenatal & Gynecological Sonography',
-    slug: 'antenatal-gynecological-sonography',
-    desc: 'Advanced ultrasound services including NT/NB scans, anomaly scans, and routine pregnancy imaging for accurate diagnosis and monitoring.',
-    icon: (<SonographyIcon size={28} />),
-  },
-  {
-    title: 'Infertility Treatment (IUI/IVF)',
-    slug: 'infertility-treatment',
-    desc: 'Personalized fertility evaluation and assisted reproductive treatments to help couples achieve parenthood.',
-    icon: (<FertilityIcon size={28} />),
-  },
-  {
-    title: 'Advanced Laparoscopic & Hysteroscopic Surgery',
-    slug: 'laparoscopic-hysteroscopic-surgery',
-    desc: 'Minimally invasive procedures for fibroids, ovarian cysts, uterine abnormalities, and other gynecological conditions with faster recovery.',
-    icon: (<LaparoscopyIcon size={28} />),
-  },
-  {
-    title: 'Menopause Consultation & Treatment',
-    slug: 'menopause-consultation',
-    desc: 'Compassionate care and effective treatment for hormonal changes, hot flashes, osteoporosis prevention, and other menopausal concerns.',
-    icon: (<SunIcon size={28} />),
-  },
-  {
-    title: 'Adolescent Gynecology',
-    slug: 'adolescent-gynecology',
-    desc: 'Specialized healthcare for teenage girls, addressing menstrual disorders, hormonal issues, and reproductive health concerns.',
-    icon: (<UserIcon size={28} />),
-  },
-  {
-    title: 'Preconception Counseling',
-    slug: 'preconception-counseling',
-    desc: 'Medical guidance and health optimization for couples planning a safe and healthy pregnancy.',
-    icon: (<ClipboardListIcon size={28} />),
-  },
-  {
-    title: 'Painless Vaginal Delivery',
-    slug: 'painless-vaginal-delivery',
-    desc: 'Modern labor management with pain relief options to provide a safer and more comfortable childbirth experience.',
-    icon: (<ShieldCheckIcon size={28} />),
-  },
-  {
-    title: 'Tuboplasty & Fertility Procedures',
-    slug: 'tuboplasty-fertility-procedures',
-    desc: 'Surgical correction of blocked or damaged fallopian tubes to improve natural fertility where appropriate.',
-    icon: (<TuboplastyIcon size={28} />),
-  },
-  {
-    title: 'Cervical Cerclage',
-    slug: 'cervical-cerclage',
-    desc: 'A preventive procedure to strengthen the cervix and reduce the risk of premature birth in selected pregnancies.',
-    icon: (<CerclageIcon size={28} />),
-  },
-  {
-    title: 'Cervical Cancer Screening & HPV Vaccination',
-    slug: 'cervical-cancer-screening',
-    desc: 'Early detection through screening and preventive vaccination to reduce the risk of cervical cancer.',
-    icon: (<SearchIcon size={28} />),
-  },
-  {
-    title: 'Family Planning & Contraceptive Counseling',
-    slug: 'family-planning-contraceptive-counseling',
-    desc: 'Personalized advice on birth control methods, spacing pregnancies, and reproductive health planning.',
-    icon: (<CalendarIcon size={28} />),
-  },
-];
-
-const LAST = services.length - 1;
-
+/**
+ * Thirteen services, no longer thirteen identical cards.
+ *
+ * Five specialities take large bento cells — the first one wide — and the
+ * remaining eight sit in a compact grid grouped by care pathway. Nothing is
+ * hidden or removed; every service is still one click away. Only the hierarchy
+ * changed, so a visitor can tell at a glance what the hospital is known for.
+ *
+ * No imagery on the featured cards: the photo library is facility shots, and
+ * captioning a waiting room as "Pregnancy & Maternity Care" would be
+ * misleading. Strong icons carry them instead.
+ */
 export default function Services() {
+  const t = useTranslations('servicesSection');
+
   return (
     <section id="services" className="w-full bg-surface py-section-sm lg:py-section">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <SectionHeader
-          eyebrow="WHAT WE OFFER"
-          title="Specialised women's healthcare services"
-          subtitle="Comprehensive care under one roof — from routine consultations to the most advanced fertility and surgical treatments."
+          eyebrow={t('eyebrow')}
+          title={t('title')}
+          subtitle={t('subtitle')}
+          centered={false}
+          maxWidth={620}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {services.map((s, i) => (
+        {/* ── Featured five ── */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
+          {featuredServices.map(({ slug, Icon }, i) => (
             <FadeIn
-              key={s.title}
+              key={slug}
               direction="up"
-              delay={i < 3 ? i * 0.08 : 0}
-              className={i === LAST ? 'lg:col-start-2' : undefined}
+              delay={i < 3 ? i * 0.06 : 0}
+              /* The first card spans two columns, so five cards fill two rows
+                 of three exactly — 2+1 then 1+1+1. */
+              className={cn(i === 0 && 'lg:col-span-2')}
             >
-              {/*
-                Icon-led editorial card. Plum used to fill all 13 of these,
-                which spent the brand colour as noise; it now arrives as the
-                icon and the heading, against the white 60%.
-              */}
-              <div className="group flex flex-col p-7 rounded-md bg-surface border border-border-muted transition-colors duration-200 hover:border-primary/35 h-full">
+              <Link
+                href={`/services/${slug}`}
+                className="group flex flex-col h-full p-7 lg:p-8 rounded-md bg-surface border border-border-muted no-underline transition-colors hover:border-primary/35 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+              >
                 <div className="w-12 h-12 rounded-md bg-primary-50 text-primary flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary group-hover:text-text-inverse">
-                  {s.icon}
+                  <Icon size={26} />
                 </div>
 
-                <h3 className="mt-5 font-semibold text-body text-text-base leading-snug">
-                  {s.title}
+                <h3
+                  className={cn(
+                    'mt-5 font-semibold text-text-base leading-snug',
+                    i === 0 ? 'text-title' : 'text-body',
+                  )}
+                >
+                  {t(`cards.${slug}.title`)}
                 </h3>
 
                 <p className="mt-2 text-meta text-text-muted grow">
-                  {s.desc}
+                  {t(`cards.${slug}.desc`)}
                 </p>
 
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="mt-5 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary no-underline hover:text-secondary-600 transition-colors"
-                >
-                  Learn more
-                  <ArrowRightIcon size={13} className="transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary">
+                  {t('learnMore')}
+                  <ArrowRightIcon
+                    size={13}
+                    className="transition-transform group-hover:translate-x-0.5"
+                  />
+                </span>
+              </Link>
             </FadeIn>
           ))}
         </div>
 
+        {/* ── The remaining eight, grouped by care pathway ── */}
+        <FadeIn direction="up" className="mt-12 pt-10 border-t border-border-muted">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+            {serviceGroups.map((group) => (
+              <div key={group}>
+                <h3 className="text-label uppercase text-text-subtle">
+                  {t(`groups.${group}`)}
+                </h3>
+                <ul className="mt-4 flex flex-col gap-3">
+                  {servicesInGroup(group).map(({ slug, Icon }) => (
+                    <li key={slug}>
+                      <Link
+                        href={`/services/${slug}`}
+                        className="group flex items-start gap-2.5 text-meta text-text-base no-underline hover:text-secondary transition-colors"
+                      >
+                        <Icon
+                          size={17}
+                          className="mt-px shrink-0 text-primary/45 transition-colors group-hover:text-secondary"
+                        />
+                        <span className="leading-snug">
+                          {t(`cards.${slug}.title`)}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

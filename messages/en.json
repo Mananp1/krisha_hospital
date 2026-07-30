@@ -105,6 +105,12 @@
         "title": "Family Planning & Contraceptive Counseling",
         "desc": "Personalized advice on birth control methods, spacing pregnancies, and reproductive health planning."
       }
+    },
+    "groups": {
+      "pregnancy": "Pregnancy & Delivery",
+      "fertility": "Fertility",
+      "gynaecology": "Gynaecology",
+      "preventive": "Preventive & Life-Stage Care"
     }
   },
   "doctorProfile": {

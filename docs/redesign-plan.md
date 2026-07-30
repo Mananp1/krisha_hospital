@@ -267,7 +267,8 @@ ran 1.5–2.5.
 
 Same section order. Each row gets a distinct composition, and **no two adjacent sections share a treatment**.
 
-**Done: hero + stats (PR 4).** These two set the pattern the remaining sections follow:
+**Done: hero + stats (PR 4), services + doctor (PR 5).** Translated headings now render on `/gu` for the first
+four sections; gallery, testimonials and FAQ still show English and land in PR 6. These set the pattern:
 
 - `NextIntlClientProvider` is now in the root layout, rendered from a Server Component so locale, messages,
   formats and timeZone are all inherited from `i18n/request.ts` — client sections call `useTranslations` with
@@ -300,10 +301,22 @@ Cross-cutting in this phase:
 - Each rebuilt section reads copy from `useTranslations` (Phase 0 decision) and uses locale-aware `Link`.
 - Root layout emits `<html lang={locale}>` — fixes the `lang="en"` defect.
 
-### Phase 4 — Service hierarchy
+### Phase 4 — Service hierarchy — **done (PR 5)**
 
-**Single source of truth.** Extend [app/data/services.ts](../app/data/services.ts) with `featured`, `group`,
-`icon`; delete the duplicate array in `Services.tsx` (A1). Names/descriptions come from `messages.servicesData`.
+**Single source of truth.** [app/data/services.ts](../app/data/services.ts) now carries `slug`, `featured`,
+`group` and `Icon` — structure only. Copy comes from `messages.servicesSection.cards[slug]`, so all thirteen
+services exist once per locale instead of once per component. A1's three parallel lists are gone: the 13-entry
+array with its own descriptions and inline SVGs is deleted from `Services.tsx`, and `NavBar` and `Footer` read
+their names from the catalogue too — which also removes the last hardcoded English service names from the
+chrome.
+
+Shipped layout: five featured cards where **the first spans two columns**, so five fill two rows of three
+exactly (2+1, then 1+1+1). The remaining eight sit in a four-column grid grouped by care pathway. Verified: 5
+featured anchors, 8 compact items, **all 13 slugs still linked** — hierarchy changed, nothing hidden.
+
+**No imagery on the featured cards.** The photo library is facility shots; captioning a waiting room as
+"Pregnancy & Maternity Care" would be misleading. Strong icons carry them instead. Revisit if service-specific
+photography is ever shot.
 
 **Featured five** — large bento cards with imagery or strong icons:
 `pregnancy-maternity-care` · `high-risk-pregnancy` · `infertility-treatment` ·

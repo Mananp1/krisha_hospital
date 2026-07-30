@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { MapPinIcon, PhoneIcon, MailIcon, ClockIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
 
@@ -41,6 +42,8 @@ const contactItems = [
 ];
 
 export default function Footer() {
+  const tServices = useTranslations('servicesSection');
+
   return (
     <footer id="contact" className="w-full bg-primary-950 pt-14 lg:pt-16">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
@@ -96,7 +99,7 @@ export default function Footer() {
                     href={`/services/${s.slug}`}
                     className="text-[13px] text-white/50 leading-5 hover:text-secondary transition-colors"
                   >
-                    {s.name}
+                    {tServices(`cards.${s.slug}.title`)}
                   </a>
                 ))}
               </div>
@@ -108,7 +111,7 @@ export default function Footer() {
                     href={`/services/${s.slug}`}
                     className="text-[13px] text-white/50 leading-5 hover:text-secondary transition-colors"
                   >
-                    {s.name}
+                    {tServices(`cards.${s.slug}.title`)}
                   </a>
                 ))}
               </div>

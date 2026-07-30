@@ -1,203 +1,165 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowRightIcon, ClockIcon, MapPinIcon, GraduationCapIcon, AwardIcon } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { useTranslations } from 'next-intl';
+import { ArrowRightIcon } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
-const tags = [
-  'High-Risk Pregnancy',
-  'Normal & Painless Delivery',
-  'Cesarean Section',
-  'IVF & Infertility',
-  'Pregnancy Ultrasound',
-  'Laparoscopic Surgery',
-  'Menopause Management',
-  'Adolescent Gynecology',
-  'Family Planning',
-];
+const WHATSAPP = 'https://wa.me/917862950676';
+const PHONE = 'tel:+917862950676';
 
-const metaItems = [
-  {
-    icon: (
-      <ClockIcon size={18} />
-    ),
-    bold: 'OPD Hours',
-    regular: 'Mon – Sat: 8:00 AM – 8:00 PM',
-  },
-  {
-    icon: (
-      <MapPinIcon size={18} />
-    ),
-    bold: 'Hospital',
-    regular: "Krisha Women's Hospital, Narol, Ahmedabad",
-  },
-  {
-    icon: (
-      <GraduationCapIcon size={18} />
-    ),
-    bold: 'Qualifications',
-    regular:
-      'MBBS (GMC Vadodara) · DGO (Stanley Medical college , Chennai) · MD (GMC Rajkot)',
-  },
-  {
-    icon: (
-      <AwardIcon size={18} />
-    ),
-    bold: 'Fellowships',
-    regular:
-      "ART – Wings IVF, Ahmedabad · Advanced Laparoscopy – Eva Women's Hospital Ahmedabad",
-  },
-];
-
+/**
+ * The strongest trust element on the page, given the room to act like it.
+ *
+ * Previously every credential sat in its own bordered box with an icon well —
+ * four containers that fragmented one story into four. Qualifications and
+ * fellowships now read as a structured definition row, and consultation details
+ * as a single panel. The Gujarati-service line was a small grey footnote; it is
+ * now a labelled row in that panel, because for a Narol patient it is a real
+ * accessibility benefit rather than a leftover.
+ */
 export default function DoctorProfile() {
+  const t = useTranslations('doctorProfile');
+  const tLang = useTranslations('langSwitcher');
+
+  const tags: string[] = t.raw('tags');
+
+  const credentials = [
+    { label: t('metaQualifications'), value: t('metaQualificationsValue') },
+    { label: t('metaFellowships'), value: t('metaFellowshipsValue') },
+  ];
+
+  const consult = [
+    { label: t('metaOpdHours'), value: t('metaOpdHoursValue') },
+    { label: t('metaHospital'), value: t('metaHospitalValue') },
+    { label: tLang('label'), value: t('gujaratiNote') },
+  ];
+
   return (
     <section
       id="doctor"
-      className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden"
+      className="w-full bg-surface-subtle py-section-sm lg:py-section-lg"
     >
-
-      <div className="relative max-w-page mx-auto px-5 lg:px-gutter flex flex-col lg:flex-row items-center gap-12 lg:gap-14">
-        {/* Left — Photo Frame */}
-        <FadeIn
-          direction="right"
-          className="relative flex-shrink-0 w-full max-w-[380px] lg:w-[470px] mx-auto lg:mx-0 pb-6 pr-2"
-        >
+      <div className="max-w-page mx-auto px-5 lg:px-gutter grid lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] gap-12 lg:gap-16 xl:gap-20 items-start">
+        {/* ── Portrait ── */}
+        <FadeIn direction="right" className="relative w-full max-w-100 lg:max-w-none mx-auto lg:mx-0">
           {/* Arch — brand device B1. Photography only. */}
-          <div className="relative w-full aspect-[47/49] arch overflow-hidden bg-primary-50">
+          <div className="relative w-full aspect-4/5 arch overflow-hidden bg-primary-50">
             <Image
               src="/doctor.jpeg"
-              alt="Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist"
+              alt={`${t('name')} — ${t('role')}`}
               fill
-              sizes="(min-width: 1024px) 470px, 380px"
-              className="object-cover object-top z-10"
+              sizes="(min-width: 1024px) 460px, (min-width: 640px) 400px, 90vw"
+              className="object-cover object-top"
               priority
             />
-
-            {/* Available badge */}
-            <div className="absolute z-20 flex items-center gap-2 px-3 py-2 rounded-full bg-primary top-5 left-5">
-              <div className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0" />
-              <span className="text-text-inverse font-semibold text-[13px] whitespace-nowrap">
-                Available for Consultation
-              </span>
-            </div>
           </div>
 
-          {/* Experience badge — floats outside the photo frame */}
-          <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-lg px-5 py-4 shadow-float">
-            <span className="font-extrabold text-text-inverse text-[28px] lg:text-[30px] leading-none">
+          {/* Experience marker, set in the display face like the stats band. */}
+          <div className="absolute left-0 bottom-6 bg-surface px-5 py-3.5 rounded-md shadow-card">
+            <span className="block font-display text-display-sm text-primary leading-none tabular-nums">
               20+
             </span>
-            <span className="text-text-inverse text-center text-[11px] mt-0.5">
-              Years of care
+            <span className="block mt-1 text-label uppercase text-text-muted">
+              {t('yearsOfCare')}
             </span>
           </div>
         </FadeIn>
 
-        {/* Right — Info */}
-        <FadeIn delay={0.15} className="flex-1 min-w-0">
+        {/* ── Editorial column ── */}
+        <FadeIn delay={0.15} className="min-w-0">
           <SectionHeader
-            eyebrow="MEET YOUR SPECIALIST"
-            title="Dr. Alhad Pande"
+            eyebrow={t('eyebrow')}
+            title={t('name')}
             centered={false}
           />
 
-          <p className="mt-1 text-[15px] font-semibold text-primary leading-[23px]">
-            Consultant Obstetrician, Gynecologist &amp; Fertility Specialist
+          <p className="mt-3 text-lead font-semibold text-primary">
+            {t('role')}
           </p>
 
           <Badge
             variant="outline"
-            className="h-auto overflow-visible rounded-pill mt-3 px-4 py-1.5 text-meta font-bold bg-primary-100 border-primary-200/60 text-primary-700"
+            className="h-auto overflow-visible rounded-pill mt-4 px-4 py-1.5 text-meta font-bold bg-primary-100 border-primary-200/60 text-primary-700"
           >
-            MBBS · MD · DGO
+            {t('qualBadge')}
           </Badge>
 
-          {/*
-            The cap only binds above ~1250px, where it would leave the bio stopping
-            short of the tag row and meta grid directly beneath it. Released at xl so
-            every block in this column shares one right edge.
-          */}
-          <p className="mt-4 mb-5 text-[15px] text-text-muted leading-6.5 max-w-[520px] xl:max-w-none">
-            Dr. Alhad Pande is an experienced Obstetrician and Gynecologist with
-            specialized training in infertility management, ultrasonography, and
-            advanced laparoscopic surgery. With qualifications from reputed
-            medical institutions and fellowships in assisted reproductive
-            techniques and minimally invasive gynecology, Dr. Pande is committed
-            to providing compassionate, evidence-based care for women at every
-            stage of life.
+          <p className="mt-6 text-body text-text-muted max-w-measure">
+            {t('bio')}
           </p>
 
-          {/* Expertise tags */}
-          <div className="flex flex-wrap gap-2 mb-5">
-            {tags.map((t) => (
-              <Badge
-                key={t}
-                variant="outline"
-                className="h-auto overflow-visible rounded-sm px-3 py-1 text-meta font-semibold border-border-muted text-primary-700 bg-surface"
-              >
-                {t}
-              </Badge>
-            ))}
-          </div>
-
-          {/* Meta grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            {metaItems.map((item) => (
-              <div key={item.bold} className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-md bg-primary-50 flex items-center justify-center flex-shrink-0 text-primary">
-                  {item.icon}
-                </div>
-                <div>
-                  <p className="font-bold text-[14px] text-text-base">
-                    {item.bold}
-                  </p>
-                  <p className="text-[13px] text-text-muted leading-5">
-                    {item.regular}
-                  </p>
-                </div>
+          {/* Credentials — one structured row, not four boxes. */}
+          <dl className="mt-9 grid sm:grid-cols-2 gap-x-10 gap-y-6 border-t border-border-muted pt-7">
+            {credentials.map((item) => (
+              <div key={item.label}>
+                <dt className="text-label uppercase text-text-subtle">
+                  {item.label}
+                </dt>
+                <dd className="mt-2 text-meta text-text-base leading-relaxed">
+                  {item.value}
+                </dd>
               </div>
             ))}
+          </dl>
+
+          {/* Expertise — clean tags, squared per the radius ladder. */}
+          <div className="flex flex-wrap gap-2 mt-8">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-sm border border-border-muted bg-surface px-2.5 py-1 text-meta font-medium text-primary-700"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
 
-          {/* CTAs */}
-          <div className="flex items-center gap-3 flex-wrap">
+          {/* Consultation — a separate panel, as the brief asks. */}
+          <dl className="mt-8 rounded-md bg-surface border border-border-muted divide-y divide-border-muted">
+            {consult.map((item) => (
+              <div
+                key={item.label}
+                className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 px-5 py-3.5"
+              >
+                <dt className="text-label uppercase text-text-subtle sm:w-28 shrink-0">
+                  {item.label}
+                </dt>
+                <dd className="text-meta text-text-base">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="flex items-center gap-3 mt-8 flex-wrap">
             <Button
               variant="secondary"
               asChild
-              className="rounded-md px-6 py-3 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm"
+              className="rounded-md px-6 py-3 h-auto text-body font-semibold hover:bg-secondary-600 shadow-none"
             >
-              <a
-                href="https://wa.me/917862950676"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Book Appointment
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
+                {t('bookAppointment')}
               </a>
             </Button>
             <Button
               variant="outline"
               asChild
-              className="rounded-md px-6 py-3 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none"
+              className="rounded-md px-6 py-3 h-auto text-body font-semibold border border-primary/30 text-primary hover:bg-primary hover:text-text-inverse shadow-none"
             >
-              <a href="tel:+917862950676">Call Now</a>
+              <a href={PHONE}>{t('callNow')}</a>
             </Button>
             <Button
               variant="ghost"
               asChild
-              className="rounded-md px-6 py-3 h-auto text-[15px] font-semibold text-text-muted hover:text-primary hover:bg-primary-50 shadow-none gap-1.5"
+              className="rounded-md px-4 py-3 h-auto text-body font-semibold text-text-muted hover:text-primary hover:bg-primary-50 shadow-none gap-1.5"
             >
               <Link href="/doctor">
-                View Full Profile
+                {t('viewFullProfile')}
                 <ArrowRightIcon size={14} />
               </Link>
             </Button>
           </div>
-
-          <p className="mt-3 text-[13px] text-text-muted">
-            ગુજરાતીમાં સેવા ઉપલબ્ધ છે
-          </p>
         </FadeIn>
       </div>
     </section>
