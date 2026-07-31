@@ -57,7 +57,7 @@ export default function Footer() {
           <div className="max-w-70">
             <div className="inline-block bg-white/95 rounded-md px-3 py-2 mb-5">
               <Image
-                src="/Logo.png"
+                src="/krisha-logo.png"
                 alt="Krisha Women's Hospital"
                 width={107}
                 height={52}

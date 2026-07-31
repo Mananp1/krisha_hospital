@@ -31,10 +31,13 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     images: [
       {
-        url: '/gallery/reception-waiting-lounge.jpg',
-        width: 4000,
-        height: 1716,
-        alt: "Reception and waiting lounge at Krisha Women's Hospital, Narol Ahmedabad",
+        url: '/gallery/reception-desk.jpg',
+        // Actual file dimensions — the previous 4000x1716 didn't match either
+        // this crop or the one it replaced, and a wrong aspect ratio here can
+        // make social crawlers render the preview cropped oddly.
+        width: 1821,
+        height: 1030,
+        alt: "Reception desk at Krisha Women's Hospital, Narol Ahmedabad",
       },
     ],
   },
@@ -42,7 +45,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Krisha Women's Hospital",
     description: "Expert women's healthcare in Ahmedabad",
-    images: ['/gallery/reception-waiting-lounge.jpg'],
+    images: ['/gallery/reception-desk.jpg'],
   },
 };
 

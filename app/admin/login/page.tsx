@@ -52,7 +52,7 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <Image
-            src="/Logo.png"
+            src="/krisha-logo.png"
             alt="Krisha Women's Hospital"
             width={130}
             height={64}

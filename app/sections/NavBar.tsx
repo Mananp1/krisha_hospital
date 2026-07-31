@@ -79,7 +79,7 @@ export default function Navbar({ overlay = false }: NavbarProps) {
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
-            src="/Logo.png"
+            src="/krisha-logo.png"
             alt="Krisha Women's Hospital"
             width={358}
             height={184}
@@ -215,7 +215,7 @@ export default function Navbar({ overlay = false }: NavbarProps) {
             >
               <div className="flex justify-between items-center mb-2">
                 <Image
-                  src="/Logo.png"
+                  src="/krisha-logo.png"
                   alt="Krisha Women's Hospital"
                   width={358}
                   height={184}

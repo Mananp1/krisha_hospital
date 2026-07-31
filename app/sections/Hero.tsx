@@ -19,7 +19,7 @@ function heroImage(name: string) {
  * the "KRISHA WOMEN'S HOSPITAL" signage sit inside frame without the glass
  * door on the previous wide crop's right edge.
  */
-const backdrop = heroImage('reception-waiting-lounge');
+const backdrop = heroImage('reception-desk');
 
 export default function Hero() {
   const t = useTranslations('hero');

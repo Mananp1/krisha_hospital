@@ -49,7 +49,7 @@ export function MobileNav() {
 
       <Link href="/admin">
         <Image
-          src="/Logo.png"
+          src="/krisha-logo.png"
           alt="Krisha Women's Hospital"
           width={80}
           height={38}
@@ -65,7 +65,7 @@ export function MobileNav() {
           {/* Logo */}
           <div className="px-6 py-5 border-b border-border-muted">
             <Image
-              src="/Logo.png"
+              src="/krisha-logo.png"
               alt="Krisha Women's Hospital"
               width={100}
               height={48}

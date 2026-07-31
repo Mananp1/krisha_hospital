@@ -39,7 +39,7 @@ export default function AdminNav() {
       <div className="px-4 py-3 border-b border-border-muted">
         <Link href="/admin">
           <Image
-            src="/Logo.png"
+            src="/krisha-logo.png"
             alt="Krisha Women's Hospital"
             width={100}
             height={48}
