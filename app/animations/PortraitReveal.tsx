@@ -33,23 +33,52 @@ export default function PortraitReveal({ children, className }: PortraitRevealPr
       });
 
       media.add('(prefers-reduced-motion: no-preference)', () => {
-        const timeline = gsap.timeline({
-          delay: root.getBoundingClientRect().top < window.innerHeight
-            ? motion.routeEntryDelay
-            : 0,
-          scrollTrigger: {
-            trigger: root,
-            start: 'top 84%',
-            once: true,
-          },
-        });
+        /*
+          Where the portrait sits at load decides which kind of reveal it
+          gets, because only one of them is possible in each case.
+
+          Below the fold it is scrubbed: the wipe is tied to scroll position
+          rather than played on a timer once a trigger fires. Fired on a
+          trigger it ran to completion on its own clock, so on any normal
+          scroll it had finished before the portrait was properly in view and
+          arrived looking like it had simply always been there. Scrubbed, the
+          reveal is the scroll — it advances only as far as the reader does,
+          and reverses if they go back up.
+
+          Above the fold there is no scrolling to drive anything, so it keeps
+          the timed version, delayed behind the splash like every other entry
+          animation. That is the case on /doctor, where the portrait is in
+          view immediately.
+        */
+        const aboveFold = root.getBoundingClientRect().top < window.innerHeight;
+
+        const timeline = gsap.timeline(
+          aboveFold
+            ? { delay: motion.routeEntryDelay }
+            : {
+              scrollTrigger: {
+                trigger: root,
+                start: 'top 92%',
+                end: 'top 52%',
+                // A little catch-up rather than locking to the scrollbar,
+                // so a flicked scroll wheel still resolves smoothly instead
+                // of snapping frame to frame.
+                scrub: 0.6,
+              },
+            },
+        );
 
         timeline
           .fromTo(
             frame,
-            { clipPath: 'inset(0 0 100% 0 round 999px 999px 16px 16px)' },
+            // No `round` on the inset. The frame is already shaped by the
+            // `arch` utility and clips its own overflow; the 999px/16px this
+            // carried described a different silhouette entirely, and since a
+            // clip-path is not cleared afterwards it stayed applied, cutting
+            // the arch back to a capsule for good.
+            { clipPath: 'inset(0 0 100% 0)' },
             {
-              clipPath: 'inset(0 0 0% 0 round 999px 999px 16px 16px)',
+              clipPath: 'inset(0 0 0% 0)',
               duration: motion.duration.image,
               ease: motion.ease.enter,
             },

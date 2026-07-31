@@ -39,6 +39,41 @@ export const motion = {
   triggerStart: 'top 86%',
 
   /**
+   * Hover intent, in milliseconds — a pause before a hover commits either
+   * way. These cards sit flush in a grid, so a pointer crossing to somewhere
+   * else sweeps through several of them; without a wait, each one pops and
+   * unpops in passing. Waiting means a card only reacts to a pointer that
+   * stopped on it.
+   *
+   * Opening waits longer than closing: a card that is slow to let go feels
+   * stuck, while a card that is slightly slow to react feels considered.
+   */
+  hoverDelayMs: {
+    open: 90,
+    close: 60,
+  },
+
+  /**
+   * Two-stage background fill, in seconds. The card moves before it changes
+   * colour — `offset` is how long the fill waits after the scale begins, so
+   * the two read as one gesture with an order to it rather than as
+   * everything firing at once.
+   *
+   * `rise` runs to a lighter purple and `settle` carries it the rest of the
+   * way, which is why this is a timeline and not a CSS transition: a
+   * transition can only interpolate between two colours, so the fill either
+   * arrives at full strength immediately or takes the whole duration to get
+   * there. Landing on the pale stage first makes the colour look like it is
+   * filling in.
+   */
+  hoverFill: {
+    offset: 0.08,
+    rise: 0.07,
+    settle: 0.1,
+    reset: 0.18,
+  },
+
+  /**
    * How long above-the-fold entry animations wait for the splash to clear.
    *
    * Derived, not typed in: retuning the splash now moves this with it. Set
