@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import type { GalleryImage, GalleryTile } from '@/app/data/gallery';
-import FadeIn from './FadeIn';
+import MotionGroup from '@/app/animations/MotionGroup';
 
 interface GalleryGridProps {
   images: GalleryImage[];
@@ -108,18 +108,20 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
     <>
       {/* Row heights track the fluid container so cells stay roughly square;
           they are pinned once max-w-page caps the container at xl. */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 auto-rows-[46vw] sm:auto-rows-[44vw] md:auto-rows-[23vw] lg:auto-rows-[22vw] xl:auto-rows-[15rem]">
+      <MotionGroup
+        hover
+        className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 auto-rows-[46vw] sm:auto-rows-[44vw] md:auto-rows-[23vw] lg:auto-rows-[22vw] xl:auto-rows-[15rem]"
+      >
         {images.map((img, i) => (
-          <FadeIn
+          <div
             key={img.src}
-            direction="up"
-            delay={(i % 4) * 0.06}
+            data-motion-item
             className={TILE_SPANS[img.tile]}
           >
             <Tile image={img} onOpen={() => setOpenAt(i)} priority={i === 0} />
-          </FadeIn>
+          </div>
         ))}
-      </div>
+      </MotionGroup>
 
       {/* Lightbox */}
       <Dialog open={openAt !== null} onOpenChange={(open) => !open && setOpenAt(null)}>

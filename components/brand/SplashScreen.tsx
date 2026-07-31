@@ -2,24 +2,28 @@
 
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { splash } from '@/app/animations/motion-config';
 import BrandLoader from './BrandLoader';
 
 /**
- * How long the mark stays fully visible before it starts clearing, and how
- * long the clear itself takes. Both in milliseconds — these two constants
- * are the only thing to change to retune the splash.
+ * How long the mark holds before clearing, and how long the clear takes.
+ *
+ * Defined in motion-config rather than here: the entry animations have to
+ * start as this finishes, and when the two were tuned independently they
+ * drifted out of step — see the note there. Retune in that file and the
+ * animations follow.
  *
  * Worth being honest about the trade: this is time the visitor spends not
  * reading the page. The pages behind it are prerendered and paint almost
  * immediately, so every millisecond here is deliberately added waiting, not
  * waiting that was already happening.
  *
- * ~1.05s total. Kept tight because this now runs on every navigation, not
- * just the first load — a duration that reads as a nice touch once becomes
- * a toll booth when it sits in front of every link the visitor clicks.
+ * ~1.05s total. Kept tight because this runs on every navigation, not just
+ * the first load — a duration that reads as a nice touch once becomes a
+ * toll booth when it sits in front of every link the visitor clicks.
  */
-const HOLD_MS = 700;
-const FADE_MS = 350;
+const HOLD_MS = splash.holdMs;
+const FADE_MS = splash.fadeMs;
 
 /**
  * The splash that actually shows, as distinct from the `loading.tsx` files.
@@ -48,6 +52,11 @@ export default function SplashScreen() {
   const [phase, setPhase] = useState<'holding' | 'fading' | 'done'>('holding');
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const dismiss = window.setTimeout(() => setPhase('done'), 0);
+      return () => window.clearTimeout(dismiss);
+    }
+
     const hold = window.setTimeout(() => setPhase('fading'), HOLD_MS);
     return () => window.clearTimeout(hold);
   }, []);

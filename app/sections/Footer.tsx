@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { MapPinIcon, PhoneIcon, MailIcon, ClockIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
+import MotionGroup from '@/app/animations/MotionGroup';
 
 /*
   No "Book Appointment" entry: the closing CTA strip sits directly above the
@@ -51,10 +52,10 @@ export default function Footer() {
     <footer id="contact" className="w-full bg-primary-950 pt-14 lg:pt-16">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-10">
+        <MotionGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-10">
 
           {/* Col 1 — About */}
-          <div className="max-w-70">
+          <div data-motion-item className="max-w-70">
             <div className="inline-block bg-white/95 rounded-md px-3 py-2 mb-5">
               <Image
                 src="/krisha-logo.png"
@@ -72,7 +73,7 @@ export default function Footer() {
           </div>
 
           {/* Col 2 — Quick Links */}
-          <div>
+          <div data-motion-item>
             <h4 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-5">
               Quick Links
             </h4>
@@ -90,7 +91,7 @@ export default function Footer() {
           </div>
 
           {/* Col 3 — Services (spans 2 of 5 cols on lg) */}
-          <div className="lg:col-span-2">
+          <div data-motion-item className="lg:col-span-2">
             <h4 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-5">
               Our Services
             </h4>
@@ -122,7 +123,7 @@ export default function Footer() {
           </div>
 
           {/* Col 4 — Contact */}
-          <div>
+          <div data-motion-item>
             <h4 className="text-[11px] font-semibold text-white/50 uppercase tracking-[1.5px] mb-5">
               Get in Touch
             </h4>
@@ -171,7 +172,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
-        </div>
+        </MotionGroup>
 
         <div className="border-t border-white/10" />
 

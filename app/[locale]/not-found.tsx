@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import TopBar from '@/app/sections/TopBar';
 import NavBar from '@/app/sections/NavBar';
 import Footer from '@/app/sections/Footer';
+import FadeIn from '@/app/animations/FadeIn';
 
 /**
  * Reached via the `[...rest]` catch-all for unmatched URLs, and by any
@@ -33,7 +34,7 @@ export default function NotFound() {
       <NavBar />
 
       <main className="flex-1 flex items-center justify-center bg-surface py-section-sm lg:py-section px-5">
-        <div className="w-full max-w-2xl text-center">
+        <FadeIn className="w-full max-w-2xl text-center">
           <Image
             src="/krisha-logo.png"
             alt=""
@@ -107,7 +108,7 @@ export default function NotFound() {
               ))}
             </ul>
           </div>
-        </div>
+        </FadeIn>
       </main>
 
       <Footer />

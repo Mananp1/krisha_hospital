@@ -8,6 +8,7 @@ import { SITE_URL } from '@/lib/site-config';
 import { routing } from '@/i18n/routing';
 import { fontVariableClassName } from '@/app/fonts';
 import WhatsAppFABWrapper from '@/app/sections/WhatsAppFABWrapper';
+import PublicMotionRefresh from '@/app/animations/PublicMotionRefresh';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -80,6 +81,7 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           {children}
           <WhatsAppFABWrapper />
+          <PublicMotionRefresh />
           {/*
             The splash lives in template.tsx, not here. A layout instance
             survives client-side navigation, so mounting it at this level

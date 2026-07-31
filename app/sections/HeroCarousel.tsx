@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { useReducedMotion } from 'motion/react';
+import usePrefersReducedMotion from '@/app/animations/usePrefersReducedMotion';
 import type { HeroImage } from '@/app/data/gallery';
 
 interface HeroCarouselProps {
@@ -30,7 +30,7 @@ export default function HeroCarousel({
 }: HeroCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (reduceMotion || isPaused || images.length < 2) {

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { ChevronRightIcon, ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
+import FadeIn from '@/app/animations/FadeIn';
+import MotionGroup from '@/app/animations/MotionGroup';
 import ContactForm from '@/app/sections/ContactForm';
 
 export const metadata: Metadata = {
@@ -67,6 +69,7 @@ export default function ContactPage() {
       */}
       <section className="w-full bg-surface-subtle border-b border-border-muted pt-section-sm lg:pt-section pb-10 lg:pb-14">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
+          <FadeIn>
 
           <nav className="flex items-center gap-1.5 text-meta text-text-muted mb-6 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
@@ -90,6 +93,7 @@ export default function ContactPage() {
             Whether you want to book an appointment, ask about a service, or simply need to speak
             with our care team — we&apos;re always a call or message away.
           </p>
+          </FadeIn>
         </div>
       </section>
 
@@ -99,19 +103,23 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 
             {/* Left — Form */}
-            <div>
+            <FadeIn>
               <h2 className="font-display text-display-sm text-text-base">Send us a message</h2>
               <p className="mt-2 mb-7 text-meta text-text-muted leading-relaxed">
                 Fill in the form and we will get back to you shortly. Fields marked <span className="text-secondary font-semibold">*</span> are required.
               </p>
               <ContactForm />
-            </div>
+            </FadeIn>
 
             {/* Right — Contact details */}
-            <div className="flex flex-col gap-4">
+            <MotionGroup className="flex flex-col gap-4">
               <h2 className="font-display text-display-sm text-text-base mb-1">Contact details</h2>
               {contactCards.map((card) => (
-                <div key={card.label} className="bg-surface rounded-lg p-5 border border-border-muted flex items-start gap-4">
+                <div
+                  key={card.label}
+                  data-motion-item
+                  className="bg-surface rounded-lg p-5 border border-border-muted flex items-start gap-4"
+                >
                   {/*
                     rounded-md, per the radius ladder — `xl` is reserved for
                     image panels, and this is a small control.
@@ -135,7 +143,7 @@ export default function ContactPage() {
                   </div>
                 </div>
               ))}
-            </div>
+            </MotionGroup>
           </div>
         </div>
       </section>
@@ -148,6 +156,7 @@ export default function ContactPage() {
       */}
       <section className="w-full bg-surface pb-14 lg:pb-20">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
+          <FadeIn>
           <div className="rounded-lg overflow-hidden border border-border-muted shadow-sm">
             <iframe
               src="https://maps.google.com/maps?q=22.9644206,72.5916213&z=16&output=embed"
@@ -173,6 +182,7 @@ export default function ContactPage() {
               Open in Google Maps →
             </a>
           </div>
+          </FadeIn>
         </div>
       </section>
     </>

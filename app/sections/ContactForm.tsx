@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { CheckIcon, LoaderCircleIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { createClient } from '@/utils/supabase/client';
+import { gsap, useGSAP } from '@/app/animations/gsap';
+import { motion } from '@/app/animations/motion-config';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -19,6 +21,7 @@ type FormData = z.infer<typeof schema>;
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 export default function ContactForm() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -28,6 +31,43 @@ export default function ContactForm() {
     reset,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  useGSAP(
+    () => {
+      const form = formRef.current;
+      if (!form) return;
+
+      const fields = form.querySelectorAll('[data-form-field]');
+      const media = gsap.matchMedia();
+
+      media.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(fields, { clearProps: 'all' });
+      });
+
+      media.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(
+          fields,
+          { autoAlpha: 0, y: 14 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: motion.duration.base,
+            stagger: motion.stagger.tight,
+            ease: motion.ease.enter,
+            clearProps: 'opacity,visibility,transform',
+            scrollTrigger: {
+              trigger: form,
+              start: motion.triggerStart,
+              once: true,
+            },
+          },
+        );
+      });
+
+      return () => media.revert();
+    },
+    { scope: formRef },
+  );
 
   async function onSubmit(data: FormData) {
     setStatus('loading');
@@ -72,9 +112,9 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
+    <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="flex flex-col gap-1.5">
+        <div data-form-field className="flex flex-col gap-1.5">
           <label className="text-[13px] font-semibold text-text-base" htmlFor="name">
             Full Name <span className="text-secondary">*</span>
           </label>
@@ -90,7 +130,7 @@ export default function ContactForm() {
           )}
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div data-form-field className="flex flex-col gap-1.5">
           <label className="text-[13px] font-semibold text-text-base" htmlFor="phone">
             Phone Number <span className="text-secondary">*</span>
           </label>
@@ -107,7 +147,7 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div data-form-field className="flex flex-col gap-1.5">
         <label className="text-[13px] font-semibold text-text-base" htmlFor="email">
           Email Address
         </label>
@@ -123,7 +163,7 @@ export default function ContactForm() {
         )}
       </div>
 
-      <div className="flex flex-col gap-1.5">
+      <div data-form-field className="flex flex-col gap-1.5">
         <label className="text-[13px] font-semibold text-text-base" htmlFor="message">
           How can we help? <span className="text-secondary">*</span>
         </label>
@@ -146,6 +186,7 @@ export default function ContactForm() {
       )}
 
       <button
+        data-form-field
         type="submit"
         disabled={status === 'loading'}
         className="w-full py-3.5 text-[15px] font-semibold text-text-inverse bg-secondary rounded-xl hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"

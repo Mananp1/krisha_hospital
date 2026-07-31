@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { CheckIcon, ChevronRightIcon, ClockIcon, MapPinIcon, MessageSquareIcon, PhoneIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import AnimatedNumber from '@/app/animations/AnimatedNumber';
+import FadeIn from '@/app/animations/FadeIn';
+import MotionGroup from '@/app/animations/MotionGroup';
+import PortraitReveal from '@/app/animations/PortraitReveal';
 import CTAStrip from '@/app/sections/CTAStrip';
 
 export const metadata: Metadata = {
@@ -195,8 +199,8 @@ export default function DoctorPage() {
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-10 xl:gap-14">
-            <div className="lg:col-span-5 w-full max-w-md lg:max-w-none">
-              <div className="relative w-full aspect-4/5 arch overflow-hidden bg-primary-50">
+            <PortraitReveal className="lg:col-span-5 w-full max-w-md lg:max-w-none">
+              <div data-portrait-frame className="relative w-full aspect-4/5 arch overflow-hidden bg-primary-50">
                 <Image
                   src="/doctor.jpeg"
                   alt="Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist"
@@ -206,9 +210,9 @@ export default function DoctorPage() {
                   priority
                 />
               </div>
-            </div>
+            </PortraitReveal>
 
-            <div className="lg:col-span-7 min-w-0">
+            <FadeIn delay={0.12} className="lg:col-span-7 min-w-0">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary-600 bg-secondary/10 mb-4">
                 FOGSI Member · Krisha Women&apos;s Hospital
               </span>
@@ -271,7 +275,7 @@ export default function DoctorPage() {
                   <a href="tel:+917862950676">+91 78629 50676</a>
                 </Button>
               </div>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -291,7 +295,7 @@ export default function DoctorPage() {
                   </h2>
                 </div>
 
-                <div className="flex flex-col gap-4 max-w-measure">
+                <FadeIn className="flex flex-col gap-4 max-w-measure">
                   <p className="text-[15px] text-text-muted leading-7">
                     Dr. Alhad Pande founded Krisha Women&apos;s Hospital with a
                     single, clear vision: to bring world-class women&apos;s healthcare
@@ -321,23 +325,24 @@ export default function DoctorPage() {
                     with every patient — ensuring that no woman leaves his clinic
                     without feeling heard, informed, and confident in her care plan.
                   </p>
-                </div>
+                </FadeIn>
 
-                <div className="grid grid-cols-1 min-[340px]:grid-cols-2 lg:grid-cols-4 gap-3 mt-7">
+                <MotionGroup className="grid grid-cols-1 min-[340px]:grid-cols-2 lg:grid-cols-4 gap-3 mt-7">
                   {highlights.map((highlight) => (
                     <article
                       key={highlight.label}
+                      data-motion-item
                       className="min-w-0 h-full bg-surface-subtle rounded-lg border border-border-muted p-4 md:p-5"
                     >
                       <p className="font-display text-[24px] md:text-[26px] font-semibold text-primary leading-none">
-                        {highlight.stat}
+                        <AnimatedNumber value={highlight.stat} />
                       </p>
                       <p className="text-[12px] text-text-muted leading-4.5 mt-2">
                         {highlight.label}
                       </p>
                     </article>
                   ))}
-                </div>
+                </MotionGroup>
               </section>
 
               <section aria-labelledby="education-training">
@@ -353,10 +358,11 @@ export default function DoctorPage() {
                       </h2>
                     </div>
 
-                    <div className="rounded-lg border border-border-muted bg-surface-subtle overflow-hidden">
+                    <MotionGroup className="rounded-lg border border-border-muted bg-surface-subtle overflow-hidden">
                       {qualifications.map((qualification) => (
                         <article
                           key={qualification.degree}
+                          data-motion-item
                           className="p-5 border-b border-border-muted last:border-b-0"
                         >
                           <h3 className="font-bold text-[15px] text-text-base leading-snug">
@@ -370,17 +376,18 @@ export default function DoctorPage() {
                           </p>
                         </article>
                       ))}
-                    </div>
+                    </MotionGroup>
                   </div>
 
                   <div className="min-w-0">
                     <h2 className="text-[18px] font-bold text-text-base mb-6 lg:mt-1">
                       Professional Affiliations
                     </h2>
-                    <div className="flex flex-col gap-3">
+                    <MotionGroup className="flex flex-col gap-3">
                       {affiliations.map((affiliation) => (
                         <article
                           key={affiliation.short}
+                          data-motion-item
                           className="bg-surface-subtle rounded-lg border border-border-muted p-4"
                         >
                           <span className="inline-flex text-[11px] font-extrabold text-secondary-600 bg-secondary/10 rounded-sm px-2 py-1 leading-none">
@@ -394,7 +401,7 @@ export default function DoctorPage() {
                           </p>
                         </article>
                       ))}
-                    </div>
+                    </MotionGroup>
                   </div>
                 </div>
               </section>
@@ -410,10 +417,14 @@ export default function DoctorPage() {
                   </h2>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-5">
+                <MotionGroup
+                  hover
+                  className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-5"
+                >
                   {expertise.map((item) => (
                     <article
                       key={item.label}
+                      data-motion-item
                       className="group h-full bg-surface-subtle rounded-lg p-5 border border-border-muted flex flex-col gap-3 transition-[transform,border-color,box-shadow] duration-200 motion-reduce:transition-none motion-reduce:hover:transform-none hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
                     >
                       <div className="w-9 h-9 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
@@ -429,7 +440,7 @@ export default function DoctorPage() {
                       </div>
                     </article>
                   ))}
-                </div>
+                </MotionGroup>
               </section>
 
               <section aria-labelledby="clinical-philosophy">
@@ -444,7 +455,7 @@ export default function DoctorPage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-7 lg:gap-6 items-start">
-                  <div className="flex flex-col gap-4">
+                  <FadeIn className="flex flex-col gap-4">
                     <p className="text-[15px] text-text-muted leading-7">
                       Dr. Pande believes that every woman deserves to be an active,
                       informed participant in her own healthcare. His approach to
@@ -463,12 +474,13 @@ export default function DoctorPage() {
                       necessary, he brings advanced surgical skill and precision to
                       minimise risk and recovery time.
                     </p>
-                  </div>
+                  </FadeIn>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <MotionGroup className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {principles.map((principle) => (
                       <article
                         key={principle.label}
+                        data-motion-item
                         className="h-full bg-surface-subtle rounded-lg border border-border-muted p-4"
                       >
                         <div className="w-2 h-2 rounded-full bg-secondary mb-3" aria-hidden="true" />
@@ -480,7 +492,7 @@ export default function DoctorPage() {
                         </p>
                       </article>
                     ))}
-                  </div>
+                  </MotionGroup>
                 </div>
               </section>
             </div>
@@ -499,10 +511,11 @@ export default function DoctorPage() {
                 </h2>
               </div>
 
-              <div className="flex flex-col">
+              <MotionGroup className="flex flex-col">
                 {consultDetails.map((item) => (
                   <article
                     key={item.label}
+                    data-motion-item
                     className="flex items-start gap-3.5 py-4 first:pt-0 last:pb-0 border-b border-border-muted last:border-b-0"
                   >
                     <div className="w-10 h-10 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
@@ -521,7 +534,7 @@ export default function DoctorPage() {
                     </div>
                   </article>
                 ))}
-              </div>
+              </MotionGroup>
             </aside>
           </div>
         </div>

@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { CheckIcon, ChevronRightIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import FadeIn from '@/app/animations/FadeIn';
+import MotionGroup from '@/app/animations/MotionGroup';
 import CTAStrip from '@/app/sections/CTAStrip';
 
 export interface ServiceBenefit {
@@ -32,15 +34,17 @@ interface SectionHeadingProps {
 
 function SectionHeading({ id, children }: SectionHeadingProps) {
   return (
-    <div className="flex items-stretch gap-3">
-      <span aria-hidden="true" className="w-1 rounded-full bg-secondary shrink-0" />
-      <h2
-        id={id}
-        className="text-[22px] lg:text-[26px] font-bold text-text-base leading-snug"
-      >
-        {children}
-      </h2>
-    </div>
+    <FadeIn>
+      <div className="flex items-stretch gap-3">
+        <span aria-hidden="true" className="w-1 rounded-full bg-secondary shrink-0" />
+        <h2
+          id={id}
+          className="text-[22px] lg:text-[26px] font-bold text-text-base leading-snug"
+        >
+          {children}
+        </h2>
+      </div>
+    </FadeIn>
   );
 }
 
@@ -90,10 +94,11 @@ function ServiceSummaryPanel({ items }: { items: string[] }) {
       >
         Care Highlights
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-1">
+      <MotionGroup className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-1">
         {items.map((item) => (
           <div
             key={item}
+            data-motion-item
             className="flex items-start gap-3 py-3 first:pt-0 last:pb-0 border-b border-border-muted last:border-b-0 lg:px-4 lg:py-0 lg:first:pl-0 lg:last:pr-0 lg:border-b-0 lg:border-r lg:last:border-r-0 xl:px-0 xl:py-3 xl:first:pt-0 xl:last:pb-0 xl:border-r-0 xl:border-b xl:last:border-b-0"
           >
             <span className="w-8 h-8 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
@@ -104,7 +109,7 @@ function ServiceSummaryPanel({ items }: { items: string[] }) {
             </p>
           </div>
         ))}
-      </div>
+      </MotionGroup>
     </aside>
   );
 }
@@ -128,7 +133,7 @@ function ServiceHero({ data }: { data: ServicePageData }) {
             hasSummary && 'xl:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)] xl:gap-8',
           )}
         >
-          <div className={cn('min-w-0', !hasSummary && 'max-w-4xl')}>
+          <FadeIn className={cn('min-w-0', !hasSummary && 'max-w-4xl')}>
             <span className="inline-flex text-label uppercase text-primary mb-3">
               Krisha Women&apos;s Hospital · Narol, Ahmedabad
             </span>
@@ -166,7 +171,7 @@ function ServiceHero({ data }: { data: ServicePageData }) {
                 <a href="tel:+917862950676">+91 78629 50676</a>
               </Button>
             </div>
-          </div>
+          </FadeIn>
 
           {hasSummary && <ServiceSummaryPanel items={summaryItems} />}
         </div>
@@ -189,15 +194,15 @@ function ServiceOverview({ data }: { data: ServicePageData }) {
             <SectionHeading id="service-overview">Service Overview</SectionHeading>
 
             <div className="mt-6 grid grid-cols-1 lg:grid-cols-[minmax(0,1.8fr)_minmax(16rem,1fr)] gap-8 items-start">
-              <div className="flex flex-col gap-4 min-w-0">
+              <FadeIn className="flex flex-col gap-4 min-w-0">
                 {paragraphs.map((paragraph, index) => (
                   <p key={index} className="text-[15px] text-text-muted leading-7">
                     {paragraph}
                   </p>
                 ))}
-              </div>
+              </FadeIn>
 
-              <aside className="rounded-lg border border-border-muted bg-surface-subtle p-5">
+              <FadeIn delay={0.08} className="rounded-lg border border-border-muted bg-surface-subtle p-5">
                 <h3 className="font-bold text-[15px] text-text-base">
                   {data.overviewDetails.title}
                 </h3>
@@ -213,7 +218,7 @@ function ServiceOverview({ data }: { data: ServicePageData }) {
                     </li>
                   ))}
                 </ul>
-              </aside>
+              </FadeIn>
             </div>
           </>
         ) : (
@@ -223,13 +228,13 @@ function ServiceOverview({ data }: { data: ServicePageData }) {
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(14rem,0.7fr)_minmax(0,2fr)] gap-6 lg:gap-8 items-start">
             <SectionHeading id="service-overview">Service Overview</SectionHeading>
 
-            <div className="flex flex-col gap-4 min-w-0">
+            <FadeIn className="flex flex-col gap-4 min-w-0">
               {paragraphs.map((paragraph, index) => (
                 <p key={index} className="text-[15px] text-text-muted leading-7">
                   {paragraph}
                 </p>
               ))}
-            </div>
+            </FadeIn>
           </div>
         )}
       </div>
@@ -248,10 +253,14 @@ function ServiceBenefitsGrid({ benefits }: { benefits: ServiceBenefit[] }) {
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <SectionHeading id="key-benefits">Key Benefits</SectionHeading>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5 mt-6">
+        <MotionGroup
+          hover
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5 mt-6"
+        >
           {benefits.map((benefit, index) => (
             <article
               key={benefit.label}
+              data-motion-item
               className={cn(
                 'group min-w-0 h-full bg-surface rounded-lg p-5 md:p-6 border border-border-muted flex flex-col gap-3 transition-[transform,background-color,border-color,box-shadow] duration-200 motion-reduce:transition-none motion-reduce:hover:transform-none hover:-translate-y-0.5 hover:bg-primary hover:border-primary hover:shadow-card',
                 fourCardLayout ? 'xl:col-span-3' : 'xl:col-span-2',
@@ -271,7 +280,7 @@ function ServiceBenefitsGrid({ benefits }: { benefits: ServiceBenefit[] }) {
               </div>
             </article>
           ))}
-        </div>
+        </MotionGroup>
       </div>
     </section>
   );
@@ -291,10 +300,13 @@ function ServiceApproach({ paragraphs }: { paragraphs: string | string[] }) {
             Our Approach at Krisha Women&apos;s Hospital
           </SectionHeading>
 
-          <div className="rounded-lg border border-border-muted bg-surface-subtle overflow-hidden">
+          <MotionGroup
+            className="rounded-lg border border-border-muted bg-surface-subtle overflow-hidden"
+          >
             {approachParagraphs.map((paragraph, index) => (
               <article
                 key={index}
+                data-motion-item
                 className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-3 md:gap-4 p-5 md:p-6 border-b border-border-muted last:border-b-0"
               >
                 <span
@@ -308,7 +320,7 @@ function ServiceApproach({ paragraphs }: { paragraphs: string | string[] }) {
                 </p>
               </article>
             ))}
-          </div>
+          </MotionGroup>
         </div>
       </div>
     </section>

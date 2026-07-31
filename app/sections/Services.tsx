@@ -3,8 +3,8 @@ import { ArrowRightIcon } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { services } from '@/app/data/services';
 import { cn } from '@/lib/utils';
+import MotionGroup from '@/app/animations/MotionGroup';
 import SectionHeader from './SectionHeader';
-import FadeIn from './FadeIn';
 
 /*
  * Stable bento rhythms on a twelve-column grid:
@@ -69,18 +69,43 @@ export default function Services() {
           maxWidth={620}
         />
 
-        <FadeIn direction="up" className="mt-9">
+        <div className="mt-9">
           {/*
-            The container draws the top and left edges; every cell draws only
-            its right and bottom edges. With gap-0, each shared boundary is
-            therefore exactly one pixel and never doubles.
+            Dividers between cards only — no border around the panel.
+
+            Rather than bordering each cell and trimming the outside edges,
+            the grid itself is the divider colour and `gap-px` lets it show
+            through in the 1px seams between cells. A gap exists only
+            *between* tracks, never outside them, so the outer edge cannot
+            draw by construction — no per-cell "is this the last column"
+            logic, which the varying column spans below would make fragile.
+
+            This relies on every row filling its 12 columns exactly (3/2/3/2/3
+            at lg, 4/2/3/4 at xl); a short row would leave the divider colour
+            showing as a block rather than a line.
           */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-0 border-t border-l border-border-muted rounded-lg overflow-hidden">
+          <MotionGroup
+            hover
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-px bg-border-muted"
+          >
             {orderedServices.map(({ slug, title, description }, index) => (
               <div
                 key={slug}
+                data-motion-item
+                /*
+                  No background on this wrapper — deliberately.
+
+                  It used to carry `bg-surface` while the Link inside carried
+                  its own, so two backgrounds were stacked on the element
+                  being scaled. On hover the Link turns dark while this stayed
+                  white, and sub-pixel rounding of the scaled box let a
+                  hairline of that white show past the Link's edge: the flash
+                  of white border during the scale. The Link already fills
+                  this wrapper (`h-full`, block-level), so the wrapper's own
+                  background was never visible except as that artifact.
+                */
                 className={cn(
-                  'min-w-0 h-full bg-surface border-r border-b border-border-muted',
+                  'min-w-0 h-full',
                   responsiveSpanClasses[index],
                 )}
               >
@@ -98,17 +123,25 @@ export default function Services() {
 
                   <span className="mt-5 min-h-11 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary transition-colors duration-200 group-hover:text-text-inverse group-focus-visible:text-text-inverse">
                     {t('learnMore')}
+                    {/*
+                      No CSS transform here: MotionGroup animates this
+                      element's `x` on hover, and a `transition-transform`
+                      alongside it would transition GSAP's own per-frame
+                      writes, so the two easings fight. GSAP's hover block is
+                      already gated on `prefers-reduced-motion`, which is
+                      what the `motion-reduce:` guards used to cover.
+                    */}
                     <ArrowRightIcon
                       size={14}
-                      className="transition-transform duration-200 group-hover:translate-x-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:transform-none motion-reduce:group-focus-visible:transform-none"
+                      data-motion-arrow
                       aria-hidden="true"
                     />
                   </span>
                 </Link>
               </div>
             ))}
-          </div>
-        </FadeIn>
+          </MotionGroup>
+        </div>
       </div>
     </section>
   );
