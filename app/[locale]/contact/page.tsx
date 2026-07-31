@@ -83,8 +83,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── Form + Contact Details ── */}
-      <section className="w-full bg-surface-subtle py-section-sm lg:py-section">
+      {/* ── Form + Contact Details — bottom 15% blends toward the map's bg-surface ── */}
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 
@@ -126,7 +126,12 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── Map ── */}
+      {/*
+        ── Map ──
+        No blend into Footer: this page has no CTAStrip, so Footer's
+        near-black would follow directly, too big a jump from white to fade.
+        Flat colour, clean cut.
+      */}
       <section className="w-full bg-surface pb-14 lg:pb-20">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="rounded-lg overflow-hidden border border-border-muted shadow-sm">

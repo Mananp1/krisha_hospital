@@ -50,26 +50,13 @@ const faqs: FaqItem[] = [
 export default function FAQ() {
   return (
     /*
-      Flat bg-surface, not a gradient on the section itself. The accordion
-      items are discrete cards with gaps between them (gap-2.5) — tinting the
-      whole section's background meant every gap between cards showed an
-      increasingly plum-tinted sliver, a striped, muddy effect entirely
-      different from a smooth fade, and it got worse the more room the
-      gradient was given. The blend now lives entirely in the bottom overlay
-      below, confined to the section's own padding where there's no card
-      content for it to show through.
+      No blend into CTAStrip: white fading into deep plum is too big a colour
+      jump to look right as a fade (tried twice — a section-wide gradient
+      striped the accordion's card gaps, and a confined overlay still read
+      badly against that much contrast) — flat colour, clean cut.
     */
-    <section className="relative w-full bg-surface py-section-sm lg:py-section">
-      {/*
-        Confined to the bottom padding (72px / 112px at these breakpoints) —
-        sized a few px under it so the fade never reaches the last accordion
-        card, in translations whose answer text runs longer too.
-      */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-16 lg:h-24 pointer-events-none bg-linear-to-b from-transparent to-primary"
-      />
-      <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
+    <section className="w-full bg-surface py-section-sm lg:py-section">
+      <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
 
           {/* Left — sticky heading panel */}

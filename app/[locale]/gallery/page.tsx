@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ChevronRightIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import CTAStrip from '@/app/sections/CTAStrip';
 import GalleryGrid from '@/app/sections/GalleryGrid';
 import SectionHeader from '@/app/sections/SectionHeader';
@@ -24,8 +23,8 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <>
-      {/* ── Header ── */}
-      <section className="w-full bg-surface-subtle pt-10 pb-12 lg:pt-14 lg:pb-16 relative overflow-hidden">
+      {/* ── Header — bottom 15% blends toward the catalogue's bg-surface ── */}
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface pt-10 pb-12 lg:pt-14 lg:pb-16 relative overflow-hidden">
 
         <div className="relative max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
           <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-8 flex-wrap">
@@ -44,27 +43,18 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* ── Catalogue ── */}
+      {/*
+        ── Catalogue ──
+        No blend into CTAStrip — white into deep plum is too big a jump.
+        Flat bg-surface, clean cut.
+      */}
       <section className="w-full bg-surface py-12 lg:py-16">
         <div className="max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
+          {/*
+            No Book Appointment / Visit Us pair here — CTAStrip sits directly
+            below with the same booking action, so this was a duplicate.
+          */}
           <GalleryGrid images={galleryImages} />
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-12">
-            <Button
-              variant="secondary"
-              asChild
-              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold hover:bg-secondary-600 shadow-sm w-full sm:w-auto"
-            >
-              <Link href="/book-appointment">Book Appointment</Link>
-            </Button>
-            <Button
-              variant="outline"
-              asChild
-              className="rounded-md px-7 py-3.5 h-auto text-[15px] font-semibold border-[1.5px] border-primary text-primary hover:bg-primary hover:text-text-inverse shadow-none w-full sm:w-auto"
-            >
-              <Link href="/contact">Visit Us</Link>
-            </Button>
-          </div>
         </div>
       </section>
 

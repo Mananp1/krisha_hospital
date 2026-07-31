@@ -181,7 +181,7 @@ export default function DoctorPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section relative overflow-hidden">
 
         <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
           {/* Breadcrumb */}
@@ -287,7 +287,7 @@ export default function DoctorPage() {
       </section>
 
       {/* ── About ── */}
-      <section className="w-full bg-surface py-section-sm lg:py-section">
+      <section className="w-full bg-linear-to-b from-surface from-85% to-surface-subtle py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
 
@@ -356,7 +356,7 @@ export default function DoctorPage() {
       </section>
 
       {/* ── Education & Training ── */}
-      <section className="w-full bg-surface-subtle py-section-sm lg:py-section">
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-10">
             <SectionAccent />
@@ -416,7 +416,7 @@ export default function DoctorPage() {
       </section>
 
       {/* ── Areas of Expertise ── */}
-      <section className="w-full bg-surface py-section-sm lg:py-section">
+      <section className="w-full bg-linear-to-b from-surface from-85% to-surface-subtle py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-8">
             <SectionAccent />
@@ -444,7 +444,7 @@ export default function DoctorPage() {
       </section>
 
       {/* ── Clinical Philosophy ── */}
-      <section className="w-full bg-surface-subtle py-section-sm lg:py-section">
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-6">
             <SectionAccent />
@@ -491,7 +491,11 @@ export default function DoctorPage() {
         </div>
       </section>
 
-      {/* ── Consultation Details ── */}
+      {/*
+        ── Consultation Details ──
+        No blend into CTAStrip — white into deep plum is too big a jump to
+        fade cleanly. Flat colour.
+      */}
       <section className="w-full bg-surface py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex items-center gap-3 mb-8">

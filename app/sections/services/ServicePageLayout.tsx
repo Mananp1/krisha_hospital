@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { CheckIcon, ChevronRightIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import CTAStrip from '@/app/sections/CTAStrip';
 
@@ -25,9 +26,29 @@ function SectionAccent() {
  * Body-copy section with a sticky heading rail on the left. Keeps paragraphs at a
  * readable measure while the row itself spans the full container width.
  */
-function ProseSection({ title, paragraphs }: { title: string; paragraphs: string[] }) {
+interface ProseSectionProps {
+  title: string;
+  paragraphs: string[];
+  /**
+   * This component runs twice — once right after the hero, which blends
+   * forward into Key Benefits' surface-subtle (a light-to-light step small
+   * enough that a plain percentage gradient works fine, matching the
+   * homepage seams), once right before CTAStrip, which does not blend —
+   * white into CTAStrip's deep plum is too big a jump to fade cleanly.
+   */
+  blendToSurfaceSubtle?: boolean;
+}
+
+function ProseSection({ title, paragraphs, blendToSurfaceSubtle }: ProseSectionProps) {
   return (
-    <section className="w-full bg-surface py-section-sm lg:py-section">
+    <section
+      className={cn(
+        'w-full py-section-sm lg:py-section',
+        blendToSurfaceSubtle
+          ? 'bg-linear-to-b from-surface from-85% to-surface-subtle'
+          : 'bg-surface',
+      )}
+    >
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
           {/* Left — sticky heading rail */}
@@ -55,8 +76,8 @@ function ProseSection({ title, paragraphs }: { title: string; paragraphs: string
 export default function ServicePageLayout({ data }: { data: ServicePageData }) {
   return (
     <>
-      {/* Hero */}
-      <section className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
+      {/* Hero — bottom 15% blends toward Service Overview's bg-surface */}
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section relative overflow-hidden">
 
         <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
 
@@ -117,10 +138,10 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
       </section>
 
       {/* Service Overview */}
-      <ProseSection title="Service Overview" paragraphs={data.overview} />
+      <ProseSection title="Service Overview" paragraphs={data.overview} blendToSurfaceSubtle />
 
-      {/* Key Benefits */}
-      <section className="w-full bg-surface-subtle py-section-sm lg:py-section">
+      {/* Key Benefits — bottom 15% blends toward the next ProseSection's bg-surface */}
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="flex gap-3 mb-8">
             <SectionAccent />
@@ -145,7 +166,7 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
         </div>
       </section>
 
-      {/* Our Approach */}
+      {/* Our Approach — no blend into CTAStrip; white into deep plum is too big a jump. */}
       <ProseSection
         title="Our Approach at Krisha Women's Hospital"
         paragraphs={data.approach}
