@@ -1,6 +1,5 @@
 import NavBar from '@/app/sections/NavBar';
 import Hero from '@/app/sections/Hero';
-import StatsBar from '@/app/sections/StatsBar';
 import Services from '@/app/sections/Services';
 import DoctorProfile from '@/app/sections/DoctorProfile';
 import HospitalGallery from '@/app/sections/HospitalGallery';
@@ -20,7 +19,6 @@ export default function Home() {
       */}
       <NavBar overlay />
       <Hero />
-      <StatsBar />
       <Services />
       <DoctorProfile />
       <HospitalGallery />

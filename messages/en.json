@@ -40,13 +40,6 @@
       "rating": "Google rating"
     }
   },
-  "statsBar": {
-    "happyPatients": "Happy Patients",
-    "normalDeliveries": "Normal Deliveries",
-    "ivfBabies": "IVF / ICSI Babies",
-    "ivfSuccessRate": "IVF Success Rate",
-    "yearsExcellence": "Of Excellence"
-  },
   "servicesSection": {
     "eyebrow": "WHAT WE OFFER",
     "title": "Specialised women's healthcare services",

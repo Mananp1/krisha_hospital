@@ -97,6 +97,18 @@ export default function Hero() {
         className="absolute inset-x-0 top-0 h-56 pointer-events-none bg-linear-to-b from-surface/85 from-0% to-transparent to-100%"
       />
 
+      {/*
+        Bottom-up wash, so the section blends into Services instead of the
+        photo cutting straight to a flat white edge. Short — this only needs
+        to soften the seam, not cover meaningful photo — and lands on plain
+        `surface`, matching Services' own top colour exactly so the join is
+        invisible rather than landing on a second, slightly different white.
+      */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-24 lg:h-32 pointer-events-none bg-linear-to-t from-surface to-transparent"
+      />
+
       {/* ── Copy ── */}
       <div className="relative w-full max-w-page mx-auto px-5 lg:px-gutter pt-28 lg:pt-32">
         <FadeIn className="flex flex-col items-start max-w-xl lg:max-w-2xl">

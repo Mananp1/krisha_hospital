@@ -40,13 +40,6 @@
       "rating": "गूगल रेटिंग"
     }
   },
-  "statsBar": {
-    "happyPatients": "संतुष्ट मरीज़",
-    "normalDeliveries": "सामान्य प्रसव",
-    "ivfBabies": "आईवीएफ / आईसीएसआई शिशु",
-    "ivfSuccessRate": "आईवीएफ सफलता दर",
-    "yearsExcellence": "वर्षों की उत्कृष्टता"
-  },
   "servicesSection": {
     "eyebrow": "हमारी सेवाएँ",
     "title": "महिलाओं के लिए विशेष स्वास्थ्य सेवाएँ",

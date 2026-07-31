@@ -8,8 +8,15 @@ import FadeIn from './FadeIn';
  */
 export default function CTAStrip() {
   return (
-    // Bottom 15% blends toward Footer's bg-primary-950.
-    <section className="w-full bg-linear-to-b from-primary from-85% to-primary-950 py-section-sm lg:py-section">
+    /*
+      Full-height gradient, not a from-85% hold: this section is short —
+      heading, one line of copy and two buttons — so reserving only the last
+      15% for the blend into Footer squeezed it into a thin, visible band
+      instead of a smooth fade. Every other section on the page is tall
+      enough (grids, accordions, portraits) that the same 15% held pattern
+      reads as gradual; here it needs the section's whole height to work with.
+    */
+    <section className="w-full bg-linear-to-b from-primary to-primary-950 py-section-sm lg:py-section">
       <div className="max-w-page mx-auto px-5 lg:px-gutter flex flex-col items-center text-center">
         <FadeIn>
           <h2 className="font-display text-display text-text-inverse max-w-160">
