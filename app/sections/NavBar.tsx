@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,6 +8,8 @@ import { MenuIcon, XIcon, ChevronDownIcon, PhoneIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { gsap, useGSAP } from '@/app/animations/gsap';
+import { motion } from '@/app/animations/motion-config';
 import {
   Sheet,
   SheetTrigger,
@@ -33,6 +35,7 @@ interface NavbarProps {
 }
 
 export default function Navbar({ overlay = false }: NavbarProps) {
+  const navRef = useRef<HTMLElement>(null);
   const tServices = useTranslations('servicesSection');
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -55,6 +58,35 @@ export default function Navbar({ overlay = false }: NavbarProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useGSAP(
+    () => {
+      const nav = navRef.current;
+      if (!nav) return;
+
+      const media = gsap.matchMedia();
+      media.add('(prefers-reduced-motion: reduce)', () => {
+        gsap.set(nav, { clearProps: 'all' });
+      });
+      media.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(
+          nav,
+          { autoAlpha: 0, y: -10 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: motion.duration.base,
+            delay: 0.72,
+            ease: motion.ease.enter,
+            clearProps: 'opacity,visibility,transform',
+          },
+        );
+      });
+
+      return () => media.revert();
+    },
+    { scope: navRef },
+  );
+
   /*
     Overlay mode floats the bar over a full-bleed hero, so it must be fixed
     rather than sticky — sticky would reserve height at the top of the document
@@ -66,6 +98,7 @@ export default function Navbar({ overlay = false }: NavbarProps) {
 
   return (
     <nav
+      ref={navRef}
       className={cn(
         'w-full z-50 transition-all duration-300 h-22 md:h-24 lg:h-25 xl:h-27',
         overlay ? 'fixed top-0' : 'sticky top-0',

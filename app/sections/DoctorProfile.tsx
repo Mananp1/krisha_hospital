@@ -4,6 +4,8 @@ import { ArrowRightIcon } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import PortraitReveal from '@/app/animations/PortraitReveal';
+import MotionGroup from '@/app/animations/MotionGroup';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
@@ -44,9 +46,9 @@ export default function DoctorProfile() {
     >
       <div className="max-w-page mx-auto px-5 lg:px-gutter grid lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] gap-12 lg:gap-16 xl:gap-20 items-start">
         {/* ── Portrait ── */}
-        <FadeIn direction="right" className="relative w-full max-w-100 lg:max-w-none mx-auto lg:mx-0">
+        <PortraitReveal className="w-full max-w-100 lg:max-w-none mx-auto lg:mx-0">
           {/* Arch — brand device B1. Photography only. */}
-          <div className="relative w-full aspect-4/5 arch overflow-hidden bg-primary-50">
+          <div data-portrait-frame className="relative w-full aspect-4/5 arch overflow-hidden bg-primary-50">
             <Image
               src="/doctor.jpeg"
               alt={`${t('name')} — ${t('role')}`}
@@ -56,7 +58,7 @@ export default function DoctorProfile() {
               priority
             />
           </div>
-        </FadeIn>
+        </PortraitReveal>
 
         {/* ── Editorial column ── */}
         <FadeIn delay={0.15} className="min-w-0">
@@ -95,17 +97,29 @@ export default function DoctorProfile() {
             ))}
           </dl>
 
-          {/* Expertise — clean tags, squared per the radius ladder. */}
-          <div className="flex flex-wrap gap-2 mt-8">
+          {/*
+            Expertise — clean tags, squared per the radius ladder.
+
+            A larger hoverScale than the service cards: these are a fraction
+            of the size, and the same 1.03 that reads as a lift on a big card
+            is imperceptible on a chip this small.
+          */}
+          <MotionGroup
+            hover
+            hoverScale={1.07}
+            stagger={0.03}
+            className="flex flex-wrap gap-2 mt-8"
+          >
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-sm border border-border-muted bg-surface px-2.5 py-1 text-meta font-medium text-primary-700"
+                data-motion-item
+                className="rounded-sm border border-border-muted bg-surface px-2.5 py-1 text-meta font-medium text-primary-700 transition-colors duration-200 hover:border-primary/30 hover:bg-primary-50"
               >
                 {tag}
               </span>
             ))}
-          </div>
+          </MotionGroup>
 
           {/* Consultation — a separate panel, as the brief asks. */}
           <dl className="mt-8 rounded-md bg-surface border border-border-muted divide-y divide-border-muted">

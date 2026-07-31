@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { heroCarouselImages } from '@/app/data/gallery';
-import FadeIn from './FadeIn';
+import AnimatedNumber from '@/app/animations/AnimatedNumber';
+import HeroMotion from '@/app/animations/HeroMotion';
 import HeroCarousel from './HeroCarousel';
 
 interface TrustItem {
@@ -20,9 +21,9 @@ function HeroCopy({ trust }: { trust: TrustItem[] }) {
         accident instead of an emphasis.
       */}
       <h1 className="font-display text-display-lg text-text-base text-balance">
-        <span className="block">{t('titleLine1')}</span>
-        <span className="block">{t('titleLine2')}</span>
-        <span className="block text-secondary">{t('titleLine3')}</span>
+        <span data-hero-line className="block">{t('titleLine1')}</span>
+        <span data-hero-line className="block">{t('titleLine2')}</span>
+        <span data-hero-line className="block text-secondary">{t('titleLine3')}</span>
       </h1>
 
       {/*
@@ -41,11 +42,14 @@ function HeroCopy({ trust }: { trust: TrustItem[] }) {
         {trust.map((item) => (
           <div
             key={item.label}
+            data-hero-stat
             className="flex items-baseline gap-2 rounded-md border border-border-muted/70 bg-surface/85 backdrop-blur-sm px-4 py-2.5"
           >
             <dt className="sr-only">{item.label}</dt>
             <dd className="font-display text-display-sm text-primary leading-none tabular-nums">
-              {item.value}
+              {item.value.startsWith('20')
+                ? <AnimatedNumber value={item.value} />
+                : item.value}
             </dd>
             <span aria-hidden="true" className="text-meta text-text-muted">
               {item.label}
@@ -66,7 +70,7 @@ export default function Hero() {
   ];
 
   return (
-    <section id="home" className="relative w-full bg-surface overflow-hidden">
+    <HeroMotion className="relative w-full bg-surface overflow-hidden">
       {/*
         ── Below lg: stacked, not overlaid ──
         The left-right wash on the desktop composition below has to stay
@@ -85,7 +89,7 @@ export default function Hero() {
         is no text on top of it to protect).
       */}
       <div className="lg:hidden">
-        <div className="relative w-full aspect-4/3 sm:aspect-16/9">
+        <div data-hero-image="mobile" className="relative w-full aspect-4/3 sm:aspect-16/9">
           {/*
             Filled, not fitted. The block is only ~390px wide on a phone
             while the narrowest frame is over 1100px, so covering it crops
@@ -114,9 +118,9 @@ export default function Hero() {
         </div>
 
         <div className="px-5 pt-8 pb-14">
-          <FadeIn className="flex flex-col items-start">
+          <div data-hero-copy="mobile" className="flex flex-col items-start">
             <HeroCopy trust={trust} />
-          </FadeIn>
+          </div>
         </div>
       </div>
 
@@ -138,12 +142,14 @@ export default function Hero() {
           Each frame carries its own left dissolve into `surface`, since the
           three crops differ in width and so start at different points.
         */}
-        <HeroCarousel
-          images={heroCarouselImages}
-          sizes="100vw"
-          priority
-          layout="fit-right"
-        />
+        <div data-hero-image="desktop" className="absolute inset-0">
+          <HeroCarousel
+            images={heroCarouselImages}
+            sizes="100vw"
+            priority
+            layout="fit-right"
+          />
+        </div>
 
         {/*
           Left-to-right legibility wash. Solid through 34%, still 60% opaque
@@ -184,11 +190,11 @@ export default function Hero() {
 
         {/* ── Copy ── */}
         <div className="relative w-full max-w-page mx-auto px-gutter pt-32">
-          <FadeIn className="flex flex-col items-start max-w-2xl">
+          <div data-hero-copy="desktop" className="flex flex-col items-start max-w-2xl">
             <HeroCopy trust={trust} />
-          </FadeIn>
+          </div>
         </div>
       </div>
-    </section>
+    </HeroMotion>
   );
 }

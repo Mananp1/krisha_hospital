@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import SectionNumeral from '@/components/brand/SectionNumeral';
+import MotionGroup from '@/app/animations/MotionGroup';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
@@ -73,18 +74,20 @@ export default function FAQ() {
 
           {/* Right — Accordion */}
           <FadeIn delay={0.1} className="flex-1 min-w-0">
-            <Accordion
-              type="single"
-              collapsible
-              defaultValue="item-1"
-              className="flex flex-col gap-2.5"
-            >
-              {faqs.map((faq, i) => (
-                <AccordionItem
-                  key={faq.id}
-                  value={faq.id}
-                  className="border border-border-muted rounded-lg bg-surface-subtle hover:border-primary/20 data-[state=open]:border-primary/25 data-[state=open]:bg-primary-50/40 transition-all duration-200 overflow-hidden"
-                >
+            <MotionGroup className="flex flex-col gap-2.5">
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue="item-1"
+                className="contents"
+              >
+                {faqs.map((faq, i) => (
+                  <AccordionItem
+                    key={faq.id}
+                    value={faq.id}
+                    data-motion-item
+                    className="border border-border-muted rounded-lg bg-surface-subtle hover:border-primary/20 data-[state=open]:border-primary/25 data-[state=open]:bg-primary-50/40 transition-all duration-200 overflow-hidden"
+                  >
                   <AccordionTrigger className="px-5 py-4 text-[15px] font-semibold text-text-base hover:no-underline hover:text-primary data-[state=open]:text-primary rounded-none border-none transition-colors">
                     {/*
                       items-baseline keeps the numeral and question aligned even
@@ -102,9 +105,10 @@ export default function FAQ() {
                   <AccordionContent className="px-5 pb-5 text-[14.5px] text-text-muted leading-6.5">
                     <p>{faq.answer}</p>
                   </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </MotionGroup>
           </FadeIn>
 
         </div>

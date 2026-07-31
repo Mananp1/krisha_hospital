@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { ArrowRightIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { galleryPreview } from '@/app/data/gallery';
+import MotionGroup from '@/app/animations/MotionGroup';
 import SectionHeader from './SectionHeader';
-import FadeIn from './FadeIn';
 
 export default function HospitalGallery() {
   return (
@@ -17,12 +17,14 @@ export default function HospitalGallery() {
           subtitle="Purpose-built spaces designed for comfort, safety, and advanced care — all under one roof."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mt-10">
+        <MotionGroup
+          hover
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 mt-10"
+        >
           {galleryPreview.map((img, i) => (
-            <FadeIn
+            <div
               key={img.src}
-              direction="up"
-              delay={i * 0.1}
+              data-motion-item
               className={i === 2 ? 'sm:col-span-2 lg:col-span-1' : undefined}
             >
               <Link
@@ -47,9 +49,9 @@ export default function HospitalGallery() {
                   <p className="text-text-inverse text-[13px] font-semibold">{img.caption}</p>
                 </div>
               </Link>
-            </FadeIn>
+            </div>
           ))}
-        </div>
+        </MotionGroup>
 
         <div className="flex justify-center mt-10">
           <Button

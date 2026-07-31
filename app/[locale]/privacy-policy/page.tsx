@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
+import FadeIn from '@/app/animations/FadeIn';
+import MotionGroup from '@/app/animations/MotionGroup';
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Krisha Women's Hospital",
@@ -17,7 +19,7 @@ function ChevronIcon() {
 
 function Section({ title, children }: Readonly<{ title: string; children: React.ReactNode }>) {
   return (
-    <section className="flex flex-col gap-3">
+    <section data-motion-item className="flex flex-col gap-3">
       <h2 className="text-[18px] lg:text-[20px] font-bold text-text-base">{title}</h2>
       <div className="flex flex-col gap-3 text-[14px] text-text-muted leading-7">{children}</div>
     </section>
@@ -29,6 +31,7 @@ export default function PrivacyPolicyPage() {
     <>
       <section className="w-full bg-surface-subtle border-b border-border-muted py-section-sm lg:py-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
+          <FadeIn>
           <nav className="flex items-center gap-1.5 text-[13px] text-text-muted mb-6 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronIcon />
@@ -43,12 +46,13 @@ export default function PrivacyPolicyPage() {
             Women&apos;s Hospital collects through this website, why we collect it,
             and how it is stored and protected.
           </p>
+          </FadeIn>
         </div>
       </section>
 
       <section className="w-full bg-surface py-section-sm lg:py-section">
         <div className="max-w-190 mx-auto px-5 lg:px-0">
-          <div className="flex flex-col gap-10">
+          <MotionGroup className="flex flex-col gap-10">
 
             <Section title="1. Introduction">
               <p>
@@ -164,13 +168,13 @@ export default function PrivacyPolicyPage() {
             </Section>
 
             {/* muted/70 was 3.11:1 at this size, under the 4.5:1 floor; full opacity clears 5.94:1. */}
-            <p className="text-[12.5px] text-text-muted italic leading-6 pt-4 border-t border-border-muted">
+            <p data-motion-item className="text-[12.5px] text-text-muted italic leading-6 pt-4 border-t border-border-muted">
               This page is provided as a general privacy notice and does not
               constitute legal advice. We recommend having it reviewed by a
               qualified legal professional to confirm compliance with applicable
               healthcare and data protection regulations before relying on it.
             </p>
-          </div>
+          </MotionGroup>
         </div>
       </section>
     </>

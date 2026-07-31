@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
 import Link from 'next/link';
+import FadeIn from '@/app/animations/FadeIn';
+import MotionGroup from '@/app/animations/MotionGroup';
 import AppointmentForm from '@/app/sections/AppointmentForm';
 
 export const metadata: Metadata = {
@@ -60,7 +62,7 @@ export default function BookAppointmentPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-10 lg:gap-16 items-start">
         {/* Form */}
-        <div>
+        <FadeIn>
           <div className="mb-8">
             <span className="inline-block text-[12px] font-semibold tracking-widest uppercase text-secondary mb-3">
               Schedule a Visit
@@ -73,14 +75,15 @@ export default function BookAppointmentPage() {
             </p>
           </div>
           <AppointmentForm />
-        </div>
+        </FadeIn>
 
         {/* Contact sidebar */}
-        <div className="flex flex-col gap-4 lg:sticky lg:top-28">
+        <MotionGroup className="flex flex-col gap-4 lg:sticky lg:top-28">
           <h2 className="text-[16px] font-bold text-text-base">Contact Information</h2>
           {contactDetails.map((item) => (
             <div
               key={item.label}
+              data-motion-item
               className="flex items-start gap-4 p-4 rounded-lg border border-border-muted bg-surface-subtle"
             >
               <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary-100 text-primary flex items-center justify-center">
@@ -104,7 +107,7 @@ export default function BookAppointmentPage() {
               </div>
             </div>
           ))}
-        </div>
+        </MotionGroup>
       </div>
     </section>
   );

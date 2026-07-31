@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { QuoteIcon, UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import MotionGroup from '@/app/animations/MotionGroup';
 import SectionHeader from './SectionHeader';
-import FadeIn from './FadeIn';
 
 interface Testimonial {
   name?: string;
@@ -54,9 +54,9 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+        <MotionGroup className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
           {testimonials.map((t, i) => (
-            <FadeIn key={i} direction="up" delay={i * 0.08}>
+            <div key={i} data-motion-item>
               <div className="group flex flex-col rounded-lg p-7 bg-surface border border-border-muted gap-3.5 h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-card hover:border-primary/20">
                 {/* Quote icon + stars */}
                 <div className="flex items-start justify-between">
@@ -81,9 +81,9 @@ export default function Testimonials() {
                   </div>
                 </div>
               </div>
-            </FadeIn>
+            </div>
           ))}
-        </div>
+        </MotionGroup>
 
         <div className="flex justify-center mt-10">
           <Button
