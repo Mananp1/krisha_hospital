@@ -80,7 +80,8 @@ export default function StatsBar() {
   }, []);
 
   return (
-    <div ref={ref} className="w-full bg-primary-900">
+    // Bottom 15% blends toward Services' bg-surface instead of cutting hard.
+    <div ref={ref} className="w-full bg-linear-to-b from-primary-900 from-85% to-surface">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <div className="grid grid-cols-2 lg:grid-cols-5">
           {stats.map((stat, i) => (

@@ -49,7 +49,8 @@ const faqs: FaqItem[] = [
 
 export default function FAQ() {
   return (
-    <section className="w-full bg-surface py-section-sm lg:py-section">
+    // Bottom 15% blends toward CTAStrip's bg-primary.
+    <section className="w-full bg-linear-to-b from-surface from-85% to-primary py-section-sm lg:py-section">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
 

@@ -26,7 +26,8 @@ export default function Services() {
   const t = useTranslations('servicesSection');
 
   return (
-    <section id="services" className="w-full bg-surface py-section-sm lg:py-section">
+    // Bottom 15% blends toward DoctorProfile's bg-surface-subtle.
+    <section id="services" className="w-full bg-linear-to-b from-surface from-85% to-surface-subtle py-section-sm lg:py-section">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <SectionHeader
           eyebrow={t('eyebrow')}

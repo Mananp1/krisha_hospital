@@ -8,7 +8,8 @@ import FadeIn from './FadeIn';
  */
 export default function CTAStrip() {
   return (
-    <section className="w-full bg-primary py-section-sm lg:py-section">
+    // Bottom 15% blends toward Footer's bg-primary-950.
+    <section className="w-full bg-linear-to-b from-primary from-85% to-primary-950 py-section-sm lg:py-section">
       <div className="max-w-page mx-auto px-5 lg:px-gutter flex flex-col items-center text-center">
         <FadeIn>
           <h2 className="font-display text-display text-text-inverse max-w-160">

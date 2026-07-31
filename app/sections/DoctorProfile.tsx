@@ -39,7 +39,8 @@ export default function DoctorProfile() {
   return (
     <section
       id="doctor"
-      className="w-full bg-surface-subtle py-section-sm lg:py-section-lg"
+      // Bottom 15% blends toward HospitalGallery's bg-surface.
+      className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section-lg"
     >
       <div className="max-w-page mx-auto px-5 lg:px-gutter grid lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] gap-12 lg:gap-16 xl:gap-20 items-start">
         {/* ── Portrait ── */}

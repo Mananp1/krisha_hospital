@@ -35,7 +35,8 @@ const testimonials: Testimonial[] = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="w-full bg-surface-subtle py-section-sm lg:py-section relative overflow-hidden">
+    // Bottom 15% blends toward FAQ's bg-surface.
+    <section id="testimonials" className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section relative overflow-hidden">
 
       <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
 
