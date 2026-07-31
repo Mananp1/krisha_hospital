@@ -14,7 +14,11 @@ function heroImage(name: string) {
   return image;
 }
 
-/** The widest frame in the library — 2400x1030 carries a full-bleed band. */
+/**
+ * 1821x1030 — the reception crop, straightened and tightened so the desk and
+ * the "KRISHA WOMEN'S HOSPITAL" signage sit inside frame without the glass
+ * door on the previous wide crop's right edge.
+ */
 const backdrop = heroImage('reception-waiting-lounge');
 
 export default function Hero() {
@@ -24,15 +28,15 @@ export default function Hero() {
   const trust = [
     { value: '20+', label: t('trust.years') },
     { value: '24×7', label: t('trust.emergency') },
-    { value: '4.9', label: t('trust.rating') },
   ];
 
   return (
     <section
       id="home"
       /*
-        Capped below full viewport height: the backdrop is 2400x1030, so a
-        taller band crops it hard vertically and throws away the room.
+        Capped below full viewport height: the backdrop is 1821x1030 (~1.77:1),
+        noticeably less panoramic than the old 2400x1030 crop, and a taller
+        band asks object-cover to blow the image up further than it should.
       */
       className="relative flex items-center min-h-160 lg:min-h-[min(88vh,50rem)] overflow-hidden bg-surface"
     >
@@ -44,19 +48,14 @@ export default function Hero() {
         sizes="100vw"
         priority
         /*
-          The desk sits at roughly 35–65% across the source frame.
-
-          Wide: anchored hard left. The copy wash covers the left half of the
-          viewport, so at 42% the desk still landed underneath it and only the
-          glass door and PULL sign showed. Pinning left slides the whole frame
-          right, clearing the desk of the wash and dropping the door off the
-          right edge entirely.
-
-          Narrow: centred. A tall viewport crops this 2400x1030 frame to a thin
-          vertical slice, and the left edge of that slice is a notice board —
-          centring lands the slice on the desk instead.
+          Plain centre. At ~1.77:1 this frame is close enough to a typical wide
+          hero box's aspect that object-cover crops mostly top/bottom rather
+          than left/right — unlike the old 2400x1030 (2.33:1) crop, which lost
+          most of its height and needed a horizontal anchor tuned by hand to
+          keep the desk in frame. Revisit with a specific object-position if a
+          particular viewport width crops into the desk or the signage.
         */
-        className="object-cover object-center sm:object-left"
+        className="object-cover object-center"
       />
 
       {/*
