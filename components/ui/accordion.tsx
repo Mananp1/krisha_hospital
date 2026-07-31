@@ -66,9 +66,27 @@ function AccordionContent({
       className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
       {...props}
     >
+      {/*
+        Auto height, deliberately. This wrapper used to be pinned to
+        `h-(--radix-accordion-content-height)`, which only makes sense while
+        an open/close height animation is driving that variable — and the
+        `accordion-down`/`accordion-up` keyframes above are not defined
+        anywhere in this project, so nothing ever drove it.
+
+        A fixed height plus the `overflow-hidden` on the Content element
+        means any answer taller than the measured value is silently sliced
+        off. Radix measures once and reuses that number, so a measurement
+        taken before the webfont settles clips every line past it. Narrow
+        screens are where it showed: the same answer wraps to roughly twice
+        as many lines as it does beside the desktop heading panel, so the
+        overflow had somewhere to hide on desktop and nowhere to hide here.
+
+        The variable is still set by Radix and the animation classes still
+        reference it, so wiring up real keyframes later needs no change here.
+      */}
       <div
         className={cn(
-          "h-(--radix-accordion-content-height) pt-0 pb-4 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+          "pt-0 pb-4 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
           className
         )}
       >

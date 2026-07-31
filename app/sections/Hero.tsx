@@ -1,26 +1,7 @@
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ArrowRightIcon } from 'lucide-react';
-import { Link } from '@/i18n/navigation';
-import { Button } from '@/components/ui/button';
-import { galleryImages } from '@/app/data/gallery';
+import { heroCarouselImages } from '@/app/data/gallery';
 import FadeIn from './FadeIn';
-
-const WHATSAPP = 'https://wa.me/917862950676';
-
-function heroImage(name: string) {
-  const image = galleryImages.find((i) => i.src === `/gallery/${name}.jpg`);
-  if (!image) throw new Error(`Unknown hero image: ${name}`);
-  return image;
-}
-
-/**
- * 1510x1030 — third crop of the reception desk. Renamed (not overwritten)
- * each time this file changes: browsers and next/image both cache by URL, so
- * replacing the bytes under the same name leaves visitors seeing the old
- * photo until the URL itself changes.
- */
-const backdrop = heroImage('reception-desk-2');
+import HeroCarousel from './HeroCarousel';
 
 interface TrustItem {
   value: string;
@@ -30,18 +11,18 @@ interface TrustItem {
 /** Shared between the mobile and desktop compositions below. */
 function HeroCopy({ trust }: { trust: TrustItem[] }) {
   const t = useTranslations('hero');
-  const tDoctor = useTranslations('doctorProfile');
 
   return (
     <>
       {/*
-        The two lines break rather than wrap. Run inline, the magenta started
+        The three lines break rather than wrap. Run inline, the magenta started
         mid-sentence wherever the text happened to reflow, which read as an
         accident instead of an emphasis.
       */}
       <h1 className="font-display text-display-lg text-text-base text-balance">
         <span className="block">{t('titleLine1')}</span>
-        <span className="block text-secondary">{t('titleLine2')}</span>
+        <span className="block">{t('titleLine2')}</span>
+        <span className="block text-secondary">{t('titleLine3')}</span>
       </h1>
 
       {/*
@@ -49,45 +30,19 @@ function HeroCopy({ trust }: { trust: TrustItem[] }) {
         `hero.lead` stays in all three catalogues — it is still used by the
         page metadata description.
       */}
-      <div className="flex items-center gap-3 mt-9 flex-wrap">
-        <Button
-          variant="secondary"
-          asChild
-          className="rounded-md px-7 py-3.5 h-auto text-body font-semibold hover:bg-secondary-600 shadow-none"
-        >
-          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
-            {t('bookAppointment')}
-          </a>
-        </Button>
-        <Button
-          variant="outline"
-          asChild
-          className="rounded-md px-7 py-3.5 h-auto text-body font-semibold bg-surface border-transparent text-primary hover:bg-primary hover:text-text-inverse shadow-none"
-        >
-          <Link href="/#services">{t('exploreServices')}</Link>
-        </Button>
-      </div>
-
-      {/* Tertiary line, where the reference puts its partnership link. */}
-      <Link
-        href="/doctor"
-        className="inline-flex items-center gap-2 mt-7 text-meta font-semibold text-text-base no-underline group"
-      >
-        {tDoctor('viewFullProfile')}
-        <ArrowRightIcon
-          size={14}
-          className="transition-transform group-hover:translate-x-0.5"
-        />
-      </Link>
-
       {/*
-        Trust row. The reference has no such panel, but it was an explicit
-        ask in the original brief, so it survives as a flat rule-separated
-        line rather than a floating card.
+        Trust row. A bare border-t line above two floating numbers read as a
+        stray rule rather than a group, especially now that the backdrop is
+        a carousel rather than one fixed photo — each stat is its own
+        bordered chip instead, so the pair reads as one unit regardless of
+        what's behind it.
       */}
-      <dl className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-8 pt-7 border-t border-primary/12 w-full max-w-lg">
+      <dl className="flex flex-wrap gap-3 mt-8 w-full max-w-lg">
         {trust.map((item) => (
-          <div key={item.label} className="flex items-baseline gap-2">
+          <div
+            key={item.label}
+            className="flex items-baseline gap-2 rounded-md border border-border-muted/70 bg-surface/85 backdrop-blur-sm px-4 py-2.5"
+          >
             <dt className="sr-only">{item.label}</dt>
             <dd className="font-display text-display-sm text-primary leading-none tabular-nums">
               {item.value}
@@ -131,13 +86,18 @@ export default function Hero() {
       */}
       <div className="lg:hidden">
         <div className="relative w-full aspect-4/3 sm:aspect-16/9">
-          <Image
-            src={backdrop.src}
-            alt={backdrop.alt}
-            fill
+          {/*
+            Filled, not fitted. The block is only ~390px wide on a phone
+            while the narrowest frame is over 1100px, so covering it crops
+            but never enlarges — there is no zoom to avoid here, and fitting
+            each frame would shrink it into a fraction of an already small
+            block.
+          */}
+          <HeroCarousel
+            images={heroCarouselImages}
             sizes="100vw"
             priority
-            className="object-cover object-center"
+            layout="fill"
           />
 
           {/* Top fade — the nav floats transparently over this edge. */}
@@ -168,21 +128,21 @@ export default function Hero() {
       <div
         className="hidden lg:flex relative items-center overflow-hidden lg:min-h-[min(88vh,50rem)]"
       >
-        {/* ── Full-bleed backdrop ── */}
-        <Image
-          src={backdrop.src}
-          alt={backdrop.alt}
-          fill
+        {/*
+          ── Backdrop ──
+          Fitted and pinned right. The cropped frames are much narrower than
+          this box, so filling it would enlarge them — the zoom that made the
+          crops look wrong. Fitting keeps each frame at its own proportions
+          and puts the leftover width entirely on the left, under the copy,
+          so the photo runs flush to the right edge with nothing beside it.
+          Each frame carries its own left dissolve into `surface`, since the
+          three crops differ in width and so start at different points.
+        */}
+        <HeroCarousel
+          images={heroCarouselImages}
           sizes="100vw"
           priority
-          /*
-            Plain centre. At ~1.47:1 this frame is close enough to a typical
-            wide hero box's aspect that object-cover crops mostly top/bottom
-            rather than left/right. Revisit with a specific object-position
-            if a particular viewport width crops into the desk or the
-            signage.
-          */
-          className="object-cover object-center"
+          layout="fit-right"
         />
 
         {/*

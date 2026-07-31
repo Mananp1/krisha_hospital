@@ -180,49 +180,51 @@ const affiliations = [
 export default function DoctorPage() {
   return (
     <>
-      {/* ── Hero ── */}
-      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section relative overflow-hidden">
-
-        <div className="relative max-w-page mx-auto px-5 lg:px-gutter">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-8 flex-wrap">
+      <section
+        className="w-full bg-linear-to-b from-surface-subtle to-surface py-10 md:py-12 lg:py-16"
+        aria-labelledby="doctor-name"
+      >
+        <div className="max-w-page mx-auto px-5 lg:px-gutter">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-1 text-[13px] text-text-muted mb-7 flex-wrap"
+          >
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronRightIcon size={13} className="text-text-muted shrink-0" />
             <span className="text-text-base font-medium">Dr. Alhad Pande</span>
           </nav>
 
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-            {/* Photo frame */}
-            <div className="relative flex-shrink-0 w-full max-w-[320px] lg:w-[380px] xl:w-[440px] mx-auto lg:mx-0 pb-6 pr-2">
-              {/* Arch — brand device B1. Photography only. */}
-              <div className="relative w-full aspect-square arch overflow-hidden bg-primary-50">
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-10 xl:gap-14">
+            <div className="lg:col-span-5 w-full max-w-md lg:max-w-none">
+              <div className="relative w-full aspect-4/5 arch overflow-hidden bg-primary-50">
                 <Image
                   src="/doctor.jpeg"
                   alt="Dr. Alhad Pande — Obstetrician, Gynecologist & Fertility Specialist"
                   fill
-                  sizes="(min-width: 1280px) 440px, (min-width: 1024px) 380px, 320px"
-                  className="object-cover object-top z-10"
+                  sizes="(min-width: 1440px) 500px, (min-width: 1024px) 40vw, (min-width: 640px) 448px, calc(100vw - 40px)"
+                  className="object-cover object-top"
                   priority
                 />
               </div>
             </div>
 
-            {/* Info */}
-            <div className="flex-1">
-              {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
+            <div className="lg:col-span-7 min-w-0">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary-600 bg-secondary/10 mb-4">
                 FOGSI Member · Krisha Women&apos;s Hospital
               </span>
 
-              <h1 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold text-text-base leading-tight mb-2">
+              <h1
+                id="doctor-name"
+                className="font-display text-display-lg text-text-base mb-2"
+              >
                 Dr. Alhad Pande
               </h1>
 
-              <p className="text-[16px] font-semibold text-primary mb-3">
+              <p className="text-[16px] font-semibold text-primary mb-4">
                 Consultant Obstetrician, Gynecologist &amp; Fertility Specialist
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-5">
+              <div className="flex flex-wrap gap-2 mb-4" aria-label="Qualifications">
                 {['MBBS', 'DGO', 'MD'].map((q) => (
                   <Badge
                     key={q}
@@ -232,7 +234,6 @@ export default function DoctorPage() {
                     {q}
                   </Badge>
                 ))}
-                {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
                 <Badge
                   variant="outline"
                   className="h-auto overflow-visible rounded-full px-3.5 py-1 text-[12.5px] font-bold bg-secondary/10 border-secondary/20 text-secondary-600"
@@ -241,7 +242,7 @@ export default function DoctorPage() {
                 </Badge>
               </div>
 
-              <p className="text-[15px] text-text-muted leading-7 max-w-145 xl:max-w-none mb-7">
+              <p className="text-[15px] text-text-muted leading-7 max-w-155 mb-6">
                 Dr. Alhad Pande is a highly experienced Obstetrician and
                 Gynecologist with over two decades of clinical practice. Trained
                 at top medical institutions across India and holding fellowships
@@ -270,251 +271,261 @@ export default function DoctorPage() {
                   <a href="tel:+917862950676">+91 78629 50676</a>
                 </Button>
               </div>
-
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── About ── */}
-      <section className="w-full bg-linear-to-b from-surface from-85% to-surface-subtle py-section-sm lg:py-section">
+      <div className="w-full bg-surface py-10 md:py-12 lg:py-16">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
-          <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
+          <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)] gap-10 xl:gap-8 items-start">
+            <div className="min-w-0 flex flex-col gap-10 md:gap-12 lg:gap-16">
+              <section aria-labelledby="about-doctor">
+                <div className="flex items-center gap-3 mb-6">
+                  <SectionAccent />
+                  <h2
+                    id="about-doctor"
+                    className="text-[22px] lg:text-[26px] font-bold text-text-base"
+                  >
+                    About Dr. Alhad Pande
+                  </h2>
+                </div>
 
-            {/* Left — heading + prose */}
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-3 mb-6">
+                <div className="flex flex-col gap-4 max-w-measure">
+                  <p className="text-[15px] text-text-muted leading-7">
+                    Dr. Alhad Pande founded Krisha Women&apos;s Hospital with a
+                    single, clear vision: to bring world-class women&apos;s healthcare
+                    to Narol, Ahmedabad — accessible, compassionate, and free from
+                    unnecessary intervention. Over the course of a 20+ year career, he
+                    has guided thousands of women through some of the most significant
+                    moments of their lives — safe deliveries, fertility breakthroughs,
+                    complex surgeries, and healthy recoveries.
+                  </p>
+                  <p className="text-[15px] text-text-muted leading-7">
+                    His postgraduate training spans three leading government medical
+                    colleges — GMC Vadodara, Stanley Medical College (Chennai), and GMC
+                    Rajkot — giving him a broad clinical foundation across diverse
+                    patient populations and hospital environments. He later pursued
+                    advanced fellowships in Assisted Reproductive Technology at Wings
+                    IVF, Ahmedabad, and in Advanced Laparoscopic Surgery at Eva
+                    Women&apos;s Hospital, Ahmedabad, equipping him with the latest minimally
+                    invasive techniques that reduce recovery time and surgical risk
+                    for patients.
+                  </p>
+                  <p className="text-[15px] text-text-muted leading-7">
+                    A proud FOGSI (Federation of Obstetric and Gynaecological
+                    Societies of India) member, Dr. Pande remains committed to
+                    evidence-based medicine and continuous professional development.
+                    He is equally known for his patience in consultation, his
+                    plain-language explanations, and his willingness to spend time
+                    with every patient — ensuring that no woman leaves his clinic
+                    without feeling heard, informed, and confident in her care plan.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 min-[340px]:grid-cols-2 lg:grid-cols-4 gap-3 mt-7">
+                  {highlights.map((highlight) => (
+                    <article
+                      key={highlight.label}
+                      className="min-w-0 h-full bg-surface-subtle rounded-lg border border-border-muted p-4 md:p-5"
+                    >
+                      <p className="font-display text-[24px] md:text-[26px] font-semibold text-primary leading-none">
+                        {highlight.stat}
+                      </p>
+                      <p className="text-[12px] text-text-muted leading-4.5 mt-2">
+                        {highlight.label}
+                      </p>
+                    </article>
+                  ))}
+                </div>
+              </section>
+
+              <section aria-labelledby="education-training">
+                <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.5fr)_minmax(15rem,0.8fr)] gap-8 lg:gap-6 items-start">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-3 mb-6">
+                      <SectionAccent />
+                      <h2
+                        id="education-training"
+                        className="text-[22px] lg:text-[26px] font-bold text-text-base"
+                      >
+                        Education &amp; Training
+                      </h2>
+                    </div>
+
+                    <div className="rounded-lg border border-border-muted bg-surface-subtle overflow-hidden">
+                      {qualifications.map((qualification) => (
+                        <article
+                          key={qualification.degree}
+                          className="p-5 border-b border-border-muted last:border-b-0"
+                        >
+                          <h3 className="font-bold text-[15px] text-text-base leading-snug">
+                            {qualification.degree}
+                          </h3>
+                          <p className="text-[13.5px] text-primary font-semibold mt-1">
+                            {qualification.institute}
+                          </p>
+                          <p className="text-[13px] text-text-muted leading-5.5 mt-1.5">
+                            {qualification.detail}
+                          </p>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="min-w-0">
+                    <h2 className="text-[18px] font-bold text-text-base mb-6 lg:mt-1">
+                      Professional Affiliations
+                    </h2>
+                    <div className="flex flex-col gap-3">
+                      {affiliations.map((affiliation) => (
+                        <article
+                          key={affiliation.short}
+                          className="bg-surface-subtle rounded-lg border border-border-muted p-4"
+                        >
+                          <span className="inline-flex text-[11px] font-extrabold text-secondary-600 bg-secondary/10 rounded-sm px-2 py-1 leading-none">
+                            {affiliation.short}
+                          </span>
+                          <h3 className="font-semibold text-[13px] text-text-base leading-5 mt-2.5">
+                            {affiliation.full}
+                          </h3>
+                          <p className="text-[12.5px] text-text-muted leading-5 mt-1">
+                            {affiliation.desc}
+                          </p>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section aria-labelledby="areas-expertise">
+                <div className="flex items-center gap-3 mb-6">
+                  <SectionAccent />
+                  <h2
+                    id="areas-expertise"
+                    className="text-[22px] lg:text-[26px] font-bold text-text-base"
+                  >
+                    Areas of Expertise
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-5">
+                  {expertise.map((item) => (
+                    <article
+                      key={item.label}
+                      className="group h-full bg-surface-subtle rounded-lg p-5 border border-border-muted flex flex-col gap-3 transition-[transform,border-color,box-shadow] duration-200 motion-reduce:transition-none motion-reduce:hover:transform-none hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
+                    >
+                      <div className="w-9 h-9 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
+                        <CheckIcon size={16} aria-hidden="true" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-[14px] text-text-base leading-5 mb-1.5">
+                          {item.label}
+                        </h3>
+                        <p className="text-[13px] text-text-muted leading-5.5">
+                          {item.description}
+                        </p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+
+              <section aria-labelledby="clinical-philosophy">
+                <div className="flex items-center gap-3 mb-6">
+                  <SectionAccent />
+                  <h2
+                    id="clinical-philosophy"
+                    className="text-[22px] lg:text-[26px] font-bold text-text-base"
+                  >
+                    Clinical Philosophy
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-7 lg:gap-6 items-start">
+                  <div className="flex flex-col gap-4">
+                    <p className="text-[15px] text-text-muted leading-7">
+                      Dr. Pande believes that every woman deserves to be an active,
+                      informed participant in her own healthcare. His approach to
+                      every consultation begins with listening — carefully
+                      understanding not just the medical complaint, but the
+                      patient&apos;s life circumstances, concerns, and personal goals.
+                      He explains every diagnosis and treatment option in clear,
+                      non-technical language, ensuring women can make truly informed
+                      decisions.
+                    </p>
+                    <p className="text-[15px] text-text-muted leading-7">
+                      He is a strong proponent of minimal intervention where
+                      clinically appropriate — favouring physiological births,
+                      conservative surgical approaches, and lifestyle-first management
+                      for hormonal conditions wherever possible. When intervention is
+                      necessary, he brings advanced surgical skill and precision to
+                      minimise risk and recovery time.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {principles.map((principle) => (
+                      <article
+                        key={principle.label}
+                        className="h-full bg-surface-subtle rounded-lg border border-border-muted p-4"
+                      >
+                        <div className="w-2 h-2 rounded-full bg-secondary mb-3" aria-hidden="true" />
+                        <h3 className="font-bold text-[13.5px] text-text-base">
+                          {principle.label}
+                        </h3>
+                        <p className="text-[13px] text-text-muted leading-5.5 mt-1">
+                          {principle.desc}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <aside
+              aria-labelledby="consultation-details"
+              className="xl:sticky xl:top-28 rounded-lg border border-border-muted bg-surface-subtle p-5 md:p-6"
+            >
+              <div className="flex items-center gap-3 mb-5">
                 <SectionAccent />
-                <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
-                  About Dr. Alhad Pande
+                <h2
+                  id="consultation-details"
+                  className="text-[20px] font-bold text-text-base"
+                >
+                  Consultation Details
                 </h2>
               </div>
-              <div className="flex flex-col gap-5">
-                <p className="text-[15px] text-text-muted leading-7">
-                  Dr. Alhad Pande founded Krisha Women&apos;s Hospital with a
-                  single, clear vision: to bring world-class women&apos;s healthcare
-                  to Narol, Ahmedabad — accessible, compassionate, and free from
-                  unnecessary intervention. Over the course of a 20+ year career, he
-                  has guided thousands of women through some of the most significant
-                  moments of their lives — safe deliveries, fertility breakthroughs,
-                  complex surgeries, and healthy recoveries.
-                </p>
-                <p className="text-[15px] text-text-muted leading-7">
-                  His postgraduate training spans three leading government medical
-                  colleges — GMC Vadodara, Stanley Medical College (Chennai), and GMC
-                  Rajkot — giving him a broad clinical foundation across diverse
-                  patient populations and hospital environments. He later pursued
-                  advanced fellowships in Assisted Reproductive Technology at Wings
-                  IVF, Ahmedabad, and in Advanced Laparoscopic Surgery at Eva
-                  Women&apos;s Hospital, Ahmedabad, equipping him with the latest minimally
-                  invasive techniques that reduce recovery time and surgical risk
-                  for patients.
-                </p>
-                <p className="text-[15px] text-text-muted leading-7">
-                  A proud FOGSI (Federation of Obstetric and Gynaecological
-                  Societies of India) member, Dr. Pande remains committed to
-                  evidence-based medicine and continuous professional development.
-                  He is equally known for his patience in consultation, his
-                  plain-language explanations, and his willingness to spend time
-                  with every patient — ensuring that no woman leaves his clinic
-                  without feeling heard, informed, and confident in her care plan.
-                </p>
-              </div>
-            </div>
 
-            {/* Right — lg sidebar */}
-            <div className="hidden lg:flex flex-col gap-5 w-80 shrink-0">
-
-              {/* Career at a Glance */}
-              <div className="bg-surface-subtle rounded-lg p-5 border border-border-muted">
-                <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-text-muted mb-4">
-                  Career at a Glance
-                </p>
-                <div className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  {highlights.map((h) => (
-                    <div key={h.label}>
-                      <p className="font-extrabold text-[24px] text-text-base leading-none">{h.stat}</p>
-                      <p className="text-[12px] text-text-muted mt-1.5 leading-4">{h.label}</p>
+              <div className="flex flex-col">
+                {consultDetails.map((item) => (
+                  <article
+                    key={item.label}
+                    className="flex items-start gap-3.5 py-4 first:pt-0 last:pb-0 border-b border-border-muted last:border-b-0"
+                  >
+                    <div className="w-10 h-10 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
+                      {item.icon}
                     </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Education & Training ── */}
-      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section">
-        <div className="max-w-page mx-auto px-5 lg:px-gutter">
-          <div className="flex items-center gap-3 mb-10">
-            <SectionAccent />
-            <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
-              Education &amp; Training
-            </h2>
-          </div>
-
-          <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
-
-            {/* Left — timeline */}
-            <div className="flex-1 min-w-0 flex flex-col gap-0">
-              {qualifications.map((q, i) => (
-                <div key={i} className="flex gap-5">
-                  {/* Timeline spine */}
-                  <div className="flex flex-col items-center">
-                    <div className="w-3.5 h-3.5 rounded-full bg-secondary mt-1 shrink-0" />
-                    {i < qualifications.length - 1 && (
-                      <div className="w-px flex-1 bg-border-muted mt-1 mb-1" />
-                    )}
-                  </div>
-                  {/* Content */}
-                  <div className={i < qualifications.length - 1 ? 'pb-8' : ''}>
-                    <p className="font-bold text-[15px] text-text-base leading-snug">{q.degree}</p>
-                    <p className="text-[13.5px] text-primary font-semibold mt-0.5">{q.institute}</p>
-                    <p className="text-[13px] text-text-muted leading-5.5 mt-1">{q.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Right — xl sidebar: Professional Affiliations */}
-            <div className="hidden lg:flex flex-col gap-4 w-80 shrink-0">
-              <div className="bg-surface rounded-lg p-5 border border-border-muted">
-                <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-text-muted mb-4">
-                  Professional Affiliations
-                </p>
-                <div className="flex flex-col gap-4">
-                  {affiliations.map((a) => (
-                    <div key={a.short} className="flex items-start gap-3">
-                      {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
-                      <span className="text-[11px] font-extrabold text-secondary-600 bg-secondary/10 rounded-sm px-2 py-1 shrink-0 leading-none mt-0.5">
-                        {a.short}
-                      </span>
-                      <div>
-                        <p className="font-semibold text-[12.5px] text-text-base leading-4.5">{a.full}</p>
-                        <p className="text-[12px] text-text-muted leading-4.5 mt-0.5">{a.desc}</p>
-                      </div>
+                    <div className="min-w-0">
+                      <h3 className="text-[11px] font-bold uppercase tracking-[1px] text-text-muted mb-1">
+                        {item.label}
+                      </h3>
+                      <p className="font-bold text-[14px] text-text-base leading-snug break-words">
+                        {item.value}
+                      </p>
+                      <p className="text-[12.5px] text-text-muted leading-5 mt-1 break-words">
+                        {item.sub}
+                      </p>
                     </div>
-                  ))}
-                </div>
+                  </article>
+                ))}
               </div>
-            </div>
-
+            </aside>
           </div>
         </div>
-      </section>
-
-      {/* ── Areas of Expertise ── */}
-      <section className="w-full bg-linear-to-b from-surface from-85% to-surface-subtle py-section-sm lg:py-section">
-        <div className="max-w-page mx-auto px-5 lg:px-gutter">
-          <div className="flex items-center gap-3 mb-8">
-            <SectionAccent />
-            <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
-              Areas of Expertise
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-6">
-            {expertise.map((e, i) => (
-              <div
-                key={i}
-                className="group bg-surface-subtle rounded-lg p-6 border border-border-muted flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
-              >
-                <div className="w-10 h-10 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
-                  <CheckIcon size={16} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-[14px] text-text-base mb-1.5">{e.label}</h3>
-                  <p className="text-[13px] text-text-muted leading-5.5">{e.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Clinical Philosophy ── */}
-      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section">
-        <div className="max-w-page mx-auto px-5 lg:px-gutter">
-          <div className="flex items-center gap-3 mb-6">
-            <SectionAccent />
-            <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
-              Clinical Philosophy
-            </h2>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-            <div className="flex flex-col gap-5 flex-1">
-              <p className="text-[15px] text-text-muted leading-7">
-                Dr. Pande believes that every woman deserves to be an active,
-                informed participant in her own healthcare. His approach to
-                every consultation begins with listening — carefully
-                understanding not just the medical complaint, but the
-                patient&apos;s life circumstances, concerns, and personal goals.
-                He explains every diagnosis and treatment option in clear,
-                non-technical language, ensuring women can make truly informed
-                decisions.
-              </p>
-              <p className="text-[15px] text-text-muted leading-7">
-                He is a strong proponent of minimal intervention where
-                clinically appropriate — favouring physiological births,
-                conservative surgical approaches, and lifestyle-first management
-                for hormonal conditions wherever possible. When intervention is
-                necessary, he brings advanced surgical skill and precision to
-                minimise risk and recovery time.
-              </p>
-            </div>
-            <div className="flex flex-col gap-4 flex-1">
-              {principles.map((p) => (
-                <div
-                  key={p.label}
-                  className="group flex items-start gap-3 bg-surface rounded-lg p-4 border border-border-muted transition-all duration-200 hover:border-primary/20 hover:shadow-card"
-                >
-                  <div className="w-2 h-2 rounded-full bg-secondary mt-1.5 shrink-0" />
-                  <div>
-                    <p className="font-bold text-[13.5px] text-text-base">{p.label}</p>
-                    <p className="text-[13px] text-text-muted leading-5.5 mt-0.5">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/*
-        ── Consultation Details ──
-        No blend into CTAStrip — white into deep plum is too big a jump to
-        fade cleanly. Flat colour.
-      */}
-      <section className="w-full bg-surface py-section-sm lg:py-section">
-        <div className="max-w-page mx-auto px-5 lg:px-gutter">
-          <div className="flex items-center gap-3 mb-8">
-            <SectionAccent />
-            <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base">
-              Consultation Details
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {consultDetails.map((item) => (
-              <div
-                key={item.label}
-                className="group bg-surface-subtle rounded-lg p-6 border border-border-muted flex flex-col gap-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card hover:border-primary/20"
-              >
-                <div className="w-11 h-11 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
-                  {item.icon}
-                </div>
-                <div>
-                  <p className="text-[12px] font-bold uppercase tracking-[1px] text-text-muted mb-1">
-                    {item.label}
-                  </p>
-                  <p className="font-bold text-[14px] text-text-base leading-snug">{item.value}</p>
-                  <p className="text-[12.5px] text-text-muted leading-5 mt-0.5">{item.sub}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
 
       <CTAStrip />
     </>

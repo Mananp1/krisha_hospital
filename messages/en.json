@@ -27,8 +27,9 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "titleLine1": "Supporting every stage of",
-    "titleLine2": "a woman's health journey",
+    "titleLine1": "Supporting every",
+    "titleLine2": "stage of a woman's",
+    "titleLine3": "health journey",
     "lead": "Specialist care across gynaecology, safe motherhood, high-risk pregnancy management, fertility treatment, and women's wellness — delivered with clinical excellence and compassion at every stage of your life.",
     "bookAppointment": "Book Appointment",
     "exploreServices": "Explore Services",

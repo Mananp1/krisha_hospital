@@ -10,11 +10,6 @@ export interface ServiceEntry {
   slug: string;
 }
 
-/**
- * Order is load-bearing: the Services section takes the first entry as its
- * full-width banner tile, so it should be the speciality the hospital most
- * wants read first. The remaining twelve fill the grid below it in this order.
- */
 export const services: ServiceEntry[] = [
   { slug: 'pregnancy-maternity-care' },
   { slug: 'high-risk-pregnancy' },
