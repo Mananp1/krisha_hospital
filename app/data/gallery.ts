@@ -1,3 +1,8 @@
+import type { StaticImageData } from 'next/image';
+import receptionDeskHero from '@/public/gallery/reception-desk-hero.jpg';
+import sonographyRoomHero from '@/public/gallery/sonography-room-hero.jpg';
+import procedureRoomHero from '@/public/gallery/procedure-room-hero.jpg';
+
 /**
  * Photo catalogue for the /gallery page, the home page "Our Facility" strip
  * and the two frames in the hero composition.
@@ -107,3 +112,44 @@ export const galleryImages: GalleryImage[] = [
 export const galleryPreview: GalleryImage[] = galleryImages.filter(
   (i) => i.orientation === 'landscape',
 );
+
+/**
+ * A hero frame. Statically imported rather than referenced by path string,
+ * because the hero needs each frame's intrinsic aspect ratio at render time
+ * to size and fade it individually — see HeroCarousel. Static imports carry
+ * `width`/`height` from the file itself, so re-cropping a frame only needs a
+ * rebuild; there are no hardcoded dimensions here to fall out of date.
+ */
+export interface HeroImage {
+  src: StaticImageData;
+  alt: string;
+}
+
+/**
+ * Frames for the hero carousel only — the `*-hero.jpg` crops, all cut to
+ * 16:9. They are separate files from the `/gallery` catalogue on purpose:
+ * pointing the hero at `galleryPreview` put the exact same three crops in
+ * both the hero and the "Our Facility" strip a couple of scrolls apart, and
+ * the two mirrored frames are flipped left/right relative to their gallery
+ * counterparts, so the hero reads as a distinct pass over the hospital
+ * rather than a rerun of the strip below it.
+ *
+ * The shared aspect ratio is what keeps the composition steady: the hero
+ * pins each frame to the right edge and sizes it from its own ratio, so
+ * frames of differing widths would start at different points and the left
+ * edge would jump on every slide change.
+ */
+export const heroCarouselImages: HeroImage[] = [
+  {
+    src: receptionDeskHero,
+    alt: "Reception desk and patient waiting lounge at Krisha Women's Hospital, Narol",
+  },
+  {
+    src: sonographyRoomHero,
+    alt: "Sonography room with ultrasound machine and examination couch at Krisha Women's Hospital",
+  },
+  {
+    src: procedureRoomHero,
+    alt: "Procedure room with obstetric examination table at Krisha Women's Hospital",
+  },
+];

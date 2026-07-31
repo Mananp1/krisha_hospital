@@ -113,33 +113,17 @@
   --text-inverse: #ffffff;
 
   /* ── Typography ─────────────────────────────────────────────
-     --font-display / --font-body are bound per locale by the .locale-*
-     rules below, because no single face covers Latin + Devanagari +
-     Gujarati. See app/fonts.ts.                                       */
-  --font-sans: var(--font-body);
-  --font-serif: var(--font-display);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+     All text utilities resolve to the single optimized Inter face. Display
+     aliases remain only for compatibility with existing component classes. */
+  --font-family-inter: var(--font-inter), Inter, Arial, sans-serif;
+  --font-sans: var(--font-family-inter);
+  --font-serif: var(--font-family-inter);
+  --font-mono: var(--font-family-inter);
 
 }
 
 /* ── Per-locale font binding ──────────────────────────────────
-   Latin glyphs inside Indic copy still resolve to Manrope, because CSS
-   font fallback is evaluated per glyph.                               */
-.locale-en {
-  --font-display: var(--font-fraunces), Georgia, Cambria, serif;
-  --font-body: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-}
-
-.locale-hi {
-  --font-display: var(--font-noto-serif-deva), Georgia, serif;
-  --font-body: var(--font-manrope), var(--font-noto-sans-deva), ui-sans-serif, sans-serif;
-}
-
-.locale-gu {
-  --font-display: var(--font-noto-serif-guj), Georgia, serif;
-  --font-body: var(--font-manrope), var(--font-noto-sans-guj), ui-sans-serif, sans-serif;
-}
-
+   Inter is loaded once at the root and shared by every locale.        */
 @theme inline {
   /* ── Shadcn semantic mappings ───────────────────────────── */
   --color-background:         var(--background);
@@ -229,7 +213,7 @@
   --font-sans:    var(--font-sans);
   --font-serif:   var(--font-serif);
   --font-mono:    var(--font-mono);
-  --font-display: var(--font-display);
+  --font-display: var(--font-sans);
 
   /* ── Type scale ─────────────────────────────────────────────
      Nine steps, replacing 30 ad-hoc pixel values. The three display
@@ -239,7 +223,7 @@
   --text-display-lg: clamp(2rem, 1.25rem + 3.5vw, 3.25rem);      /* 32 → 52 — hero h1 */
   --text-display-lg--line-height: 1.08;
   --text-display-lg--letter-spacing: -0.022em;
-  --text-display-lg--font-weight: 600;
+  --text-display-lg--font-weight: 700;
 
   --text-display: clamp(1.625rem, 1.125rem + 2.2vw, 2.5rem);     /* 26 → 40 — section h2 */
   --text-display--line-height: 1.14;
@@ -304,9 +288,14 @@
   --shadow-card:     0 2px 4px -1px hsl(264 48% 12% / 0.06), 0 6px 16px -4px hsl(264 48% 12% / 0.08);
   --shadow-float:    0 4px 8px -2px hsl(264 48% 12% / 0.08), 0 16px 40px -8px hsl(264 48% 12% / 0.14);
 
-  /* ── Custom animations ──────────────────────────────────── */
-  --animate-slide-in: slide-in 0.25s ease-out;
-  --animate-float:    float 3s ease-in-out infinite;
+  /* ── Custom animations ────────────────────────────────────
+     Every name here must have a matching @keyframes below. Tailwind emits
+     `animation: <this value>` without checking the keyframes exist, so a
+     token with no rule is a silently dead class — that is exactly how the
+     accordion ended up relying on an animation that never ran.          */
+  --animate-slide-in:   slide-in 0.25s ease-out;
+  --animate-float:      float 3s ease-in-out infinite;
+  --animate-mark-pulse: mark-pulse 1.9s ease-in-out infinite;
 }
 
 /* ── Brand device: the arch ───────────────────────────────────
@@ -328,6 +317,17 @@
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-8px); }
+}
+
+/* ── Loading state ────────────────────────────────────────────
+   A slow breath on the logo rather than a spinner. A spinner reads as
+   "working hard"; for a hospital waiting on a page of its own content,
+   a calm mark holds the brand instead of adding urgency. Deliberately
+   shallow — the opacity floor stays high enough that the logo never
+   looks like it is disappearing or failing to load.                    */
+@keyframes mark-pulse {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%      { opacity: 0.62; transform: scale(0.975); }
 }
 
 @layer base {

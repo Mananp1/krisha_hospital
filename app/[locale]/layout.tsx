@@ -6,7 +6,7 @@ import '../globals.css';
 import { cn } from "@/lib/utils";
 import { SITE_URL } from '@/lib/site-config';
 import { routing } from '@/i18n/routing';
-import { fontClassNamesFor } from '@/app/fonts';
+import { fontVariableClassName } from '@/app/fonts';
 import WhatsAppFABWrapper from '@/app/sections/WhatsAppFABWrapper';
 
 export const metadata: Metadata = {
@@ -67,7 +67,7 @@ export default async function RootLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={cn("font-sans", fontClassNamesFor(locale))}>
+    <html lang={locale} className={cn('font-sans', fontVariableClassName)}>
       <body
         className="min-h-full flex flex-col antialiased"
         suppressHydrationWarning
@@ -80,6 +80,12 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           {children}
           <WhatsAppFABWrapper />
+          {/*
+            The splash lives in template.tsx, not here. A layout instance
+            survives client-side navigation, so mounting it at this level
+            meant it ran once per full page load and never again while the
+            visitor moved between pages.
+          */}
         </NextIntlClientProvider>
       </body>
     </html>

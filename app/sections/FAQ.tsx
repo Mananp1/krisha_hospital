@@ -87,9 +87,9 @@ export default function FAQ() {
                 >
                   <AccordionTrigger className="px-5 py-4 text-[15px] font-semibold text-text-base hover:no-underline hover:text-primary data-[state=open]:text-primary rounded-none border-none transition-colors">
                     {/*
-                      items-baseline, not items-start: the numeral is Fraunces
-                      and the question is Manrope, and the two fonts' internal
-                      metrics differ enough that aligning their box tops left the
+                      items-baseline keeps the numeral and question aligned even
+                      when their size and weight produce different text metrics;
+                      aligning their box tops otherwise leaves the
                       numeral sitting visibly above the question's baseline. This
                       also holds correctly if a question wraps to a second line —
                       baseline alignment uses the first line only.
