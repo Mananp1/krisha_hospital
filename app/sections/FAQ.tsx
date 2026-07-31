@@ -80,8 +80,16 @@ export default function FAQ() {
                   className="border border-border-muted rounded-lg bg-surface-subtle hover:border-primary/20 data-[state=open]:border-primary/25 data-[state=open]:bg-primary-50/40 transition-all duration-200 overflow-hidden"
                 >
                   <AccordionTrigger className="px-5 py-4 text-[15px] font-semibold text-text-base hover:no-underline hover:text-primary data-[state=open]:text-primary rounded-none border-none transition-colors">
-                    <span className="flex items-start gap-3.5 pr-2.5">
-                      <SectionNumeral n={i + 1} className="text-meta shrink-0 mt-0.5" />
+                    {/*
+                      items-baseline, not items-start: the numeral is Fraunces
+                      and the question is Manrope, and the two fonts' internal
+                      metrics differ enough that aligning their box tops left the
+                      numeral sitting visibly above the question's baseline. This
+                      also holds correctly if a question wraps to a second line —
+                      baseline alignment uses the first line only.
+                    */}
+                    <span className="flex items-baseline gap-3.5 pr-2.5">
+                      <SectionNumeral n={i + 1} className="text-meta shrink-0" />
                       {faq.question}
                     </span>
                   </AccordionTrigger>
