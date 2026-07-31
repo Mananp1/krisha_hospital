@@ -1,32 +1,33 @@
 import { useTranslations } from 'next-intl';
 import { ArrowRightIcon } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
-import { cn } from '@/lib/utils';
-import {
-  featuredServices,
-  serviceGroups,
-  servicesInGroup,
-} from '@/app/data/services';
+import { services } from '@/app/data/services';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
 /**
- * Thirteen services, no longer thirteen identical cards.
+ * All thirteen services as one unified panel, not a grid of separate floating
+ * cards. Icons added noise, not meaning — "cervical cerclage" and "family
+ * planning" don't have a distinct glyph that tells a visitor anything the
+ * title doesn't already say — so this reads on title + description alone.
  *
- * Five specialities take large bento cells — the first one wide — and the
- * remaining eight sit in a compact grid grouped by care pathway. Nothing is
- * hidden or removed; every service is still one click away. Only the hierarchy
- * changed, so a visitor can tell at a glance what the hospital is known for.
+ * The first service takes its own full-width row rather than a partial span:
+ * 13 is prime, so any card spanning less than the full grid width leaves an
+ * uneven last row at *some* breakpoint. A full-width banner leaves exactly
+ * twelve behind it, and 12 divides cleanly by 1, 2, 3 and 4 columns — every
+ * breakpoint's grid is a complete rectangle, nothing trails off short.
  *
- * No imagery on the featured cards: the photo library is facility shots, and
- * captioning a waiting room as "Pregnancy & Maternity Care" would be
- * misleading. Strong icons carry them instead.
+ * No gaps between cells: a single bordered panel (border-t/border-l on the
+ * container, border-r/border-b on every cell) reads as one continuous
+ * structure with hairline dividers, rather than a scattered set of separately
+ * elevated cards. Each cell contributes only its own right and bottom edge,
+ * so no internal boundary ever draws twice.
  */
 export default function Services() {
   const t = useTranslations('servicesSection');
+  const [banner, ...rest] = services;
 
   return (
-    // Bottom 15% blends toward DoctorProfile's bg-surface-subtle.
     <section id="services" className="w-full bg-linear-to-b from-surface from-85% to-surface-subtle py-section-sm lg:py-section">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <SectionHeader
@@ -37,80 +38,49 @@ export default function Services() {
           maxWidth={620}
         />
 
-        {/* ── Featured five ── */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-          {featuredServices.map(({ slug, Icon }, i) => (
-            <FadeIn
-              key={slug}
-              direction="up"
-              delay={i < 3 ? i * 0.06 : 0}
-              /* The first card spans two columns, so five cards fill two rows
-                 of three exactly — 2+1 then 1+1+1. */
-              className={cn(i === 0 && 'lg:col-span-2')}
+        <div className="mt-12 border-t border-l border-border-muted rounded-lg overflow-hidden">
+          {/* ── Banner — the flagship speciality, its own full-width row ── */}
+          <FadeIn direction="up">
+            <Link
+              href={`/services/${banner.slug}`}
+              className="group flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-10 border-r border-b border-border-muted bg-surface p-7 lg:p-9 no-underline transition-colors hover:bg-primary-50/40 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-secondary"
             >
-              <Link
-                href={`/services/${slug}`}
-                className="group flex flex-col h-full p-7 lg:p-8 rounded-md bg-surface border border-border-muted no-underline transition-colors hover:border-primary/35 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
-              >
-                <div className="w-12 h-12 rounded-md bg-primary-50 text-primary flex items-center justify-center shrink-0 transition-colors group-hover:bg-primary group-hover:text-text-inverse">
-                  <Icon size={26} />
-                </div>
+              <h3 className="text-title font-semibold text-text-base leading-snug shrink-0 lg:w-80">
+                {t(`cards.${banner.slug}.title`)}
+              </h3>
+              <p className="text-meta text-text-muted lg:flex-1">
+                {t(`cards.${banner.slug}.desc`)}
+              </p>
+              <span className="inline-flex items-center gap-1.5 text-meta font-semibold text-secondary shrink-0">
+                {t('learnMore')}
+                <ArrowRightIcon size={13} className="transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          </FadeIn>
 
-                <h3
-                  className={cn(
-                    'mt-5 font-semibold text-text-base leading-snug',
-                    i === 0 ? 'text-title' : 'text-body',
-                  )}
+          {/* ── The remaining twelve ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            {rest.map((s, i) => (
+              <FadeIn key={s.slug} direction="up" delay={i < 4 ? i * 0.05 : 0}>
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="group flex flex-col h-full border-r border-b border-border-muted bg-surface p-7 no-underline transition-colors hover:bg-primary-50/40 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-secondary"
                 >
-                  {t(`cards.${slug}.title`)}
-                </h3>
-
-                <p className="mt-2 text-meta text-text-muted grow">
-                  {t(`cards.${slug}.desc`)}
-                </p>
-
-                <span className="mt-5 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary">
-                  {t('learnMore')}
-                  <ArrowRightIcon
-                    size={13}
-                    className="transition-transform group-hover:translate-x-0.5"
-                  />
-                </span>
-              </Link>
-            </FadeIn>
-          ))}
-        </div>
-
-        {/* ── The remaining eight, grouped by care pathway ── */}
-        <FadeIn direction="up" className="mt-12 pt-10 border-t border-border-muted">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            {serviceGroups.map((group) => (
-              <div key={group}>
-                <h3 className="text-label uppercase text-text-subtle">
-                  {t(`groups.${group}`)}
-                </h3>
-                <ul className="mt-4 flex flex-col gap-3">
-                  {servicesInGroup(group).map(({ slug, Icon }) => (
-                    <li key={slug}>
-                      <Link
-                        href={`/services/${slug}`}
-                        className="group flex items-start gap-2.5 text-meta text-text-base no-underline hover:text-secondary transition-colors"
-                      >
-                        <Icon
-                          size={17}
-                          className="mt-px shrink-0 text-primary/45 transition-colors group-hover:text-secondary"
-                        />
-                        <span className="leading-snug">
-                          {t(`cards.${slug}.title`)}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  <h3 className="text-body font-semibold text-text-base leading-snug">
+                    {t(`cards.${s.slug}.title`)}
+                  </h3>
+                  <p className="mt-2 text-meta text-text-muted grow">
+                    {t(`cards.${s.slug}.desc`)}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary">
+                    {t('learnMore')}
+                    <ArrowRightIcon size={13} className="transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              </FadeIn>
             ))}
           </div>
-        </FadeIn>
+        </div>
       </div>
     </section>
   );
