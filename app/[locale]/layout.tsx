@@ -31,11 +31,10 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     images: [
       {
-        url: '/gallery/reception-desk.jpg',
-        // Actual file dimensions — the previous 4000x1716 didn't match either
-        // this crop or the one it replaced, and a wrong aspect ratio here can
+        url: '/gallery/reception-desk-2.jpg',
+        // Keep in sync with the actual file — a wrong aspect ratio here can
         // make social crawlers render the preview cropped oddly.
-        width: 1821,
+        width: 1510,
         height: 1030,
         alt: "Reception desk at Krisha Women's Hospital, Narol Ahmedabad",
       },
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Krisha Women's Hospital",
     description: "Expert women's healthcare in Ahmedabad",
-    images: ['/gallery/reception-desk.jpg'],
+    images: ['/gallery/reception-desk-2.jpg'],
   },
 };
 

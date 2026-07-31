@@ -15,11 +15,12 @@ function heroImage(name: string) {
 }
 
 /**
- * 1821x1030 — the reception crop, straightened and tightened so the desk and
- * the "KRISHA WOMEN'S HOSPITAL" signage sit inside frame without the glass
- * door on the previous wide crop's right edge.
+ * 1510x1030 — third crop of the reception desk. Renamed (not overwritten)
+ * each time this file changes: browsers and next/image both cache by URL, so
+ * replacing the bytes under the same name leaves visitors seeing the old
+ * photo until the URL itself changes.
  */
-const backdrop = heroImage('reception-desk');
+const backdrop = heroImage('reception-desk-2');
 
 export default function Hero() {
   const t = useTranslations('hero');
@@ -59,14 +60,41 @@ export default function Hero() {
       />
 
       {/*
-        Legibility wash. Text sits on the opaque end, never on the photograph —
-        the copy column is capped well inside where the gradient is still solid,
-        so contrast does not depend on what the image happens to show. Mobile
-        gets a heavier tail because the column occupies more of the frame.
+        Left-to-right legibility wash, mobile-first. Below lg the copy column
+        runs close to full viewport width (max-w-xl caps it at 36rem, wider
+        than most phones and tablets), so the base wash stays fully opaque
+        almost edge to edge — the photo shows only as a sliver, if at all.
+        The previous version reused one set of stops everywhere and only
+        swapped in a lighter `sm:` floor at 640px, which is well inside
+        tablet width — that's what was letting the photo bleed through under
+        the text on anything narrower than a laptop.
+
+        Only at lg (1024px, where max-w-2xl becomes a much smaller fraction of
+        the viewport) does the wash pull back to reveal the desk on the right.
+        The end stop is `to-transparent`, not a tinted colour: `to-surface/55`
+        is a *floor* — the gradient holds at 55% opacity from that point to
+        the edge instead of clearing, so the whole right side sat under a
+        permanent haze instead of showing the photo untouched. transparent has
+        no such floor; once the fade reaches it, nothing is added past that
+        point, so the desk and signage render exactly as shot.
       */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-r from-surface from-15% via-surface/88 via-40% to-surface/20 to-68% sm:to-transparent"
+        className="absolute inset-0 pointer-events-none bg-linear-to-r from-surface via-surface via-88% to-surface/85 lg:from-34% lg:via-surface/60 lg:via-52% lg:to-transparent lg:to-70%"
+      />
+
+      {/*
+        Top-down wash, for the overlay navbar. The nav is transparent while
+        unscrolled (NavBar's `overlay` mode) and sits on whatever the backdrop
+        shows at the very top of the frame — this gives the logo and links a
+        consistent light backdrop instead of depending on ceiling lights or
+        dark fixtures landing directly behind them. Sized to the tallest nav
+        breakpoint (xl:h-27 = 108px) plus room to fade out before it reaches
+        the headline.
+      */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-56 pointer-events-none bg-linear-to-b from-surface/85 from-0% to-transparent to-100%"
       />
 
       {/* ── Copy ── */}

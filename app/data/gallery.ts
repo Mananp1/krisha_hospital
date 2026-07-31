@@ -32,7 +32,7 @@ export interface GalleryImage {
  */
 export const galleryImages: GalleryImage[] = [
   {
-    src: '/gallery/reception-desk.jpg',
+    src: '/gallery/reception-desk-2.jpg',
     alt: "Reception desk and patient waiting lounge at Krisha Women's Hospital, Narol",
     caption: 'Reception & Waiting Lounge',
     orientation: 'landscape',
