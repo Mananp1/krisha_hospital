@@ -68,7 +68,8 @@ export default function ContactPage() {
             <span className="text-text-base font-medium">Contact Us</span>
           </nav>
 
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary bg-secondary/10 mb-5">
+          {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary-600 bg-secondary/10 mb-5">
             Krisha Women&apos;s Hospital · Narol, Ahmedabad
           </span>
 

@@ -83,7 +83,7 @@ export default function ContactForm() {
             type="text"
             placeholder="e.g. Priya Shah"
             {...register('name')}
-            className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted/60 focus:outline-none focus:border-primary transition-colors"
+            className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
           />
           {errors.name && (
             <p className="text-[12px] text-destructive">{errors.name.message}</p>
@@ -99,7 +99,7 @@ export default function ContactForm() {
             type="tel"
             placeholder="+91 98765 43210"
             {...register('phone')}
-            className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted/60 focus:outline-none focus:border-primary transition-colors"
+            className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
           />
           {errors.phone && (
             <p className="text-[12px] text-destructive">{errors.phone.message}</p>
@@ -116,7 +116,7 @@ export default function ContactForm() {
           type="email"
           placeholder="you@example.com"
           {...register('email')}
-          className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted/60 focus:outline-none focus:border-primary transition-colors"
+          className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
         />
         {errors.email && (
           <p className="text-[12px] text-destructive">{errors.email.message}</p>
@@ -132,7 +132,7 @@ export default function ContactForm() {
           rows={5}
           placeholder="Describe your concern or what you'd like to book an appointment for..."
           {...register('message')}
-          className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted/60 focus:outline-none focus:border-primary transition-colors resize-none"
+          className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors resize-none"
         />
         {errors.message && (
           <p className="text-[12px] text-destructive">{errors.message.message}</p>

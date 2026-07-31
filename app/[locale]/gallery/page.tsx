@@ -30,7 +30,7 @@ export default function GalleryPage() {
         <div className="relative max-w-page mx-auto px-5 md:px-10 lg:px-gutter">
           <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-8 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-            <ChevronRightIcon size={13} className="text-text-muted/50 shrink-0" />
+            <ChevronRightIcon size={13} className="text-text-muted shrink-0" />
             <span className="text-text-base font-medium">Gallery</span>
           </nav>
 

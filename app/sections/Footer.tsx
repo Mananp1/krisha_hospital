@@ -175,7 +175,8 @@ export default function Footer() {
 
         <div className="border-t border-white/10" />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between py-6 gap-3 text-[13px] text-white/40">
+        {/* white/40 on primary-950 was 3.75:1 at 13px, under the 4.5:1 floor; /50 clears 5.32:1. */}
+        <div className="flex flex-col sm:flex-row items-center justify-between py-6 gap-3 text-[13px] text-white/50">
           <p>© 2026 Krisha Women&apos;s Hospital, Narol, Ahmedabad. All Rights Reserved.</p>
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="hover:text-white/70 transition-colors">Privacy Policy</Link>

@@ -48,7 +48,7 @@ type SortCol = 'name' | 'total' | 'last';
 type SortDir = 'asc' | 'desc';
 
 function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
-  if (!active) return <ChevronsUpDownIcon size={12} className="text-text-muted/40 shrink-0" />;
+  if (!active) return <ChevronsUpDownIcon size={12} className="text-text-muted shrink-0" />;
   if (dir === 'asc') return <ChevronUpIcon size={12} className="text-primary shrink-0" />;
   return <ChevronDownIcon size={12} className="text-primary shrink-0" />;
 }
@@ -258,8 +258,9 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
                             {patient.pending} pend
                           </span>
                         )}
+                        {/* red-600 on red-50 was 4.41:1 at this size, under the 4.5:1 floor; red-700 clears 5.91:1. */}
                         {patient.cancelled > 0 && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-red-50 text-red-600">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-red-50 text-red-700">
                             {patient.cancelled} canc
                           </span>
                         )}

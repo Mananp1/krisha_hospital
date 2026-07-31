@@ -21,7 +21,9 @@ export default function SectionHeader({
         className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-pill text-label uppercase border ${
           light
             ? 'bg-white/10 border-white/20 text-white/80'
-            : 'bg-secondary-50 border-secondary-200/70 text-secondary'
+            // secondary (#d92490) on secondary-50 was 4.13:1, under the 4.5:1
+            // floor at this 12px weight. secondary-600 clears 5.86:1.
+            : 'bg-secondary-50 border-secondary-200/70 text-secondary-600'
         }`}
       >
         {eyebrow}

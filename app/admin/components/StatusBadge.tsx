@@ -6,7 +6,9 @@ type BadgeStatus = AppointmentStatus | 'resolved' | 'unresolved';
 const styles: Record<BadgeStatus, string> = {
   pending:    'bg-amber-50   text-amber-700   border border-amber-200',
   confirmed:  'bg-emerald-50 text-emerald-700 border border-emerald-200',
-  cancelled:  'bg-red-50     text-red-600     border border-red-200',
+  // red-600 on red-50 was 4.41:1 at this 11px size, just under the 4.5:1
+  // floor; red-700 clears 5.91:1.
+  cancelled:  'bg-red-50     text-red-700     border border-red-200',
   resolved:   'bg-emerald-50 text-emerald-700 border border-emerald-200',
   unresolved: 'bg-orange-50  text-orange-700  border border-orange-200',
 };

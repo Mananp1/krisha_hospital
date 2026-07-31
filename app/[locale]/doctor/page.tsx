@@ -187,7 +187,7 @@ export default function DoctorPage() {
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-8 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-            <ChevronRightIcon size={13} className="text-text-muted/50 shrink-0" />
+            <ChevronRightIcon size={13} className="text-text-muted shrink-0" />
             <span className="text-text-base font-medium">Dr. Alhad Pande</span>
           </nav>
 
@@ -219,7 +219,8 @@ export default function DoctorPage() {
 
             {/* Info */}
             <div className="flex-1">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary bg-secondary/10 mb-4">
+              {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary-600 bg-secondary/10 mb-4">
                 FOGSI Member · Krisha Women&apos;s Hospital
               </span>
 
@@ -241,9 +242,10 @@ export default function DoctorPage() {
                     {q}
                   </Badge>
                 ))}
+                {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
                 <Badge
                   variant="outline"
-                  className="h-auto overflow-visible rounded-full px-3.5 py-1 text-[12.5px] font-bold bg-secondary/10 border-secondary/20 text-secondary"
+                  className="h-auto overflow-visible rounded-full px-3.5 py-1 text-[12.5px] font-bold bg-secondary/10 border-secondary/20 text-secondary-600"
                 >
                   Fellowship in ART &amp; Laparoscopy
                 </Badge>
@@ -395,7 +397,8 @@ export default function DoctorPage() {
                 <div className="flex flex-col gap-4">
                   {affiliations.map((a) => (
                     <div key={a.short} className="flex items-start gap-3">
-                      <span className="text-[11px] font-extrabold text-secondary bg-secondary/10 rounded-sm px-2 py-1 shrink-0 leading-none mt-0.5">
+                      {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
+                      <span className="text-[11px] font-extrabold text-secondary-600 bg-secondary/10 rounded-sm px-2 py-1 shrink-0 leading-none mt-0.5">
                         {a.short}
                       </span>
                       <div>

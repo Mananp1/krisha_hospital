@@ -63,9 +63,9 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1 text-[13px] text-text-muted mb-7 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-            <ChevronRightIcon size={13} className="text-text-muted/50 shrink-0" />
+            <ChevronRightIcon size={13} className="text-text-muted shrink-0" />
             <Link href="/#services" className="hover:text-primary transition-colors">Services</Link>
-            <ChevronRightIcon size={13} className="text-text-muted/50 shrink-0" />
+            <ChevronRightIcon size={13} className="text-text-muted shrink-0" />
             <span className="text-text-base font-medium">{data.shortTitle}</span>
           </nav>
 
@@ -78,7 +78,8 @@ export default function ServicePageLayout({ data }: { data: ServicePageData }) {
 
             {/* Eyebrow badge + title */}
             <div className="xl:col-start-1 xl:row-start-1">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary bg-secondary/10 mb-5">
+              {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary-600 bg-secondary/10 mb-5">
                 Krisha Women&apos;s Hospital · Narol, Ahmedabad
               </span>
 

@@ -79,7 +79,7 @@ export default function AdminLoginPage() {
                 autoComplete="email"
                 placeholder="you@krishahospital.com"
                 {...register('email')}
-                className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted/60 focus:outline-none focus:border-primary transition-colors"
+                className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
               />
               {errors.email && (
                 <p className="text-[12px] text-destructive">{errors.email.message}</p>
@@ -96,7 +96,7 @@ export default function AdminLoginPage() {
                 autoComplete="current-password"
                 placeholder="••••••••"
                 {...register('password')}
-                className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted/60 focus:outline-none focus:border-primary transition-colors"
+                className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
               />
               {errors.password && (
                 <p className="text-[12px] text-destructive">{errors.password.message}</p>

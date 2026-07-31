@@ -163,7 +163,8 @@ export default function PrivacyPolicyPage() {
               </p>
             </Section>
 
-            <p className="text-[12.5px] text-text-muted/70 italic leading-6 pt-4 border-t border-border-muted">
+            {/* muted/70 was 3.11:1 at this size, under the 4.5:1 floor; full opacity clears 5.94:1. */}
+            <p className="text-[12.5px] text-text-muted italic leading-6 pt-4 border-t border-border-muted">
               This page is provided as a general privacy notice and does not
               constitute legal advice. We recommend having it reviewed by a
               qualified legal professional to confirm compliance with applicable

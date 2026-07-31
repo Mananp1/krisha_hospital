@@ -60,7 +60,7 @@ type FormData = z.infer<typeof schema>;
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const inputClass =
-  'w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted/60 focus:outline-none focus:border-primary transition-colors';
+  'w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors';
 const labelClass = 'text-[13px] font-semibold text-text-base';
 const errorClass = 'text-[12px] text-destructive';
 

@@ -100,10 +100,16 @@
   /* ── Custom border tokens ───────────────────────────────── */
   --border-muted: #eae5fb;
 
-  /* ── Custom text tokens ─────────────────────────────────── */
+  /* ── Custom text tokens ─────────────────────────────────────
+     text-subtle was #9d8ec0 — 2.97:1 on white, 2.71:1 on surface-subtle,
+     both well under the 4.5:1 WCAG AA floor for normal text, and every
+     current use is a 12px uppercase label (too small to qualify for the
+     3:1 large-text allowance). Darkened to the lightest tint in this hue
+     that still clears 4.5:1 against surface-subtle, the tighter of the
+     two backgrounds it sits on (5.36:1 white / 4.88:1 surface-subtle).  */
   --text-base:    #1a1028;
   --text-muted:   #6b5c8c;
-  --text-subtle:  #9d8ec0;
+  --text-subtle:  #726393;
   --text-inverse: #ffffff;
 
   /* ── Typography ─────────────────────────────────────────────

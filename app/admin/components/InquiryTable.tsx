@@ -48,7 +48,7 @@ type SortCol = 'date' | 'name' | 'status';
 type SortDir = 'asc' | 'desc';
 
 function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
-  if (!active) return <ChevronsUpDownIcon size={12} className="text-text-muted/40 shrink-0" />;
+  if (!active) return <ChevronsUpDownIcon size={12} className="text-text-muted shrink-0" />;
   if (dir === 'asc') return <ChevronUpIcon size={12} className="text-primary shrink-0" />;
   return <ChevronDownIcon size={12} className="text-primary shrink-0" />;
 }
