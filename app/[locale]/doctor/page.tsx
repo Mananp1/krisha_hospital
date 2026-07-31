@@ -204,16 +204,6 @@ export default function DoctorPage() {
                   className="object-cover object-top z-10"
                   priority
                 />
-                <div className="absolute z-20 flex items-center gap-2 px-3 py-2 rounded-full bg-primary top-5 left-5">
-                  <div className="w-2 h-2 rounded-full bg-green-400 flex-shrink-0" />
-                  <span className="text-text-inverse font-semibold text-[13px] whitespace-nowrap">
-                    Available for Consultation
-                  </span>
-                </div>
-              </div>
-              <div className="absolute right-0 bottom-0 z-20 flex flex-col items-center justify-center bg-secondary rounded-lg px-5 py-4 shadow-float">
-                <span className="font-extrabold text-text-inverse text-[28px] leading-none">20+</span>
-                <span className="text-text-inverse text-center text-[11px] mt-0.5">Years of care</span>
               </div>
             </div>
 

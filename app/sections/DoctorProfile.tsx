@@ -56,16 +56,6 @@ export default function DoctorProfile() {
               priority
             />
           </div>
-
-          {/* Experience marker, set in the display face like the stats band. */}
-          <div className="absolute left-0 bottom-6 bg-surface px-5 py-3.5 rounded-md shadow-card">
-            <span className="block font-display text-display-sm text-primary leading-none tabular-nums">
-              20+
-            </span>
-            <span className="block mt-1 text-label uppercase text-text-muted">
-              {t('yearsOfCare')}
-            </span>
-          </div>
         </FadeIn>
 
         {/* ── Editorial column ── */}
