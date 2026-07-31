@@ -99,14 +99,17 @@ export default function Hero() {
 
       {/*
         Bottom-up wash, so the section blends into Services instead of the
-        photo cutting straight to a flat white edge. Short — this only needs
-        to soften the seam, not cover meaningful photo — and lands on plain
-        `surface`, matching Services' own top colour exactly so the join is
-        invisible rather than landing on a second, slightly different white.
+        photo cutting straight to a flat white edge. h-24/h-32 read as an
+        abrupt line rather than a fade — Hero runs 640-800px+ tall, so that
+        was only 3-5% of the section's own height, far too thin a band for a
+        full-colour photo dissolving into flat white. Sized much closer to
+        the top nav-legibility fade instead. Lands on plain `surface`,
+        matching Services' own top colour exactly, so the join is invisible
+        rather than landing on a second, slightly different white.
       */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-24 lg:h-32 pointer-events-none bg-linear-to-t from-surface to-transparent"
+        className="absolute inset-x-0 bottom-0 h-48 lg:h-72 pointer-events-none bg-linear-to-t from-surface to-transparent"
       />
 
       {/* ── Copy ── */}

@@ -49,8 +49,16 @@ const faqs: FaqItem[] = [
 
 export default function FAQ() {
   return (
-    // Bottom 15% blends toward CTAStrip's bg-primary.
-    <section className="w-full bg-linear-to-b from-surface from-85% to-primary py-section-sm lg:py-section">
+    /*
+      Bottom 45% blends toward CTAStrip's bg-primary, not 15% — the same
+      problem as CTAStrip's own fix: 15% was tuned for the light-to-light and
+      dark-to-dark seams elsewhere, which are a small colour step. White to
+      deep plum is a much bigger jump, so the same narrow band read as an
+      abrupt line instead of a fade. The extra room pushes the visible start
+      of the blend up past the last accordion item, but at low opacity that
+      just reads as gentle ambient darkening behind the cards, not a seam.
+    */
+    <section className="w-full bg-linear-to-b from-surface from-55% to-primary py-section-sm lg:py-section">
       <div className="max-w-page mx-auto px-5 lg:px-gutter">
         <div className="flex flex-col lg:flex-row lg:gap-16 lg:items-start">
 
