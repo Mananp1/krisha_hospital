@@ -19,6 +19,17 @@ import SectionHeader from './SectionHeader';
  * The order is derived deterministically from translated copy, so it remains
  * stable for each locale and never reshuffles after hydration.
  */
+/**
+ * Token names, not colours — MotionGroup resolves them from the document, so
+ * the palette stays in globals.css. Module scope keeps the object identity
+ * stable; inline it would be a new object every render and re-run the hook.
+ */
+const CARD_FILL = {
+  from: '--surface',
+  mid: '--primary-400',
+  to: '--primary',
+} as const;
+
 const responsiveSpanClasses = [
   'lg:col-span-4 xl:col-span-3',
   'lg:col-span-4 xl:col-span-3',
@@ -86,6 +97,7 @@ export default function Services() {
           */}
           <MotionGroup
             hover
+            fill={CARD_FILL}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-px bg-border-muted"
           >
             {orderedServices.map(({ slug, title, description }, index) => (
@@ -93,35 +105,67 @@ export default function Services() {
                 key={slug}
                 data-motion-item
                 /*
-                  No background on this wrapper — deliberately.
+                  `relative` is load-bearing, not decoration.
 
-                  It used to carry `bg-surface` while the Link inside carried
-                  its own, so two backgrounds were stacked on the element
-                  being scaled. On hover the Link turns dark while this stayed
-                  white, and sub-pixel rounding of the scaled box let a
-                  hairline of that white show past the Link's edge: the flash
-                  of white border during the scale. The Link already fills
-                  this wrapper (`h-full`, block-level), so the wrapper's own
-                  background was never visible except as that artifact.
+                  Grid items paint in DOM order, so when a hovered card grows
+                  it slides *under* the card to its right (later in the DOM)
+                  while correctly covering the one to its left — which showed
+                  up as a pale edge on the right side only, the neighbour's
+                  own background cutting across the scaled card. The seam
+                  colour is #eae5fb, near enough to white to read as one.
+
+                  GSAP raises z-index on hover, but a static grid item is an
+                  unreliable place to apply it. Positioning the cell makes the
+                  stacking explicit, so the hovered card is above both
+                  neighbours regardless of document order.
+
+                  No background here on purpose either: the Link fills this
+                  wrapper, so a second background underneath it can only ever
+                  surface as a rounding artifact along the edges.
                 */
                 className={cn(
-                  'min-w-0 h-full',
+                  'relative min-w-0 h-full',
                   responsiveSpanClasses[index],
                 )}
               >
                 <Link
                   href={`/services/${slug}`}
-                  className="group relative z-0 flex flex-col h-full p-5 md:p-6 xl:p-7 bg-surface no-underline transition-[background-color,box-shadow] duration-200 hover:z-10 hover:bg-primary hover:ring-1 hover:ring-inset hover:ring-primary focus-visible:z-20 focus-visible:outline-none focus-visible:bg-primary focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+                  // Stacking is handled by the wrapper above, which is the
+                  // element that actually scales; z-index here only ever
+                  // applied inside this card's own context.
+                  data-motion-surface
+                  /*
+                    `background-color` is deliberately absent from the
+                    transition list: GSAP drives the fill through a pale
+                    stage, and a CSS transition on the same property would
+                    transition each of its per-frame writes, blurring the two
+                    stages into one and fighting its easing.
+
+                    `hover:bg-primary` stays as the no-JS / reduced-motion /
+                    coarse-pointer fallback. Where GSAP does run it claims the
+                    property inline on mount, which outranks this class.
+                  */
+                  className="group flex flex-col h-full p-5 md:p-6 xl:p-7 bg-surface no-underline transition-[box-shadow] duration-200 hover:bg-primary hover:ring-1 hover:ring-inset hover:ring-primary focus-visible:outline-none focus-visible:bg-primary focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
                 >
-                  <h3 className="text-body font-semibold text-text-base leading-snug transition-colors duration-200 group-hover:text-text-inverse group-focus-visible:text-text-inverse">
+                  {/*
+                    Text waits for the fill to be well underway before it
+                    flips. These delays are measured from pointer-enter,
+                    where the GSAP timings are measured from the end of the
+                    intent delay — so they carry that 90ms too:
+                    90 intent + 80 fill offset + 70 rise ≈ 240ms, the point
+                    the background is dark enough for inverted text to be
+                    legible. Flipping any earlier puts white text on a card
+                    that is still nearly white.
+                  */}
+                  <h3 className="text-body font-semibold text-text-base leading-snug transition-colors duration-150 delay-[80ms] group-hover:delay-[240ms] group-hover:text-text-inverse group-focus-visible:text-text-inverse">
                     {title}
                   </h3>
 
-                  <p className="mt-2 text-meta text-text-muted leading-relaxed grow transition-colors duration-200 group-hover:text-text-inverse/85 group-focus-visible:text-text-inverse/85">
+                  <p className="mt-2 text-meta text-text-muted leading-relaxed grow transition-colors duration-150 delay-[80ms] group-hover:delay-[240ms] group-hover:text-text-inverse/85 group-focus-visible:text-text-inverse/85">
                     {description}
                   </p>
 
-                  <span className="mt-5 min-h-11 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary transition-colors duration-200 group-hover:text-text-inverse group-focus-visible:text-text-inverse">
+                  <span className="mt-5 min-h-11 inline-flex items-center gap-1.5 text-meta font-semibold text-secondary transition-colors duration-150 delay-[80ms] group-hover:delay-[240ms] group-hover:text-text-inverse group-focus-visible:text-text-inverse">
                     {t('learnMore')}
                     {/*
                       No CSS transform here: MotionGroup animates this

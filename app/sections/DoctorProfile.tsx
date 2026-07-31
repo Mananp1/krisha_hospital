@@ -114,7 +114,7 @@ export default function DoctorProfile() {
               <span
                 key={tag}
                 data-motion-item
-                className="rounded-sm border border-border-muted bg-surface px-2.5 py-1 text-meta font-medium text-primary-700 transition-colors duration-200 hover:border-primary/30 hover:bg-primary-50"
+                className="rounded-sm border border-border-muted bg-surface px-2.5 py-1 text-meta font-medium text-primary-700 transition-colors duration-200 delay-[60ms] hover:delay-[90ms] hover:border-primary/30 hover:bg-primary-50"
               >
                 {tag}
               </span>
