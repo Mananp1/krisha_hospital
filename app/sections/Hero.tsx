@@ -44,12 +44,19 @@ export default function Hero() {
         sizes="100vw"
         priority
         /*
-          The reception desk and its branded backdrop sit at roughly 35–65%
-          across the source frame; the right quarter is a glass door and a PULL
-          sign. At 72% the crop landed squarely on the door, so this pulls back
-          to keep the desk in the open right-hand half.
+          The desk sits at roughly 35–65% across the source frame.
+
+          Wide: anchored hard left. The copy wash covers the left half of the
+          viewport, so at 42% the desk still landed underneath it and only the
+          glass door and PULL sign showed. Pinning left slides the whole frame
+          right, clearing the desk of the wash and dropping the door off the
+          right edge entirely.
+
+          Narrow: centred. A tall viewport crops this 2400x1030 frame to a thin
+          vertical slice, and the left edge of that slice is a notice board —
+          centring lands the slice on the desk instead.
         */
-        className="object-cover object-[42%_center]"
+        className="object-cover object-center sm:object-left"
       />
 
       {/*
@@ -60,7 +67,7 @@ export default function Hero() {
       */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-linear-to-r from-surface from-20% via-surface/90 via-48% to-surface/30 to-80% sm:to-transparent"
+        className="absolute inset-0 bg-linear-to-r from-surface from-15% via-surface/88 via-40% to-surface/20 to-68% sm:to-transparent"
       />
 
       {/* ── Copy ── */}
@@ -76,11 +83,13 @@ export default function Hero() {
             <span className="block text-secondary">{t('titleLine2')}</span>
           </h1>
 
-          <p className="mt-5 text-lead text-text-muted max-w-measure">
-            {t('lead')}
-          </p>
-
-          <div className="flex items-center gap-3 mt-8 flex-wrap">
+          {/*
+            No lead paragraph. The headline carries the promise on its own, and
+            dropping it lets the wash pull back far enough for the reception
+            desk to read. `hero.lead` stays in all three catalogues — it is
+            still used by the page metadata description.
+          */}
+          <div className="flex items-center gap-3 mt-9 flex-wrap">
             <Button
               variant="secondary"
               asChild

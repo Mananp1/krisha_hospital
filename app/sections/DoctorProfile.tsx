@@ -7,7 +7,6 @@ import { Badge } from '@/components/ui/badge';
 import SectionHeader from './SectionHeader';
 import FadeIn from './FadeIn';
 
-const WHATSAPP = 'https://wa.me/917862950676';
 const PHONE = 'tel:+917862950676';
 
 /**
@@ -132,20 +131,16 @@ export default function DoctorProfile() {
             ))}
           </dl>
 
+          {/*
+            No "Book appointment" here. The home page had seven routes to the
+            same WhatsApp thread; this section's job is trust, and the booking
+            CTA is one scroll away in the closing strip.
+          */}
           <div className="flex items-center gap-3 mt-8 flex-wrap">
             <Button
               variant="secondary"
               asChild
               className="rounded-md px-6 py-3 h-auto text-body font-semibold hover:bg-secondary-600 shadow-none"
-            >
-              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">
-                {t('bookAppointment')}
-              </a>
-            </Button>
-            <Button
-              variant="outline"
-              asChild
-              className="rounded-md px-6 py-3 h-auto text-body font-semibold border border-primary/30 text-primary hover:bg-primary hover:text-text-inverse shadow-none"
             >
               <a href={PHONE}>{t('callNow')}</a>
             </Button>

@@ -4,9 +4,12 @@ import { useTranslations } from 'next-intl';
 import { MapPinIcon, PhoneIcon, MailIcon, ClockIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
 
+/*
+  No "Book Appointment" entry: the closing CTA strip sits directly above the
+  footer with the same WhatsApp link, so the two were adjacent duplicates.
+*/
 const quickLinks = [
   { label: 'Find a Doctor', href: '/#doctor' },
-  { label: 'Book Appointment', href: 'https://wa.me/917862950676' },
   { label: 'Our Services', href: '/#services' },
   { label: 'Hospital Gallery', href: '/gallery' },
   { label: 'Contact Us', href: '/#contact' },
