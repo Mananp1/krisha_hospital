@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ChevronRightIcon, ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import ContactForm from '@/app/sections/ContactForm';
 
 export const metadata: Metadata = {
@@ -58,25 +58,35 @@ const contactCards = [
 export default function ContactPage() {
   return (
     <>
-      {/* ── Hero ── */}
-      <section className="w-full bg-surface-subtle border-b border-border-muted py-section-sm lg:py-section">
+      {/*
+        ── Hero ──
+        Tight bottom padding, not the full section rhythm. This block and
+        the form below it are both `surface-subtle` and read as one unit, so
+        stacking a full `py-section` on each put roughly 224px of empty
+        space between the headline and the form it introduces.
+      */}
+      <section className="w-full bg-surface-subtle border-b border-border-muted pt-section-sm lg:pt-section pb-10 lg:pb-14">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
 
-          <nav className="flex items-center gap-1.5 text-[13px] text-text-muted mb-6 flex-wrap">
+          <nav className="flex items-center gap-1.5 text-meta text-text-muted mb-6 flex-wrap">
             <Link href="/" className="hover:text-primary transition-colors">Home</Link>
             <ChevronIcon />
             <span className="text-text-base font-medium">Contact Us</span>
           </nav>
 
-          {/* secondary on secondary/10 was 3.92:1 at this size; secondary-600 clears 5.56:1. */}
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[12px] font-semibold text-secondary-600 bg-secondary/10 mb-5">
+          {/*
+            Flat eyebrow, matching SectionHeader and the service pages. The
+            tinted pill this replaced predates the redesign and was the last
+            one left outside the doctor page.
+          */}
+          <span className="inline-flex text-label uppercase text-primary mb-3">
             Krisha Women&apos;s Hospital · Narol, Ahmedabad
           </span>
 
-          <h1 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold text-text-base leading-tight mb-4">
+          <h1 className="font-display text-display-lg text-text-base text-balance">
             We&apos;re here for you — reach out anytime
           </h1>
-          <p className="text-[15px] lg:text-[16px] text-text-muted leading-[27px] max-w-[620px]">
+          <p className="mt-4 text-body text-text-muted max-w-measure">
             Whether you want to book an appointment, ask about a service, or simply need to speak
             with our care team — we&apos;re always a call or message away.
           </p>
@@ -84,14 +94,14 @@ export default function ContactPage() {
       </section>
 
       {/* ── Form + Contact Details — bottom 15% blends toward the map's bg-surface ── */}
-      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface py-section-sm lg:py-section">
+      <section className="w-full bg-linear-to-b from-surface-subtle from-85% to-surface pt-10 lg:pt-14 pb-section-sm lg:pb-section">
         <div className="max-w-page mx-auto px-5 lg:px-gutter">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 
             {/* Left — Form */}
             <div>
-              <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base mb-2">Send us a message</h2>
-              <p className="text-[14px] text-text-muted mb-7 leading-[23px]">
+              <h2 className="font-display text-display-sm text-text-base">Send us a message</h2>
+              <p className="mt-2 mb-7 text-meta text-text-muted leading-relaxed">
                 Fill in the form and we will get back to you shortly. Fields marked <span className="text-secondary font-semibold">*</span> are required.
               </p>
               <ContactForm />
@@ -99,25 +109,29 @@ export default function ContactPage() {
 
             {/* Right — Contact details */}
             <div className="flex flex-col gap-4">
-              <h2 className="text-[22px] lg:text-[26px] font-bold text-text-base mb-1">Contact details</h2>
+              <h2 className="font-display text-display-sm text-text-base mb-1">Contact details</h2>
               {contactCards.map((card) => (
                 <div key={card.label} className="bg-surface rounded-lg p-5 border border-border-muted flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-primary-100 text-primary flex items-center justify-center shrink-0">
+                  {/*
+                    rounded-md, per the radius ladder — `xl` is reserved for
+                    image panels, and this is a small control.
+                  */}
+                  <div className="w-11 h-11 rounded-md bg-primary-100 text-primary flex items-center justify-center shrink-0">
                     {card.icon}
                   </div>
-                  <div>
-                    <p className="text-[11.5px] font-bold uppercase tracking-[1px] text-text-muted mb-0.5">{card.label}</p>
+                  <div className="min-w-0">
+                    <p className="text-label uppercase text-text-subtle mb-1">{card.label}</p>
                     {card.href ? (
                       <a
                         href={card.href}
-                        className="font-bold text-[14px] text-text-base hover:text-primary transition-colors leading-snug block"
+                        className="block text-meta font-semibold text-text-base hover:text-primary transition-colors leading-snug"
                       >
                         {card.primary}
                       </a>
                     ) : (
-                      <p className="font-bold text-[14px] text-text-base leading-snug">{card.primary}</p>
+                      <p className="text-meta font-semibold text-text-base leading-snug">{card.primary}</p>
                     )}
-                    <p className="text-[12.5px] text-text-muted leading-[19px] mt-0.5">{card.secondary}</p>
+                    <p className="mt-1 text-meta text-text-muted leading-relaxed">{card.secondary}</p>
                   </div>
                 </div>
               ))}
@@ -147,14 +161,14 @@ export default function ContactPage() {
             />
           </div>
           <div className="flex items-center justify-between mt-3 flex-wrap gap-2">
-            <p className="text-[13px] text-text-muted">
+            <p className="text-meta text-text-muted">
               231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road, Narol, Ahmedabad — 382405
             </p>
             <a
               href="https://maps.app.goo.gl/yyAN6pwSQYNny7v18"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] font-semibold text-primary hover:underline underline-offset-2 shrink-0"
+              className="text-meta font-semibold text-primary hover:underline underline-offset-2 shrink-0"
             >
               Open in Google Maps →
             </a>
