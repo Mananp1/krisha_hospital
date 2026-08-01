@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { PhoneIcon, MailIcon, ClockIcon } from 'lucide-react';
+import LocaleSwitcher from './LocaleSwitcher';
 
 export default function TopBar() {
   return (
@@ -36,6 +37,8 @@ export default function TopBar() {
             <ClockIcon size={13} />
             Mon–Sat 8AM–8PM
           </span>
+          <span aria-hidden="true" className="hidden sm:block h-4 w-px bg-white/25" />
+          <LocaleSwitcher />
         </div>
       </div>
     </div>

@@ -1,7 +1,10 @@
+import TopBar from '@/app/sections/TopBar';
 import NavBar from '@/app/sections/NavBar';
 import Hero from '@/app/sections/Hero';
 import Services from '@/app/sections/Services';
 import DoctorProfile from '@/app/sections/DoctorProfile';
+import Team from '@/app/sections/Team';
+import RevealBand from '@/app/sections/RevealBand';
 import HospitalGallery from '@/app/sections/HospitalGallery';
 import Testimonials from '@/app/sections/Testimonials';
 import FAQ from '@/app/sections/FAQ';
@@ -12,15 +15,18 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen">
       {/*
-        No TopBar here: the bar floats transparently over the hero photograph,
-        which a solid contact strip above it would break. The number stays one
-        tap away in the bar itself, on the WhatsApp FAB and in the footer.
-        Every other route keeps the TopBar and the solid nav.
+        Solid header, same as every other route: the plum contact strip over a
+        solid nav. The hero photograph starts cleanly below it rather than
+        running behind a transparent bar, which kept the white-plated logo and
+        the nav links from having to hold contrast against the changing image.
       */}
-      <NavBar overlay />
+      <TopBar />
+      <NavBar />
       <Hero />
       <Services />
       <DoctorProfile />
+      <Team />
+      <RevealBand />
       <HospitalGallery />
       <Testimonials />
       <FAQ />

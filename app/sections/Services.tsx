@@ -1,5 +1,21 @@
 import { useTranslations } from 'next-intl';
-import { ArrowRightIcon } from 'lucide-react';
+import {
+  ArrowRightIcon,
+  BabyIcon,
+  ShieldPlusIcon,
+  ScanLineIcon,
+  SparklesIcon,
+  MicroscopeIcon,
+  HeartPulseIcon,
+  ShieldIcon,
+  StethoscopeIcon,
+  HeartHandshakeIcon,
+  Flower2Icon,
+  RibbonIcon,
+  CalendarHeartIcon,
+  FlowerIcon,
+  type LucideIcon,
+} from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { services } from '@/app/data/services';
 import { cn } from '@/lib/utils';
@@ -29,6 +45,28 @@ const CARD_FILL = {
   mid: '--primary-400',
   to: '--primary',
 } as const;
+
+/**
+ * One line-art glyph per service, keyed by slug. A single hairline weight
+ * (normalised globally on `.lucide`) keeps them consistent with the logo, and
+ * each sits in a soft primary tile that inverts to white when the card fills
+ * on hover — so the icon reads as part of the same surface, not a sticker.
+ */
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  'pregnancy-maternity-care': BabyIcon,
+  'high-risk-pregnancy': ShieldPlusIcon,
+  'antenatal-gynecological-sonography': ScanLineIcon,
+  'infertility-treatment': SparklesIcon,
+  'laparoscopic-hysteroscopic-surgery': MicroscopeIcon,
+  'painless-vaginal-delivery': HeartPulseIcon,
+  'cervical-cerclage': ShieldIcon,
+  'tuboplasty-fertility-procedures': StethoscopeIcon,
+  'preconception-counseling': HeartHandshakeIcon,
+  'adolescent-gynecology': Flower2Icon,
+  'cervical-cancer-screening': RibbonIcon,
+  'family-planning-contraceptive-counseling': CalendarHeartIcon,
+  'menopause-consultation': FlowerIcon,
+};
 
 const responsiveSpanClasses = [
   'lg:col-span-4 xl:col-span-3',
@@ -100,7 +138,9 @@ export default function Services() {
             fill={CARD_FILL}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-px bg-border-muted"
           >
-            {orderedServices.map(({ slug, title, description }, index) => (
+            {orderedServices.map(({ slug, title, description }, index) => {
+              const Icon = SERVICE_ICONS[slug];
+              return (
               <div
                 key={slug}
                 data-motion-item
@@ -147,6 +187,15 @@ export default function Services() {
                   */
                   className="group flex flex-col h-full p-5 md:p-6 xl:p-7 bg-surface no-underline transition-[box-shadow] duration-200 hover:bg-primary hover:ring-1 hover:ring-inset hover:ring-primary focus-visible:outline-none focus-visible:bg-primary focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
                 >
+                  {Icon && (
+                    <span
+                      aria-hidden="true"
+                      className="mb-4 grid size-11 place-items-center rounded-xl bg-primary-50 text-primary ring-1 ring-primary-100 transition-colors duration-150 delay-[80ms] group-hover:delay-[240ms] group-hover:bg-white/15 group-hover:text-text-inverse group-hover:ring-white/25 group-focus-visible:bg-white/15 group-focus-visible:text-text-inverse group-focus-visible:ring-white/25"
+                    >
+                      <Icon size={22} />
+                    </span>
+                  )}
+
                   {/*
                     Text waits for the fill to be well underway before it
                     flips. These delays are measured from pointer-enter,
@@ -183,7 +232,8 @@ export default function Services() {
                   </span>
                 </Link>
               </div>
-            ))}
+              );
+            })}
           </MotionGroup>
         </div>
       </div>

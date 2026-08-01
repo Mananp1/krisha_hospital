@@ -10,6 +10,21 @@ interface HeroMotionProps {
   className?: string;
 }
 
+/**
+ * The home page opening move. A cinematic settle on the full-bleed backdrop
+ * behind a staged reveal of the copy:
+ *
+ *   backdrop  slow scale-down from enlarged (a "Ken Burns" open)
+ *   overlay   fades up with it
+ *   headline  each line wipes up from behind its own mask — the
+ *             `[data-hero-line]` spans live inside `overflow-hidden`
+ *             wrappers, so `yPercent` reads as a reveal, not a slide
+ *   eyebrow   rides the same reveal (it has no mask, so it just lifts in)
+ *   cta/stats settle up last
+ *
+ * Deliberately not a uniform fade on everything: the masked lines and the
+ * expo ease are what stop it reading as a generic template entrance.
+ */
 export default function HeroMotion({ children, className }: HeroMotionProps) {
   const scope = useRef<HTMLElement>(null);
 
@@ -22,7 +37,9 @@ export default function HeroMotion({ children, className }: HeroMotionProps) {
 
       media.add('(prefers-reduced-motion: reduce)', () => {
         gsap.set(
-          root.querySelectorAll('[data-hero-image], [data-hero-line], [data-hero-stat]'),
+          root.querySelectorAll(
+            '[data-hero-backdrop], [data-hero-overlay], [data-hero-line], [data-hero-stat]',
+          ),
           { clearProps: 'all' },
         );
       });
@@ -39,42 +56,35 @@ export default function HeroMotion({ children, className }: HeroMotionProps) {
           };
           if (!conditions.motionAllowed) return;
 
-          const image = root.querySelector<HTMLElement>(
-            conditions.desktop
-              ? '[data-hero-image="desktop"]'
-              : '[data-hero-image="mobile"]',
-          );
-          const copy = root.querySelector<HTMLElement>(
-            conditions.desktop
-              ? '[data-hero-copy="desktop"]'
-              : '[data-hero-copy="mobile"]',
-          );
+          const backdrop = root.querySelector<HTMLElement>('[data-hero-backdrop]');
+          const overlay = root.querySelector<HTMLElement>('[data-hero-overlay]');
+          const copy = root.querySelector<HTMLElement>('[data-hero-copy]');
           if (!copy) return;
 
           const lines = copy.querySelectorAll<HTMLElement>('[data-hero-line]');
           const stats = copy.querySelectorAll<HTMLElement>('[data-hero-stat]');
-          // Shared with every other entry animation. This was a literal
-          // 0.78 — a third copy of the splash delay that the config change
-          // would have silently left behind.
           const timeline = gsap.timeline({ delay: motion.routeEntryDelay });
 
-          if (image) {
+          if (backdrop) {
+            // A long, slow settle from enlarged — cinematic rather than a pop.
             timeline.fromTo(
-              image,
-              {
-                autoAlpha: 0,
-                scale: conditions.desktop ? 1.035 : 1.02,
-                clipPath: conditions.desktop
-                  ? 'inset(0 0 0 10%)'
-                  : 'inset(8% 0 0 0)',
-              },
+              backdrop,
+              { autoAlpha: 0, scale: conditions.desktop ? 1.16 : 1.1 },
               {
                 autoAlpha: 1,
                 scale: 1,
-                clipPath: 'inset(0 0 0 0)',
-                duration: motion.duration.image,
-                ease: motion.ease.enter,
+                duration: 1.7,
+                ease: 'power2.out',
               },
+              0,
+            );
+          }
+
+          if (overlay) {
+            timeline.fromTo(
+              overlay,
+              { autoAlpha: 0 },
+              { autoAlpha: 1, duration: 0.9, ease: 'power2.out' },
               0,
             );
           }
@@ -82,29 +92,29 @@ export default function HeroMotion({ children, className }: HeroMotionProps) {
           timeline
             .fromTo(
               lines,
-              { autoAlpha: 0, y: conditions.desktop ? 28 : 18 },
+              { yPercent: 118, autoAlpha: 0 },
               {
+                yPercent: 0,
                 autoAlpha: 1,
-                y: 0,
-                duration: motion.duration.base,
-                stagger: motion.stagger.tight,
-                ease: motion.ease.enter,
-                clearProps: 'opacity,visibility,transform',
-              },
-              0.12,
-            )
-            .fromTo(
-              stats,
-              { autoAlpha: 0, y: 12 },
-              {
-                autoAlpha: 1,
-                y: 0,
-                duration: motion.duration.base,
-                stagger: motion.stagger.tight,
-                ease: motion.ease.enter,
+                duration: 0.95,
+                stagger: 0.11,
+                ease: 'expo.out',
                 clearProps: 'opacity,visibility,transform',
               },
               0.4,
+            )
+            .fromTo(
+              stats,
+              { y: conditions.desktop ? 26 : 18, autoAlpha: 0 },
+              {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.7,
+                stagger: 0.09,
+                ease: 'power3.out',
+                clearProps: 'opacity,visibility,transform',
+              },
+              0.95,
             );
         },
       );
@@ -120,4 +130,3 @@ export default function HeroMotion({ children, className }: HeroMotionProps) {
     </section>
   );
 }
-

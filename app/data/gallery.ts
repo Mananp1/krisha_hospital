@@ -106,11 +106,69 @@ export const galleryImages: GalleryImage[] = [
     orientation: 'landscape',
     tile: 'wide',
   },
+  /*
+    New facility photography. Appended as `wide` (2x1) tiles only: a 2x1 never
+    spans rows, so it cannot open a hole in the packed mosaic above — the count
+    stays even so both the 2- and 4-column grids still fill complete rows.
+    See TILE_SPANS in GalleryGrid before changing any of these tiles.
+  */
+  {
+    src: '/gallery/hospital/web/patient-room-1.jpg',
+    alt: "Private patient room with attached amenities at Krisha Women's Hospital",
+    caption: 'Private Patient Room',
+    orientation: 'landscape',
+    tile: 'wide',
+  },
+  {
+    src: '/gallery/hospital/web/patient-room-2.jpg',
+    alt: "Comfortable patient room for mothers at Krisha Women's Hospital",
+    caption: 'Patient Room',
+    orientation: 'landscape',
+    tile: 'wide',
+  },
+  {
+    src: '/gallery/hospital/web/patient-room-3.jpg',
+    alt: "Deluxe patient room at Krisha Women's Hospital",
+    caption: 'Deluxe Room',
+    orientation: 'landscape',
+    tile: 'wide',
+  },
+  {
+    src: '/gallery/hospital/web/labor-room.jpg',
+    alt: "Modern labour and delivery room at Krisha Women's Hospital",
+    caption: 'Labour & Delivery Room',
+    orientation: 'landscape',
+    tile: 'wide',
+  },
+  {
+    src: '/gallery/hospital/web/operation-theatre-1.jpg',
+    alt: "Modular operation theatre at Krisha Women's Hospital",
+    caption: 'Operation Theatre',
+    orientation: 'landscape',
+    tile: 'wide',
+  },
+  {
+    src: '/gallery/hospital/web/operation-theatre-2.jpg',
+    alt: "Fully equipped operation theatre at Krisha Women's Hospital",
+    caption: 'Operation Theatre',
+    orientation: 'landscape',
+    tile: 'wide',
+  },
 ];
 
-/** The three frames shown in the home page "Our Facility" preview strip. */
-export const galleryPreview: GalleryImage[] = galleryImages.filter(
-  (i) => i.orientation === 'landscape',
+/**
+ * The three frames shown in the home page "Our Facility" preview strip — a
+ * hand-picked, warmer selection rather than every landscape frame, so the strip
+ * stays a clean 3-up and leads with the newer rooms.
+ */
+const PREVIEW_SRCS = [
+  '/gallery/reception-desk-2.jpg',
+  '/gallery/hospital/web/patient-room-1.jpg',
+  '/gallery/hospital/web/operation-theatre-1.jpg',
+] as const;
+
+export const galleryPreview: GalleryImage[] = PREVIEW_SRCS.map(
+  (src) => galleryImages.find((image) => image.src === src)!,
 );
 
 /**

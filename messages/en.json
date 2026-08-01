@@ -1135,5 +1135,23 @@
         "Once an ideal contraceptive path is selected, our focus shifts to proper administration, tracking, and your ongoing physical comfort. Whether it involves the precise, gentle insertion of a long-acting implant or a routine oral contraceptive prescription, we ensure the process is entirely stress-free. We emphasize long-term health outcomes, scheduling regular follow-ups at our Narol, Ahmedabad facility to monitor how your body adapts, manage any initial hormonal adjustments, and safely alter your plan whenever your lifestyle or fertility needs evolve."
       ]
     }
+  },
+  "teamSection": {
+    "eyebrow": "OUR TEAM",
+    "title": "The people behind your care",
+    "subtitle": "A dedicated team of specialists, nurses and support staff — caring for you and your family at every step.",
+    "captions": {
+      "team": "The Krisha Women's Hospital team",
+      "doctor": "Dr. Alhad Pande, Consultant",
+      "nurses": "Our nursing & care team",
+      "consult": "Personalised consultations",
+      "doctorPortrait": "Dr. Alhad Pande"
+    }
+  },
+  "revealBand": {
+    "eyebrow": "OUR PROMISE",
+    "title": "Gentle hands & expert care",
+    "subtitle": "Because 'SHE' matters — complete women's healthcare under one roof.",
+    "alt": "The team at Krisha Women's Hospital"
   }
 }
