@@ -35,7 +35,7 @@ export default function TopBar() {
           </Badge>
           <span className="hidden sm:flex items-center gap-1.5 text-text-inverse text-[13.5px] font-medium">
             <ClockIcon size={13} />
-            Mon–Sat 8AM–8PM
+            OPD: Mon–Sat 11AM–2PM, 6PM–8PM • Sun 11AM–1PM
           </span>
           <span aria-hidden="true" className="hidden sm:block h-4 w-px bg-white/25" />
           <LocaleSwitcher />
