@@ -44,8 +44,8 @@ const contactDetails = [
       <ClockIcon size={22} />
     ),
     label: 'OPD Hours',
-    value: 'Mon – Sat: 9:00 AM – 7:30 PM',
-    note: 'Sunday: Closed',
+    value: 'Mon – Sat: 11 AM–2 PM, 6 PM–8 PM',
+    note: 'Sun: 11 AM–1 PM · Emergency 24×7',
     href: null,
   },
 ];

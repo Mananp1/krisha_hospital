@@ -51,8 +51,8 @@ const contactCards = [
       <ClockIcon size={22} />
     ),
     label: 'OPD Hours',
-    primary: 'Mon – Sat: 8:00 AM – 8:00 PM',
-    secondary: 'Closed on Sundays · Emergency 24×7',
+    primary: 'Mon – Sat: 11 AM–2 PM, 6 PM–8 PM',
+    secondary: 'Sun: 11 AM–1 PM · Emergency 24×7',
     href: null,
   },
 ];

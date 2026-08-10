@@ -311,7 +311,7 @@ export default function AppointmentForm() {
             <p className={errorClass}>{errors.appointment_time.message}</p>
           )}
           <p className="text-[11px] text-text-muted mt-1 leading-relaxed">
-            OPD hours: Mon–Sat, 9:00 AM – 7:30 PM. Sundays unavailable.
+            OPD hours: Mon–Sat, 11 AM–2 PM &amp; 6 PM–8 PM · Sun, 11 AM–1 PM.
           </p>
         </div>
       </div>

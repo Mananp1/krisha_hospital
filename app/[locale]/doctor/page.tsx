@@ -108,8 +108,8 @@ const consultDetails = [
       <ClockIcon size={20} />
     ),
     label: 'OPD Hours',
-    value: 'Monday – Saturday',
-    sub: '8:00 AM – 8:00 PM',
+    value: 'Mon – Sat: 11 AM–2 PM, 6 PM–8 PM',
+    sub: 'Sunday: 11 AM–1 PM · Emergency open 24×7',
   },
   {
     icon: (
@@ -132,7 +132,7 @@ const consultDetails = [
       <MessageSquareIcon size={20} />
     ),
     label: 'Languages',
-    value: 'Gujarati · Hindi · English',
+    value: 'Hindi · Gujarati · English · Marathi',
     sub: 'ગુજરાતીમાં સેવા ઉપલબ્ધ છે',
   },
 ];
