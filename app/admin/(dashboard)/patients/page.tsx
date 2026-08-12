@@ -28,19 +28,22 @@ export default async function PatientsPage({ searchParams }: PageProps) {
   // Fetch all appointments to derive unique patients (grouped by phone server-side)
   const { data } = await supabase
     .from('appointments')
-    .select('id,patient_name,phone,email,appointment_date,appointment_time,status,message,created_at,updated_at,updated_by')
+    .select('id,patient_name,phone,phone_digits,email,appointment_date,appointment_time,status,message,created_at,updated_at,updated_by')
     .order('appointment_date', { ascending: false })
     .order('appointment_time', { ascending: false });
 
   const appointments = (data ?? []) as Appointment[];
 
-  // Group by phone to derive unique patients
+  // Group on phone_digits (generated, punctuation-stripped) so "+91 98765 43210"
+  // and "9876543210" resolve to one patient rather than two.
   const map = new Map<string, PatientRow>();
   for (const appt of appointments) {
-    const existing = map.get(appt.phone);
+    const key = appt.phone_digits ?? appt.phone;
+    const existing = map.get(key);
     if (!existing) {
-      map.set(appt.phone, {
+      map.set(key, {
         phone: appt.phone,
+        phoneDigits: key,
         name: appt.patient_name,
         email: appt.email,
         total: 1,

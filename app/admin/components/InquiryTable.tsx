@@ -1,27 +1,23 @@
 'use client';
 
-import { useState, useTransition, useCallback } from 'react';
+import { useTransition, useCallback, useState } from 'react';
+import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon } from 'lucide-react';
+import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon, PencilIcon } from 'lucide-react';
 import {
   Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
 } from '@/components/ui/table';
-import {
-  Dialog, DialogContent, DialogHeader, DialogTitle,
-} from '@/components/ui/dialog';
 import { StatusBadge } from './StatusBadge';
+import { ContactActions } from './ContactActions';
 import { TablePagination } from './TablePagination';
 import { parsePageSize, parsePage } from '@/lib/pagination';
-import { resolveInquiry } from '@/app/admin/actions';
+import { ConfirmDelete } from './ConfirmDelete';
+import { EditInquiryDialog } from './EditInquiryDialog';
+import { resolveInquiry, unresolveInquiry, deleteInquiry } from '@/app/admin/actions';
 import { cn } from '@/lib/utils';
+import { formatTimestamp } from '@/lib/format';
 import type { ContactInquiry } from '@/types/database';
-
-function formatDateTime(iso: string) {
-  const d = new Date(iso);
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-}
 
 function getAge(iso: string): { label: string; pillClass: string } {
   const diffDays = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
@@ -29,10 +25,6 @@ function getAge(iso: string): { label: string; pillClass: string } {
   if (diffDays === 1) return { label: 'Yesterday',        pillClass: 'text-amber-700   bg-amber-50   border-amber-200'   };
   if (diffDays <= 3)  return { label: `${diffDays}d ago`, pillClass: 'text-orange-700  bg-orange-50  border-orange-200'  };
   return               { label: `${diffDays}d ago`, pillClass: 'text-red-700     bg-red-50     border-red-200'    };
-}
-
-function cleanPhone(phone: string) {
-  return phone.replace(/\D/g, '');
 }
 
 function AgePill({ iso }: { iso: string }) {
@@ -80,7 +72,7 @@ export function InquiryTable({
   total: number;
 }) {
   const [isPending, startTransition] = useTransition();
-  const [viewing, setViewing] = useState<ContactInquiry | null>(null);
+  const [editing, setEditing] = useState<ContactInquiry | null>(null);
 
   const router       = useRouter();
   const pathname     = usePathname();
@@ -110,10 +102,14 @@ export function InquiryTable({
     });
   }
 
-  function handleResolve(id: string) {
+  function handleResolveToggle(inq: ContactInquiry) {
     startTransition(async () => {
-      await resolveInquiry(id);
-      setViewing(null);
+      if (inq.is_resolved) {
+        await unresolveInquiry(inq.id);
+      } else {
+        await resolveInquiry(inq.id);
+      }
+      router.refresh();
     });
   }
 
@@ -147,11 +143,16 @@ export function InquiryTable({
                     <TableCell className="whitespace-nowrap pt-3 pl-5">
                       <AgePill iso={inq.created_at} />
                       <span className="block text-[11px] text-text-muted mt-0.5">
-                        {formatDateTime(inq.created_at)}
+                        {formatTimestamp(inq.created_at)}
                       </span>
                     </TableCell>
                     <TableCell className="pt-3">
-                      <p className="text-[13px] font-medium text-text-base">{inq.name}</p>
+                      <Link
+                        href={`/admin/inquiries/${inq.id}`}
+                        className="text-[13px] font-medium text-text-base hover:text-primary transition-colors"
+                      >
+                        {inq.name}
+                      </Link>
                       <p className="text-[11px] text-text-muted mt-0.5 line-clamp-1 max-w-[240px]">
                         {inq.message}
                       </p>
@@ -172,21 +173,49 @@ export function InquiryTable({
                     </TableCell>
                     <TableCell className="pt-3 pr-5">
                       <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => setViewing(inq)}
+                        <Link
+                          href={`/admin/inquiries/${inq.id}`}
                           className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
                         >
-                          View
+                          Open
+                        </Link>
+                        <button
+                          onClick={() => handleResolveToggle(inq)}
+                          disabled={isPending}
+                          className={cn(
+                            'w-[78px] py-1 rounded-lg text-[12px] font-semibold text-center border transition-colors disabled:opacity-50',
+                            inq.is_resolved
+                              ? 'border-border-muted text-text-muted hover:bg-surface-subtle'
+                              : 'border-emerald-300 text-emerald-700 hover:bg-emerald-50',
+                          )}
+                        >
+                          {inq.is_resolved ? 'Reopen' : 'Resolve'}
                         </button>
-                        {!inq.is_resolved && (
-                          <button
-                            onClick={() => handleResolve(inq.id)}
-                            disabled={isPending}
-                            className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition-colors disabled:opacity-50"
-                          >
-                            Resolve
-                          </button>
-                        )}
+                        <button
+                          onClick={() => setEditing(inq)}
+                          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => setEditing(inq)}
+                          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <ConfirmDelete
+                          title="Delete this inquiry?"
+                          description={`The inquiry from ${inq.name} will be permanently removed. This cannot be undone.`}
+                          onConfirm={() => deleteInquiry(inq.id)}
+                          trigger={
+                            <button
+                              disabled={isPending}
+                              className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-red-300 text-red-700 hover:bg-red-50 transition-colors disabled:opacity-50"
+                            >
+                              Delete
+                            </button>
+                          }
+                        />
                       </div>
                     </TableCell>
                   </TableRow>
@@ -199,15 +228,17 @@ export function InquiryTable({
 
       {/* ── Mobile cards (< sm) ── */}
       <div className={`sm:hidden divide-y divide-border-muted ${isPending ? 'opacity-60 pointer-events-none' : ''}`}>
-        {inquiries.map((inq) => {
-          const digits   = cleanPhone(inq.phone);
-          const waNumber = digits.startsWith('91') ? digits : `91${digits}`;
-          return (
+        {inquiries.map((inq) => (
             <div key={inq.id} className="px-4 py-3.5 flex flex-col gap-2">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <AgePill iso={inq.created_at} />
-                  <span className="text-[13px] font-semibold text-text-base">{inq.name}</span>
+                  <Link
+                    href={`/admin/inquiries/${inq.id}`}
+                    className="text-[13px] font-semibold text-text-base hover:text-primary transition-colors"
+                  >
+                    {inq.name}
+                  </Link>
                 </div>
                 <StatusBadge status={inq.is_resolved ? 'resolved' : 'unresolved'} />
               </div>
@@ -218,34 +249,55 @@ export function InquiryTable({
                 {inq.phone}
               </a>
               <p className="text-[12px] text-text-muted line-clamp-2">{inq.message}</p>
+              <ContactActions phone={inq.phone} className="mt-0.5" />
               <div className="flex items-center gap-2 mt-0.5">
-                <button
-                  onClick={() => setViewing(inq)}
+                <Link
+                  href={`/admin/inquiries/${inq.id}`}
                   className="px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
                 >
-                  View
-                </button>
-                {!inq.is_resolved && (
-                  <button
-                    onClick={() => handleResolve(inq.id)}
-                    disabled={isPending}
-                    className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition-colors disabled:opacity-50"
-                  >
-                    Resolve
-                  </button>
-                )}
-                <a
-                  href={`https://wa.me/${waNumber}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors"
+                  Open
+                </Link>
+                <button
+                  onClick={() => handleResolveToggle(inq)}
+                  disabled={isPending}
+                  className={cn(
+                    'px-3 py-1.5 rounded-lg text-[12px] font-semibold border transition-colors disabled:opacity-50',
+                    inq.is_resolved
+                      ? 'border-border-muted text-text-muted hover:bg-surface-subtle'
+                      : 'border-emerald-300 text-emerald-700 hover:bg-emerald-50',
+                  )}
                 >
-                  WhatsApp
-                </a>
+                  {inq.is_resolved ? 'Reopen' : 'Resolve'}
+                </button>
+                <button
+                  onClick={() => setEditing(inq)}
+                  className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
+                >
+                  <PencilIcon className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setEditing(inq)}
+                  title="Edit inquiry"
+                  className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
+                >
+                  <PencilIcon className="w-3.5 h-3.5" />
+                </button>
+                <ConfirmDelete
+                  title="Delete this inquiry?"
+                  description={`The inquiry from ${inq.name} will be permanently removed. This cannot be undone.`}
+                  onConfirm={() => deleteInquiry(inq.id)}
+                  trigger={
+                    <button
+                      disabled={isPending}
+                      className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-red-300 text-red-700 hover:bg-red-50 transition-colors disabled:opacity-50"
+                    >
+                      Delete
+                    </button>
+                  }
+                />
               </div>
             </div>
-          );
-        })}
+        ))}
       </div>
 
       <TablePagination
@@ -256,79 +308,13 @@ export function InquiryTable({
         onPageSizeChange={(s) => navigate({ pageSize: String(s), page: '1' })}
       />
 
-      {/* ── Full inquiry dialog ── */}
-      <Dialog open={!!viewing} onOpenChange={(open) => { if (!open) setViewing(null); }}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="text-[16px]">Inquiry from {viewing?.name}</DialogTitle>
-          </DialogHeader>
-
-          {viewing && (
-            <div className="mt-1 flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-3 text-[13px]">
-                <div>
-                  <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-0.5">Received</p>
-                  <AgePill iso={viewing.created_at} />
-                  <span className="block text-[12px] text-text-muted mt-0.5">{formatDateTime(viewing.created_at)}</span>
-                </div>
-                <div>
-                  <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-0.5">Status</p>
-                  <StatusBadge status={viewing.is_resolved ? 'resolved' : 'unresolved'} />
-                </div>
-                <div>
-                  <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-0.5">Phone</p>
-                  <a href={`tel:${viewing.phone}`} className="text-primary hover:underline">{viewing.phone}</a>
-                </div>
-                {viewing.email && (
-                  <div>
-                    <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-0.5">Email</p>
-                    <span className="text-text-base">{viewing.email}</span>
-                  </div>
-                )}
-              </div>
-
-              <div>
-                <p className="text-[11px] font-semibold text-text-muted uppercase tracking-wide mb-1.5">Message</p>
-                <div className="bg-surface-subtle border border-border-muted rounded-xl px-4 py-3 text-[13px] text-text-base leading-relaxed whitespace-pre-wrap">
-                  {viewing.message}
-                </div>
-              </div>
-
-              <div className="flex gap-2 pt-1">
-                {(() => {
-                  const digits   = cleanPhone(viewing.phone);
-                  const waNumber = digits.startsWith('91') ? digits : `91${digits}`;
-                  return (
-                    <a
-                      href={`https://wa.me/${waNumber}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 py-2 rounded-xl bg-emerald-600 text-white text-[13px] font-semibold text-center hover:bg-emerald-700 transition-colors"
-                    >
-                      WhatsApp
-                    </a>
-                  );
-                })()}
-                <a
-                  href={`tel:${viewing.phone}`}
-                  className="flex-1 py-2 rounded-xl border border-border-muted text-[13px] font-semibold text-text-base text-center hover:bg-surface-subtle transition-colors"
-                >
-                  Call
-                </a>
-                {!viewing.is_resolved && (
-                  <button
-                    onClick={() => handleResolve(viewing.id)}
-                    disabled={isPending}
-                    className="flex-1 py-2 rounded-xl border border-emerald-600 text-emerald-700 text-[13px] font-semibold hover:bg-emerald-50 transition-colors disabled:opacity-60"
-                  >
-                    Mark Resolved
-                  </button>
-                )}
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+      {editing && (
+        <EditInquiryDialog
+          open
+          onOpenChange={(v) => { if (!v) setEditing(null); }}
+          inquiry={editing}
+        />
+      )}
     </>
   );
 }

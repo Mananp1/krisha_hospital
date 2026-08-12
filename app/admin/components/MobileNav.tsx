@@ -4,26 +4,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import {
-  MenuIcon,
-  LayoutDashboardIcon,
-  CalendarIcon,
-  CalendarDaysIcon,
-  MessageSquareIcon,
-  UsersIcon,
-  LogOutIcon,
-} from 'lucide-react';
+import { MenuIcon, LogOutIcon } from 'lucide-react';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { createClient } from '@/utils/supabase/client';
 import { cn } from '@/lib/utils';
-
-const navLinks = [
-  { label: 'Dashboard',    href: '/admin',              icon: LayoutDashboardIcon },
-  { label: 'Appointments', href: '/admin/appointments', icon: CalendarIcon },
-  { label: 'Schedule',     href: '/admin/calendar',     icon: CalendarDaysIcon },
-  { label: 'Patients',     href: '/admin/patients',     icon: UsersIcon },
-  { label: 'Inquiries',    href: '/admin/inquiries',    icon: MessageSquareIcon },
-];
+import { navLinks } from './nav-links';
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);

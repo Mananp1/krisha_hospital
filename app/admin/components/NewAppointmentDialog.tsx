@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useState, useEffect, useMemo, useTransition } from 'react';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { PlusIcon } from 'lucide-react';
@@ -11,21 +11,13 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
-import { createAppointmentByAdmin } from '@/app/admin/actions';
-
-const TIME_SLOTS = [
-  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-  '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-  '15:00', '15:30', '16:00', '16:30', '17:00', '17:30',
-  '18:00', '18:30', '19:00', '19:30',
-];
-
-function formatSlot(slot: string) {
-  const [h, m] = slot.split(':').map(Number);
-  const period = h >= 12 ? 'PM' : 'AM';
-  const display = h > 12 ? h - 12 : h === 0 ? 12 : h;
-  return `${display}:${m.toString().padStart(2, '0')} ${period}`;
-}
+import { createAppointmentByAdmin, updateAppointment } from '@/app/admin/actions';
+import {
+  OPD_HOURS_LABEL,
+  formatTimeDisplay,
+  getSlotsForDateString,
+} from '@/lib/opd-hours';
+import type { Appointment } from '@/types/database';
 
 function todayStr() {
   const d = new Date();
@@ -40,6 +32,29 @@ const schema = z.object({
   appointment_time: z.string().min(1, 'Select a time slot'),
   message: z.string(),
   status: z.enum(['pending', 'confirmed', 'cancelled']),
+  override_opd: z.boolean(),
+}).superRefine((data, ctx) => {
+  if (!data.appointment_date || !data.appointment_time) return;
+
+  // With the override on, any time is allowed — that is the point of it.
+  if (data.override_opd) {
+    if (!/^\d{2}:\d{2}$/.test(data.appointment_time)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Enter a time as HH:MM',
+        path: ['appointment_time'],
+      });
+    }
+    return;
+  }
+
+  if (!getSlotsForDateString(data.appointment_date).includes(data.appointment_time)) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Slot is outside OPD hours for that day',
+      path: ['appointment_time'],
+    });
+  }
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -53,6 +68,39 @@ interface NewAppointmentDialogProps {
   defaultDate?: string;
   defaultTime?: string;
   onCreated?: () => void;
+  /** When provided the dialog edits this appointment instead of creating one. */
+  appointment?: Appointment | null;
+}
+
+/** Blank form values, or the values of the appointment being edited. */
+function formValuesFor(
+  appointment: Appointment | null | undefined,
+  defaultDate: string | undefined,
+  defaultTime: string | undefined,
+): FormValues {
+  if (appointment) {
+    return {
+      patient_name: appointment.patient_name,
+      phone: appointment.phone,
+      email: appointment.email ?? '',
+      appointment_date: appointment.appointment_date,
+      appointment_time: appointment.appointment_time.slice(0, 5),
+      message: appointment.message ?? '',
+      status: appointment.status,
+      override_opd: appointment.override_opd,
+    };
+  }
+
+  return {
+    patient_name: '',
+    phone: '',
+    email: '',
+    appointment_date: defaultDate ?? todayStr(),
+    appointment_time: defaultTime ?? '',
+    message: '',
+    status: 'pending',
+    override_opd: false,
+  };
 }
 
 export function NewAppointmentDialog({
@@ -61,14 +109,19 @@ export function NewAppointmentDialog({
   defaultDate,
   defaultTime,
   onCreated,
+  appointment,
 }: NewAppointmentDialogProps = {}) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [submitError, setSubmitError] = useState('');
+
+  const isEdit = !!appointment;
 
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
 
   function setOpen(v: boolean) {
+    setSubmitError('');
     if (isControlled) {
       onControlledChange?.(v);
     } else {
@@ -81,47 +134,71 @@ export function NewAppointmentDialog({
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      patient_name: '',
-      phone: '',
-      email: '',
-      appointment_date: defaultDate ?? todayStr(),
-      appointment_time: '',
-      message: '',
-      status: 'pending',
-    },
+    defaultValues: formValuesFor(appointment, defaultDate, defaultTime),
   });
 
-  // When the dialog opens (controlled from calendar), reset the form with the clicked date/time
+  const selectedDate = useWatch({ control, name: 'appointment_date' });
+  const selectedTime = useWatch({ control, name: 'appointment_time' });
+  const override     = useWatch({ control, name: 'override_opd' });
+
+  // Slots follow the weekday's OPD windows, so a date change can strand a slot.
+  const availableSlots = useMemo(
+    () => (selectedDate ? getSlotsForDateString(selectedDate) : []),
+    [selectedDate],
+  );
+
+  useEffect(() => {
+    if (override) return;
+    if (selectedTime && !availableSlots.includes(selectedTime)) {
+      setValue('appointment_time', '');
+    }
+  }, [override, selectedTime, availableSlots, setValue]);
+
+  // When the dialog opens (controlled from calendar or an edit button), reset the
+  // form to the clicked date/time or to the appointment being edited.
   useEffect(() => {
     if (open) {
-      reset({
-        patient_name: '',
-        phone: '',
-        email: '',
-        appointment_date: defaultDate ?? todayStr(),
-        appointment_time: defaultTime ?? '',
-        message: '',
-        status: 'pending',
-      });
+      reset(formValuesFor(appointment, defaultDate, defaultTime));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   function onSubmit(data: FormValues) {
+    const payload = {
+      patient_name: data.patient_name,
+      phone: data.phone,
+      email: data.email || null,
+      appointment_date: data.appointment_date,
+      appointment_time: data.appointment_time + ':00',
+      message: data.message || null,
+      status: data.status,
+      // Only sent when it matters: when the emergency flag is being set, or
+      // cleared from an appointment that had it. Omitting it otherwise keeps
+      // ordinary bookings working before docs/schema-v4.md has been run, since
+      // the column does not exist until then.
+      ...(data.override_opd || appointment?.override_opd
+        ? { override_opd: data.override_opd }
+        : {}),
+    };
+
+    setSubmitError('');
+
     startTransition(async () => {
-      await createAppointmentByAdmin({
-        patient_name: data.patient_name,
-        phone: data.phone,
-        email: data.email || null,
-        appointment_date: data.appointment_date,
-        appointment_time: data.appointment_time + ':00',
-        message: data.message || null,
-        status: data.status,
-      });
+      try {
+        if (appointment) {
+          await updateAppointment(appointment.id, payload);
+        } else {
+          await createAppointmentByAdmin(payload);
+        }
+      } catch (err) {
+        setSubmitError(err instanceof Error ? err.message : 'Something went wrong');
+        return;
+      }
+
       reset();
       setOpen(false);
       onCreated?.();
@@ -146,7 +223,9 @@ export function NewAppointmentDialog({
 
       <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-[16px]">New Appointment</DialogTitle>
+          <DialogTitle className="text-[16px]">
+            {isEdit ? 'Edit Appointment' : 'New Appointment'}
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-1 flex flex-col gap-3">
@@ -189,27 +268,58 @@ export function NewAppointmentDialog({
             </div>
             <div>
               <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Time *</label>
-              <Controller
-                name="appointment_time"
-                control={control}
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="text-[13px] w-full">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {TIME_SLOTS.map((slot) => (
-                        <SelectItem key={slot} value={slot}>{formatSlot(slot)}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
+              {override ? (
+                <input
+                  {...register('appointment_time')}
+                  type="time"
+                  step={300}
+                  className={inputClass}
+                />
+              ) : (
+                <Controller
+                  name="appointment_time"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      disabled={availableSlots.length === 0}
+                    >
+                      <SelectTrigger className="text-[13px] w-full">
+                        <SelectValue placeholder={availableSlots.length ? 'Select' : 'Pick a date'} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {availableSlots.map((slot) => (
+                          <SelectItem key={slot} value={slot}>{formatTimeDisplay(slot)}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              )}
               {errors.appointment_time && (
                 <p className="text-[11px] text-red-500 mt-0.5">{errors.appointment_time.message}</p>
               )}
             </div>
           </div>
+
+          <label className="flex items-start gap-2.5 -mt-1 px-3 py-2.5 rounded-xl border border-border-muted bg-surface-subtle cursor-pointer">
+            <input
+              {...register('override_opd')}
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 shrink-0 accent-amber-600 cursor-pointer"
+            />
+            <span className="text-[12px] leading-relaxed">
+              <span className="font-semibold text-text-base">
+                Emergency / rescheduled by phone
+              </span>
+              <span className="block text-text-muted mt-0.5">
+                {override
+                  ? 'Any time can be entered, including outside OPD hours. Use for times agreed directly with the patient.'
+                  : OPD_HOURS_LABEL}
+              </span>
+            </span>
+          </label>
 
           <div>
             <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Status</label>
@@ -241,12 +351,20 @@ export function NewAppointmentDialog({
             />
           </div>
 
+          {submitError && (
+            <p className="px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-[12px] text-red-700">
+              {submitError}
+            </p>
+          )}
+
           <button
             type="submit"
             disabled={isPending}
             className="w-full py-2.5 rounded-xl bg-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
           >
-            {isPending ? 'Booking...' : 'Book Appointment'}
+            {isPending
+              ? (isEdit ? 'Saving...' : 'Booking...')
+              : (isEdit ? 'Save Changes' : 'Book Appointment')}
           </button>
         </form>
       </DialogContent>

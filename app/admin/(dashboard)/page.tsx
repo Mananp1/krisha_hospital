@@ -12,19 +12,7 @@ import { createAdminClient } from '@/utils/supabase/admin';
 import { StatsCard } from '@/app/admin/components/StatsCard';
 import { StatusBadge } from '@/app/admin/components/StatusBadge';
 import { NewAppointmentDialog } from '@/app/admin/components/NewAppointmentDialog';
-
-function formatDate(d: string) {
-  const [y, m, day] = d.split('-').map(Number);
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${day} ${months[m - 1]} ${y}`;
-}
-
-function formatTime(t: string) {
-  const [h, m] = t.split(':').map(Number);
-  const period = h >= 12 ? 'PM' : 'AM';
-  const display = h > 12 ? h - 12 : h === 0 ? 12 : h;
-  return `${display}:${m.toString().padStart(2, '0')} ${period}`;
-}
+import { formatDate, formatTime } from '@/lib/format';
 
 function todayStr() {
   const now = new Date();

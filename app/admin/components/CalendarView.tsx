@@ -8,9 +8,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import type { EventInput, EventClickArg } from '@fullcalendar/core';
 import type { DateClickArg } from '@fullcalendar/interaction';
-import { AppointmentDrawer } from './AppointmentDrawer';
 import { NewAppointmentDialog } from './NewAppointmentDialog';
 import type { Appointment } from '@/types/database';
+import { OPD_DAY_START, OPD_DAY_END } from '@/lib/opd-hours';
 
 // Saturated colors — visually distinct even at small event widths
 const STATUS_COLORS: Record<string, { bg: string; border: string; text: string; dot: string }> = {
@@ -47,7 +47,6 @@ function toCalendarEvents(appointments: Appointment[]): EventInput[] {
 
 export function CalendarView({ appointments }: { appointments: Appointment[] }) {
   const router = useRouter();
-  const [selected, setSelected] = useState<Appointment | null>(null);
   const [newApptOpen, setNewApptOpen] = useState(false);
   const [clickedDate, setClickedDate] = useState<string | undefined>();
   const [clickedTime, setClickedTime] = useState<string | undefined>();
@@ -65,7 +64,8 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
   }, [appointments]);
 
   function handleEventClick(info: EventClickArg) {
-    setSelected(info.event.extendedProps.appointment as Appointment);
+    const appointment = info.event.extendedProps.appointment as Appointment;
+    router.push(`/admin/appointments/${appointment.id}`);
   }
 
   function handleDateClick(info: DateClickArg) {
@@ -259,8 +259,8 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
           dayHeaderContent={dayHeaderContent}
           dayCellContent={dayCellContent}
           dayMaxEvents={3}
-          slotMinTime="09:00:00"
-          slotMaxTime="19:30:00"
+          slotMinTime={`${OPD_DAY_START}:00`}
+          slotMaxTime={`${OPD_DAY_END}:00`}
           allDaySlot={false}
           nowIndicator
           height="auto"
@@ -281,12 +281,6 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
           }}
         />
       </div>
-
-      <AppointmentDrawer
-        appointment={selected}
-        onClose={() => setSelected(null)}
-        onUpdated={() => { setSelected(null); router.refresh(); }}
-      />
 
       <NewAppointmentDialog
         open={newApptOpen}
