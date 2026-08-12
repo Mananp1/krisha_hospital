@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { PencilIcon, Trash2Icon } from 'lucide-react';
+import { PencilIcon, Trash2Icon, CalendarPlusIcon } from 'lucide-react';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
@@ -10,6 +10,7 @@ import { StatusBadge } from './StatusBadge';
 import { ContactActions } from './ContactActions';
 import { ConfirmDelete } from './ConfirmDelete';
 import { EditPatientDialog } from './EditPatientDialog';
+import { NewAppointmentDialog } from './NewAppointmentDialog';
 import { Field } from './Field';
 import { deletePatient } from '@/app/admin/actions';
 import { formatDate, formatTime } from '@/lib/format';
@@ -26,6 +27,7 @@ export function PatientDetailDialog({
 }: PatientDetailDialogProps) {
   const router = useRouter();
   const [editing, setEditing] = useState(false);
+  const [booking, setBooking] = useState(false);
 
   const history = [...patient.appointments].sort((a, b) =>
     `${b.appointment_date}${b.appointment_time}`.localeCompare(
@@ -91,6 +93,14 @@ export function PatientDetailDialog({
               </div>
             </Field>
 
+            <button
+              onClick={() => { setBooking(true); onOpenChange(false); }}
+              className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity"
+            >
+              <CalendarPlusIcon size={14} />
+              Book another appointment
+            </button>
+
             <div className="flex gap-2">
               <button
                 onClick={() => { setEditing(true); onOpenChange(false); }}
@@ -117,6 +127,17 @@ export function PatientDetailDialog({
           </div>
         </DialogContent>
       </Dialog>
+
+      <NewAppointmentDialog
+        open={booking}
+        onOpenChange={setBooking}
+        defaultPatient={{
+          patient_name: patient.name,
+          phone: patient.phone,
+          email: patient.email,
+        }}
+        onCreated={() => { setBooking(false); router.refresh(); }}
+      />
 
       <EditPatientDialog
         open={editing}

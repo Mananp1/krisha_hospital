@@ -8,6 +8,7 @@ import type {
   AppointmentStatus,
   AppointmentInsert,
   AppointmentUpdate,
+  PatientMatch,
 } from '@/types/database';
 
 /** Postgres error shape returned by supabase-js. */
@@ -188,6 +189,34 @@ export async function updatePatient(
 
   if (error) throwFriendly(error);
   revalidateAppointments();
+}
+
+/**
+ * Type-ahead lookup for the New Appointment dialog: the admin starts typing a
+ * phone number (or name) and gets back matching existing patients, so a
+ * returning patient's details can be filled in rather than retyped.
+ *
+ * A failed lookup returns [] rather than throwing, so it degrades to plain
+ * typing if schema-v5 has not been run yet. Auth still throws, as everywhere
+ * else here — the caller treats that as "no matches".
+ */
+export async function searchPatients(query: string): Promise<PatientMatch[]> {
+  await requireAdmin();
+
+  if (query.trim().length < 2) return [];
+
+  const admin = createAdminClient();
+  const { data, error } = await admin.rpc('search_patients', {
+    p_query: query,
+    p_limit: 8,
+  });
+
+  if (error) {
+    console.error('[admin action] search_patients failed', error.code, error.message);
+    return [];
+  }
+
+  return (data ?? []) as PatientMatch[];
 }
 
 // ── Contact inquiries ───────────────────────────────────────────────────────

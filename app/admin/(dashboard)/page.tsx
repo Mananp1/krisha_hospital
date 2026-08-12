@@ -12,7 +12,12 @@ import { createAdminClient } from '@/utils/supabase/admin';
 import { StatsCard } from '@/app/admin/components/StatsCard';
 import { StatusBadge } from '@/app/admin/components/StatusBadge';
 import { NewAppointmentDialog } from '@/app/admin/components/NewAppointmentDialog';
+import { SlotAvailability } from '@/app/admin/components/SlotAvailability';
+import { getSlotGroupsForDate, parseLocalDate } from '@/lib/opd-hours';
 import { formatDate, formatTime } from '@/lib/format';
+import type { ClinicSettings } from '@/types/database';
+
+const FALLBACK_CAPACITY = 5;
 
 function todayStr() {
   const now = new Date();
@@ -42,10 +47,21 @@ type RecentInquiry = {
 };
 type ActivityItem = RecentAppt | RecentInquiry;
 
-export default async function AdminDashboardPage() {
+interface PageProps {
+  searchParams: Promise<{ slotDate?: string }>;
+}
+
+export default async function AdminDashboardPage({ searchParams }: PageProps) {
+  const { slotDate } = await searchParams;
+
   const supabase = createAdminClient();
   const today = todayStr();
   const weekEnd = weekEndStr();
+
+  // The slot panel books forward only, so today is the floor. Bad input and any
+  // past date (a hand-edited URL) both fall back to today.
+  const panelDate =
+    slotDate && parseLocalDate(slotDate) && slotDate >= today ? slotDate : today;
 
   const [
     { count: todayCount },
@@ -62,6 +78,28 @@ export default async function AdminDashboardPage() {
     supabase.from('appointments').select('id,patient_name,phone,appointment_date,appointment_time,status,created_at').order('created_at', { ascending: false }).limit(5),
     supabase.from('contact_inquiries').select('id,name,phone,message,is_resolved,created_at').order('created_at', { ascending: false }).limit(5),
   ]);
+
+  // Availability for the slot panel: booked counts plus the configured capacity.
+  const [{ data: panelAppts }, { data: settingsRaw }] = await Promise.all([
+    supabase
+      .from('appointments')
+      .select('appointment_time')
+      .eq('appointment_date', panelDate)
+      .in('status', ['pending', 'confirmed']),
+    supabase.from('clinic_settings').select('max_per_slot').eq('id', true).maybeSingle(),
+  ]);
+
+  const slotCounts: Record<string, number> = {};
+  for (const row of panelAppts ?? []) {
+    const key = (row.appointment_time as string).slice(0, 5);
+    slotCounts[key] = (slotCounts[key] ?? 0) + 1;
+  }
+
+  const capacity =
+    (settingsRaw as Pick<ClinicSettings, 'max_per_slot'> | null)?.max_per_slot
+    ?? FALLBACK_CAPACITY;
+
+  const slotGroups = getSlotGroupsForDate(parseLocalDate(panelDate) ?? new Date());
 
   const appts: RecentAppt[] = (recentApptsRaw ?? []).map((a) => ({ ...a, type: 'appointment' as const }));
   const inqs: RecentInquiry[] = (recentInqsRaw ?? []).map((i) => ({ ...i, type: 'inquiry' as const }));
@@ -97,6 +135,17 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
       )}
+
+      {/* Slot availability */}
+      <div className="mb-6">
+        <SlotAvailability
+          date={panelDate}
+          today={today}
+          groups={slotGroups}
+          counts={slotCounts}
+          capacity={capacity}
+        />
+      </div>
 
       {/* Stats grid */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-6">

@@ -17,7 +17,8 @@ import {
   formatTimeDisplay,
   getSlotsForDateString,
 } from '@/lib/opd-hours';
-import type { Appointment } from '@/types/database';
+import { PatientPhoneField } from './PatientPhoneField';
+import type { Appointment, PatientMatch } from '@/types/database';
 
 function todayStr() {
   const d = new Date();
@@ -70,6 +71,8 @@ interface NewAppointmentDialogProps {
   onCreated?: () => void;
   /** When provided the dialog edits this appointment instead of creating one. */
   appointment?: Appointment | null;
+  /** Prefills the patient for a returning-patient booking ("Book again"). */
+  defaultPatient?: { patient_name: string; phone: string; email: string | null } | null;
 }
 
 /** Blank form values, or the values of the appointment being edited. */
@@ -77,6 +80,7 @@ function formValuesFor(
   appointment: Appointment | null | undefined,
   defaultDate: string | undefined,
   defaultTime: string | undefined,
+  defaultPatient?: { patient_name: string; phone: string; email: string | null } | null,
 ): FormValues {
   if (appointment) {
     return {
@@ -92,13 +96,15 @@ function formValuesFor(
   }
 
   return {
-    patient_name: '',
-    phone: '',
-    email: '',
+    patient_name: defaultPatient?.patient_name ?? '',
+    phone: defaultPatient?.phone ?? '',
+    email: defaultPatient?.email ?? '',
     appointment_date: defaultDate ?? todayStr(),
     appointment_time: defaultTime ?? '',
     message: '',
-    status: 'pending',
+    // An admin booking one in is the confirmation — "pending" only means a
+    // request came in through the public form and nobody has acted on it yet.
+    status: 'confirmed',
     override_opd: false,
   };
 }
@@ -110,10 +116,12 @@ export function NewAppointmentDialog({
   defaultTime,
   onCreated,
   appointment,
+  defaultPatient,
 }: NewAppointmentDialogProps = {}) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [submitError, setSubmitError] = useState('');
+  const [returningPatient, setReturningPatient] = useState<PatientMatch | null>(null);
 
   const isEdit = !!appointment;
 
@@ -122,6 +130,7 @@ export function NewAppointmentDialog({
 
   function setOpen(v: boolean) {
     setSubmitError('');
+    setReturningPatient(null);
     if (isControlled) {
       onControlledChange?.(v);
     } else {
@@ -138,7 +147,7 @@ export function NewAppointmentDialog({
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: formValuesFor(appointment, defaultDate, defaultTime),
+    defaultValues: formValuesFor(appointment, defaultDate, defaultTime, defaultPatient),
   });
 
   const selectedDate = useWatch({ control, name: 'appointment_date' });
@@ -146,10 +155,21 @@ export function NewAppointmentDialog({
   const override     = useWatch({ control, name: 'override_opd' });
 
   // Slots follow the weekday's OPD windows, so a date change can strand a slot.
-  const availableSlots = useMemo(
-    () => (selectedDate ? getSlotsForDateString(selectedDate) : []),
-    [selectedDate],
-  );
+  // On a new booking the slots already gone today are dropped too — an admin
+  // books forward, and an appointment cannot be made for a time that has passed.
+  // Editing keeps every slot, so an existing past appointment stays correctable.
+  const availableSlots = useMemo(() => {
+    if (!selectedDate) return [];
+    const slots = getSlotsForDateString(selectedDate);
+    if (isEdit || selectedDate !== todayStr()) return slots;
+
+    const now = new Date();
+    const minutesNow = now.getHours() * 60 + now.getMinutes();
+    return slots.filter((s) => {
+      const [hh, mm] = s.split(':').map(Number);
+      return hh * 60 + mm > minutesNow;
+    });
+  }, [selectedDate, isEdit]);
 
   useEffect(() => {
     if (override) return;
@@ -162,10 +182,17 @@ export function NewAppointmentDialog({
   // form to the clicked date/time or to the appointment being edited.
   useEffect(() => {
     if (open) {
-      reset(formValuesFor(appointment, defaultDate, defaultTime));
+      reset(formValuesFor(appointment, defaultDate, defaultTime, defaultPatient));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  /** Fills name and email when an existing patient is picked from the lookup. */
+  function handlePatientSelected(match: PatientMatch) {
+    setValue('patient_name', match.patient_name, { shouldValidate: true });
+    setValue('email', match.email ?? '', { shouldValidate: true });
+    setReturningPatient(match);
+  }
 
   function onSubmit(data: FormValues) {
     const payload = {
@@ -229,6 +256,13 @@ export function NewAppointmentDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-1 flex flex-col gap-3">
+          {returningPatient && !isEdit && (
+            <p className="px-3 py-2 rounded-xl bg-primary-50 border border-primary/20 text-[12px] text-primary leading-relaxed">
+              Returning patient — {returningPatient.total} previous
+              visit{returningPatient.total === 1 ? '' : 's'}. Name and email filled
+              in from their last appointment.
+            </p>
+          )}
           <div>
             <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Patient Name *</label>
             <input {...register('patient_name')} placeholder="Full name" className={inputClass} />
@@ -240,7 +274,19 @@ export function NewAppointmentDialog({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Phone *</label>
-              <input {...register('phone')} type="tel" placeholder="Phone number" className={inputClass} />
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <PatientPhoneField
+                    id="phone"
+                    value={field.value}
+                    onChange={field.onChange}
+                    onPatientSelected={handlePatientSelected}
+                    className={inputClass}
+                  />
+                )}
+              />
               {errors.phone && (
                 <p className="text-[11px] text-red-500 mt-0.5">{errors.phone.message}</p>
               )}
@@ -260,6 +306,7 @@ export function NewAppointmentDialog({
               <input
                 {...register('appointment_date')}
                 type="date"
+                min={isEdit ? undefined : todayStr()}
                 className={inputClass}
               />
               {errors.appointment_date && (
@@ -286,7 +333,13 @@ export function NewAppointmentDialog({
                       disabled={availableSlots.length === 0}
                     >
                       <SelectTrigger className="text-[13px] w-full">
-                        <SelectValue placeholder={availableSlots.length ? 'Select' : 'Pick a date'} />
+                        <SelectValue
+                          placeholder={
+                            availableSlots.length ? 'Select'
+                              : !selectedDate ? 'Pick a date'
+                                : 'No slots left'
+                          }
+                        />
                       </SelectTrigger>
                       <SelectContent>
                         {availableSlots.map((slot) => (
@@ -321,25 +374,30 @@ export function NewAppointmentDialog({
             </span>
           </label>
 
-          <div>
-            <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Status</label>
-            <Controller
-              name="status"
-              control={control}
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="text-[13px] w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="confirmed">Confirmed</SelectItem>
-                    <SelectItem value="cancelled">Cancelled</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
+          {/* Status is an edit-time concern only. A booking the clinic enters by
+              hand is already confirmed, and cancelling something in the middle of
+              creating it is not a real action. */}
+          {isEdit && (
+            <div>
+              <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Status</label>
+              <Controller
+                name="status"
+                control={control}
+                render={({ field }) => (
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger className="text-[13px] w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="confirmed">Confirmed</SelectItem>
+                      <SelectItem value="cancelled">Cancelled</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+          )}
 
           <div>
             <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Symptoms / Notes</label>

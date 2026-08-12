@@ -11,6 +11,16 @@ export interface Profile {
   updated_at: string;
 }
 
+/** One row per patient from search_patients(), for the phone type-ahead. */
+export interface PatientMatch {
+  phone_digits: string;
+  phone: string;
+  patient_name: string;
+  email: string | null;
+  total: number;
+  last_visit: string;
+}
+
 /** Single-row table holding admin-configurable booking rules. */
 export interface ClinicSettings {
   id: boolean;
