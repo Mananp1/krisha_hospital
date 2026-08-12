@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -9,6 +9,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import type { EventInput, EventClickArg } from '@fullcalendar/core';
 import type { DateClickArg } from '@fullcalendar/interaction';
 import { NewAppointmentDialog } from './NewAppointmentDialog';
+import { AppointmentDetailDialog } from './AppointmentDetailDialog';
 import type { Appointment } from '@/types/database';
 import { OPD_DAY_START, OPD_DAY_END } from '@/lib/opd-hours';
 
@@ -47,7 +48,12 @@ function toCalendarEvents(appointments: Appointment[]): EventInput[] {
 
 export function CalendarView({ appointments }: { appointments: Appointment[] }) {
   const router = useRouter();
+  const calendarRef = useRef<FullCalendar>(null);
+  const [detailId, setDetailId] = useState<string | null>(null);
   const [newApptOpen, setNewApptOpen] = useState(false);
+
+  // Held by id so a refresh after an edit re-feeds the open dialog.
+  const detail = appointments.find((a) => a.id === detailId) ?? null;
   const [clickedDate, setClickedDate] = useState<string | undefined>();
   const [clickedTime, setClickedTime] = useState<string | undefined>();
   const [initialView] = useState<string>(
@@ -65,11 +71,20 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
 
   function handleEventClick(info: EventClickArg) {
     const appointment = info.event.extendedProps.appointment as Appointment;
-    router.push(`/admin/appointments/${appointment.id}`);
+    setDetailId(appointment.id);
   }
 
   function handleDateClick(info: DateClickArg) {
     const [datePart, timeFull] = info.dateStr.split('T');
+
+    // In month view a date cell is a navigation target, not a booking slot —
+    // clicking it drills into that day. Week and day views click an actual
+    // time slot, so those still open the new-appointment dialog.
+    if (info.view.type === 'dayGridMonth') {
+      calendarRef.current?.getApi().changeView('timeGridDay', datePart);
+      return;
+    }
+
     // timeFull is "HH:MM:SS" in week/day view, undefined in month view
     const timePart = timeFull ? timeFull.substring(0, 5) : undefined;
     setClickedDate(datePart);
@@ -245,6 +260,7 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
 
       <div className="krisha-cal">
         <FullCalendar
+          ref={calendarRef}
           plugins={[timeGridPlugin, dayGridPlugin, interactionPlugin]}
           initialView={initialView}
           headerToolbar={{
@@ -281,6 +297,14 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
           }}
         />
       </div>
+
+      {detail && (
+        <AppointmentDetailDialog
+          appointment={detail}
+          open
+          onOpenChange={(v) => { if (!v) setDetailId(null); }}
+        />
+      )}
 
       <NewAppointmentDialog
         open={newApptOpen}

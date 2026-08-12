@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon, Trash2Icon, PencilIcon } from 'lucide-react';
 import {
@@ -12,6 +11,7 @@ import { TablePagination } from './TablePagination';
 import { ContactActions } from './ContactActions';
 import { ConfirmDelete } from './ConfirmDelete';
 import { EditPatientDialog } from './EditPatientDialog';
+import { PatientDetailDialog } from './PatientDetailDialog';
 import { deletePatient } from '@/app/admin/actions';
 import { parsePageSize, parsePage } from '@/lib/pagination';
 import { cn } from '@/lib/utils';
@@ -62,7 +62,12 @@ function SortHead({
 }
 
 export function PatientTable({ patients, total }: { patients: PatientRow[]; total: number }) {
-  const [editing, setEditing] = useState<PatientRow | null>(null);
+  const [editingKey, setEditingKey] = useState<string | null>(null);
+  const [detailKey, setDetailKey] = useState<string | null>(null);
+
+  // Held by key so a refresh after an edit re-feeds the open dialog.
+  const editing = patients.find((p) => p.phoneDigits === editingKey) ?? null;
+  const detail  = patients.find((p) => p.phoneDigits === detailKey) ?? null;
 
   const router       = useRouter();
   const pathname     = usePathname();
@@ -119,17 +124,11 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
               {patients.map((patient) => (
                   <TableRow
                     key={patient.phoneDigits}
-                    onClick={() => router.push(`/admin/patients/${patient.phoneDigits}`)}
+                    onClick={() => setDetailKey(patient.phoneDigits)}
                     className="cursor-pointer hover:bg-surface-subtle transition-colors"
                   >
                     <TableCell className="pl-5">
-                      <Link
-                        href={`/admin/patients/${patient.phoneDigits}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-[13px] font-semibold text-text-base hover:text-primary transition-colors"
-                      >
-                        {patient.name}
-                      </Link>
+                      <p className="text-[13px] font-semibold text-text-base">{patient.name}</p>
                       {patient.email && (
                         <p className="text-[11px] text-text-muted mt-0.5">{patient.email}</p>
                       )}
@@ -168,7 +167,7 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
                       <div className="flex items-center gap-2">
                         <ContactActions phone={patient.phone} />
                         <button
-                          onClick={() => setEditing(patient)}
+                          onClick={() => setEditingKey(patient.phoneDigits)}
                           title="Edit patient"
                           className="w-7 h-7 flex items-center justify-center rounded-lg bg-surface-subtle text-text-muted border border-border-muted hover:text-primary hover:border-primary/40 transition-colors"
                         >
@@ -205,10 +204,18 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
         onPageSizeChange={(s) => navigate({ pageSize: String(s), page: '1' })}
       />
 
+      {detail && (
+        <PatientDetailDialog
+          patient={detail}
+          open
+          onOpenChange={(v) => { if (!v) setDetailKey(null); }}
+        />
+      )}
+
       {editing && (
         <EditPatientDialog
           open
-          onOpenChange={(v) => { if (!v) setEditing(null); }}
+          onOpenChange={(v) => { if (!v) setEditingKey(null); }}
           phoneDigits={editing.phoneDigits}
           name={editing.name}
           phone={editing.phone}

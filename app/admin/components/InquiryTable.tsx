@@ -1,7 +1,6 @@
 'use client';
 
 import { useTransition, useCallback, useState } from 'react';
-import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon, PencilIcon } from 'lucide-react';
 import {
@@ -14,6 +13,7 @@ import { TablePagination } from './TablePagination';
 import { parsePageSize, parsePage } from '@/lib/pagination';
 import { ConfirmDelete } from './ConfirmDelete';
 import { EditInquiryDialog } from './EditInquiryDialog';
+import { InquiryDetailDialog } from './InquiryDetailDialog';
 import { resolveInquiry, unresolveInquiry, deleteInquiry } from '@/app/admin/actions';
 import { cn } from '@/lib/utils';
 import { formatTimestamp } from '@/lib/format';
@@ -72,7 +72,12 @@ export function InquiryTable({
   total: number;
 }) {
   const [isPending, startTransition] = useTransition();
-  const [editing, setEditing] = useState<ContactInquiry | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [detailId, setDetailId] = useState<string | null>(null);
+
+  // Held by id so a refresh after resolve/edit re-feeds the open dialog.
+  const editing = inquiries.find((i) => i.id === editingId) ?? null;
+  const detail  = inquiries.find((i) => i.id === detailId) ?? null;
 
   const router       = useRouter();
   const pathname     = usePathname();
@@ -147,12 +152,12 @@ export function InquiryTable({
                       </span>
                     </TableCell>
                     <TableCell className="pt-3">
-                      <Link
-                        href={`/admin/inquiries/${inq.id}`}
-                        className="text-[13px] font-medium text-text-base hover:text-primary transition-colors"
+                      <button
+                        onClick={() => setDetailId(inq.id)}
+                        className="text-[13px] font-medium text-text-base hover:text-primary transition-colors text-left"
                       >
                         {inq.name}
-                      </Link>
+                      </button>
                       <p className="text-[11px] text-text-muted mt-0.5 line-clamp-1 max-w-[240px]">
                         {inq.message}
                       </p>
@@ -173,12 +178,12 @@ export function InquiryTable({
                     </TableCell>
                     <TableCell className="pt-3 pr-5">
                       <div className="flex items-center gap-2">
-                        <Link
-                          href={`/admin/inquiries/${inq.id}`}
+                        <button
+                          onClick={() => setDetailId(inq.id)}
                           className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
                         >
-                          Open
-                        </Link>
+                          View
+                        </button>
                         <button
                           onClick={() => handleResolveToggle(inq)}
                           disabled={isPending}
@@ -192,13 +197,13 @@ export function InquiryTable({
                           {inq.is_resolved ? 'Reopen' : 'Resolve'}
                         </button>
                         <button
-                          onClick={() => setEditing(inq)}
+                          onClick={() => setEditingId(inq.id)}
                           className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
                         >
                           Edit
                         </button>
                         <button
-                          onClick={() => setEditing(inq)}
+                          onClick={() => setEditingId(inq.id)}
                           className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
                         >
                           Edit
@@ -233,12 +238,12 @@ export function InquiryTable({
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <AgePill iso={inq.created_at} />
-                  <Link
-                    href={`/admin/inquiries/${inq.id}`}
-                    className="text-[13px] font-semibold text-text-base hover:text-primary transition-colors"
+                  <button
+                    onClick={() => setDetailId(inq.id)}
+                    className="text-[13px] font-semibold text-text-base hover:text-primary transition-colors text-left"
                   >
                     {inq.name}
-                  </Link>
+                  </button>
                 </div>
                 <StatusBadge status={inq.is_resolved ? 'resolved' : 'unresolved'} />
               </div>
@@ -251,12 +256,12 @@ export function InquiryTable({
               <p className="text-[12px] text-text-muted line-clamp-2">{inq.message}</p>
               <ContactActions phone={inq.phone} className="mt-0.5" />
               <div className="flex items-center gap-2 mt-0.5">
-                <Link
-                  href={`/admin/inquiries/${inq.id}`}
+                <button
+                  onClick={() => setDetailId(inq.id)}
                   className="px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
                 >
-                  Open
-                </Link>
+                  View
+                </button>
                 <button
                   onClick={() => handleResolveToggle(inq)}
                   disabled={isPending}
@@ -270,13 +275,13 @@ export function InquiryTable({
                   {inq.is_resolved ? 'Reopen' : 'Resolve'}
                 </button>
                 <button
-                  onClick={() => setEditing(inq)}
+                  onClick={() => setEditingId(inq.id)}
                   className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
                 >
                   <PencilIcon className="w-3.5 h-3.5" />
                 </button>
                 <button
-                  onClick={() => setEditing(inq)}
+                  onClick={() => setEditingId(inq.id)}
                   title="Edit inquiry"
                   className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
                 >
@@ -308,10 +313,18 @@ export function InquiryTable({
         onPageSizeChange={(s) => navigate({ pageSize: String(s), page: '1' })}
       />
 
+      {detail && (
+        <InquiryDetailDialog
+          inquiry={detail}
+          open
+          onOpenChange={(v) => { if (!v) setDetailId(null); }}
+        />
+      )}
+
       {editing && (
         <EditInquiryDialog
           open
-          onOpenChange={(v) => { if (!v) setEditing(null); }}
+          onOpenChange={(v) => { if (!v) setEditingId(null); }}
           inquiry={editing}
         />
       )}

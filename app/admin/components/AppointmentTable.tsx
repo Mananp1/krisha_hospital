@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon, PencilIcon } from 'lucide-react';
 import {
@@ -11,6 +10,7 @@ import {
 import { StatusBadge } from './StatusBadge';
 import { ContactActions } from './ContactActions';
 import { NewAppointmentDialog } from './NewAppointmentDialog';
+import { AppointmentDetailDialog } from './AppointmentDetailDialog';
 import { TablePagination } from './TablePagination';
 import { parsePageSize, parsePage } from '@/lib/pagination';
 import { cn } from '@/lib/utils';
@@ -52,7 +52,13 @@ export function AppointmentTable({
   appointments: Appointment[];
   total: number;
 }) {
-  const [editing, setEditing] = useState<Appointment | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [detailId, setDetailId] = useState<string | null>(null);
+
+  // Held by id, not by value, so a router.refresh() after an edit flows new
+  // props straight into the open dialog instead of leaving it stale.
+  const editing = appointments.find((a) => a.id === editingId) ?? null;
+  const detail  = appointments.find((a) => a.id === detailId) ?? null;
 
   const router   = useRouter();
   const pathname = usePathname();
@@ -109,7 +115,7 @@ export function AppointmentTable({
               {appointments.map((appt) => (
                   <TableRow
                     key={appt.id}
-                    onClick={() => router.push(`/admin/appointments/${appt.id}`)}
+                    onClick={() => setDetailId(appt.id)}
                     className="cursor-pointer hover:bg-surface-subtle transition-colors"
                   >
                     <TableCell className="text-[13px] pl-5">
@@ -117,13 +123,7 @@ export function AppointmentTable({
                       <span className="block text-text-muted">{formatTime(appt.appointment_time)}</span>
                     </TableCell>
                     <TableCell className="font-medium text-[13px]">
-                      <Link
-                        href={`/admin/appointments/${appt.id}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-text-base hover:text-primary transition-colors"
-                      >
-                        {appt.patient_name}
-                      </Link>
+                      <span className="text-text-base">{appt.patient_name}</span>
                     </TableCell>
                     <TableCell className="text-[13px] text-text-muted whitespace-nowrap">
                       {appt.phone}
@@ -140,7 +140,7 @@ export function AppointmentTable({
                       <div className="flex items-center gap-2">
                         <ContactActions phone={appt.phone} />
                         <button
-                          onClick={() => setEditing(appt)}
+                          onClick={() => setEditingId(appt.id)}
                           title="Edit appointment"
                           className="w-7 h-7 flex items-center justify-center rounded-lg bg-surface-subtle text-text-muted border border-border-muted hover:text-primary hover:border-primary/40 transition-colors"
                         >
@@ -163,12 +163,20 @@ export function AppointmentTable({
         onPageSizeChange={(s) => navigate({ pageSize: String(s), page: '1' })}
       />
 
+      {detail && (
+        <AppointmentDetailDialog
+          appointment={detail}
+          open
+          onOpenChange={(v) => { if (!v) setDetailId(null); }}
+        />
+      )}
+
       {editing && (
         <NewAppointmentDialog
           appointment={editing}
           open
-          onOpenChange={(v) => { if (!v) setEditing(null); }}
-          onCreated={() => { setEditing(null); router.refresh(); }}
+          onOpenChange={(v) => { if (!v) setEditingId(null); }}
+          onCreated={() => { setEditingId(null); router.refresh(); }}
         />
       )}
     </>
