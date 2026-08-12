@@ -74,16 +74,22 @@ export default function ContactForm() {
     setErrorMsg('');
 
     const supabase = createClient();
-    const { error } = await supabase.from('contact_inquiries').insert({
-      name: data.name,
-      phone: data.phone,
-      email: data.email || null,
-      message: data.message,
-      is_resolved: false,
+
+    // Public writes go through a security-definer function; anon has no direct
+    // insert grant.
+    const { error } = await supabase.rpc('submit_inquiry', {
+      p_name: data.name,
+      p_phone: data.phone,
+      p_email: data.email || null,
+      p_message: data.message,
     });
 
     if (error) {
-      setErrorMsg('Something went wrong. Please try again or call us directly.');
+      setErrorMsg(
+        error.code === '22023'
+          ? error.message
+          : 'Something went wrong. Please try again or call us directly.',
+      );
       setStatus('error');
       return;
     }

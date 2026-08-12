@@ -10,22 +10,20 @@ import { format, isToday, setHours, setMinutes, startOfDay } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import { createClient } from '@/utils/supabase/client';
 import { cn } from '@/lib/utils';
+import {
+  OPD_HOURS_LABEL,
+  formatTimeDisplay,
+  getSlotGroupsForDate,
+  isSlotWithinOpdHours,
+} from '@/lib/opd-hours';
 
-const MAX_PER_SLOT = 5;
-
-const TIME_SLOTS = [
-  '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-  '12:00', '12:30', '13:00', '13:30', '14:00', '14:30',
-  '15:00', '15:30', '16:00', '16:30', '17:00', '17:30',
-  '18:00', '18:30', '19:00', '19:30',
-];
-
-function formatTimeDisplay(time: string): string {
-  const [h, m] = time.split(':').map(Number);
-  const period = h >= 12 ? 'PM' : 'AM';
-  const display = h > 12 ? h - 12 : h === 0 ? 12 : h;
-  return `${display}:${m.toString().padStart(2, '0')} ${period}`;
-}
+/**
+ * Used until the configured capacity arrives from the database, and if that read
+ * fails. The authoritative cap lives in `clinic_settings.max_per_slot` and is
+ * re-checked by `submit_appointment`, so a stale value here can only mislead the
+ * "Full" badge — it can never let an over-capacity booking through.
+ */
+const FALLBACK_MAX_PER_SLOT = 5;
 
 function isSlotInPast(slot: string, selectedDate: Date): boolean {
   if (!isToday(selectedDate)) return false;
@@ -47,7 +45,18 @@ const schema = z.object({
   appointment_time: z.string().min(1, 'Please select a time slot'),
   message: z.string().optional(),
 }).superRefine((data, ctx) => {
-  if (data.appointment_time && isSlotInPast(data.appointment_time, data.appointment_date)) {
+  if (!data.appointment_time || !data.appointment_date) return;
+
+  if (!isSlotWithinOpdHours(data.appointment_time, data.appointment_date)) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Please select a slot within OPD hours',
+      path: ['appointment_time'],
+    });
+    return;
+  }
+
+  if (isSlotInPast(data.appointment_time, data.appointment_date)) {
     ctx.addIssue({
       code: 'custom',
       message: 'Please select a future time slot',
@@ -68,6 +77,7 @@ export default function AppointmentForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [slotState, setSlotState] = useState<{ date: string | null; counts: Record<string, number> }>({ date: null, counts: {} });
+  const [maxPerSlot, setMaxPerSlot] = useState(FALLBACK_MAX_PER_SLOT);
 
   const {
     register,
@@ -81,8 +91,35 @@ export default function AppointmentForm() {
   const selectedDate = useWatch({ control, name: 'appointment_date' });
   const selectedTime = useWatch({ control, name: 'appointment_time' });
 
+  // Capacity is set by the admin, so it is read at runtime rather than baked in
+  // at build time. Failure is non-fatal: the fallback only affects the "Full"
+  // badge, and submit_appointment enforces the real cap.
   useEffect(() => {
-    if (selectedDate && selectedTime && isSlotInPast(selectedTime, selectedDate)) {
+    let cancelled = false;
+
+    (async () => {
+      const supabase = createClient();
+      const { data } = await supabase
+        .from('clinic_settings')
+        .select('max_per_slot')
+        .eq('id', true)
+        .maybeSingle();
+
+      if (!cancelled && data?.max_per_slot) setMaxPerSlot(data.max_per_slot);
+    })();
+
+    return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedDate || !selectedTime) return;
+
+    // Switching days can strand a slot that no longer exists (e.g. an evening
+    // slot carried over to a Sunday) or has since passed.
+    if (
+      !isSlotWithinOpdHours(selectedTime, selectedDate) ||
+      isSlotInPast(selectedTime, selectedDate)
+    ) {
       setValue('appointment_time', '');
     }
   }, [selectedDate, selectedTime, setValue]);
@@ -95,18 +132,16 @@ export default function AppointmentForm() {
 
     (async () => {
       const supabase = createClient();
-      const { data } = await supabase
-        .from('appointments')
-        .select('appointment_time')
-        .eq('appointment_date', dateStr)
-        .in('status', ['pending', 'confirmed']);
+
+      // Aggregate counts only — anon has no read access to appointment rows, so
+      // this goes through a security-definer function that exposes no patient data.
+      const { data } = await supabase.rpc('get_slot_counts', { target_date: dateStr });
 
       if (cancelled) return;
 
       const counts: Record<string, number> = {};
-      data?.forEach(({ appointment_time }) => {
-        const slot = (appointment_time as string).slice(0, 5);
-        counts[slot] = (counts[slot] ?? 0) + 1;
+      (data as { slot: string; booked: number }[] | null)?.forEach(({ slot, booked }) => {
+        counts[slot.slice(0, 5)] = Number(booked);
       });
       setSlotState({ date: dateStr, counts });
     })();
@@ -119,18 +154,26 @@ export default function AppointmentForm() {
     setErrorMsg('');
 
     const supabase = createClient();
-    const { error } = await supabase.from('appointments').insert({
-      patient_name: data.patient_name,
-      phone: data.phone,
-      email: data.email || null,
-      appointment_date: format(data.appointment_date, 'yyyy-MM-dd'),
-      appointment_time: data.appointment_time + ':00',
-      message: data.message || null,
-      status: 'pending',
+
+    // Public writes go through a security-definer function; anon has no direct
+    // insert grant. It re-validates the slot and enforces per-slot capacity.
+    const { error } = await supabase.rpc('submit_appointment', {
+      p_patient_name: data.patient_name,
+      p_phone: data.phone,
+      p_email: data.email || null,
+      p_date: format(data.appointment_date, 'yyyy-MM-dd'),
+      p_time: data.appointment_time + ':00',
+      p_message: data.message || null,
     });
 
     if (error) {
-      setErrorMsg('Something went wrong. Please try again or call us directly.');
+      // The function raises 22023 for validation failures it can phrase for a
+      // patient; anything else is unexpected and gets the generic fallback.
+      setErrorMsg(
+        error.code === '22023'
+          ? error.message
+          : 'Something went wrong. Please try again or call us directly.',
+      );
       setStatus('error');
       return;
     }
@@ -164,6 +207,19 @@ export default function AppointmentForm() {
   const selectedDateStr = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null;
   const bookedCounts = slotState.date === selectedDateStr ? slotState.counts : {};
   const fetchingSlots = !!selectedDate && slotState.date !== selectedDateStr;
+
+  // Slots depend on the weekday: Mon–Sat run a morning and an evening window,
+  // Sunday is morning only.
+  const slotGroups = selectedDate ? getSlotGroupsForDate(selectedDate) : [];
+  const allSlotsUnavailable =
+    !fetchingSlots &&
+    slotGroups.every((group) =>
+      group.slots.every(
+        (slot) =>
+          (bookedCounts[slot] ?? 0) >= maxPerSlot ||
+          (selectedDate ? isSlotInPast(slot, selectedDate) : false),
+      ),
+    );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
@@ -235,7 +291,7 @@ export default function AppointmentForm() {
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}
-                  disabled={(date) => date < today || date.getDay() === 0}
+                  disabled={(date) => date < today}
                   className="w-full"
                 />
               )}
@@ -270,39 +326,55 @@ export default function AppointmentForm() {
             name="appointment_time"
             control={control}
             render={({ field }) => (
-              <div className="grid grid-cols-3 gap-2">
-                {TIME_SLOTS.map((slot) => {
-                  const count = bookedCounts[slot] ?? 0;
-                  const isFull = count >= MAX_PER_SLOT;
-                  const isPast = selectedDate ? isSlotInPast(slot, selectedDate) : false;
-                  const isUnavailable = isFull || isPast;
-                  const isSelected = field.value === slot;
+              <div className="flex flex-col gap-3">
+                {slotGroups.map((group) => (
+                  <div key={group.label} className="flex flex-col gap-1.5">
+                    <span className="text-[11px] font-semibold uppercase tracking-wide text-text-muted">
+                      {group.label}
+                    </span>
+                    <div className="grid grid-cols-3 gap-2">
+                      {group.slots.map((slot) => {
+                        const count = bookedCounts[slot] ?? 0;
+                        const isFull = count >= maxPerSlot;
+                        const isPast = selectedDate ? isSlotInPast(slot, selectedDate) : false;
+                        const isUnavailable = isFull || isPast;
+                        const isSelected = field.value === slot;
 
-                  return (
-                    <button
-                      key={slot}
-                      type="button"
-                      disabled={isUnavailable}
-                      onClick={() => field.onChange(slot)}
-                      className={cn(
-                        'flex flex-col items-center justify-center py-2 px-1 rounded-xl border text-[12px] font-semibold transition-all',
-                        isSelected
-                          ? 'bg-secondary border-secondary text-text-inverse shadow-sm'
-                          : isUnavailable
-                            ? 'bg-surface-muted border-border-muted text-text-muted opacity-50 cursor-not-allowed'
-                            : 'bg-surface border-border-muted text-text-base hover:border-primary hover:text-primary hover:bg-primary-50 cursor-pointer',
-                      )}
-                    >
-                      {formatTimeDisplay(slot)}
-                      {isFull && (
-                        <span className="text-[10px] font-normal mt-0.5">Full</span>
-                      )}
-                      {!isFull && isPast && (
-                        <span className="text-[10px] font-normal mt-0.5">Past</span>
-                      )}
-                    </button>
-                  );
-                })}
+                        return (
+                          <button
+                            key={slot}
+                            type="button"
+                            disabled={isUnavailable}
+                            aria-pressed={isSelected}
+                            onClick={() => field.onChange(slot)}
+                            className={cn(
+                              'flex flex-col items-center justify-center py-2 px-1 rounded-xl border text-[12px] font-semibold transition-all',
+                              isSelected
+                                ? 'bg-secondary border-secondary text-text-inverse shadow-sm'
+                                : isUnavailable
+                                  ? 'bg-surface-muted border-border-muted text-text-muted opacity-50 cursor-not-allowed'
+                                  : 'bg-surface border-border-muted text-text-base hover:border-primary hover:text-primary hover:bg-primary-50 cursor-pointer',
+                            )}
+                          >
+                            {formatTimeDisplay(slot)}
+                            {isFull && (
+                              <span className="text-[10px] font-normal mt-0.5">Full</span>
+                            )}
+                            {!isFull && isPast && (
+                              <span className="text-[10px] font-normal mt-0.5">Past</span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+
+                {selectedDate && allSlotsUnavailable && (
+                  <p className="text-[12px] text-text-muted py-1">
+                    No slots left for this date. Please pick another day.
+                  </p>
+                )}
               </div>
             )}
           />
@@ -311,7 +383,7 @@ export default function AppointmentForm() {
             <p className={errorClass}>{errors.appointment_time.message}</p>
           )}
           <p className="text-[11px] text-text-muted mt-1 leading-relaxed">
-            OPD hours: Mon–Sat, 11 AM–2 PM &amp; 6 PM–8 PM · Sun, 11 AM–1 PM.
+            {OPD_HOURS_LABEL}
           </p>
         </div>
       </div>
