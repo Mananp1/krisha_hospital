@@ -102,7 +102,15 @@ const expertise = [
   },
 ];
 
-const consultDetails = [
+interface ConsultDetail {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  /** Optional supporting line — omitted where the value says everything. */
+  sub?: string;
+}
+
+const consultDetails: ConsultDetail[] = [
   {
     icon: (
       <ClockIcon size={20} />
@@ -125,15 +133,14 @@ const consultDetails = [
     ),
     label: 'Location',
     value: "Krisha Women's Hospital",
-    sub: '231–235, A Block, 2nd Floor, Arbuda Trade Centre, Narol, Ahmedabad – 382405',
+    sub: 'A 231–235, SF, Arbuda Trade Centre, Narol, Ahmedabad – 382405',
   },
   {
     icon: (
       <MessageSquareIcon size={20} />
     ),
     label: 'Languages',
-    value: 'Hindi · Gujarati · English · Marathi',
-    sub: 'ગુજરાતીમાં સેવા ઉપલબ્ધ છે',
+    value: 'Gujarati · Hindi · English · Marathi',
   },
 ];
 
@@ -528,9 +535,11 @@ export default function DoctorPage() {
                       <p className="font-bold text-[14px] text-text-base leading-snug break-words">
                         {item.value}
                       </p>
-                      <p className="text-[12.5px] text-text-muted leading-5 mt-1 break-words">
-                        {item.sub}
-                      </p>
+                      {item.sub && (
+                        <p className="text-[12.5px] text-text-muted leading-5 mt-1 break-words">
+                          {item.sub}
+                        </p>
+                      )}
                     </div>
                   </article>
                 ))}

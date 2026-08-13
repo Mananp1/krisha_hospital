@@ -21,7 +21,7 @@ const contactItems = [
     icon: (
       <MapPinIcon size={16} />
     ),
-    text: '231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road, Narol, Ahmedabad — 382405',
+    text: 'A 231–235, SF, Arbuda Trade Centre, Opposite Swaminarayan Complex, Narol – Vatva Turning, Narol, Ahmedabad — 382405',
   },
   {
     icon: (
@@ -41,7 +41,8 @@ const contactItems = [
     icon: (
       <ClockIcon size={16} />
     ),
-    text: 'Mon–Sat 8AM–8PM · Emergency 24×7',
+    // Must match lib/opd-hours.ts and the TopBar strip.
+    text: 'OPD: Mon–Sat 11AM–2PM, 6PM–8PM · Sun 11AM–1PM · Emergency 24×7',
   },
 ];
 

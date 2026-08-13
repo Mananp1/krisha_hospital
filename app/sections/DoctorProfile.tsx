@@ -17,9 +17,9 @@ const PHONE = 'tel:+917862950676';
  * Previously every credential sat in its own bordered box with an icon well —
  * four containers that fragmented one story into four. Qualifications and
  * fellowships now read as a structured definition row, and consultation details
- * as a single panel. The Gujarati-service line was a small grey footnote; it is
- * now a labelled row in that panel, because for a Narol patient it is a real
- * accessibility benefit rather than a leftover.
+ * as a single panel. The languages line was a small grey footnote; it is now a
+ * labelled row in that panel, because for a Narol patient the languages the
+ * doctor consults in are a real accessibility benefit rather than a leftover.
  */
 export default function DoctorProfile() {
   const t = useTranslations('doctorProfile');
@@ -35,7 +35,7 @@ export default function DoctorProfile() {
   const consult = [
     { label: t('metaOpdHours'), value: t('metaOpdHoursValue') },
     { label: t('metaHospital'), value: t('metaHospitalValue') },
-    { label: tLang('label'), value: t('gujaratiNote') },
+    { label: tLang('label'), value: t('languagesSpoken') },
   ];
 
   return (

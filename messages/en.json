@@ -129,7 +129,7 @@
     "bookAppointment": "Book Appointment",
     "callNow": "Call Now",
     "viewFullProfile": "View Full Profile",
-    "gujaratiNote": "ગુજરાતીમાં સેવા ઉપલબ્ધ છે"
+    "languagesSpoken": "Gujarati · Hindi · English · Marathi"
   },
   "hospitalGallery": {
     "eyebrow": "OUR FACILITY",
@@ -212,7 +212,7 @@
     },
     "servicesHeading": "Our Services",
     "contactHeading": "Get in Touch",
-    "hoursLine": "Mon–Sat 8AM–8PM · Emergency 24×7",
+    "hoursLine": "OPD: Mon–Sat 11AM–2PM, 6PM–8PM · Sun 11AM–1PM · Emergency 24×7",
     "mapLabel": "Narol, Ahmedabad",
     "getDirections": "Get directions →",
     "copyright": "© 2026 Krisha Women's Hospital, Narol, Ahmedabad. All Rights Reserved.",
@@ -251,11 +251,11 @@
     "emailSub": "We reply within 24 hours",
     "visitUs": "Visit Us",
     "visitPrimary": "Narol, Ahmedabad — 382405",
-    "visitSub": "231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road",
+    "visitSub": "A 231–235, SF, Arbuda Trade Centre, Opposite Swaminarayan Complex, Narol – Vatva Turning",
     "opdHours": "OPD Hours",
     "opdPrimary": "Mon – Sat: 11 AM–2 PM, 6 PM–8 PM",
     "opdSub": "Sun: 11 AM–1 PM · Emergency 24×7",
-    "addressLine": "231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road, Narol, Ahmedabad — 382405",
+    "addressLine": "A 231–235, SF, Arbuda Trade Centre, Opposite Swaminarayan Complex, Narol – Vatva Turning, Narol, Ahmedabad — 382405",
     "openInMaps": "Open in Google Maps →"
   },
   "contactForm": {
@@ -473,12 +473,11 @@
       {
         "label": "Location",
         "value": "Krisha Women's Hospital",
-        "sub": "231–235, A Block, 2nd Floor, Arbuda Trade Centre, Narol, Ahmedabad – 382405"
+        "sub": "A 231–235, SF, Arbuda Trade Centre, Narol, Ahmedabad – 382405"
       },
       {
         "label": "Languages",
-        "value": "Hindi · Gujarati · English · Marathi",
-        "sub": "ગુજરાતીમાં સેવા ઉપલબ્ધ છે"
+        "value": "Gujarati · Hindi · English · Marathi"
       }
     ]
   },

@@ -43,7 +43,7 @@ const contactCards = [
     ),
     label: 'Visit Us',
     primary: 'Narol, Ahmedabad — 382405',
-    secondary: '231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road',
+    secondary: 'A 231–235, SF, Arbuda Trade Centre, Opposite Swaminarayan Complex, Narol – Vatva Turning',
     href: null,
   },
   {
@@ -171,7 +171,7 @@ export default function ContactPage() {
           </div>
           <div className="flex items-center justify-between mt-3 flex-wrap gap-2">
             <p className="text-meta text-text-muted">
-              231–235, A Block, 2nd Floor, Arbuda Trade Centre, Near Meldi Mata Mandir, Swami Samarth Road, Narol, Ahmedabad — 382405
+              A 231–235, SF, Arbuda Trade Centre, Opposite Swaminarayan Complex, Narol – Vatva Turning, Narol, Ahmedabad — 382405
             </p>
             <a
               href="https://maps.app.goo.gl/yyAN6pwSQYNny7v18"
