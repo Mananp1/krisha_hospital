@@ -65,7 +65,7 @@ export function TablePagination({
           onChange={(e) => {
             onPageSizeChange(Number(e.target.value));
           }}
-          className="h-7 rounded-lg border border-border-muted bg-surface px-2 text-[12px] text-text-base cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary/30 transition-colors"
+          className="h-7 rounded-md border border-border-muted bg-surface px-2 text-[12px] text-text-base cursor-pointer transition-[color,box-shadow] focus-visible:outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20"
         >
           {pageSizeOptions.map((s) => (
             <option key={s} value={s}>

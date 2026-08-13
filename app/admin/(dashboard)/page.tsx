@@ -11,35 +11,31 @@ import {
 import { createAdminClient } from '@/utils/supabase/admin';
 import { StatsCard } from '@/app/admin/components/StatsCard';
 import { StatusBadge } from '@/app/admin/components/StatusBadge';
+import { AttendanceBadge } from '@/app/admin/components/AttendanceBadge';
+import { attendanceOf } from '@/lib/attendance';
 import { NewAppointmentDialog } from '@/app/admin/components/NewAppointmentDialog';
 import { SlotAvailability } from '@/app/admin/components/SlotAvailability';
 import { getSlotGroupsForDate, parseLocalDate } from '@/lib/opd-hours';
-import { formatDate, formatTime } from '@/lib/format';
-import type { ClinicSettings } from '@/types/database';
+import { formatDate, formatTime, todayInClinic, addDays, CLINIC_TIME_ZONE } from '@/lib/format';
+import type { ClinicSettings, AppointmentStatus } from '@/types/database';
 
 const FALLBACK_CAPACITY = 5;
 
-function todayStr() {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-}
-
-function weekEndStr() {
-  const now = new Date();
-  now.setDate(now.getDate() + 7);
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-}
+/** How far back the no-show callback list reaches. */
+const NO_SHOW_WINDOW_DAYS = 7;
 
 function formatDayHeader() {
   return new Date().toLocaleDateString('en-IN', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+    timeZone: CLINIC_TIME_ZONE,
   });
 }
 
 type RecentAppt = {
   id: string; patient_name: string; phone: string;
   appointment_date: string; appointment_time: string;
-  status: string; created_at: string; type: 'appointment';
+  status: AppointmentStatus; checked_in_at: string | null;
+  created_at: string; type: 'appointment';
 };
 type RecentInquiry = {
   id: string; name: string; phone: string; message: string;
@@ -55,8 +51,9 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
   const { slotDate } = await searchParams;
 
   const supabase = createAdminClient();
-  const today = todayStr();
-  const weekEnd = weekEndStr();
+  const today = todayInClinic();
+  const weekEnd = addDays(today, 7);
+  const noShowFrom = addDays(today, -NO_SHOW_WINDOW_DAYS);
 
   // The slot panel books forward only, so today is the floor. Bad input and any
   // past date (a hand-edited URL) both fall back to today.
@@ -65,17 +62,26 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
 
   const [
     { count: todayCount },
+    { count: arrivedTodayCount },
     { count: weekCount },
     { count: pendingCount },
+    { count: noShowCount },
     { count: unresolvedCount },
     { data: recentApptsRaw },
     { data: recentInqsRaw },
   ] = await Promise.all([
     supabase.from('appointments').select('*', { count: 'exact', head: true }).eq('appointment_date', today),
+    supabase.from('appointments').select('*', { count: 'exact', head: true }).eq('appointment_date', today).not('checked_in_at', 'is', null),
     supabase.from('appointments').select('*', { count: 'exact', head: true }).gte('appointment_date', today).lte('appointment_date', weekEnd),
     supabase.from('appointments').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+    // Missed visits worth a callback: past days only, so today's patients are
+    // not counted as no-shows while the clinic is still open. Nothing is stored
+    // for this — an unchecked past appointment simply is a no-show.
+    supabase.from('appointments').select('*', { count: 'exact', head: true })
+      .is('checked_in_at', null).neq('status', 'cancelled')
+      .gte('appointment_date', noShowFrom).lt('appointment_date', today),
     supabase.from('contact_inquiries').select('*', { count: 'exact', head: true }).eq('is_resolved', false),
-    supabase.from('appointments').select('id,patient_name,phone,appointment_date,appointment_time,status,created_at').order('created_at', { ascending: false }).limit(5),
+    supabase.from('appointments').select('id,patient_name,phone,appointment_date,appointment_time,status,checked_in_at,created_at').order('created_at', { ascending: false }).limit(5),
     supabase.from('contact_inquiries').select('id,name,phone,message,is_resolved,created_at').order('created_at', { ascending: false }).limit(5),
   ]);
 
@@ -107,7 +113,9 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
     .slice(0, 5);
 
-  const hasAlerts = (pendingCount ?? 0) > 0 || (unresolvedCount ?? 0) > 0;
+  const noShows = noShowCount ?? 0;
+  const hasAlerts =
+    (pendingCount ?? 0) > 0 || (unresolvedCount ?? 0) > 0 || noShows > 0;
 
   return (
     <div className="p-6 lg:p-8 max-w-page mx-auto">
@@ -132,6 +140,16 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
                 {unresolvedCount} {unresolvedCount !== 1 ? 'inquiries' : 'inquiry'} awaiting response
               </Link>
             )}
+            {noShows > 0 && (
+              // Sorted newest first, so the ones from this week — the ones this
+              // count is about — are at the top of the list it opens.
+              <Link
+                href="/admin/appointments?attendance=no_show&sortCol=date&sortDir=desc"
+                className="text-amber-800 font-semibold hover:underline"
+              >
+                {noShows} patient{noShows !== 1 ? 's' : ''} did not come in the last {NO_SHOW_WINDOW_DAYS} days
+              </Link>
+            )}
           </div>
         </div>
       )}
@@ -154,6 +172,9 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
           value={todayCount ?? 0}
           icon={<CalendarIcon size={18} strokeWidth={1.8} />}
           zeroNote="None scheduled today"
+          note={`${arrivedTodayCount ?? 0} checked in so far`}
+          href="/admin/appointments?attendance=awaiting"
+          hrefLabel="Who is still expected →"
         />
         <StatsCard
           title="This Week"
@@ -228,6 +249,7 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
           <div className="divide-y divide-border-muted">
             {activity.map((item) => {
               if (item.type === 'appointment') {
+                const attendance = attendanceOf(item, today);
                 return (
                   <div key={`appt-${item.id}`} className="px-5 py-2.5 flex items-center gap-3">
                     <div className="w-7 h-7 rounded-lg bg-primary-50 text-primary flex items-center justify-center shrink-0">
@@ -239,7 +261,12 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
                         {formatDate(item.appointment_date)} · {formatTime(item.appointment_time)}
                       </p>
                     </div>
-                    <StatusBadge status={item.status as 'pending' | 'confirmed' | 'cancelled'} />
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <StatusBadge status={item.status} />
+                      {/* Recent activity is mostly future bookings; "Upcoming"
+                          beside "Confirmed" would say nothing. */}
+                      {attendance !== 'upcoming' && <AttendanceBadge state={attendance} />}
+                    </div>
                   </div>
                 );
               }

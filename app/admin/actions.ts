@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from '@/utils/supabase/server';
 import { createAdminClient } from '@/utils/supabase/admin';
 import { MIN_PER_SLOT, MAX_PER_SLOT_LIMIT } from '@/lib/opd-hours';
+import { todayInClinic } from '@/lib/format';
 import type {
   AppointmentStatus,
   AppointmentInsert,
@@ -42,7 +43,7 @@ function throwFriendly(error: DbError): never {
       throw new Error('A required field is missing.');
     case 'PGRST204': // column missing from the PostgREST schema cache
       throw new Error(
-        'This feature needs a database update that has not been applied yet. Run docs/schema-v4.md, then try again.',
+        'This feature needs a database update that has not been applied yet. Run the latest migration in docs/ (schema-v6.md), then try again.',
       );
     default:
       console.error('[admin action] unexpected database error', error.code, error.message);
@@ -91,13 +92,76 @@ function revalidateInquiries() {
 
 // ── Appointments ────────────────────────────────────────────────────────────
 
+/**
+ * Cancelling drops any recorded arrival: a visit that was called off cannot
+ * also have been attended, and leaving the stamp behind would keep the row
+ * reading as "Arrived". Applied as part of the same update so the two can never
+ * disagree.
+ */
+const CLEAR_CHECK_IN = { checked_in_at: null, checked_in_by: null } as const;
+
 export async function updateAppointmentStatus(id: string, status: AppointmentStatus) {
   const userId = await requireAdmin();
 
   const admin = createAdminClient();
   const { error } = await admin
     .from('appointments')
-    .update({ status, updated_by: userId })
+    .update({
+      status,
+      updated_by: userId,
+      ...(status === 'cancelled' ? CLEAR_CHECK_IN : {}),
+    })
+    .eq('id', id);
+
+  if (error) throwFriendly(error);
+  revalidateAppointments();
+}
+
+/**
+ * Records that the patient walked in, or undoes that.
+ *
+ * There is deliberately no "mark as no-show" counterpart. An appointment left
+ * unchecked once its day has passed *is* a no-show — it is derived on read
+ * (`lib/attendance.ts`), which is what makes yesterday's list clear itself at
+ * midnight without a scheduled job. See docs/schema-v6.md.
+ */
+export async function setAppointmentCheckIn(id: string, arrived: boolean) {
+  const userId = await requireAdmin();
+
+  const admin = createAdminClient();
+  const { data: appointment, error: readError } = await admin
+    .from('appointments')
+    .select('appointment_date, status')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (readError) throwFriendly(readError);
+  if (!appointment) throw new Error('That appointment no longer exists.');
+
+  if (arrived) {
+    if (appointment.status === 'cancelled') {
+      throw new Error(
+        'This appointment is cancelled. Set it back to pending or confirmed before marking the patient as arrived.',
+      );
+    }
+    // Past appointments stay checkable — arrivals often get marked after the
+    // fact — but nobody can have walked in for a future one.
+    if (appointment.appointment_date > todayInClinic()) {
+      throw new Error('This appointment has not happened yet.');
+    }
+  }
+
+  const { error } = await admin
+    .from('appointments')
+    .update(
+      arrived
+        ? {
+            checked_in_at: new Date().toISOString(),
+            checked_in_by: userId,
+            updated_by: userId,
+          }
+        : { ...CLEAR_CHECK_IN, updated_by: userId },
+    )
     .eq('id', id);
 
   if (error) throwFriendly(error);
@@ -123,7 +187,13 @@ export async function updateAppointment(id: string, data: AppointmentUpdate) {
   const admin = createAdminClient();
   const { error } = await admin
     .from('appointments')
-    .update({ ...data, updated_by: userId })
+    .update({
+      ...data,
+      updated_by: userId,
+      // Same rule as updateAppointmentStatus — cancelling here has to clear the
+      // arrival too, since this dialog can also change the status.
+      ...(data.status === 'cancelled' ? CLEAR_CHECK_IN : {}),
+    })
     .eq('id', id);
 
   if (error) throwFriendly(error);

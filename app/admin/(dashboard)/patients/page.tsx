@@ -3,6 +3,8 @@ import { createAdminClient } from '@/utils/supabase/admin';
 import { PatientTable } from '@/app/admin/components/PatientTable';
 import type { PatientRow } from '@/app/admin/components/PatientTable';
 import { parsePageSize, parsePage } from '@/lib/pagination';
+import { todayInClinic } from '@/lib/format';
+import { attendanceOf } from '@/lib/attendance';
 import type { Appointment } from '@/types/database';
 
 export const metadata: Metadata = { title: 'Patients | Admin' };
@@ -24,11 +26,12 @@ export default async function PatientsPage({ searchParams }: PageProps) {
   const asc = sortDir === 'asc';
 
   const supabase = createAdminClient();
+  const today = todayInClinic();
 
   // Fetch all appointments to derive unique patients (grouped by phone server-side)
   const { data } = await supabase
     .from('appointments')
-    .select('id,patient_name,phone,phone_digits,email,appointment_date,appointment_time,status,message,created_at,updated_at,updated_by')
+    .select('id,patient_name,phone,phone_digits,email,appointment_date,appointment_time,status,message,checked_in_at,checked_in_by,created_at,updated_at,updated_by')
     .order('appointment_date', { ascending: false })
     .order('appointment_time', { ascending: false });
 
@@ -39,6 +42,9 @@ export default async function PatientsPage({ searchParams }: PageProps) {
   const map = new Map<string, PatientRow>();
   for (const appt of appointments) {
     const key = appt.phone_digits ?? appt.phone;
+    // Attendance is derived, so the visit tallies are counted the same way the
+    // badges are rendered — one definition, in lib/attendance.ts.
+    const attendance = attendanceOf(appt, today);
     const existing = map.get(key);
     if (!existing) {
       map.set(key, {
@@ -50,6 +56,8 @@ export default async function PatientsPage({ searchParams }: PageProps) {
         pending:   appt.status === 'pending'   ? 1 : 0,
         confirmed: appt.status === 'confirmed' ? 1 : 0,
         cancelled: appt.status === 'cancelled' ? 1 : 0,
+        arrived:   attendance === 'arrived' ? 1 : 0,
+        noShow:    attendance === 'no_show' ? 1 : 0,
         lastDate: appt.appointment_date,
         lastTime: appt.appointment_time,
         appointments: [appt],
@@ -60,6 +68,8 @@ export default async function PatientsPage({ searchParams }: PageProps) {
       if (appt.status === 'pending')   existing.pending++;
       else if (appt.status === 'confirmed') existing.confirmed++;
       else if (appt.status === 'cancelled') existing.cancelled++;
+      if (attendance === 'arrived')      existing.arrived++;
+      else if (attendance === 'no_show') existing.noShow++;
       if (
         appt.appointment_date > existing.lastDate ||
         (appt.appointment_date === existing.lastDate && appt.appointment_time > existing.lastTime)
@@ -94,7 +104,7 @@ export default async function PatientsPage({ searchParams }: PageProps) {
       </div>
 
       <div className="bg-surface rounded-lg border border-border-muted overflow-hidden">
-        <PatientTable patients={patients} total={total} />
+        <PatientTable patients={patients} total={total} today={today} />
       </div>
     </div>
   );

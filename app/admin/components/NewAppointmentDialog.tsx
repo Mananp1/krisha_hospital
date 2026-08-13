@@ -12,6 +12,7 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import { createAppointmentByAdmin, updateAppointment } from '@/app/admin/actions';
+import { notifyError } from '@/lib/notify';
 import {
   OPD_HOURS_LABEL,
   formatTimeDisplay,
@@ -19,6 +20,8 @@ import {
 } from '@/lib/opd-hours';
 import { PatientPhoneField } from './PatientPhoneField';
 import type { Appointment, PatientMatch } from '@/types/database';
+import { btnPrimary, inputClass, textareaClass } from './controls';
+import { cn } from '@/lib/utils';
 
 function todayStr() {
   const d = new Date();
@@ -59,9 +62,6 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-
-const inputClass =
-  'w-full px-3 py-2 text-[13px] bg-surface border border-border-muted rounded-xl text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary/50 transition-colors';
 
 interface NewAppointmentDialogProps {
   open?: boolean;
@@ -120,8 +120,6 @@ export function NewAppointmentDialog({
 }: NewAppointmentDialogProps = {}) {
   const [internalOpen, setInternalOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [submitError, setSubmitError] = useState('');
-  const [returningPatient, setReturningPatient] = useState<PatientMatch | null>(null);
 
   const isEdit = !!appointment;
 
@@ -129,8 +127,6 @@ export function NewAppointmentDialog({
   const open = isControlled ? controlledOpen : internalOpen;
 
   function setOpen(v: boolean) {
-    setSubmitError('');
-    setReturningPatient(null);
     if (isControlled) {
       onControlledChange?.(v);
     } else {
@@ -191,7 +187,6 @@ export function NewAppointmentDialog({
   function handlePatientSelected(match: PatientMatch) {
     setValue('patient_name', match.patient_name, { shouldValidate: true });
     setValue('email', match.email ?? '', { shouldValidate: true });
-    setReturningPatient(match);
   }
 
   function onSubmit(data: FormValues) {
@@ -212,8 +207,6 @@ export function NewAppointmentDialog({
         : {}),
     };
 
-    setSubmitError('');
-
     startTransition(async () => {
       try {
         if (appointment) {
@@ -222,7 +215,7 @@ export function NewAppointmentDialog({
           await createAppointmentByAdmin(payload);
         }
       } catch (err) {
-        setSubmitError(err instanceof Error ? err.message : 'Something went wrong');
+        notifyError(err, 'Something went wrong');
         return;
       }
 
@@ -256,13 +249,6 @@ export function NewAppointmentDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="mt-1 flex flex-col gap-3">
-          {returningPatient && !isEdit && (
-            <p className="px-3 py-2 rounded-xl bg-primary-50 border border-primary/20 text-[12px] text-primary leading-relaxed">
-              Returning patient — {returningPatient.total} previous
-              visit{returningPatient.total === 1 ? '' : 's'}. Name and email filled
-              in from their last appointment.
-            </p>
-          )}
           <div>
             <label className="block text-[12px] font-semibold text-text-muted mb-0.5">Patient Name *</label>
             <input {...register('patient_name')} placeholder="Full name" className={inputClass} />
@@ -283,6 +269,10 @@ export function NewAppointmentDialog({
                     value={field.value}
                     onChange={field.onChange}
                     onPatientSelected={handlePatientSelected}
+                    // Opened from a patient's record, or editing their
+                    // appointment: the patient is already known, so the number
+                    // it arrives with is never looked up.
+                    identified={appointment?.phone ?? defaultPatient?.phone}
                     className={inputClass}
                   />
                 )}
@@ -405,20 +395,14 @@ export function NewAppointmentDialog({
               {...register('message')}
               rows={2}
               placeholder="Reason for visit, symptoms..."
-              className={`${inputClass} resize-none`}
+              className={`${textareaClass} resize-none`}
             />
           </div>
-
-          {submitError && (
-            <p className="px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-[12px] text-red-700">
-              {submitError}
-            </p>
-          )}
 
           <button
             type="submit"
             disabled={isPending}
-            className="w-full py-2.5 rounded-xl bg-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
+            className={cn(btnPrimary, 'w-full')}
           >
             {isPending
               ? (isEdit ? 'Saving...' : 'Booking...')

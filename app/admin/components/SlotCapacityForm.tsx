@@ -3,6 +3,9 @@
 import { useState, useTransition } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { updateMaxPerSlot } from '@/app/admin/actions';
+import { notifyError } from '@/lib/notify';
+import { cn } from '@/lib/utils';
+import { btnPrimary, inputClass } from './controls';
 import { MIN_PER_SLOT, MAX_PER_SLOT_LIMIT } from '@/lib/opd-hours';
 
 interface SlotCapacityFormProps {
@@ -11,7 +14,6 @@ interface SlotCapacityFormProps {
 
 export function SlotCapacityForm({ current }: SlotCapacityFormProps) {
   const [value, setValue] = useState(String(current));
-  const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -20,7 +22,6 @@ export function SlotCapacityForm({ current }: SlotCapacityFormProps) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError('');
     setSaved(false);
 
     startTransition(async () => {
@@ -28,7 +29,7 @@ export function SlotCapacityForm({ current }: SlotCapacityFormProps) {
         await updateMaxPerSlot(parsed);
         setSaved(true);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Could not save');
+        notifyError(err, 'Could not save');
       }
     });
   }
@@ -50,7 +51,7 @@ export function SlotCapacityForm({ current }: SlotCapacityFormProps) {
           max={MAX_PER_SLOT_LIMIT}
           value={value}
           onChange={(e) => { setValue(e.target.value); setSaved(false); }}
-          className="w-32 px-3 py-2 text-[14px] bg-surface border border-border-muted rounded-xl text-text-base focus:outline-none focus:border-primary transition-colors"
+          className={cn(inputClass, 'w-32 text-[14px]')}
         />
         <p className="text-[12px] text-text-muted leading-relaxed">
           Once this many patients have booked a slot, it shows as{' '}
@@ -60,17 +61,11 @@ export function SlotCapacityForm({ current }: SlotCapacityFormProps) {
         </p>
       </div>
 
-      {error && (
-        <p className="px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-[12px] text-red-700">
-          {error}
-        </p>
-      )}
-
       <div className="flex items-center gap-3">
         <button
           type="submit"
           disabled={isPending || !dirty}
-          className="px-4 py-2 rounded-xl bg-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+          className={cn(btnPrimary, 'py-2')}
         >
           {isPending ? 'Saving…' : 'Save'}
         </button>

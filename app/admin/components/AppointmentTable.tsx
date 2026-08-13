@@ -8,6 +8,7 @@ import {
   TableHeader, TableRow,
 } from '@/components/ui/table';
 import { StatusBadge } from './StatusBadge';
+import { CheckInToggle } from './CheckInToggle';
 import { ContactActions } from './ContactActions';
 import { NewAppointmentDialog } from './NewAppointmentDialog';
 import { AppointmentDetailDialog } from './AppointmentDetailDialog';
@@ -16,6 +17,7 @@ import { parsePageSize, parsePage } from '@/lib/pagination';
 import { cn } from '@/lib/utils';
 import { formatDate, formatTime } from '@/lib/format';
 import type { Appointment } from '@/types/database';
+import { iconButton } from './controls';
 
 type SortCol = 'date' | 'name' | 'status';
 type SortDir = 'asc' | 'desc';
@@ -48,9 +50,12 @@ function SortHead({
 export function AppointmentTable({
   appointments,
   total,
+  today,
 }: {
   appointments: Appointment[];
   total: number;
+  /** Today in the clinic's timezone, from the server — attendance depends on it. */
+  today: string;
 }) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [detailId, setDetailId] = useState<string | null>(null);
@@ -99,7 +104,7 @@ export function AppointmentTable({
   return (
     <>
       <div className="overflow-x-auto">
-        <div className="min-w-[680px]">
+        <div className="min-w-[820px]">
           <Table>
             <TableHeader>
               <TableRow>
@@ -108,6 +113,7 @@ export function AppointmentTable({
                 <TableHead>Phone</TableHead>
                 <TableHead>Symptoms</TableHead>
                 <SortHead label="Status" col="status" sortCol={sortCol} sortDir={sortDir} onSort={handleSort} />
+                <TableHead className="whitespace-nowrap">Attendance</TableHead>
                 <TableHead className="w-px whitespace-nowrap pr-5">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -136,13 +142,16 @@ export function AppointmentTable({
                     <TableCell>
                       <StatusBadge status={appt.status} />
                     </TableCell>
+                    <TableCell>
+                      <CheckInToggle appointment={appt} today={today} />
+                    </TableCell>
                     <TableCell className="pr-5" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center gap-2">
                         <ContactActions phone={appt.phone} />
                         <button
                           onClick={() => setEditingId(appt.id)}
                           title="Edit appointment"
-                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-surface-subtle text-text-muted border border-border-muted hover:text-primary hover:border-primary/40 transition-colors"
+                          className={iconButton}
                         >
                           <PencilIcon className="w-3.5 h-3.5" />
                         </button>
@@ -166,8 +175,12 @@ export function AppointmentTable({
       {detail && (
         <AppointmentDetailDialog
           appointment={detail}
+          today={today}
           open
           onOpenChange={(v) => { if (!v) setDetailId(null); }}
+          // Hands over to the edit dialog below, which is owned here so that
+          // closing the detail view cannot take the editor down with it.
+          onEdit={() => { setEditingId(detail.id); setDetailId(null); }}
         />
       )}
 

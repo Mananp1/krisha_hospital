@@ -7,9 +7,8 @@ import {
   Select, SelectContent, SelectItem,
   SelectTrigger, SelectValue,
 } from '@/components/ui/select';
-
-const inputClass =
-  'w-full py-2 text-[13px] bg-surface border border-border-muted rounded-xl text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary/50 transition-colors';
+import { cn } from '@/lib/utils';
+import { inputClass } from './controls';
 
 export function AppointmentSearch() {
   const router = useRouter();
@@ -39,7 +38,7 @@ export function AppointmentSearch() {
           placeholder="Search by name..."
           defaultValue={searchParams.get('name') ?? ''}
           onChange={(e) => setParam('name', e.target.value)}
-          className={`${inputClass} pl-9 pr-3`}
+          className={cn(inputClass, 'pl-9 pr-3')}
         />
       </div>
 
@@ -50,7 +49,7 @@ export function AppointmentSearch() {
           placeholder="Search by phone..."
           defaultValue={searchParams.get('phone') ?? ''}
           onChange={(e) => setParam('phone', e.target.value)}
-          className={`${inputClass} pl-9 pr-3`}
+          className={cn(inputClass, 'pl-9 pr-3')}
         />
       </div>
 
@@ -58,7 +57,7 @@ export function AppointmentSearch() {
         type="date"
         defaultValue={searchParams.get('date') ?? ''}
         onChange={(e) => setParam('date', e.target.value)}
-        className={`${inputClass} px-3 flex-1 min-w-[140px]`}
+        className={cn(inputClass, 'flex-1 min-w-[140px]')}
         title="Filter by date"
       />
 
@@ -74,6 +73,25 @@ export function AppointmentSearch() {
           <SelectItem value="pending">Pending</SelectItem>
           <SelectItem value="confirmed">Confirmed</SelectItem>
           <SelectItem value="cancelled">Cancelled</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* Attendance is a separate axis from status: a confirmed patient can
+          still fail to turn up, so these two filters combine rather than
+          replace each other. "No-show" is the one the desk calls back. */}
+      <Select
+        defaultValue={searchParams.get('attendance') ?? 'all'}
+        onValueChange={(val) => setParam('attendance', val === 'all' ? '' : val)}
+      >
+        <SelectTrigger className="w-40 text-[13px]">
+          <SelectValue placeholder="All attendance" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All attendance</SelectItem>
+          <SelectItem value="arrived">Arrived</SelectItem>
+          <SelectItem value="no_show">No-show</SelectItem>
+          <SelectItem value="awaiting">Awaiting today</SelectItem>
+          <SelectItem value="upcoming">Upcoming</SelectItem>
         </SelectContent>
       </Select>
     </div>

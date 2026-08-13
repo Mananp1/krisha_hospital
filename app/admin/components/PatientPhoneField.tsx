@@ -6,25 +6,48 @@ import { searchPatients } from '@/app/admin/actions';
 import { formatDate } from '@/lib/format';
 import type { PatientMatch } from '@/types/database';
 
+/**
+ * Indian mobile numbers, and the width of `appointments.phone_digits`.
+ *
+ * The lookup waits for the whole number rather than searching as you type. A
+ * partial number matches a prefix, so the early keystrokes are the ones that
+ * scan the most rows to return the least useful answer — and at ten digits the
+ * result is a single patient anyway, since patients are grouped by exactly
+ * these ten digits.
+ *
+ * A number typed with its country code passes ten digits before it is finished
+ * ("+91 98765" is already ten). The 250ms debounce below is what covers that:
+ * the remaining digits arrive inside one debounce window, so a number typed at
+ * any normal speed still costs a single lookup.
+ */
+const PHONE_DIGITS = 10;
+
 interface PatientPhoneFieldProps {
   value: string;
   onChange: (value: string) => void;
   /** Fired when an existing patient is picked, to fill the rest of the form. */
   onPatientSelected: (patient: PatientMatch) => void;
+  /**
+   * A number that already belongs to a known patient — the form was opened from
+   * their record, or is editing their appointment. No lookup runs while the
+   * field still holds it: there is nothing to identify. Editing it wakes the
+   * lookup back up, because it is then a different patient being entered.
+   */
+  identified?: string | null;
   className?: string;
   id?: string;
 }
 
 /**
- * Phone input with a type-ahead over existing patients. Typing two or more
- * characters looks up matches; picking one fills in the name and email so a
- * returning patient's details are not retyped.
+ * Phone input with a type-ahead over existing patients. Once a full ten-digit
+ * number is entered it looks up that patient; picking the match fills in the
+ * name and email so a returning patient's details are not retyped.
  *
  * Lookup failures are silent — if schema-v5 has not been run the action returns
  * an empty list and this behaves as a plain text input.
  */
 export function PatientPhoneField({
-  value, onChange, onPatientSelected, className, id,
+  value, onChange, onPatientSelected, identified, className, id,
 }: PatientPhoneFieldProps) {
   const [matches, setMatches] = useState<PatientMatch[]>([]);
   const [open, setOpen] = useState(false);
@@ -37,12 +60,18 @@ export function PatientPhoneField({
 
   useEffect(() => {
     const query = value.trim();
+    const digits = query.replace(/\D/g, '');
     const seq = ++requestRef.current;
+
+    // Nothing to look up: the patient is already known (picked from the menu, or
+    // the form was opened from their record), or the number is still incomplete.
+    const settled =
+      picked === query || query === identified?.trim() || digits.length < PHONE_DIGITS;
 
     // Everything runs inside the timer, including the "nothing to search" reset,
     // so no state is set synchronously during the effect.
     const timer = setTimeout(async () => {
-      if (picked === query || query.length < 2) {
+      if (settled) {
         setMatches([]);
         setOpen(false);
         setSearching(false);
@@ -68,7 +97,7 @@ export function PatientPhoneField({
     }, 250);
 
     return () => clearTimeout(timer);
-  }, [value, picked]);
+  }, [value, picked, identified]);
 
   // Close on outside click.
   useEffect(() => {

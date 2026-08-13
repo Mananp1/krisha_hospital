@@ -7,6 +7,7 @@ import { LogOutIcon } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import { cn } from '@/lib/utils';
 import { navLinks } from './nav-links';
+import { NAV } from './controls';
 
 export default function AdminNav() {
   const pathname = usePathname();
@@ -20,9 +21,9 @@ export default function AdminNav() {
   }
 
   return (
-    <aside className="hidden lg:flex w-60 shrink-0 flex-col h-full bg-surface border-r border-border-muted">
+    <aside className={cn('hidden lg:flex w-60 shrink-0 flex-col h-full border-r', NAV.shell, NAV.divider)}>
       {/* Logo */}
-      <div className="px-4 py-3 border-b border-border-muted">
+      <div className={cn('px-4 py-3 border-b', NAV.divider)}>
         <Link href="/admin">
           <Image
             src="/krisha-logo.png"
@@ -30,12 +31,10 @@ export default function AdminNav() {
             width={100}
             height={48}
             loading="eager"
+            className={NAV.logo}
             style={{ width: 84, height: 'auto' }}
           />
         </Link>
-        <span className="block text-[10px] font-semibold tracking-widest uppercase text-text-muted mt-1.5">
-          Admin Panel
-        </span>
       </div>
 
       {/* Nav links */}
@@ -49,10 +48,8 @@ export default function AdminNav() {
               key={href}
               href={href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-xl text-[14px] font-medium transition-all',
-                isActive
-                  ? 'bg-primary-50 text-primary'
-                  : 'text-text-muted hover:bg-surface-subtle hover:text-text-base',
+                'flex items-center gap-3 px-3 py-2.5 rounded-md text-[14px] font-medium transition-colors',
+                isActive ? NAV.itemActive : NAV.item,
               )}
             >
               <Icon
@@ -67,10 +64,10 @@ export default function AdminNav() {
       </nav>
 
       {/* Logout */}
-      <div className="px-3 py-4 border-t border-border-muted">
+      <div className={cn('px-3 py-4 border-t', NAV.divider)}>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-[14px] font-medium text-text-muted hover:bg-destructive/10 hover:text-destructive transition-all"
+          className={cn('flex items-center gap-3 w-full px-3 py-2.5 rounded-md text-[14px] font-medium transition-colors cursor-pointer', NAV.signOut)}
         >
           <LogOutIcon size={17} strokeWidth={1.8} className="shrink-0" />
           Sign Out

@@ -12,11 +12,14 @@ import { ContactActions } from './ContactActions';
 import { ConfirmDelete } from './ConfirmDelete';
 import { EditPatientDialog } from './EditPatientDialog';
 import { PatientDetailDialog } from './PatientDetailDialog';
+import { NewAppointmentDialog } from './NewAppointmentDialog';
+import { Pill } from './Pill';
 import { deletePatient } from '@/app/admin/actions';
 import { parsePageSize, parsePage } from '@/lib/pagination';
 import { cn } from '@/lib/utils';
 import { formatDate, formatTime } from '@/lib/format';
 import type { Appointment } from '@/types/database';
+import { iconButton, iconButtonDanger } from './controls';
 
 export interface PatientRow {
   phone: string;
@@ -28,6 +31,10 @@ export interface PatientRow {
   pending: number;
   confirmed: number;
   cancelled: number;
+  /** Visits the patient turned up for. */
+  arrived: number;
+  /** Past appointments they never checked in for — the callback signal. */
+  noShow: number;
   lastDate: string;
   lastTime: string;
   appointments: Appointment[];
@@ -61,13 +68,22 @@ function SortHead({
   );
 }
 
-export function PatientTable({ patients, total }: { patients: PatientRow[]; total: number }) {
+export function PatientTable({
+  patients, total, today,
+}: {
+  patients: PatientRow[];
+  total: number;
+  /** Today in the clinic's timezone, from the server — attendance depends on it. */
+  today: string;
+}) {
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const [detailKey, setDetailKey] = useState<string | null>(null);
+  const [bookingKey, setBookingKey] = useState<string | null>(null);
 
   // Held by key so a refresh after an edit re-feeds the open dialog.
   const editing = patients.find((p) => p.phoneDigits === editingKey) ?? null;
   const detail  = patients.find((p) => p.phoneDigits === detailKey) ?? null;
+  const booking = patients.find((p) => p.phoneDigits === bookingKey) ?? null;
 
   const router       = useRouter();
   const pathname     = usePathname();
@@ -116,7 +132,6 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
                 <TableHead>Phone</TableHead>
                 <SortHead label="Appointments" col="total" sortCol={sortCol} sortDir={sortDir} onSort={handleSort} />
                 <SortHead label="Last Visit"   col="last"  sortCol={sortCol} sortDir={sortDir} onSort={handleSort} />
-                <TableHead>Breakdown</TableHead>
                 <TableHead className="w-px whitespace-nowrap pr-5">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -136,32 +151,28 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
                     <TableCell className="text-[13px] text-text-muted whitespace-nowrap">
                       {patient.phone}
                     </TableCell>
+                    {/* A separate "Breakdown" column of four counts was more
+                        noise than signal — three of them only ever restate the
+                        total. The total keeps its column, and the one figure
+                        the desk acts on rides along with it. The full split is
+                        a click away in the patient's record. */}
                     <TableCell>
-                      <span className="text-[13px] font-semibold text-text-base">{patient.total}</span>
+                      <span className="text-[13px] font-semibold text-text-base tabular-nums">
+                        {patient.total}
+                      </span>
+                      {patient.noShow > 0 && (
+                        <Pill
+                          tone="danger"
+                          className="ml-2"
+                          title={`${patient.noShow} appointment${patient.noShow === 1 ? '' : 's'} missed`}
+                        >
+                          {patient.noShow} missed
+                        </Pill>
+                      )}
                     </TableCell>
                     <TableCell className="text-[13px] text-text-muted whitespace-nowrap">
                       {formatDate(patient.lastDate)}
                       <span className="block text-[12px]">{formatTime(patient.lastTime)}</span>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1.5">
-                        {patient.confirmed > 0 && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700">
-                            {patient.confirmed} conf
-                          </span>
-                        )}
-                        {patient.pending > 0 && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700">
-                            {patient.pending} pend
-                          </span>
-                        )}
-                        {/* red-600 on red-50 was 4.41:1 at this size, under the 4.5:1 floor; red-700 clears 5.91:1. */}
-                        {patient.cancelled > 0 && (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-red-50 text-red-700">
-                            {patient.cancelled} canc
-                          </span>
-                        )}
-                      </div>
                     </TableCell>
                     <TableCell className="pr-5" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center gap-2">
@@ -169,7 +180,7 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
                         <button
                           onClick={() => setEditingKey(patient.phoneDigits)}
                           title="Edit patient"
-                          className="w-7 h-7 flex items-center justify-center rounded-lg bg-surface-subtle text-text-muted border border-border-muted hover:text-primary hover:border-primary/40 transition-colors"
+                          className={iconButton}
                         >
                           <PencilIcon className="w-3.5 h-3.5" />
                         </button>
@@ -181,7 +192,7 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
                           trigger={
                             <button
                               title="Delete patient"
-                              className="w-7 h-7 flex items-center justify-center rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition-colors"
+                              className={iconButtonDanger}
                             >
                               <Trash2Icon className="w-3.5 h-3.5" />
                             </button>
@@ -207,8 +218,15 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
       {detail && (
         <PatientDetailDialog
           patient={detail}
+          today={today}
           open
           onOpenChange={(v) => { if (!v) setDetailKey(null); }}
+          // The detail dialog closes as the next one opens, so the two never
+          // stack. Both are owned here rather than by the detail dialog: it is
+          // mounted only while a patient is selected, so anything it rendered
+          // would be unmounted by the very close that hands over to it.
+          onEdit={() => { setEditingKey(detail.phoneDigits); setDetailKey(null); }}
+          onBookAgain={() => { setBookingKey(detail.phoneDigits); setDetailKey(null); }}
         />
       )}
 
@@ -220,6 +238,21 @@ export function PatientTable({ patients, total }: { patients: PatientRow[]; tota
           name={editing.name}
           phone={editing.phone}
           total={editing.total}
+        />
+      )}
+
+      {booking && (
+        <NewAppointmentDialog
+          open
+          onOpenChange={(v) => { if (!v) setBookingKey(null); }}
+          // Name, phone and email come across so a returning patient's details
+          // are not retyped — the whole point of booking from their record.
+          defaultPatient={{
+            patient_name: booking.name,
+            phone: booking.phone,
+            email: booking.email,
+          }}
+          onCreated={() => { setBookingKey(null); router.refresh(); }}
         />
       )}
     </>

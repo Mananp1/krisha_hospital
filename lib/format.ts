@@ -1,5 +1,26 @@
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
+/**
+ * The clinic's wall clock. Deployment servers commonly run in UTC, which rolls
+ * its date over at 05:30 IST — early enough to call yesterday's appointments
+ * no-shows while the clinic is still shut. Anything that asks "what day is it"
+ * has to name this zone rather than trust the host.
+ */
+export const CLINIC_TIME_ZONE = 'Asia/Kolkata';
+
+/** Today in the clinic's timezone, as "yyyy-MM-dd". Safe on server and client. */
+export function todayInClinic(): string {
+  // en-CA formats as ISO "yyyy-MM-dd", which is what every date column here uses.
+  return new Intl.DateTimeFormat('en-CA', { timeZone: CLINIC_TIME_ZONE }).format(new Date());
+}
+
+/** Shifts a "yyyy-MM-dd" by whole days, without leaving date-string space. */
+export function addDays(date: string, days: number): string {
+  const [y, m, d] = date.split('-').map(Number);
+  const shifted = new Date(y, m - 1, d + days);
+  return `${shifted.getFullYear()}-${String(shifted.getMonth() + 1).padStart(2, '0')}-${String(shifted.getDate()).padStart(2, '0')}`;
+}
+
 /** "2026-08-17" → "17 Aug 2026". Parsed by hand to avoid a UTC day shift. */
 export function formatDate(date: string): string {
   const [y, m, d] = date.split('-').map(Number);

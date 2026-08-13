@@ -5,9 +5,13 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
 import { StatusBadge } from './StatusBadge';
+import { AttendanceBadge } from './AttendanceBadge';
 import { ContactActions } from './ContactActions';
 import { formatDateLong, formatTime } from '@/lib/format';
+import { attendanceOf } from '@/lib/attendance';
 import type { Appointment } from '@/types/database';
+import { btnPrimary } from './controls';
+import { cn } from '@/lib/utils';
 
 interface AppointmentsPreviewDialogProps {
   open: boolean;
@@ -20,6 +24,8 @@ interface AppointmentsPreviewDialogProps {
   appointments: Appointment[];
   /** False once the slot, or the day, has gone by. */
   canBook: boolean;
+  /** Today in the clinic's timezone — attendance is derived against it. */
+  today: string;
   onBook: () => void;
   onSelect: (appointment: Appointment) => void;
 }
@@ -33,11 +39,12 @@ interface AppointmentsPreviewDialogProps {
  * this" and "book into this" as two separate decisions.
  */
 export function AppointmentsPreviewDialog({
-  open, onOpenChange, date, time, appointments, canBook, onBook, onSelect,
+  open, onOpenChange, date, time, appointments, canBook, today, onBook, onSelect,
 }: AppointmentsPreviewDialogProps) {
   const isSlot = time !== undefined;
   const active = appointments.filter((a) => a.status !== 'cancelled');
   const cancelled = appointments.length - active.length;
+  const arrived = appointments.filter((a) => a.checked_in_at).length;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -49,6 +56,7 @@ export function AppointmentsPreviewDialog({
           <p className="text-[12px] text-text-muted">
             {isSlot && `${formatDateLong(date)} · `}
             {active.length} booked
+            {arrived > 0 && ` · ${arrived} arrived`}
             {cancelled > 0 && ` · ${cancelled} cancelled`}
           </p>
         </DialogHeader>
@@ -59,7 +67,9 @@ export function AppointmentsPreviewDialog({
           </p>
         ) : (
           <ul className="flex flex-col gap-1.5 overflow-y-auto -mx-1 px-1 py-1">
-            {appointments.map((appt) => (
+            {appointments.map((appt) => {
+              const attendance = attendanceOf(appt, today);
+              return (
               <li
                 key={appt.id}
                 className="flex items-center gap-2 rounded-xl border border-border-muted bg-surface p-2.5"
@@ -85,8 +95,12 @@ export function AppointmentsPreviewDialog({
                       className="text-text-muted shrink-0 group-hover:text-primary transition-colors"
                     />
                   </span>
-                  <span className="flex items-center gap-2 mt-1">
+                  <span className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
                     <StatusBadge status={appt.status} />
+                    {/* A future slot is upcoming by definition — saying so next
+                        to "Confirmed" is noise, so attendance shows up only
+                        once it reports something. */}
+                    {attendance !== 'upcoming' && <AttendanceBadge state={attendance} />}
                     <span className="text-[11px] text-text-muted truncate">
                       {appt.phone}
                     </span>
@@ -95,14 +109,15 @@ export function AppointmentsPreviewDialog({
 
                 <ContactActions phone={appt.phone} />
               </li>
-            ))}
+              );
+            })}
           </ul>
         )}
 
         {canBook ? (
           <button
             onClick={onBook}
-            className="mt-1 w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+            className={cn(btnPrimary, 'mt-1 w-full')}
           >
             <CalendarPlusIcon size={14} />
             {isSlot ? 'Book into this slot' : 'Book on this day'}

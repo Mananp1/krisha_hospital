@@ -2,7 +2,7 @@
 
 import { useTransition, useCallback, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon, PencilIcon } from 'lucide-react';
+import { ChevronUpIcon, ChevronDownIcon, ChevronsUpDownIcon, PencilIcon, Trash2Icon } from 'lucide-react';
 import {
   Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
@@ -17,23 +17,22 @@ import { InquiryDetailDialog } from './InquiryDetailDialog';
 import { resolveInquiry, unresolveInquiry, deleteInquiry } from '@/app/admin/actions';
 import { cn } from '@/lib/utils';
 import { formatTimestamp } from '@/lib/format';
+import { Pill, type PillTone } from './Pill';
+import { iconButton, iconButtonDanger } from './controls';
 import type { ContactInquiry } from '@/types/database';
 
-function getAge(iso: string): { label: string; pillClass: string } {
+/** How long an inquiry has gone unanswered — the older, the more urgent. */
+function getAge(iso: string): { label: string; tone: PillTone } {
   const diffDays = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
-  if (diffDays === 0) return { label: 'Today',            pillClass: 'text-emerald-700 bg-emerald-50 border-emerald-200' };
-  if (diffDays === 1) return { label: 'Yesterday',        pillClass: 'text-amber-700   bg-amber-50   border-amber-200'   };
-  if (diffDays <= 3)  return { label: `${diffDays}d ago`, pillClass: 'text-orange-700  bg-orange-50  border-orange-200'  };
-  return               { label: `${diffDays}d ago`, pillClass: 'text-red-700     bg-red-50     border-red-200'    };
+  if (diffDays === 0) return { label: 'Today',            tone: 'success' };
+  if (diffDays === 1) return { label: 'Yesterday',        tone: 'neutral' };
+  if (diffDays <= 3)  return { label: `${diffDays}d ago`, tone: 'warning' };
+  return                     { label: `${diffDays}d ago`, tone: 'danger'  };
 }
 
 function AgePill({ iso }: { iso: string }) {
-  const { label, pillClass } = getAge(iso);
-  return (
-    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold border ${pillClass}`}>
-      {label}
-    </span>
-  );
+  const { label, tone } = getAge(iso);
+  return <Pill tone={tone}>{label}</Pill>;
 }
 
 type SortCol = 'date' | 'name' | 'status';
@@ -144,7 +143,11 @@ export function InquiryTable({
               </TableHeader>
               <TableBody>
                 {inquiries.map((inq) => (
-                  <TableRow key={inq.id} className="align-top">
+                  <TableRow
+                    key={inq.id}
+                    onClick={() => setDetailId(inq.id)}
+                    className="align-top cursor-pointer hover:bg-surface-subtle transition-colors"
+                  >
                     <TableCell className="whitespace-nowrap pt-3 pl-5">
                       <AgePill iso={inq.created_at} />
                       <span className="block text-[11px] text-text-muted mt-0.5">
@@ -152,12 +155,7 @@ export function InquiryTable({
                       </span>
                     </TableCell>
                     <TableCell className="pt-3">
-                      <button
-                        onClick={() => setDetailId(inq.id)}
-                        className="text-[13px] font-medium text-text-base hover:text-primary transition-colors text-left"
-                      >
-                        {inq.name}
-                      </button>
+                      <p className="text-[13px] font-medium text-text-base">{inq.name}</p>
                       <p className="text-[11px] text-text-muted mt-0.5 line-clamp-1 max-w-[240px]">
                         {inq.message}
                       </p>
@@ -176,19 +174,17 @@ export function InquiryTable({
                     <TableCell className="pt-3">
                       <StatusBadge status={inq.is_resolved ? 'resolved' : 'unresolved'} />
                     </TableCell>
-                    <TableCell className="pt-3 pr-5">
+                    <TableCell className="pt-3 pr-5" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => setDetailId(inq.id)}
-                          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
-                        >
-                          View
-                        </button>
+                        {/* Resolve keeps its label — it is the decision this
+                            screen exists for. Edit and delete are the same icon
+                            buttons the other tables use. */}
                         <button
                           onClick={() => handleResolveToggle(inq)}
                           disabled={isPending}
                           className={cn(
-                            'w-[78px] py-1 rounded-lg text-[12px] font-semibold text-center border transition-colors disabled:opacity-50',
+                            'h-7 px-2.5 rounded-md text-[12px] font-semibold border transition-colors cursor-pointer disabled:opacity-50',
+                            'focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/30',
                             inq.is_resolved
                               ? 'border-border-muted text-text-muted hover:bg-surface-subtle'
                               : 'border-emerald-300 text-emerald-700 hover:bg-emerald-50',
@@ -196,28 +192,22 @@ export function InquiryTable({
                         >
                           {inq.is_resolved ? 'Reopen' : 'Resolve'}
                         </button>
+
                         <button
                           onClick={() => setEditingId(inq.id)}
-                          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
+                          title="Edit inquiry"
+                          className={iconButton}
                         >
-                          Edit
+                          <PencilIcon className="w-3.5 h-3.5" />
                         </button>
-                        <button
-                          onClick={() => setEditingId(inq.id)}
-                          className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
-                        >
-                          Edit
-                        </button>
+
                         <ConfirmDelete
                           title="Delete this inquiry?"
                           description={`The inquiry from ${inq.name} will be permanently removed. This cannot be undone.`}
                           onConfirm={() => deleteInquiry(inq.id)}
                           trigger={
-                            <button
-                              disabled={isPending}
-                              className="w-[68px] py-1 rounded-lg text-[12px] font-semibold text-center border border-red-300 text-red-700 hover:bg-red-50 transition-colors disabled:opacity-50"
-                            >
-                              Delete
+                            <button title="Delete inquiry" className={iconButtonDanger}>
+                              <Trash2Icon className="w-3.5 h-3.5" />
                             </button>
                           }
                         />
@@ -234,39 +224,38 @@ export function InquiryTable({
       {/* ── Mobile cards (< sm) ── */}
       <div className={`sm:hidden divide-y divide-border-muted ${isPending ? 'opacity-60 pointer-events-none' : ''}`}>
         {inquiries.map((inq) => (
-            <div key={inq.id} className="px-4 py-3.5 flex flex-col gap-2">
+            <div
+              key={inq.id}
+              onClick={() => setDetailId(inq.id)}
+              className="px-4 py-3.5 flex flex-col gap-2 cursor-pointer active:bg-surface-subtle transition-colors"
+            >
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <AgePill iso={inq.created_at} />
-                  <button
-                    onClick={() => setDetailId(inq.id)}
-                    className="text-[13px] font-semibold text-text-base hover:text-primary transition-colors text-left"
-                  >
-                    {inq.name}
-                  </button>
+                  <p className="text-[13px] font-semibold text-text-base">{inq.name}</p>
                 </div>
                 <StatusBadge status={inq.is_resolved ? 'resolved' : 'unresolved'} />
               </div>
-              <a href={`tel:${inq.phone}`} className="text-[13px] text-primary flex items-center gap-1.5 self-start">
+              <a
+                href={`tel:${inq.phone}`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-[13px] text-primary flex items-center gap-1.5 self-start"
+              >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 shrink-0">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 10.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.62 0h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.59a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                 </svg>
                 {inq.phone}
               </a>
               <p className="text-[12px] text-text-muted line-clamp-2">{inq.message}</p>
-              <ContactActions phone={inq.phone} className="mt-0.5" />
-              <div className="flex items-center gap-2 mt-0.5">
-                <button
-                  onClick={() => setDetailId(inq.id)}
-                  className="px-3 py-1.5 rounded-lg text-[12px] font-semibold bg-primary-50 text-primary border border-primary/20 hover:bg-primary/10 transition-colors"
-                >
-                  View
-                </button>
+              <div onClick={(e) => e.stopPropagation()}>
+                <ContactActions phone={inq.phone} className="mt-0.5" />
+              </div>
+              <div className="flex items-center gap-2 mt-0.5" onClick={(e) => e.stopPropagation()}>
                 <button
                   onClick={() => handleResolveToggle(inq)}
                   disabled={isPending}
                   className={cn(
-                    'px-3 py-1.5 rounded-lg text-[12px] font-semibold border transition-colors disabled:opacity-50',
+                    'h-7 px-2.5 rounded-md text-[12px] font-semibold border transition-colors cursor-pointer disabled:opacity-50',
                     inq.is_resolved
                       ? 'border-border-muted text-text-muted hover:bg-surface-subtle'
                       : 'border-emerald-300 text-emerald-700 hover:bg-emerald-50',
@@ -274,29 +263,22 @@ export function InquiryTable({
                 >
                   {inq.is_resolved ? 'Reopen' : 'Resolve'}
                 </button>
-                <button
-                  onClick={() => setEditingId(inq.id)}
-                  className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
-                >
-                  <PencilIcon className="w-3.5 h-3.5" />
-                </button>
+
                 <button
                   onClick={() => setEditingId(inq.id)}
                   title="Edit inquiry"
-                  className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-border-muted text-text-muted hover:text-primary hover:border-primary/40 transition-colors"
+                  className={iconButton}
                 >
                   <PencilIcon className="w-3.5 h-3.5" />
                 </button>
+
                 <ConfirmDelete
                   title="Delete this inquiry?"
                   description={`The inquiry from ${inq.name} will be permanently removed. This cannot be undone.`}
                   onConfirm={() => deleteInquiry(inq.id)}
                   trigger={
-                    <button
-                      disabled={isPending}
-                      className="px-3 py-1.5 rounded-lg text-[12px] font-semibold border border-red-300 text-red-700 hover:bg-red-50 transition-colors disabled:opacity-50"
-                    >
-                      Delete
+                    <button title="Delete inquiry" className={iconButtonDanger}>
+                      <Trash2Icon className="w-3.5 h-3.5" />
                     </button>
                   }
                 />
@@ -318,6 +300,9 @@ export function InquiryTable({
           inquiry={detail}
           open
           onOpenChange={(v) => { if (!v) setDetailId(null); }}
+          // Owned here so closing the detail dialog cannot unmount the editor
+          // it is handing over to.
+          onEdit={() => { setEditingId(detail.id); setDetailId(null); }}
         />
       )}
 

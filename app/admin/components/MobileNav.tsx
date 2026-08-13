@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { createClient } from '@/utils/supabase/client';
 import { cn } from '@/lib/utils';
 import { navLinks } from './nav-links';
+import { NAV } from './controls';
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -23,10 +24,10 @@ export function MobileNav() {
   }
 
   return (
-    <div className="lg:hidden flex items-center gap-3 px-4 py-3 bg-surface border-b border-border-muted shrink-0">
+    <div className={cn('lg:hidden flex items-center gap-3 px-4 py-3 border-b shrink-0', NAV.shell, NAV.divider)}>
       <button
         onClick={() => setOpen(true)}
-        className="p-2 rounded-xl text-text-muted hover:bg-surface-subtle transition-colors"
+        className={cn('p-2 rounded-md transition-colors cursor-pointer', NAV.item)}
         aria-label="Open menu"
       >
         <MenuIcon size={20} strokeWidth={1.8} />
@@ -39,26 +40,29 @@ export function MobileNav() {
           width={80}
           height={38}
           loading="eager"
+          className={NAV.logo}
           style={{ width: 80, height: 'auto' }}
         />
       </Link>
 
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="left" className="w-60 p-0 flex flex-col">
+        <SheetContent side="left" className={cn(
+            'w-60 p-0 flex flex-col border-r',
+            '[&>button]:text-slate-400 [&>button:hover]:bg-white/10 [&>button:hover]:text-white',
+            NAV.shell, NAV.divider,
+          )}>
           <SheetTitle className="sr-only">Navigation</SheetTitle>
 
           {/* Logo */}
-          <div className="px-6 py-5 border-b border-border-muted">
+          <div className={cn('px-6 py-5 border-b', NAV.divider)}>
             <Image
               src="/krisha-logo.png"
               alt="Krisha Women's Hospital"
               width={100}
               height={48}
+              className={NAV.logo}
               style={{ width: 100, height: 'auto' }}
             />
-            <span className="block text-[10px] font-semibold tracking-widest uppercase text-text-muted mt-1.5">
-              Admin Panel
-            </span>
           </div>
 
           {/* Nav links */}
@@ -72,10 +76,8 @@ export function MobileNav() {
                   href={href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    'flex items-center gap-3 px-3 py-2.5 rounded-xl text-[14px] font-medium transition-all',
-                    isActive
-                      ? 'bg-primary-50 text-primary'
-                      : 'text-text-muted hover:bg-surface-subtle hover:text-text-base',
+                    'flex items-center gap-3 px-3 py-2.5 rounded-md text-[14px] font-medium transition-colors',
+                    isActive ? NAV.itemActive : NAV.item,
                   )}
                 >
                   <Icon size={17} strokeWidth={isActive ? 2.2 : 1.8} className="shrink-0" />
@@ -86,10 +88,10 @@ export function MobileNav() {
           </nav>
 
           {/* Logout */}
-          <div className="px-3 py-4 border-t border-border-muted">
+          <div className={cn('px-3 py-4 border-t', NAV.divider)}>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-[14px] font-medium text-text-muted hover:bg-destructive/10 hover:text-destructive transition-all"
+              className={cn('flex items-center gap-3 w-full px-3 py-2.5 rounded-md text-[14px] font-medium transition-colors cursor-pointer', NAV.signOut)}
             >
               <LogOutIcon size={17} strokeWidth={1.8} className="shrink-0" />
               Sign Out

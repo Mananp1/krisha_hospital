@@ -5,6 +5,7 @@ import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { notifyError } from '@/lib/notify';
 
 interface ConfirmDeleteProps {
   /** The clickable element that opens the confirmation. */
@@ -18,9 +19,9 @@ interface ConfirmDeleteProps {
 }
 
 /**
- * Shared confirmation gate for destructive admin actions. Surfaces the server
- * action's error inline instead of failing silently, since these actions throw
- * when the caller is not an admin.
+ * Shared confirmation gate for destructive admin actions. A failure is reported
+ * rather than swallowed — these actions throw when the caller is not an admin —
+ * and the dialog stays open so the delete can be retried.
  */
 export function ConfirmDelete({
   trigger,
@@ -31,7 +32,6 @@ export function ConfirmDelete({
   onDeleted,
 }: ConfirmDeleteProps) {
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState('');
   const [isPending, startTransition] = useTransition();
 
   function handleConfirm() {
@@ -39,7 +39,7 @@ export function ConfirmDelete({
       try {
         await onConfirm();
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Could not delete');
+        notifyError(err, 'Could not delete');
         return;
       }
       setOpen(false);
@@ -48,10 +48,7 @@ export function ConfirmDelete({
   }
 
   return (
-    <AlertDialog
-      open={open}
-      onOpenChange={(v) => { setOpen(v); if (v) setError(''); }}
-    >
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <span onClick={() => setOpen(true)}>{trigger}</span>
 
       <AlertDialogContent>
@@ -61,12 +58,6 @@ export function ConfirmDelete({
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
-
-        {error && (
-          <p className="px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-[12px] text-red-700">
-            {error}
-          </p>
-        )}
 
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>

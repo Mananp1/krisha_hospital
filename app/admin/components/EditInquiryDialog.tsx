@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +9,10 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
 import { updateInquiry } from '@/app/admin/actions';
+import { notifyError } from '@/lib/notify';
 import type { ContactInquiry } from '@/types/database';
+import { btnPrimary, inputClass } from './controls';
+import { cn } from '@/lib/utils';
 
 const schema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -19,9 +22,6 @@ const schema = z.object({
 });
 
 type FormValues = z.infer<typeof schema>;
-
-const inputClass =
-  'w-full px-3 py-2 text-[13px] bg-surface border border-border-muted rounded-xl text-text-base placeholder:text-text-muted focus:outline-none focus:border-primary/50 transition-colors';
 
 interface EditInquiryDialogProps {
   open: boolean;
@@ -33,7 +33,6 @@ interface EditInquiryDialogProps {
 export function EditInquiryDialog({ open, onOpenChange, inquiry }: EditInquiryDialogProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState('');
 
   const values: FormValues = {
     name: inquiry.name,
@@ -55,12 +54,11 @@ export function EditInquiryDialog({ open, onOpenChange, inquiry }: EditInquiryDi
   }, [open]);
 
   function onSubmit(data: FormValues) {
-    setError('');
     startTransition(async () => {
       try {
         await updateInquiry(inquiry.id, { ...data, email: data.email || null });
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Could not save');
+        notifyError(err, 'Could not save');
         return;
       }
       onOpenChange(false);
@@ -69,7 +67,7 @@ export function EditInquiryDialog({ open, onOpenChange, inquiry }: EditInquiryDi
   }
 
   return (
-    <Dialog open={open} onOpenChange={(v) => { setError(''); onOpenChange(v); }}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-[16px]">Edit Inquiry</DialogTitle>
@@ -109,16 +107,10 @@ export function EditInquiryDialog({ open, onOpenChange, inquiry }: EditInquiryDi
             )}
           </div>
 
-          {error && (
-            <p className="px-3 py-2 rounded-xl bg-red-50 border border-red-200 text-[12px] text-red-700">
-              {error}
-            </p>
-          )}
-
           <button
             type="submit"
             disabled={isPending}
-            className="w-full py-2.5 rounded-xl bg-primary text-white text-[13px] font-semibold hover:opacity-90 transition-opacity disabled:opacity-60"
+            className={cn(btnPrimary, 'w-full')}
           >
             {isPending ? 'Saving…' : 'Save Changes'}
           </button>

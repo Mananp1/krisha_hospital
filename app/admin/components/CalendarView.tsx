@@ -8,11 +8,14 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import type { EventInput, EventClickArg } from '@fullcalendar/core';
 import type { DateClickArg } from '@fullcalendar/interaction';
+import { CheckIcon, XIcon } from 'lucide-react';
 import { NewAppointmentDialog } from './NewAppointmentDialog';
 import { AppointmentDetailDialog } from './AppointmentDetailDialog';
 import { AppointmentsPreviewDialog } from './AppointmentsPreviewDialog';
 import type { Appointment } from '@/types/database';
 import { OPD_DAY_START, OPD_DAY_END, SLOT_MINUTES } from '@/lib/opd-hours';
+import { todayInClinic } from '@/lib/format';
+import { attendanceOf } from '@/lib/attendance';
 
 // Saturated colors — visually distinct even at small event widths
 const STATUS_COLORS: Record<string, { bg: string; border: string; text: string; dot: string }> = {
@@ -56,11 +59,17 @@ function toCalendarEvents(appointments: Appointment[]): EventInput[] {
 export function CalendarView({ appointments }: { appointments: Appointment[] }) {
   const router = useRouter();
   const calendarRef = useRef<FullCalendar>(null);
+  // This view is client-only (ssr: false), so there is no server render to keep
+  // in step — but it is still pinned once per mount rather than read on every
+  // render, so attendance cannot change mid-interaction.
+  const [today] = useState(todayInClinic);
   const [detailId, setDetailId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [newApptOpen, setNewApptOpen] = useState(false);
 
   // Held by id so a refresh after an edit re-feeds the open dialog.
-  const detail = appointments.find((a) => a.id === detailId) ?? null;
+  const detail  = appointments.find((a) => a.id === detailId) ?? null;
+  const editing = appointments.find((a) => a.id === editingId) ?? null;
   const [clickedDate, setClickedDate] = useState<string | undefined>();
   const [clickedTime, setClickedTime] = useState<string | undefined>();
   const [initialView] = useState<string>(
@@ -397,15 +406,30 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
           nowIndicator
           height="auto"
           eventContent={(info) => {
-            const status = (info.event.extendedProps.appointment as Appointment).status;
-            const dot = STATUS_COLORS[status]?.dot ?? '#D97706';
+            const appointment = info.event.extendedProps.appointment as Appointment;
+            const attendance = attendanceOf(appointment, today);
+            const dot = STATUS_COLORS[appointment.status]?.dot ?? '#D97706';
+
             return (
               <div className="flex items-center gap-1 px-1.5 py-0.5 overflow-hidden h-full min-w-0">
+                {/* Attendance replaces the status dot once it is settled: at a
+                    glance on a past day, a tick means they came and a cross
+                    means they did not. */}
+                {attendance === 'arrived' ? (
+                  <CheckIcon size={11} strokeWidth={3} className="shrink-0" />
+                ) : attendance === 'no_show' ? (
+                  <XIcon size={11} strokeWidth={3} className="shrink-0" />
+                ) : (
+                  <span
+                    className="w-1.5 h-1.5 rounded-full shrink-0"
+                    style={{ backgroundColor: dot }}
+                  />
+                )}
                 <span
-                  className="w-1.5 h-1.5 rounded-full shrink-0"
-                  style={{ backgroundColor: dot }}
-                />
-                <span className="text-[11px] font-semibold truncate leading-tight">
+                  className={`text-[11px] font-semibold truncate leading-tight ${
+                    attendance === 'no_show' ? 'line-through opacity-70' : ''
+                  }`}
+                >
                   {info.event.title}
                 </span>
               </div>
@@ -422,6 +446,7 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
           time={preview.time}
           appointments={previewAppointments}
           canBook={preview.canBook}
+          today={today}
           onBook={() => {
             setClickedDate(preview.date);
             // Day mode has no time yet — the form asks for one.
@@ -436,8 +461,22 @@ export function CalendarView({ appointments }: { appointments: Appointment[] }) 
       {detail && (
         <AppointmentDetailDialog
           appointment={detail}
+          today={today}
           open
           onOpenChange={(v) => { if (!v) setDetailId(null); }}
+          // Owned here, not by the detail dialog: that one is mounted only
+          // while an appointment is selected, so it cannot hand over to a
+          // dialog of its own without unmounting it.
+          onEdit={() => { setEditingId(detail.id); setDetailId(null); }}
+        />
+      )}
+
+      {editing && (
+        <NewAppointmentDialog
+          appointment={editing}
+          open
+          onOpenChange={(v) => { if (!v) setEditingId(null); }}
+          onCreated={() => { setEditingId(null); router.refresh(); }}
         />
       )}
 

@@ -54,7 +54,7 @@ export function SlotDatePicker({ date, today }: { date: string; today: string })
         value={date}
         min={today}
         onChange={(e) => { if (e.target.value) go(e.target.value); }}
-        className="px-3 py-1.5 text-[13px] bg-surface border border-border-muted rounded-lg text-text-base focus:outline-none focus:border-primary transition-colors"
+        className="px-3 py-1.5 text-[13px] bg-surface border border-border-muted rounded-md text-text-base transition-[color,box-shadow] focus-visible:outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20"
       />
 
       <button onClick={() => go(shift(date, 1))} title="Next day" className={btn}>
