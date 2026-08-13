@@ -15,9 +15,10 @@ import { AttendanceBadge } from '@/app/admin/components/AttendanceBadge';
 import { attendanceOf } from '@/lib/attendance';
 import { NewAppointmentDialog } from '@/app/admin/components/NewAppointmentDialog';
 import { SlotAvailability } from '@/app/admin/components/SlotAvailability';
+import { TodayPatientsTable } from '@/app/admin/components/TodayPatientsTable';
 import { getSlotGroupsForDate, parseLocalDate } from '@/lib/opd-hours';
 import { formatDate, formatTime, todayInClinic, addDays, CLINIC_TIME_ZONE } from '@/lib/format';
-import type { ClinicSettings, AppointmentStatus } from '@/types/database';
+import type { ClinicSettings, AppointmentStatus, Appointment } from '@/types/database';
 
 const FALLBACK_CAPACITY = 5;
 
@@ -61,8 +62,7 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
     slotDate && parseLocalDate(slotDate) && slotDate >= today ? slotDate : today;
 
   const [
-    { count: todayCount },
-    { count: arrivedTodayCount },
+    { data: todayApptsRaw },
     { count: weekCount },
     { count: pendingCount },
     { count: noShowCount },
@@ -70,8 +70,13 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
     { data: recentApptsRaw },
     { data: recentInqsRaw },
   ] = await Promise.all([
-    supabase.from('appointments').select('*', { count: 'exact', head: true }).eq('appointment_date', today),
-    supabase.from('appointments').select('*', { count: 'exact', head: true }).eq('appointment_date', today).not('checked_in_at', 'is', null),
+    // Today's list is fetched whole rather than counted: one day is a small,
+    // bounded set, and the table below pages through it client-side. Today's
+    // headline figures are then derived from it instead of costing two more
+    // round trips.
+    supabase.from('appointments').select('*')
+      .eq('appointment_date', today)
+      .order('appointment_time', { ascending: true }),
     supabase.from('appointments').select('*', { count: 'exact', head: true }).gte('appointment_date', today).lte('appointment_date', weekEnd),
     supabase.from('appointments').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
     // Missed visits worth a callback: past days only, so today's patients are
@@ -112,6 +117,14 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
   const activity: ActivityItem[] = [...appts, ...inqs]
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
     .slice(0, 5);
+
+  const todayAppts = (todayApptsRaw ?? []) as Appointment[];
+  const todayCount = todayAppts.length;
+  const arrivedToday = todayAppts.filter((a) => a.checked_in_at).length;
+  // Cancelled bookings are not people the desk is still waiting for.
+  const expectedToday = todayAppts.filter(
+    (a) => !a.checked_in_at && a.status !== 'cancelled',
+  ).length;
 
   const noShows = noShowCount ?? 0;
   const hasAlerts =
@@ -169,12 +182,10 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-6">
         <StatsCard
           title="Today's Appointments"
-          value={todayCount ?? 0}
+          value={todayCount}
           icon={<CalendarIcon size={18} strokeWidth={1.8} />}
           zeroNote="None scheduled today"
-          note={`${arrivedTodayCount ?? 0} checked in so far`}
-          href="/admin/appointments?attendance=awaiting"
-          hrefLabel="Who is still expected →"
+          note={`${arrivedToday} arrived · ${expectedToday} still expected`}
         />
         <StatsCard
           title="This Week"
@@ -232,6 +243,29 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
             </div>
           </Link>
         </div>
+      </div>
+
+      {/* Today's patients — the list the front desk works from, so it sits
+          above the activity feed rather than below it. */}
+      <div className="bg-surface rounded-lg border border-border-muted overflow-hidden mb-6">
+        <div className="px-5 py-3.5 border-b border-border-muted flex items-center justify-between gap-3">
+          <div>
+            <h2 className="text-[14px] font-bold text-text-base">Today&apos;s Patients</h2>
+            <p className="text-[12px] text-text-muted mt-0.5">
+              {todayCount === 0
+                ? 'Nobody booked in'
+                : `${todayCount} booked · ${arrivedToday} arrived · ${expectedToday} still expected`}
+            </p>
+          </div>
+          <Link
+            href={`/admin/appointments?date=${today}`}
+            className="text-[12px] font-semibold text-primary hover:opacity-70 transition-opacity shrink-0"
+          >
+            Open in list →
+          </Link>
+        </div>
+
+        <TodayPatientsTable appointments={todayAppts} today={today} />
       </div>
 
       {/* Recent Activity */}
