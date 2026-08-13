@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { inputClass } from './controls';
+import { SearchField } from './SearchField';
 
 export function AppointmentSearch() {
   const router = useRouter();
@@ -31,27 +32,8 @@ export function AppointmentSearch() {
 
   return (
     <div className="flex flex-wrap gap-3 mb-5">
-      <div className="relative flex-1 min-w-[160px]">
-        <SearchIcon size={15} strokeWidth={1.8} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
-        <input
-          type="text"
-          placeholder="Search by name..."
-          defaultValue={searchParams.get('name') ?? ''}
-          onChange={(e) => setParam('name', e.target.value)}
-          className={cn(inputClass, 'pl-9 pr-3')}
-        />
-      </div>
-
-      <div className="relative flex-1 min-w-[160px]">
-        <PhoneIcon size={15} strokeWidth={1.8} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
-        <input
-          type="text"
-          placeholder="Search by phone..."
-          defaultValue={searchParams.get('phone') ?? ''}
-          onChange={(e) => setParam('phone', e.target.value)}
-          className={cn(inputClass, 'pl-9 pr-3')}
-        />
-      </div>
+      <SearchField param="name"  placeholder="Search by name..."  icon={SearchIcon} />
+      <SearchField param="phone" placeholder="Search by phone..." icon={PhoneIcon} />
 
       <input
         type="date"

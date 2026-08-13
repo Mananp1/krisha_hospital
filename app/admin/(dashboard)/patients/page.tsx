@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { createAdminClient } from '@/utils/supabase/admin';
 import { PatientTable } from '@/app/admin/components/PatientTable';
+import { PatientSearch } from '@/app/admin/components/PatientSearch';
 import type { PatientRow } from '@/app/admin/components/PatientTable';
 import { parsePageSize, parsePage } from '@/lib/pagination';
 import { todayInClinic } from '@/lib/format';
@@ -13,12 +15,13 @@ type SortCol = 'name' | 'total' | 'last';
 
 interface PageProps {
   searchParams: Promise<{
+    name?: string; phone?: string;
     page?: string; pageSize?: string; sortCol?: string; sortDir?: string;
   }>;
 }
 
 export default async function PatientsPage({ searchParams }: PageProps) {
-  const { page, pageSize, sortCol, sortDir } = await searchParams;
+  const { name, phone, page, pageSize, sortCol, sortDir } = await searchParams;
 
   const pageNum     = parsePage(page);
   const pageSizeNum = parsePageSize(pageSize);
@@ -80,8 +83,30 @@ export default async function PatientsPage({ searchParams }: PageProps) {
     }
   }
 
+  // Filtering happens after grouping, not in the query. A patient's name, visit
+  // count and last visit are all derived from the whole group, so filtering the
+  // appointments first would build patients out of only their matching rows and
+  // report the wrong totals.
+  const nameQuery = name?.trim().toLowerCase() ?? '';
+
+  // `phone_digits` holds the last 10 digits, so a typed country code has to come
+  // off before it can match — the same two-form trick `search_patients()` uses
+  // in docs/schema-v5.md. Without it, "+91 98765" matches nothing at all.
+  const digits = phone?.replace(/\D/g, '') ?? '';
+  const phoneQueries = digits
+    ? [
+        digits.length > 10 ? digits.slice(-10) : digits,
+        digits.length > 2 && digits.startsWith('91') ? digits.slice(2) : '',
+      ].filter(Boolean)
+    : [];
+
+  const matching = Array.from(map.values()).filter((p) =>
+    (!nameQuery || p.name.toLowerCase().includes(nameQuery)) &&
+    (phoneQueries.length === 0 || phoneQueries.some((q) => p.phoneDigits.includes(q))),
+  );
+
   // Sort server-side
-  const all = Array.from(map.values()).sort((a, b) => {
+  const all = matching.sort((a, b) => {
     let cmp = 0;
     if (col === 'name')  cmp = a.name.localeCompare(b.name);
     if (col === 'total') cmp = a.total - b.total;
@@ -91,6 +116,7 @@ export default async function PatientsPage({ searchParams }: PageProps) {
 
   const total     = all.length;
   const returning = all.filter((p) => p.total > 1).length;
+  const filtered  = Boolean(nameQuery || phoneQueries.length);
   const from      = (pageNum - 1) * pageSizeNum;
   const patients  = all.slice(from, from + pageSizeNum);
 
@@ -99,9 +125,13 @@ export default async function PatientsPage({ searchParams }: PageProps) {
       <div className="mb-6">
         <h1 className="text-[22px] font-bold text-text-base">Patients</h1>
         <p className="text-[13px] text-text-muted mt-0.5">
-          {total} unique · {returning} returning
+          {total} {filtered ? 'matching' : 'unique'} · {returning} returning
         </p>
       </div>
+
+      <Suspense>
+        <PatientSearch />
+      </Suspense>
 
       <div className="bg-surface rounded-lg border border-border-muted overflow-hidden">
         <PatientTable patients={patients} total={total} today={today} />
