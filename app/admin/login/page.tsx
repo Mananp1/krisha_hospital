@@ -73,11 +73,13 @@ export default function AdminLoginPage() {
               <label className="text-[13px] font-semibold text-text-base" htmlFor="email">
                 Email Address
               </label>
+              {/* The placeholder stays generic: this page is public, so it must
+                  not disclose a real account address. */}
               <input
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="admin@krishawomenshospital.com"
+                placeholder="you@example.com"
                 {...register('email')}
                 className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted transition-[color,box-shadow] focus-visible:outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20"
               />
