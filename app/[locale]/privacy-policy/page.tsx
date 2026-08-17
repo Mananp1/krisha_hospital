@@ -3,6 +3,7 @@ import { ChevronRightIcon } from 'lucide-react';
 import Link from 'next/link';
 import FadeIn from '@/app/animations/FadeIn';
 import MotionGroup from '@/app/animations/MotionGroup';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '@/lib/site-config';
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Krisha Women's Hospital",
@@ -157,8 +158,8 @@ export default function PrivacyPolicyPage() {
               <p>
                 For questions about this Privacy Policy or to make a data request,
                 contact us at{' '}
-                <a href="mailto:care@krishawomenshospital.in" className="text-primary font-semibold hover:underline underline-offset-2">
-                  care@krishawomenshospital.in
+                <a href={CONTACT_EMAIL_HREF} className="text-primary font-semibold hover:underline underline-offset-2">
+                  {CONTACT_EMAIL}
                 </a>{' '}
                 or call{' '}
                 <a href="tel:+917862950676" className="text-primary font-semibold hover:underline underline-offset-2">

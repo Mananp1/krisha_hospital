@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import FadeIn from '@/app/animations/FadeIn';
 import MotionGroup from '@/app/animations/MotionGroup';
 import ContactForm from '@/app/sections/ContactForm';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '@/lib/site-config';
 
 export const metadata: Metadata = {
   title: "Contact Us | Krisha Women's Hospital, Narol, Ahmedabad",
@@ -33,9 +34,9 @@ const contactCards = [
       <MailIcon size={22} />
     ),
     label: 'Email Us',
-    primary: 'care@krishawomenshospital.in',
+    primary: CONTACT_EMAIL,
     secondary: 'We reply within 24 hours',
-    href: 'mailto:care@krishawomenshospital.in',
+    href: CONTACT_EMAIL_HREF,
   },
   {
     icon: (

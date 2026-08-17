@@ -61,7 +61,7 @@ export default async function SettingsPage() {
         <p className="text-[13px] text-text-muted leading-relaxed">
           Every account has full access — there are no restricted roles. Accounts
           are created and removed from Supabase → Authentication → Users, and only
-          <span className="font-semibold"> @krishahospital.com</span> addresses
+          <span className="font-semibold"> @krishawomenshospital.com</span> addresses
           are accepted.
         </p>
       </div>

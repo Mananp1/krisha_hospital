@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { MapPinIcon, PhoneIcon, MailIcon, ClockIcon } from 'lucide-react';
 import { services } from '@/app/data/services';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '@/lib/site-config';
 import MotionGroup from '@/app/animations/MotionGroup';
 
 /*
@@ -34,8 +35,8 @@ const contactItems = [
     icon: (
       <MailIcon size={16} />
     ),
-    text: 'care@krishawomenshospital.in',
-    href: 'mailto:care@krishawomenshospital.in',
+    text: CONTACT_EMAIL,
+    href: CONTACT_EMAIL_HREF,
   },
   {
     icon: (

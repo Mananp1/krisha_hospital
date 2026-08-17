@@ -4,6 +4,7 @@ import Link from 'next/link';
 import FadeIn from '@/app/animations/FadeIn';
 import MotionGroup from '@/app/animations/MotionGroup';
 import AppointmentForm from '@/app/sections/AppointmentForm';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '@/lib/site-config';
 
 export const metadata: Metadata = {
   title: 'Book Appointment | Krisha Women\'s Hospital',
@@ -26,9 +27,9 @@ const contactDetails = [
       <MailIcon size={22} />
     ),
     label: 'Email Us',
-    value: 'info@krishahospital.com',
+    value: CONTACT_EMAIL,
     note: 'Response within 24 hours',
-    href: 'mailto:info@krishahospital.com',
+    href: CONTACT_EMAIL_HREF,
   },
   {
     icon: (

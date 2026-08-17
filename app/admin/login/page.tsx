@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@krishahospital.com"
+                placeholder="admin@krishawomenshospital.com"
                 {...register('email')}
                 className="w-full px-4 py-3 text-[14px] rounded-xl border border-border-muted bg-surface text-text-base placeholder:text-text-muted transition-[color,box-shadow] focus-visible:outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/20"
               />

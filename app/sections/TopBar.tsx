@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
 import { PhoneIcon, MailIcon, ClockIcon } from 'lucide-react';
 import LocaleSwitcher from './LocaleSwitcher';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '@/lib/site-config';
 
 export default function TopBar() {
   return (
@@ -16,11 +17,11 @@ export default function TopBar() {
             +91 78629 50676
           </a>
           <a
-            href="mailto:care@krishawomenshospital.in"
+            href={CONTACT_EMAIL_HREF}
             className="hidden md:flex items-center gap-1.5 text-text-inverse text-[13.5px] font-medium hover:opacity-80 transition-opacity"
           >
             <MailIcon size={13} />
-            care@krishawomenshospital.in
+            {CONTACT_EMAIL}
           </a>
         </div>
 
