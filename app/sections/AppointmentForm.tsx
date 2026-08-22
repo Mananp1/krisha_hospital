@@ -5,16 +5,22 @@ import { useState, useEffect } from 'react';
 import { CheckIcon, LoaderCircleIcon } from 'lucide-react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { format, isToday, setHours, setMinutes, startOfDay } from 'date-fns';
+import { format } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import { createClient } from '@/utils/supabase/client';
 import { cn } from '@/lib/utils';
+import { submitAppointment } from '@/app/actions/public-forms';
+import {
+  appointmentFormSchema,
+  HONEYPOT_FIELD,
+  type AppointmentFormData,
+} from '@/lib/schemas/public-forms';
 import {
   OPD_HOURS_LABEL,
   formatTimeDisplay,
   getSlotGroupsForDate,
   isSlotWithinOpdHours,
+  isSlotInPast,
 } from '@/lib/opd-hours';
 
 /**
@@ -25,47 +31,6 @@ import {
  */
 const FALLBACK_MAX_PER_SLOT = 5;
 
-function isSlotInPast(slot: string, selectedDate: Date): boolean {
-  if (!isToday(selectedDate)) return false;
-
-  const [h, m] = slot.split(':').map(Number);
-  const slotDateTime = setMinutes(setHours(startOfDay(selectedDate), h), m);
-
-  return slotDateTime <= new Date();
-}
-
-const schema = z.object({
-  patient_name: z.string().min(2, 'Name must be at least 2 characters'),
-  phone: z.string().min(10, 'Enter a valid phone number').regex(/^[\d\s\-+]{10,}$/, 'Enter a valid phone number'),
-  email: z.union([z.string().email('Enter a valid email address'), z.literal('')]),
-  appointment_date: z.date({
-    error: (issue) =>
-      issue.input === undefined ? 'Please select a date' : 'Invalid date',
-  }),
-  appointment_time: z.string().min(1, 'Please select a time slot'),
-  message: z.string().optional(),
-}).superRefine((data, ctx) => {
-  if (!data.appointment_time || !data.appointment_date) return;
-
-  if (!isSlotWithinOpdHours(data.appointment_time, data.appointment_date)) {
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Please select a slot within OPD hours',
-      path: ['appointment_time'],
-    });
-    return;
-  }
-
-  if (isSlotInPast(data.appointment_time, data.appointment_date)) {
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Please select a future time slot',
-      path: ['appointment_time'],
-    });
-  }
-});
-
-type FormData = z.infer<typeof schema>;
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const inputClass =
@@ -86,7 +51,7 @@ export default function AppointmentForm() {
     reset,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<AppointmentFormData>({ resolver: zodResolver(appointmentFormSchema) });
 
   const selectedDate = useWatch({ control, name: 'appointment_date' });
   const selectedTime = useWatch({ control, name: 'appointment_time' });
@@ -149,31 +114,30 @@ export default function AppointmentForm() {
     return () => { cancelled = true; };
   }, [selectedDate]);
 
-  async function onSubmit(data: FormData) {
+  async function onSubmit(data: AppointmentFormData) {
     setStatus('loading');
     setErrorMsg('');
 
-    const supabase = createClient();
-
-    // Public writes go through a security-definer function; anon has no direct
-    // insert grant. It re-validates the slot and enforces per-slot capacity.
-    const { error } = await supabase.rpc('submit_appointment', {
-      p_patient_name: data.patient_name,
-      p_phone: data.phone,
-      p_email: data.email || null,
-      p_date: format(data.appointment_date, 'yyyy-MM-dd'),
-      p_time: data.appointment_time + ':00',
-      p_message: data.message || null,
+    // Goes through a server action rather than straight to Supabase. The write
+    // still lands via the same security-definer function, which re-validates
+    // the slot and enforces per-slot capacity — but the server can then notify
+    // the clinic by email, which the browser cannot do without holding the
+    // Resend key. See app/actions/public-forms.ts.
+    //
+    // The date is flattened to "yyyy-MM-dd" here because the Calendar hands
+    // back a Date and only strings cross to a server action.
+    const result = await submitAppointment({
+      patient_name: data.patient_name,
+      phone: data.phone,
+      email: data.email,
+      appointment_date: format(data.appointment_date, 'yyyy-MM-dd'),
+      appointment_time: data.appointment_time,
+      message: data.message,
+      [HONEYPOT_FIELD]: data[HONEYPOT_FIELD],
     });
 
-    if (error) {
-      // The function raises 22023 for validation failures it can phrase for a
-      // patient; anything else is unexpected and gets the generic fallback.
-      setErrorMsg(
-        error.code === '22023'
-          ? error.message
-          : 'Something went wrong. Please try again or call us directly.',
-      );
+    if (!result.ok) {
+      setErrorMsg(result.message);
       setStatus('error');
       return;
     }
@@ -223,6 +187,18 @@ export default function AppointmentForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
+      {/* Decoy field. Out of flow, zero-sized, hidden from screen readers and
+          skipped by the tab key, so no person can reach it — anything that
+          fills it is automated, and the server drops the submission silently. */}
+      <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
+        <input
+          {...register(HONEYPOT_FIELD)}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       {/* Name + Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5">

@@ -4,19 +4,14 @@ import { useRef, useState } from 'react';
 import { CheckIcon, LoaderCircleIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { createClient } from '@/utils/supabase/client';
+import { submitInquiry } from '@/app/actions/public-forms';
+import {
+  inquirySchema,
+  HONEYPOT_FIELD,
+  type InquiryFormData,
+} from '@/lib/schemas/public-forms';
 import { gsap, useGSAP } from '@/app/animations/gsap';
 import { motion } from '@/app/animations/motion-config';
-
-const schema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  phone: z.string().min(10, 'Enter a valid phone number').regex(/^[\d\s\-+]{10,}$/, 'Enter a valid phone number'),
-  email: z.union([z.string().email('Enter a valid email address'), z.literal('')]),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-});
-
-type FormData = z.infer<typeof schema>;
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -30,7 +25,7 @@ export default function ContactForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<InquiryFormData>({ resolver: zodResolver(inquirySchema) });
 
   useGSAP(
     () => {
@@ -69,27 +64,18 @@ export default function ContactForm() {
     { scope: formRef },
   );
 
-  async function onSubmit(data: FormData) {
+  async function onSubmit(data: InquiryFormData) {
     setStatus('loading');
     setErrorMsg('');
 
-    const supabase = createClient();
+    // Goes through a server action rather than straight to Supabase: the write
+    // still lands via the same security-definer function, but the server can
+    // then notify the clinic by email, which the browser cannot do without
+    // holding the Resend key. See app/actions/public-forms.ts.
+    const result = await submitInquiry(data);
 
-    // Public writes go through a security-definer function; anon has no direct
-    // insert grant.
-    const { error } = await supabase.rpc('submit_inquiry', {
-      p_name: data.name,
-      p_phone: data.phone,
-      p_email: data.email || null,
-      p_message: data.message,
-    });
-
-    if (error) {
-      setErrorMsg(
-        error.code === '22023'
-          ? error.message
-          : 'Something went wrong. Please try again or call us directly.',
-      );
+    if (!result.ok) {
+      setErrorMsg(result.message);
       setStatus('error');
       return;
     }
@@ -119,6 +105,19 @@ export default function ContactForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
+      {/* Decoy field. Out of flow, zero-sized, hidden from screen readers and
+          skipped by the tab key, so no person can reach it — anything that
+          fills it is automated, and the server drops the submission silently.
+          No `data-form-field`, so it stays out of the entry animation. */}
+      <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
+        <input
+          {...register(HONEYPOT_FIELD)}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div data-form-field className="flex flex-col gap-1.5">
           <label className="text-[13px] font-semibold text-text-base" htmlFor="name">

@@ -104,6 +104,30 @@ export function isSlotWithinOpdHours(slot: string, date: Date): boolean {
 }
 
 /**
+ * Whether a slot on `date` has already passed.
+ *
+ * Only meaningful for today — a future date has no past slots, and the booking
+ * calendar makes past dates unselectable, so those are left alone rather than
+ * being reported as entirely past.
+ *
+ * `now` is injectable so callers can pass a fixed clock; it is deliberately the
+ * *viewer's* clock by default, because this drives which slots the booking grid
+ * greys out. The authoritative check is `submit_appointment`, which compares
+ * against the database clock and cannot be skewed by a wrong device time.
+ */
+export function isSlotInPast(slot: string, date: Date, now: Date = new Date()): boolean {
+  const isSameDay =
+    date.getFullYear() === now.getFullYear() &&
+    date.getMonth() === now.getMonth() &&
+    date.getDate() === now.getDate();
+
+  if (!isSameDay) return false;
+
+  const [h, m] = slot.split(':').map(Number);
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m) <= now;
+}
+
+/**
  * Parses "yyyy-MM-dd" into a local-midnight Date. `new Date("yyyy-MM-dd")`
  * parses as UTC, which shifts the weekday for negative-offset timezones.
  */
